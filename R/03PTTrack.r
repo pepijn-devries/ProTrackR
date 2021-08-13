@@ -50,7 +50,7 @@ validity.PTTrack <- function(object)
 #' ## number 1 of mod.intro:
 #' chan1 <- PTTrack(mod.intro, 2, 1)
 #'
-#' ## Create a blank pattern:
+#' ## Create a blank track:
 #' chan2 <- new("PTTrack")
 #'
 #' ## Get two more tracks:

@@ -1,3 +1,53 @@
+ProTrackR v0.3.3 (Release date: 2016-03-26)
+=============
+
+ * Minor correction in manual.
+
+ProTrackR v0.3.2 (Release date: 2016-03-25)
+=============
+
+ * Minor corrections in manual.
+
+ProTrackR v0.3.1 (Release date: 2016-03-25)
+=============
+
+ * Modified the playing routine such that the porta
+   effects can't slide period values below that of note
+   B-3 or above 856. Period values are cut-off at these
+   values after processing the other effects as well.
+   Thanks must go to Olav Sørensen (who created a
+   Protracker v2.3D clone for modern machines,
+   http://16-bits.org/pt.php) for confirming these
+   software and hardware limits.
+
+ * Resampling routine in the modToWave-method is rewritten.
+   It should be faster now.
+
+ * The 9xy command is now implemented such that it
+   emulates the ProTracker 'offset bug'. Therewith,
+   the player routine now passes 'ptoffset.mod' test.
+
+ * Bug in resampling of samples in 'modToWave'-
+   routine is fixed.
+
+ * 'modArchive' functions are added to the package.
+
+ * Effect commands 'E4x' and 'E7x' are now implemented
+   in the player routine.
+
+ * Implementation of effect command '5xy' is fixed.
+
+ * In the previous release, some generated wave data ended
+   up out of range in the mixing procedure. This is now fixed.
+
+ * The 'playWave'-method is modified such that it
+   returns an 'audioInstance'-object (audio package)
+   allowing control over the playback.
+
+ * Minor corrections/improvements to the manual
+
+ * Mixing when some tracks are turned off is fixed
+
 ProTrackR v0.2.3 (Release date: 2015-11-07)
 =============
 

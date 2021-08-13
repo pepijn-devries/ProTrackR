@@ -1,3 +1,22 @@
+## http://pastebin.com/pg95YduC
+## https://bel.fi/alankila/modguide/interpolate.txt
+## XXX max output rate differs per channel?:
+## http://eab.abime.net/showthread.php?t=70783
+
+## The amiga hardware reference manual:
+## https://archive.org/stream/Amiga_Hardware_Reference_Manual_1985_Commodore_a/Amiga_Hardware_Reference_Manual_1985_Commodore_a_djvu.txt
+## The minimum period value you should use is 124
+## ticks per sample NTSC (123 PAL) and the maximum is 65535.
+## These limits apply to both PAL and NTSC machines.
+## It doesn't say if these are hard limits, or whether these
+## are just the specs, that you possible go beyond.
+## in de WINUAE emulator lijkt de period value lager te kunnen dan de 124
+## each channel different limit: http://eab.abime.net/showthread.php?t=70783
+## WINUAE seem to use noteToPeriod("B-3") as the limit for all channels
+
+## Olav Sorensen:
+## Porta effects have period limits of 113 - 856 hard coded in ProTracker
+## Other effect have no limits coded in ProTracker, the limit of 113 is also a 'hard' physical limit on a real Amiga
 setGeneric("playMod", function(mod, wait = T, ...) standardGeneric("playMod"))
 
 #' Play PTModule objects
@@ -60,7 +79,7 @@ setGeneric("playWave", function(wave, wait = T) standardGeneric("playWave"))
 #' routine will wait with executing any code until the playing is
 #' finished. When set to \code{FALSE}, subsequent R code will be
 #' executed while playing.
-#' @return Returns nothing (\code{NULL}).
+#' @return Returns an \code{\link[audio]{$.audioInstance}}.
 #' @examples
 #' \dontrun{
 #' data(mod.intro)
@@ -75,6 +94,7 @@ setGeneric("playWave", function(wave, wait = T) standardGeneric("playWave"))
 #' @export
 setMethod("playWave", "Wave", function(wave, wait){
   wait <- as.logical(wait[[1]])
+  result <- NULL
   play_expr <- function(x){
     if (length(x@right) == 0) y <- x@left else y <- rbind(x@left, x@right)
     #The 1.99 doesn't feel right. However, if we use 2, 'clicks'
@@ -83,8 +103,8 @@ setMethod("playWave", "Wave", function(wave, wait){
                         ifelse(x@bit == 8, -0.5, 0)),
                 rate = x@samp.rate)
   }
-  if (wait) audio::wait(play_expr(wave)) else play_expr(wave)
-  invisible()
+  if (wait) audio::wait(result <- play_expr(wave)) else result <- play_expr(wave)
+  return (result)
 })
 
 setGeneric("modToWave",
@@ -214,9 +234,15 @@ setMethod("modToWave", "PTModule", function(mod, video, target.rate, target.bit,
                                                        video, low.pass.filter,
                                                        verbose))
   if (!verbose) cat("mixing channels...")
+  ## filtering can result in values out of range (<0 or >255)
+  ## let's normalise the data when nessecary:
+  rmin <- min(result)
+  if (rmin < 0) result <- 255*(result - rmin)/(255 - rmin)
+  rmax <- max(result)
+  if (rmax > 255) result <- 255*result/rmax
   result <- cbind(rowMeans(result[, tracks %in% (2:3), drop = F]),
                   rowMeans(result[, tracks %in% c(1,4), drop = F]))
-  result <- ((2^(target.bit - 8)))*result*(256/255)
+  result <- (((2^(target.bit - 8)))*(256/255) - (1/255))*result
   result <- apply(result, 2, as.integer)
   if (target.bit > 8)
   {
@@ -226,6 +252,8 @@ setMethod("modToWave", "PTModule", function(mod, video, target.rate, target.bit,
                  right     = as.integer(result[,2]),
                  bit       = target.bit,
                  samp.rate = target.rate)
+  result@left[is.na(result@left)] <- ifelse(target.bit == 8, 127, 0)
+  result@right[is.na(result@right)] <- ifelse(target.bit == 8, 127, 0)
   if (stereo.separation <= 0)
     result <- tuneR::mono(result)
   else if(stereo.separation < 1)
@@ -523,7 +551,6 @@ setMethod("playingtable", "PTModule", function(mod,
     ##############################################
 
     result <- cbind(result, fx, fx.m, snr, note, loop)
-    #  rm(fx, fx.m, snr, note, loop)
 
     return(result)
   })
@@ -727,7 +754,6 @@ setMethod("playingtable", "PTModule", function(mod,
   return (pat_tab)
 }
 
-#' @export
 .generate.channel.data <- function(mod, pt, track.nr, target.rate, video = c("PAL", "NTSC"), low.pass.filter = T, verbose = F)
 {
   if (!verbose) cat(paste("Track ", track.nr, ":\n", sep =""))
@@ -736,12 +762,20 @@ setMethod("playingtable", "PTModule", function(mod,
 
   ramp.down <- function(x)
   {
-    return(255 - round(510*(x%%64)/63))
+    x <- 255 - round(510*(x%%64)/63)
+    x[x > 0] <- 255 - x[x > 0]
+    return(x)
+  }
+  # the ramp down for vibrato seems to differ from that of tremolo
+  ramp.down.vib <- function(x)
+  {
+    x <- round(510*((x + 32)%%64)/63) - 255
+    return(x)
   }
 
   square.wave <- function(x)
   {
-    ifelse(x%%64 < 32, -255, 255)
+    ifelse(x%%64 < 32, 255, -255)
   }
 
   result                 <- cbind(pt[,grepl(paste(".track", track.nr, sep =""),
@@ -774,10 +808,10 @@ setMethod("playingtable", "PTModule", function(mod,
   ## start
   ##############################################
   ## XXX it seems that this command should be ignored when x > speed. Normaly,
-  ## this isn't a problem, bet it is when used in combination with EEx. This
-  ## stil needs to be implemented.
+  ## this isn't a problem, but it is when used in combination with EEx. This
+  ## still needs to be implemented.
   effect_sel <- with(result, effect == as.raw(0x0e) & hiNybble(effect.mag) == 0x0d)
-  retrig[effect_sel] <- with(result[effect_sel,], tick == (1+loNybble(effect.mag)))
+  retrig[effect_sel] <- with(result[effect_sel,], tick == (1 + loNybble(effect.mag)))
   ##############################################
   ## EDx
   ## end
@@ -804,6 +838,7 @@ setMethod("playingtable", "PTModule", function(mod,
   sample.nr  <- result$sample.nr
   sample.nr[-1][sample.nr[-1] == 0] <- NA
   sample.nr  <- .fill.parameter(sample.nr, is.na(sample.nr), function(x, y, z){rep(z, times = y - x + 1)})
+  result$sample.nr.original <- result$sample.nr
   result$sample.nr[which(effect_sel & result$sample.nr == 0)] <-
     sample.nr[which(effect_sel & result$sample.nr == 0)]
   rm(sample.nr)
@@ -854,17 +889,20 @@ setMethod("playingtable", "PTModule", function(mod,
     ## 6xy
     ##############################################
     effect_sel <- with(result, effect %in% as.raw(c(0x0A, 0x05, 0x06)))
-    effect.mag <- -loNybble(result$effect.mag)
-    effect.mag[result$effect.mag > 0x0F] <- hiNybble(result$effect.mag[result$effect.mag > 0x0F])
-    effect.mag[result$tick == 1] <- 0
-    result$volume <- .fill.parameter(result$volume, effect_sel,
-                                     function(x, y, z, mag){
-                                       cums <- cumsum(mag[x:y])
-                                       cums[z + cums < 0]    <- -z
-                                       cums[z + cums > 0x40] <- 0x40 - z
-                                       return(cums + z)
-                                     }, effect.mag)
-    rm(effect.mag)
+    if (any(effect_sel))
+    {
+      effect.mag <- -loNybble(result$effect.mag)
+      effect.mag[result$effect.mag > 0x0F] <- hiNybble(result$effect.mag[result$effect.mag > 0x0F])
+      effect.mag[result$tick == 1] <- 0
+      result$volume <- .fill.parameter(result$volume, effect_sel,
+                                       function(x, y, z, mag){
+                                         cums <- cumsum(mag[x:y])
+                                         cums[z + cums < 0]    <- -z
+                                         cums[z + cums > 0x40] <- 0x40 - z
+                                         return(cums + z)
+                                       }, effect.mag)
+      rm(effect.mag)
+    }
     ##############################################
     ## Volume slide effects (end)
     ## Axy
@@ -878,16 +916,19 @@ setMethod("playingtable", "PTModule", function(mod,
     ## EBx
     ##############################################
     effect_sel <- with(result, effect == as.raw(0x0E) & hiNybble(effect.mag) %in% c(0x0A, 0x0B))
-    effect.mag <- with(result, ifelse(hiNybble(effect.mag) == 0x0A, 1, -1)*loNybble(result$effect.mag))
-    effect.mag[result$tick != 1] <- 0
-    result$volume <- .fill.parameter(result$volume, effect_sel,
-                                     function(x, y, z, mag){
-                                       cums <- cumsum(mag[x:y])
-                                       cums[z + cums < 0]    <- -z
-                                       cums[z + cums > 0x40] <- 0x40 - z
-                                       return(cums + z)
-                                     }, effect.mag)
-    rm(effect.mag)
+    if (any(effect_sel))
+    {
+      effect.mag <- with(result, ifelse(hiNybble(effect.mag) == 0x0A, 1, -1)*loNybble(result$effect.mag))
+      effect.mag[result$tick != 1] <- 0
+      result$volume <- .fill.parameter(result$volume, effect_sel,
+                                       function(x, y, z, mag){
+                                         cums <- cumsum(mag[x:y])
+                                         cums[z + cums < 0]    <- -z
+                                         cums[z + cums > 0x40] <- 0x40 - z
+                                         return(cums + z)
+                                       }, effect.mag)
+      rm(effect.mag)
+    }
     ##############################################
     ## Volume fine slide effects (end)
     ## EAx
@@ -895,38 +936,82 @@ setMethod("playingtable", "PTModule", function(mod,
     ##############################################
 
   }
+  ##############################################
+  ## E7x - Set tremolo waveform (start)
+  ##############################################
+  effect_sel <- with(result, effect == as.raw(0x0e) & effect.mag %in% as.raw(0x70:0x7F))
+  trem.wf    <- rep(NA, nrow(result))
+  trem.wf[effect_sel] <- loNybble(result$effect.mag[effect_sel])
+  trem.wf[1][is.na(trem.wf[1])] <- 0
+  trem.wf <- .fill.parameter(trem.wf, !effect_sel, function(x, y, z){rep(z, times = y - x + 1)})
+  ##############################################
+  ## E7x - Set tremolo waveform (end)
+  ##############################################
 
   ##############################################
   ## 7xy - Tremolo (start)
   ##############################################
   effect_sel    <- result$effect == as.raw(0x07)
-  table.pos.lo  <- loNybble(result$effect.mag[effect_sel]) == 0
-  effect.mag.lo <- integer(nrow(result))
-  effect.mag.lo[effect_sel] <- loNybble(result$effect.mag[effect_sel])
-  effect.mag.lo[effect_sel][table.pos.lo] <- NA
-  effect.mag.lo <-.fill.parameter(effect.mag.lo, is.na(effect.mag.lo), function(x, y, z){rep(z, times = y - x + 1)})
-  table.pos.hi  <- hiNybble(result$effect.mag[effect_sel]) == 0
-  effect.mag.hi <- integer(nrow(result))
-  effect.mag.hi[effect_sel] <- hiNybble(result$effect.mag[effect_sel])
-  effect.mag.hi[effect_sel][table.pos.hi] <- NA
-  effect.mag.hi <-.fill.parameter(effect.mag.hi, is.na(effect.mag.hi), function(x, y, z){rep(z, times = y - x + 1)})
-  effect.mag <- as.raw(effect.mag.hi*0x10 + effect.mag.lo)
-  tremolo <- integer(nrow(result))
-  tremolo[effect_sel][diff(c(-999, which(effect_sel))) == 1] <- NA
-  tremolo <- .fill.parameter(tremolo, effect_sel,
-                             function(x, y, z, mag, tck){
-                               trm <- integer(y-x)
-                               spd <- hiNybble(as.raw(mag[x:y]))
-                               dep <- loNybble(as.raw(mag[x:y]))
-                               sel <- tck[x:y] != 1
-                               trm[sel] <-
-                                 as.integer(dep[sel]*proTrackerVibrato(seq(0, sum(sel) - 1)*spd[sel])/64)
-                               return(trm)
-                             }, effect.mag, result$tick)
-  result$volume[effect_sel] <- result$volume[effect_sel] + tremolo[effect_sel]
+  if (any(effect_sel))
+  {
+    table.pos.lo  <- loNybble(result$effect.mag[effect_sel]) == 0
+    effect.mag.lo <- integer(nrow(result))
+    effect.mag.lo[effect_sel] <- loNybble(result$effect.mag[effect_sel])
+    effect.mag.lo[effect_sel][table.pos.lo] <- NA
+    effect.mag.lo <-.fill.parameter(effect.mag.lo, is.na(effect.mag.lo), function(x, y, z){rep(z, times = y - x + 1)})
+    table.pos.hi  <- hiNybble(result$effect.mag[effect_sel]) == 0
+    effect.mag.hi <- integer(nrow(result))
+    effect.mag.hi[effect_sel] <- hiNybble(result$effect.mag[effect_sel])
+    effect.mag.hi[effect_sel][table.pos.hi] <- NA
+    effect.mag.hi <-.fill.parameter(effect.mag.hi, is.na(effect.mag.hi), function(x, y, z){rep(z, times = y - x + 1)})
+    effect.mag <- as.raw(effect.mag.hi*0x10 + effect.mag.lo)
+    tremolo <- integer(nrow(result))
+    tremolo[effect_sel][diff(c(-999, which(effect_sel))) == 1] <- NA
+    tremolo[result$retrigger.sample == 1] <- 0
+    tremolo.pos <- tremolo
+    tremolo.pos <- .fill.parameter(tremolo.pos, is.na(tremolo.pos) & trem.wf < 4,
+                                   function(x, y, z, tck){
+                                     trm <- integer(y-x)
+                                     sel <- tck[x:y] != 1
+                                     trm[sel] <- seq(0, sum(sel) - 1)
+                                     return(trm)
+                                   }, result$tick)
+    if (any(is.na(tremolo.pos)))
+    {
+      tremolo.pos.start <- tremolo.pos + 1
+      tremolo.pos.start[tremolo.pos.start == 1] <- NA
+      tremolo.pos.start[1][is.na(tremolo.pos.start[1])] <- 0
+      tremolo.pos.start <- .fill.parameter(tremolo.pos.start, is.na(tremolo.pos.start), function(x, y, z){rep(z, times = y - x + 1)})
+      tremolo.pos[is.na(tremolo.pos)] <- .fill.parameter(tremolo.pos[is.na(tremolo.pos)], rep(T, sum(is.na(tremolo.pos))),
+                                                         function(x, y, z, tck){
+                                                           trm <- integer(y-x)
+                                                           sel <- tck[is.na(tremolo.pos)][x:y] != 1
+                                                           start.val <- tremolo.pos.start[is.na(tremolo.pos)][x]
+                                                           if (length(start.val) == 0 || is.na(start.val)) start.val <- 0
+                                                           trm[sel] <- seq(start.val, start.val + sum(sel) - 1)
+                                                           return(trm)
+                                                         }, result$tick)
+      rm(tremolo.pos.start)
+    }
+    tremolo <- .fill.parameter(tremolo, is.na(tremolo),
+                               function(x, y, z, mag, tck, t.waveform, trem.pos){
+                                 trm <- integer(y-x)
+                                 spd <- hiNybble(as.raw(mag[x:y]))
+                                 dep <- loNybble(as.raw(mag[x:y]))
+                                 sel <- tck[x:y] != 1
+                                 ## set waveform based on E7x command:
+                                 twf <- proTrackerVibrato
+                                 if ((t.waveform[x]%%4) == 1) twf <- ramp.down
+                                 if ((t.waveform[x]%%4) %in% 2:3) twf <- square.wave
+                                 trm[sel] <-
+                                   as.integer(dep[sel]*twf(trem.pos[x:y][sel]*spd[sel])/64)
+                                 return(trm)
+                               }, effect.mag, result$tick, trem.wf, tremolo.pos)
+    result$volume[effect_sel] <- result$volume[effect_sel] + tremolo[effect_sel]
+    rm(tremolo, tremolo.pos, trem.wf)
+  }
   result$volume[result$volume < 0x00] <- 0x00
   result$volume[result$volume > 0x40] <- 0x40
-  rm(tremolo)
   ##############################################
   ## 7xy - Tremolo (end)
   ##############################################
@@ -943,6 +1028,8 @@ setMethod("playingtable", "PTModule", function(mod,
     noteToPeriod(result$note[effect_sel],
                  unlist(lapply(as.list(result$sample.nr[effect_sel]),
                                function(x) ifelse(x == 0, 0, fineTune(mod@samples[[x]])))))
+  result$period[effect_sel][result$period[effect_sel] < noteToPeriod("B-3")] <- noteToPeriod("B-3")
+
   ##############################################
   ## E5x set finetune (start)
   ##############################################
@@ -952,6 +1039,7 @@ setMethod("playingtable", "PTModule", function(mod,
   result$period[effect_sel] <-
     noteToPeriod(result$note[effect_sel],
                  nybbleToSignedInt(result$effect.mag[effect_sel], "low"))
+  result$period[effect_sel][result$period[effect_sel] < noteToPeriod("B-3")] <- noteToPeriod("B-3")
   rm(effect_sel)
   ##############################################
   ## E5x set finetune (end)
@@ -1000,6 +1088,10 @@ setMethod("playingtable", "PTModule", function(mod,
     effect_sel  <- result$effect %in% as.raw(c(0x03, 0x05))
     effect.mag <- as.integer(result$effect.mag)
     effect.mag[effect_sel & effect.mag == 0] <- NA
+
+    ## 5xy Does not affect the magnitude of the porta:
+    effect.mag[result$effect == as.raw(0x05)] <- NA
+
     effect.mag[effect_sel] <-.fill.parameter(effect.mag[effect_sel], is.na(effect.mag[effect_sel]), function(x, y, z){rep(z, times = y - x + 1)})
     effect.mag[!effect_sel | result$tick == 1] <- 0
 
@@ -1015,7 +1107,10 @@ setMethod("playingtable", "PTModule", function(mod,
       target_not_reached <- rep(F, nrow(result))
       target.finetune <- as.numeric(substr(target[!is.na(target)], 5, 6))
       target.finetune <- unlist(lapply(as.list(as.numeric(substr(target[!is.na(target)], 5, 6))), function(x) ifelse(x == 0, 0, fineTune(mod@samples[[x]]))))
-      target_not_reached[!is.na(target)]  <- result$period[!is.na(target)] != noteToPeriod(substr(target[!is.na(target)], 1, 3), finetune = target.finetune)
+      temp <- noteToPeriod(substr(target[!is.na(target)], 1, 3), finetune = target.finetune)
+      temp[temp < noteToPeriod("B-3")] <- noteToPeriod("B-3")
+      target_not_reached[!is.na(target)]  <- result$period[!is.na(target)] != temp
+      rm(temp)
       target_not_reached[is.na(result$period)] <- NA
       rm(target.finetune)
 
@@ -1053,17 +1148,11 @@ setMethod("playingtable", "PTModule", function(mod,
                                        ft <- unlist(lapply(as.list(samp[x:y]), function(x) ifelse(x == 0, 0, fineTune(mod@samples[[x]]))))
                                        target <- substr(target, 1, 3)
                                        tar.per <- noteToPeriod(target[x:y], ft)
+                                       tar.per[tar.per < noteToPeriod("B-3")] <- noteToPeriod("B-3")
                                        sgn <- sign(tar.per - z)
                                        cums <- sgn*cumsum(mag[x:y])
                                        cums[which(sgn*(tar.per - (z + cums)) < 0)] <- (tar.per - z)[which(sgn*(tar.per - (z + cums)) < 0)]
-                                       cums[which(z + cums < 0)]    <- -z[which(z + cums < 0)]
-                                       #XXX Still need to look for the right boundaries for the period values
-                                       #min: 124 NTSC, 123 PAL
-                                       #max 65535 for both video modes
-                                       #Check whether limits need to be applied here or after applying effects
-                                       cums[which(z + cums > 0x9999999999)] <- 0x9999999999 - z[which(z + cums > 0x9999999999)]
-                                       ## If the target has been reached, before it is reset,
-                                       ## the period should not be affected:
+                                       # XXX do I need to check whether the period is out of range? Probably not possible since it slides to valid target
                                        cums[!tnr[x:y]] <- 0
                                        return(cums + z)
                                      }, effect.mag, target, tnr2)
@@ -1075,28 +1164,84 @@ setMethod("playingtable", "PTModule", function(mod,
     ##############################################
 
     ##############################################
-    ## Porta up/down
+    ## Porta up
     ## 1xy
+    ## start
+    ##############################################
+    effect_sel <- (result$effect == as.raw(0x01))
+    if (any(effect_sel))
+    {
+      effect.mag <- -1*as.integer(result$effect.mag)
+      effect.mag[result$tick == 1] <- 0
+      result$period <- .fill.parameter(result$period, effect_sel,
+                                       function(x, y, z, mag){
+                                         if (is.na(z)) return(rep(NA, y - x + 1))
+                                         while (T)
+                                         {
+                                           #browser()
+                                           cums <- cumsum(mag[x:y])
+                                           res <- bitwAnd(0xFFF, cums + z)
+
+                                           sel <- which((res < noteToPeriod("B-3")) & mag[x:y] < 1)
+                                           if (length(sel) > 0 && !any(is.na(sel)))
+                                           {
+                                             end_sel <- which(diff(c(sel[1] - 1, sel)) > 1)
+                                             if (length(end_sel) > 0) sel <- sel[-(end_sel[[1]]:length(sel))]
+                                             if (length(sel) == 1 && sel < length(x:y) && mag[x:y][sel + 1] < 0 && res[sel + 1] > res[sel])
+                                               mag[x:y][sel + 1] <- mag[x:y][sel + 1] + diff(c(0, res[sel] - noteToPeriod("B-3")))
+                                             mag[x:y][sel] <-
+                                               mag[x:y][sel] - diff(c(0, res[sel] - noteToPeriod("B-3")))
+                                           }
+                                           cums <- cumsum(mag[x:y])
+                                           res <- bitwAnd(0xFFF, cums + z)
+                                           if (!any(res < noteToPeriod("B-3"))) break
+                                         }
+                                         return(res)
+                                       }, effect.mag)
+      rm(effect.mag)
+    }
+    ##############################################
+    ## Porta up
+    ## 1xy
+    ## end
+    ##############################################
+
+    ##############################################
+    ## Porta down
     ## 2xy
     ## start
     ##############################################
-    effect_sel <- result$effect %in% as.raw(c(0x01, 0x02))
-    effect.mag <- ifelse(result$effect == as.raw(0x01), -1, +1)*as.integer(result$effect.mag)
-    effect.mag[result$tick == 1] <- 0
-    result$period <- .fill.parameter(result$period, effect_sel,
-                                     function(x, y, z, mag){
-                                       cums <- cumsum(mag[x:y])
-                                       cums[which(z + cums < 0)]    <- -z[which(z + cums < 0)]
-                                       #XXX Still need to look for the right boundaries for the period values
-                                       #min: 124 NTSC, 123 PAL
-                                       #max 65535 for both video modes
-                                       cums[which(z + cums > 0x9999999999)] <- 0x9999999999 - z[which(z + cums > 0x9999999999)]
-                                       return(cums + z)
-                                     }, effect.mag)
-    rm(effect.mag)
+    effect_sel <- (result$effect == as.raw(0x02))
+    if (any(effect_sel))
+    {
+      effect.mag <- as.integer(result$effect.mag)
+      effect.mag[result$tick == 1] <- 0
+      result$period <- .fill.parameter(result$period, effect_sel,
+                                       function(x, y, z, mag){
+                                         if (is.na(z)) return(rep(NA, y - x + 1))
+                                         if (z > 856) z <- 856
+                                         while (T)
+                                         {
+                                           cums <- cumsum(mag[x:y])
+                                           res <- cums + z
+                                           sel <- which((res > 856) & mag[x:y] >= 0)
+                                           if (length(sel) > 0 && !any(is.na(sel)))
+                                           {
+                                             end_sel <- which(diff(c(sel[1] - 1, sel)) > 1)
+                                             if (length(end_sel) > 0) sel <- sel[-(end_sel[[1]]:length(sel))]
+                                             mag[x:y][sel] <-
+                                               mag[x:y][sel] + diff(c(0, 856 - res[sel]))
+                                             cums <- cumsum(mag[x:y])
+                                             res <- cums + z
+                                           }
+                                           if (!any(res > 856 & mag[x:y] > 0)) break
+                                         }
+                                         return(res)
+                                       }, effect.mag)
+      rm(effect.mag)
+    }
     ##############################################
-    ## Porta up/down
-    ## 1xy
+    ## Porta down
     ## 2xy
     ## end
     ##############################################
@@ -1108,20 +1253,41 @@ setMethod("playingtable", "PTModule", function(mod,
     ## start
     ##############################################
     effect_sel <- with(result, effect == as.raw(0x0E) & hiNybble(effect.mag) %in% c(0x01, 0x02))
-    effect.mag <- with(result, ifelse(hiNybble(effect.mag) == 0x01, -1, 1)*loNybble(result$effect.mag))
-    effect.mag[result$tick != 1] <- 0
-    result$period <- .fill.parameter(result$period, effect_sel,
-                                     function(x, y, z, mag){
-                                       cums <- cumsum(mag[x:y])
-                                       cums[which(z + cums < 0)]    <- -z[which(z + cums < 0)]
-                                       #XXX Still need to look for the right boundaries for the period values
-                                       #min: 124 NTSC, 123 PAL
-                                       #max 65535 for both video modes
-                                       #Check whether limits need to be applied here or after applying effects
-                                       cums[which(z + cums > 0x9999999999)] <- 0x9999999999 - z[which(z + cums > 0x9999999999)]
-                                       return(cums + z)
-                                     }, effect.mag)
-    rm(effect.mag)
+    if (any(effect_sel))
+    {
+      effect.mag <- with(result, ifelse(hiNybble(effect.mag) == 0x01, -1, 1)*loNybble(result$effect.mag))
+      effect.mag[result$tick != 1] <- 0
+      result$period <- .fill.parameter(result$period, effect_sel,
+                                       function(x, y, z, mag){
+                                         if (is.na(z)) return(rep(NA, y - x + 1))
+                                         while (T)
+                                         {
+                                           cums <- cumsum(mag[x:y])
+                                           res <- cums + z
+                                           sel <- which((res < noteToPeriod("B-3")) & mag[x:y] < 1)
+                                           if (length(sel) > 0 && !any(is.na(sel)))
+                                           {
+                                             end_sel <- which(diff(c(sel[1] - 1, sel)) > 1)
+                                             if (length(end_sel) > 0) sel <- sel[-(end_sel[[1]]:length(sel))]
+                                             mag[x:y][sel] <-
+                                               mag[x:y][sel] - diff(c(0, res[sel] - noteToPeriod("B-3")))
+                                           }
+                                           cums <- cumsum(mag[x:y])
+                                           res <- cums + z
+                                           sel <- which((res > 856) & mag[x:y] > -1)
+                                           if (length(sel) > 0 && !any(is.na(sel)))
+                                           {
+                                             end_sel <- which(diff(c(sel[1] - 1, sel)) > 1)
+                                             if (length(end_sel) > 0) sel <- sel[-(end_sel[[1]]:length(sel))]
+                                             mag[x:y][sel] <-
+                                               mag[x:y][sel] + diff(c(0, 856 - res[sel]))
+                                           }
+                                           if (!(any(res < noteToPeriod("B-3")) || any(res > 0xffff))) break
+                                         }
+                                         return(res)
+                                       }, effect.mag)
+      rm(effect.mag)
+    }
     ##############################################
     ## Fine porta up/down
     ## E1x
@@ -1133,37 +1299,104 @@ setMethod("playingtable", "PTModule", function(mod,
   rm(target, target2)
 
   ##############################################
+  ## Fix period values above range - start
+  ##############################################
+
+  #browser()
+  out.of.range <- rep(NA, nrow(result))
+  out.of.range[1] <- F
+  out.of.range[result$retrigger.sample == 1] <- F
+  out.of.range[result$period > 856] <- T
+  out.of.range <- .fill.parameter(out.of.range, is.na(out.of.range), function(x, y, z){rep(z, times = y - x + 1)})
+  ## XXX the value of 0xffff does not seem to be correct
+  ## the value seem to differ for different test cases, but is always high.
+  ## Need to figure out how to get the right value
+  result$period[out.of.range &
+                  !(result$effect == as.raw(0x01) & result$tick > 1) &
+                  !(result$effect == as.raw(0x02) & result$tick > 1)] <- 0xffff
+  rm(out.of.range)
+
+  ##############################################
+  ## Fix period values above range - end
+  ##############################################
+
+  ##############################################
+  ## E4x - Set vibrato waveform (start)
+  ##############################################
+  effect_sel <- with(result, effect == as.raw(0x0e) & effect.mag %in% as.raw(0x40:0x4F))
+  vibr.wf    <- rep(NA, nrow(result))
+  vibr.wf[effect_sel] <- loNybble(result$effect.mag[effect_sel])
+  vibr.wf[1][is.na(vibr.wf[1])] <- 0
+  vibr.wf <- .fill.parameter(vibr.wf, !effect_sel, function(x, y, z){rep(z, times = y - x + 1)})
+  ##############################################
+  ## E4x - Set vibrato waveform (end)
+  ##############################################
+
+  ##############################################
   ## 4xy - Vibtrato
   ## 6xy - Vibrato + volume slide (the latter part is already dealt with above)
   ## start
   ##############################################
 
   effect_sel    <- result$effect %in% as.raw(c(0x04, 0x06))
-  table.pos.lo  <- loNybble(result$effect.mag[effect_sel]) == 0
-  effect.mag.lo <- integer(nrow(result))
-  effect.mag.lo[effect_sel] <- loNybble(result$effect.mag[effect_sel])
-  effect.mag.lo[effect_sel][table.pos.lo] <- NA
-  effect.mag.lo <-.fill.parameter(effect.mag.lo, is.na(effect.mag.lo), function(x, y, z){rep(z, times = y - x + 1)})
-  table.pos.hi  <- hiNybble(result$effect.mag[effect_sel]) == 0
-  effect.mag.hi <- integer(nrow(result))
-  effect.mag.hi[effect_sel] <- hiNybble(result$effect.mag[effect_sel])
-  effect.mag.hi[effect_sel][table.pos.hi] <- NA
-  effect.mag.hi <-.fill.parameter(effect.mag.hi, is.na(effect.mag.hi), function(x, y, z){rep(z, times = y - x + 1)})
-  effect.mag <- as.raw(effect.mag.hi*0x10 + effect.mag.lo)
-  vibrato <- integer(nrow(result))
-  vibrato[effect_sel][diff(c(-999, which(effect_sel))) == 1] <- NA
-  vibrato <- .fill.parameter(vibrato, effect_sel,
-                             function(x, y, z, mag, tck){
-                               vib <- integer(y-x)
-                               spd <- hiNybble(as.raw(mag[x:y]))
-                               dep <- loNybble(as.raw(mag[x:y]))
-                               sel <- tck[x:y] != 1
-                               vib[sel] <-
-                                 as.integer(dep[sel]*proTrackerVibrato(seq(0, sum(sel) - 1)*spd[sel])/128)
-                               return(vib)
-                             }, effect.mag, result$tick)
-  result$period[effect_sel] <- result$period[effect_sel] + vibrato[effect_sel]
-  rm(vibrato)
+  if (any(effect_sel))
+  {
+    table.pos.lo  <- loNybble(result$effect.mag[effect_sel]) == 0
+    effect.mag.lo <- integer(nrow(result))
+    effect.mag.lo[effect_sel] <- loNybble(result$effect.mag[effect_sel])
+    effect.mag.lo[effect_sel][table.pos.lo] <- NA
+    effect.mag.lo <-.fill.parameter(effect.mag.lo, is.na(effect.mag.lo), function(x, y, z){rep(z, times = y - x + 1)})
+    table.pos.hi  <- hiNybble(result$effect.mag[effect_sel]) == 0
+    effect.mag.hi <- integer(nrow(result))
+    effect.mag.hi[effect_sel] <- hiNybble(result$effect.mag[effect_sel])
+    effect.mag.hi[effect_sel][table.pos.hi] <- NA
+    effect.mag.hi <-.fill.parameter(effect.mag.hi, is.na(effect.mag.hi), function(x, y, z){rep(z, times = y - x + 1)})
+    effect.mag <- as.raw(effect.mag.hi*0x10 + effect.mag.lo)
+    vibrato <- integer(nrow(result))
+    vibrato[effect_sel][diff(c(-999, which(effect_sel))) == 1] <- NA
+    vibrato[result$retrigger.sample == 1] <- 0
+    vibrato.pos <- vibrato
+    vibrato.pos <- .fill.parameter(vibrato.pos, is.na(vibrato.pos) & vibr.wf < 4,
+                                   function(x, y, z, tck){
+                                     vib <- integer(y-x)
+                                     sel <- tck[x:y] != 1
+                                     vib[sel] <- seq(0, sum(sel) - 1)
+                                     return(vib)
+                                   }, result$tick)
+    if (any(is.na(vibrato.pos)))
+    {
+      vibrato.pos.start <- vibrato.pos + 1
+      vibrato.pos.start[vibrato.pos.start == 1] <- NA
+      vibrato.pos.start[1][is.na(vibrato.pos.start[1])] <- 0
+      vibrato.pos.start <- .fill.parameter(vibrato.pos.start, is.na(vibrato.pos.start), function(x, y, z){rep(z, times = y - x + 1)})
+      vibrato.pos[is.na(vibrato.pos)] <- .fill.parameter(vibrato.pos[is.na(vibrato.pos)], rep(T, sum(is.na(vibrato.pos))),
+                                                         function(x, y, z, tck){
+                                                           vib <- integer(y-x)
+                                                           sel <- tck[is.na(vibrato.pos)][x:y] != 1
+                                                           start.val <- vibrato.pos.start[is.na(vibrato.pos)][x]
+                                                           if (length(start.val) == 0 || is.na(start.val)) start.val <- 0
+                                                           vib[sel] <- seq(start.val, start.val + sum(sel) - 1)
+                                                           return(vib)
+                                                         }, result$tick)
+      rm(vibrato.pos.start)
+    }
+    vibrato <- .fill.parameter(vibrato, effect_sel,
+                               function(x, y, z, mag, tck, v.waveform, vib.pos){
+                                 vib <- integer(y-x)
+                                 spd <- hiNybble(as.raw(mag[x:y]))
+                                 dep <- loNybble(as.raw(mag[x:y]))
+                                 sel <- tck[x:y] != 1
+                                 ## set waveform based on E4x command:
+                                 vwf <- proTrackerVibrato
+                                 if ((v.waveform[x]%%4) == 1) vwf <- ramp.down.vib
+                                 if ((v.waveform[x]%%4) %in% 2:3) vwf <- square.wave
+                                 vib[sel] <-
+                                   as.integer(dep[sel]*vwf(vib.pos[x:y][sel]*spd[sel])/128)
+                                 return(vib)
+                               }, effect.mag, result$tick, vibr.wf, vibrato.pos)
+    result$period[effect_sel] <- result$period[effect_sel] + vibrato[effect_sel]
+    rm(vibrato)
+  }
 
   ##############################################
   ## 4xy - Vibtrato
@@ -1177,27 +1410,44 @@ setMethod("playingtable", "PTModule", function(mod,
 
   ## XXX check if period values are out of range!
   effect_sel  <- result$effect == raw(1) & result$effect.mag > raw(1)
-  effect.mag  <- integer(nrow(result))
-  period_tab2 <- expand.grid(finetune=-8:7, note=names(ProTrackR::period_table[,-1:-2]), octave= 1:3)
-  period_tab2$period <- apply(period_tab2, 1, function(x) noteToPeriod(paste(x["note"], x["octave"], sep =""),
-                                                                       finetune = x["finetune"]))
-  target1     <- unlist(lapply(as.list(result$period), function(x){
-    res <- which(abs(period_tab2$period - x) == min(abs(period_tab2$period - x)) &
-                   abs(period_tab2$finetune) == min(abs(period_tab2$finetune)))
-    if (length(res) == 0) return (NA) else return(res)
-  }))
-  target2     <- period_tab2$period[target1 + 16*loNybble(result$effect.mag)] -
-    period_tab2$period[target1 + 0]
-  target1     <- period_tab2$period[target1 + 16*hiNybble(result$effect.mag)] -
-    period_tab2$period[target1 + 0]
-  target1[is.na(target1)] <- 0
-  target2[is.na(target2)] <- 0
-  effect.mag[(result$tick - 1) %% 3 == 1] <- target1[(result$tick - 1) %% 3 == 1]
-  effect.mag[(result$tick - 1) %% 3 == 2] <- target2[(result$tick - 1) %% 3 == 2]
-  result$period[effect_sel] <- result$period[effect_sel] + effect.mag[effect_sel]
-  rm(period_tab2, target1, target2)
+  if (any(effect_sel))
+  {
+    effect.mag  <- integer(nrow(result))
+    period_tab2 <- expand.grid(finetune=-8:7, note=names(ProTrackR::period_table[,-1:-2]), octave= 1:3)
+    period_tab2$period <- apply(period_tab2, 1, function(x){
+      result <- noteToPeriod(paste(x["note"], x["octave"], sep =""),
+                             finetune = x["finetune"])
+      result[result < noteToPeriod("B-3")] <- noteToPeriod("B-3")
+      result
+    })
+    target1     <- unlist(lapply(as.list(result$period), function(x){
+      res <- which(abs(period_tab2$period - x) == min(abs(period_tab2$period - x)) &
+                     abs(period_tab2$finetune) == min(abs(period_tab2$finetune)))
+      if (length(res) == 0) return (NA) else return(res)
+    }))
+    target2     <- period_tab2$period[target1 + 16*loNybble(result$effect.mag)] -
+      period_tab2$period[target1 + 0]
+    target1     <- period_tab2$period[target1 + 16*hiNybble(result$effect.mag)] -
+      period_tab2$period[target1 + 0]
+    target1[is.na(target1)] <- 0
+    target2[is.na(target2)] <- 0
+    effect.mag[(result$tick - 1) %% 3 == 1] <- target1[(result$tick - 1) %% 3 == 1]
+    effect.mag[(result$tick - 1) %% 3 == 2] <- target2[(result$tick - 1) %% 3 == 2]
+    result$period[effect_sel] <- result$period[effect_sel] + effect.mag[effect_sel]
+    rm(period_tab2, target1, target2)
+  }
   ##############################################
   ## 0xy Arpeggio (end)
+  ##############################################
+
+  ##############################################
+  ## Fix period values below range - start
+  ##############################################
+
+  result$period[result$period < noteToPeriod("B-3")] <- noteToPeriod("B-3")
+
+  ##############################################
+  ## Fix period values below range - end
   ##############################################
 
   if (!verbose) cat("\tdone\n")
@@ -1209,10 +1459,6 @@ setMethod("playingtable", "PTModule", function(mod,
   # next sample.
   # If no new sample is played set sample number to last played sample
 
-  result$sample.nr[result$retrigger.sample != 1 & result$sample.nr == 0] <- NA
-  result$sample.nr <- .fill.parameter(result$sample.nr, is.na(result$sample.nr),
-                                      function(x, y, z){rep(z, times = y - x + 1)})
-
   result$sample.rate <- periodToSampleRate(result$period, video = video)
 
   result$sample.pos  <- NA
@@ -1223,20 +1469,72 @@ setMethod("playingtable", "PTModule", function(mod,
   ##############################################
   ## protracker buggy with 9xy command:
   ## ftp://ftp.modland.com/pub/documents/format_documentation/Tracker%20differences%20for%20Coders.txt
-  ## can't seem to be able to reproduce this bug in ProTracker 2.3d in winUAE
-  ## maybe it's fixed after 2.3a?
   ## also see test case ptoffset.mod...
-  result$sample.pos[with(result, retrigger.sample == 1 & effect == as.raw(0x09))] <-
-    as.integer(result$effect.mag[with(result, retrigger.sample == 1 & effect == as.raw(0x09))])*0x100 + 1
 
-  result$sample.pos <- .fill.parameter(result$sample.pos, result$retrigger.sample != 1,
-                                       function(x, y, z, rt, tp){
-                                         cumsum(rt[(x:y) - 1]*125*vblank_duration/tp[(x:y) - 1])
-                                       }, result$sample.rate, result$tempo)
+  effect_sel <- result$effect == as.raw(0x09)
+  if (any(effect_sel))
+  {
+    base.magnitude <- rep(NA, nrow(result))
+    base.magnitude[result$sample.nr.original > 0 & effect_sel] <- as.integer(result$effect.mag[result$sample.nr.original > 0 & effect_sel])
+    base.magnitude[1][is.na(base.magnitude[1])] <- 0
+
+    snr <- (result$sample.nr.original != 0)
+    snr[result$retrigger.sample != 1] <- NA
+    snr[result$retrigger.sample == 1 & effect_sel] <- T
+    snr[1][is.na(snr[1])] <- F
+    snr <- .fill.parameter(snr, is.na(snr), function(x, y, z){rep(z, times = y - x + 1)})
+
+    mod_bool <- rep(NA, nrow(result))
+    mod_bool[with(result, note == "---" & effect_sel)] <- T
+    mod_bool[with(result, (retrigger.sample == 1 | effect_sel) & sample.nr.original > 0)] <- F
+    mod_bool <- .fill.parameter(mod_bool, is.na(mod_bool), function(x, y, z){rep(z, times = y - x + 1)})
+    effect_sel2 <- with(result, !mod_bool & diff(c(-999, snr)) != 0 & sample.nr.original == 0 & note != "---" & !effect_sel & tick == 1) | with(result, effect_sel & sample.nr.original == 0 & tick == 1)
+    rm(mod_bool)
+    modify.magnitude <- rep(NA, nrow(result))
+    effect.mag       <- rep(NA, nrow(result))
+    effect.mag[effect_sel] <- as.integer(result$effect.mag[effect_sel])
+    effect.mag <- .fill.parameter(effect.mag, is.na(effect.mag), function(x, y, z){rep(z, times = y - x + 1)})
+    modify.magnitude[effect_sel2] <- as.integer(effect.mag[effect_sel2])
+
+    base.magnitude.fill <- base.magnitude
+    base.magnitude.fill <- .fill.parameter(base.magnitude, is.na(base.magnitude), function(x, y, z){rep(z, times = y - x + 1)})
+
+    modify.magnitude[which(modify.magnitude == 0)] <- base.magnitude.fill[which(modify.magnitude == 0)]
+    modify.magnitude[is.na(modify.magnitude)] <- 0
+    #now fill the base magnitudes with the cumulative sum of modify magnitudes:
+
+    effect.fill <- rep(NA, nrow(result))
+    effect.fill[with(result, note != "---" & sample.nr.original != 0)] <- effect_sel[with(result, note != "---" & sample.nr.original != 0)]
+    effect.fill[effect_sel] <- T
+    effect.fill <- .fill.parameter(effect.fill, is.na(effect.fill), function(x, y, z){rep(z, times = y - x + 1)})
+
+    base.magnitude[(result$sample.nr.original > 0 & !effect_sel) | (result$note != "---" & !effect.fill)] <- 0
+    base.magnitude <- .fill.parameter(base.magnitude,
+                                      is.na(base.magnitude),
+                                      function(x, y, z, mod.mag){
+                                        rep(z, times = y - x + 1) + cumsum(mod.mag[x:y])
+                                      }, modify.magnitude)
+
+    result$sample.pos[result$retrigger.sample == 1] <-
+      base.magnitude[result$retrigger.sample == 1]*0x100 + 1
+    rm(base.magnitude, base.magnitude.fill, effect_sel2, snr, effect.fill)
+  } else
+  {
+    result$sample.pos[result$retrigger.sample == 1] <- 1
+  }
 
   ##############################################
   ## 9xy sample offset (end)
   ##############################################
+
+  result$sample.pos <- .fill.parameter(result$sample.pos, result$retrigger.sample != 1,
+                                       function(x, y, z, rt, tp){
+                                         z + cumsum(rt[(x:y) - 1]*125*vblank_duration/tp[(x:y) - 1])
+                                       }, result$sample.rate, result$tempo)
+
+  result$sample.nr[result$retrigger.sample != 1 & result$sample.nr == 0] <- NA
+  result$sample.nr <- .fill.parameter(result$sample.nr, is.na(result$sample.nr),
+                                      function(x, y, z){rep(z, times = y - x + 1)})
 
   ## Sample switching starts here. not implemented correctly yet
   result$sample.switch <- NA
@@ -1304,20 +1602,27 @@ setMethod("playingtable", "PTModule", function(mod,
   resamp.table <- merge(resamp.table, aggregate(cbind(sample.nr, sample.rate, sample.pos)~resamp.start, result, function(x) x[[1]]))
   rm(duration)
 
-  channel <- unlist(apply(resamp.table, 1, function(x){
+  resamp.agg <- aggregate(row.nr~sample.nr+target.nsamples+sample.rate+sample.pos, cbind(resamp.table, row.nr = 1:nrow(resamp.table)), function(x) x)
+
+  resamp.order <- lapply(as.list(1:nrow(resamp.table)), function(x) which(unlist(lapply(resamp.agg$row.nr, function(y) x %in% y))))
+
+  channel <- apply(resamp.agg, 1, function(x){
     # Is this check on sample.pos really required?:
-    if (is.infinite(x["sample.pos"]) || x["sample.nr"] == 0 || is.infinite(x["sample.rate"])) return(rep(128, x["target.nsamples"]))
-    smp       <- mod@samples[[x["sample.nr"]]]
-    startpos  <- x["sample.pos"]
-    stoppos   <- startpos + x["sample.rate"]*x["duration"]
-    start2    <- (startpos %% 1)*target.rate/x["sample.rate"]
-    out.range <- floor(1 + start2):(floor(start2) + x["target.nsamples"])
+    if (is.infinite(x[["sample.pos"]]) || x[["sample.nr"]] == 0 || is.infinite(x[["sample.rate"]])) return(rep(128, x[["target.nsamples"]]))
+    smp       <- mod@samples[[x[["sample.nr"]]]]
+    startpos  <- x[["sample.pos"]]
+    stoppos   <- startpos + x[["target.nsamples"]]*x[["sample.rate"]]/target.rate
+    start2    <- (startpos %% 1)*target.rate/x[["sample.rate"]]
+    out.range <- floor(1 + start2):(floor(start2) + x[["target.nsamples"]])
     wf        <- waveform(smp, floor(startpos), ceiling(stoppos))
     wf[is.na(wf)] <- 128
-    wf        <- resample(wf, x["sample.rate"], target.rate, method = "constant")
+    wf        <- resample(wf, x[["sample.rate"]], target.rate, method = "constant")
     wf        <- wf[out.range]
-    return(wf)
-  }))
+    #    if (any(is.na(wf))) print(paste(x[["sample.nr"]], x[["sample.rate"]], startpos, stoppos, range(out.range)))
+    return(list(wf))
+  })
+  channel <- unlist(lapply(resamp.order, function(x) unlist(channel[[x]])))
+
   rm(resamp.table)
 
   chan.vol <- as.vector(unlist(apply(result, 1, function(x){

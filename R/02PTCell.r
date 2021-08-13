@@ -24,7 +24,7 @@ validity.PTCell <- function(object)
 #' with which effect and what kind of triggers or jumps should be applied.
 #'
 #' The \code{PTCell} class consists of a \code{vector} of four \code{raw} values,
-#' as specified in the `Slots' section. A cell will tell which \code{link{PTSample}}
+#' as specified in the `Slots' section. A cell will tell which \code{\link{PTSample}}
 #' is to be played at which frequency (corresponding to a note and octave). If
 #' no octave or note is specified, nothing will be played, or if a sample was
 #' started to play on the same \code{\link{PTTrack}}, this sample will continue
@@ -51,7 +51,7 @@ validity.PTCell <- function(object)
 #' or when I replace the actual values with symbols: "\code{sp pp se ee}". Where
 #' "\code{ss}" represents the sample number, "\code{eee}" represents the \code{\link{effect}}
 #' code and "\code{ppp}" represents the period value. The correct note and octave
-#' can be derived by looking op the period value in the \code{\link{period_table}}
+#' can be derived by looking up the period value in the \code{\link{period_table}}
 #' (which is also implemented in the following methods: \code{\link{note}},
 #' \code{\link{octave}} and \code{\link{periodToChar}}).
 #' The period value \code{0x0d6} =  \code{214} corresponds with note "C"
@@ -84,11 +84,6 @@ validity.PTCell <- function(object)
 #'
 #' ## get the character representation of this cell:
 #' as.character(cell)
-#' @note This version of the ProTrackR package does not (yet)
-#' implement a player and mixing routine. Although modules
-#' can be edited with the package they cannot be played directly. For now
-#' \href{https://en.wikipedia.org/wiki/Music_tracker#List_of_music_trackers}{external players/trackers}
-#' can be used for this purpose.
 #' @exportClass PTCell
 #' @family cell.operations
 #' @author Pepijn de Vries
