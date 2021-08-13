@@ -1,0 +1,44 @@
+ProTrackR v0.1.3 (Release date: 2015-09-25)
+=============
+
+ * Some more minor fixes to pass CRAN checks.
+
+
+ProTrackR v0.1.2 (Release date: 2015-09-25)
+=============
+
+ * Minor fixes to pass CRAN checks.
+
+ * In the 'playSample' method, the 'finetune' argument is now
+   correctly passed to the 'noteToSampleRate' function.
+   Before, it was only possible to play at the finetune
+   specified for a sample.
+
+ * Correction in the validity check for objects of S4 class
+   'PTSample': wlooplen is allowed to have a value of zero
+   when the sample is empty.
+
+ * The prototype of the S4 class 'PTSample' is changed to
+   set the wlooplen value to zero.
+
+ * The slot descriptions for wloopstart and wlooplen in the
+   'PTSample' documentation contained errors that were
+   corrected.
+
+ * The 'loopLength<-', the 'PTSample-method' and 'read.sample'
+   methods were modified to handle the adjustments to the
+   'PTSample' class.
+
+ * Removed superfluous argument 'value' from the
+   'patternLength' method
+
+ProTrackR v0.1.1 (Release date: 2015-09-25)
+=============
+
+First release:
+
+ * Provided the basis for importing, exporting and manipulating
+   ProTracker modules.
+
+ * Basic playing routine, playing the samples in the module
+   only (not the module itself).
