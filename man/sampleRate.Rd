@@ -11,21 +11,21 @@ noteToSampleRate(note = "C-3", finetune = 0, video = c("PAL", "NTSC"))
 periodToSampleRate(period, video = c("PAL", "NTSC"))
 }
 \arguments{
-\item{note}{\code{character} string representing a note for which the sample
+\item{note}{A \code{character} string representing a note for which the sample
 rate is to be calculated.}
 
-\item{finetune}{\code{integer} value ranging from -8 up to 7. A value used to
+\item{finetune}{An \code{integer} value ranging from -8 up to 7. A value used to
 tune an audio sample.}
 
-\item{video}{the video mode used to calculate the sample rate. A \code{character}
+\item{video}{The video mode used to calculate the sample rate. A \code{character}
 string that can have either the value `\href{https://en.wikipedia.org/wiki/PAL}{PAL}'
 or `\href{https://en.wikipedia.org/wiki/NTSC}{NTSC}'. PAL is used by default.}
 
-\item{period}{a ProTracker \code{integer} value of a period value for which the sample rate
+\item{period}{A ProTracker \code{integer} value of a period value for which the sample rate
 is to be calculated.}
 }
 \value{
-Returns the sample rate in samples per seconds
+Returns the sample rate in samples per seconds.
 }
 \description{
 Calculate the sample rate for a note or a ProTracker period value.

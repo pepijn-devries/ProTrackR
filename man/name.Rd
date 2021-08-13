@@ -59,6 +59,10 @@ name(mod.intro) <- "I like this name better"
 
 ## Note that the provided name was too long and is truncated:
 name(mod.intro)
+
+## print all sample names in the module:
+unlist(lapply(as.list(1:31), function(x)
+  name(PTSample(mod.intro, x))))
 }
 \author{
 Pepijn de Vries

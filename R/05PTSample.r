@@ -7,8 +7,8 @@ validity.PTSample <- function(object)
   if (length(object@wlooplen)   != 2)                  return(F)
   if (2*rawToUnsignedInt(object@wloopstart) > length(object@left))   return(F)
   if ((2*(rawToUnsignedInt(object@wlooplen) +
-         rawToUnsignedInt(object@wloopstart)) > length(object@left)) &&
-         rawToUnsignedInt(object@wlooplen) != 1)       return(F)
+          rawToUnsignedInt(object@wloopstart)) > length(object@left)) &&
+      rawToUnsignedInt(object@wlooplen) != 1)       return(F)
   # loop length can only be zero when the sample is empty
   if (rawToUnsignedInt(object@wlooplen) == 0 &&
       length(object@left) > 0)                         return(F)
@@ -110,7 +110,6 @@ validity.PTSample <- function(object)
 #' @family sample.operations
 #' @author Pepijn de Vries
 #' @exportClass PTSample
-#' @importClassesFrom tuneR Wave
 setClass("PTSample",
          representation(name       = "raw",
                         finetune   = "raw",
@@ -127,6 +126,45 @@ setClass("PTSample",
                    stereo     = F),
          contains = "Wave",
          validity = validity.PTSample)
+
+#' Resample data
+#'
+#' Resample \code{numeric} data to a different rate.
+#'
+#' This function resamples \code{numeric} data (i.e., audio data) from a
+#' source sample rate to a target sample rate. At the core it uses
+#' the \code{\link[stats]{approx}} function.
+#' @rdname resample
+#' @name resample
+#' @param x A \code{numeric} \code{vector} that needs to be resampled.
+#' @param source.rate The rate at which \code{x} was sampled in Hz (or
+#' another unit, as long as it is in the same unit as \code{target.rate}).
+#' @param target.rate The desired target sampling rate in Hz (or
+#' another unit, as long as it is in the same unit as \code{source.rate}).
+#' @param ... Arguments passed on to \code{\link[stats]{approx}}.
+#' To simulate the Commodore Amiga hardware, it's best to
+#' use '\code{method = "constant"} for resampling 8 bit samples.
+#' @return Returns a resampled \code{numeric} \code{vector} of length
+#' \code{round(length(x) * target.rate / source.rate)} based on \code{x}.
+#' @examples
+#' some.data <- 1:100
+#'
+#' ## assume that the current (sample) rate
+#' ## of 'some.data' is 100, and we want to
+#' ## resample this data to a rate of 200:
+#' resamp.data <- resample(some.data, 100, 200, method = "constant")
+#' @author Pepijn de Vries
+#' @export
+resample <- function(x, source.rate, target.rate, ...)
+{
+  x <- as.numeric(x)
+  source.rate <- as.numeric(source.rate[[1]])
+  target.rate <- as.numeric(target.rate[[1]])
+  if (source.rate <= 0) stop ("Source rate should be greater than 1.")
+  if (target.rate <= 0) stop ("Target rate should be greater than 1.")
+  xout <- seq(1, length(x) + 1, length.out = round(length(x)*target.rate/source.rate))
+  return(stats::approx(x, xout = xout, rule = 2, ...)[[2]])
+}
 
 setGeneric("fineTune", def = function(sample) standardGeneric("fineTune"))
 setGeneric("fineTune<-", def = function(sample, value) standardGeneric("fineTune<-"))
@@ -298,7 +336,7 @@ setReplaceMethod("loopStart", c("PTSample", "ANY"), function(sample, value){
   if (is.na(value) || value == "off" || value == F)
   {
     sample@wloopstart <- unsignedIntToRaw(0, 2)
-    sample@wlooplen <- unsignedIntToRaw(1, 1)
+    sample@wlooplen <- unsignedIntToRaw(1, 2)
   } else
   {
     value <- as.integer(round(value/2))
@@ -478,9 +516,9 @@ setGeneric("playSample", function(x, silence = 0, wait = T,
 #' @author Pepijn de Vries
 #' @family sample.operations
 #' @family sample.rate.operations
+#' @family play.audio.routines
 #' @export
 setMethod("playSample", "PTSample", function(x, silence, wait, note, loop, ...){
-  print(names(list(...)))
   finetune <- fineTune(x)
   vl <- volume(x)/0x40
   silence <- abs(as.numeric(silence[[1]]))
@@ -509,7 +547,7 @@ setMethod("playSample", "PTSample", function(x, silence, wait, note, loop, ...){
   if (wait)
   {
     audio::wait(audio::play(vl*(x@left - 128)/128,
-                     rate = sr))
+                            rate = sr))
   } else
   {
     audio::play(vl*(x@left - 128)/128,
@@ -821,12 +859,16 @@ setGeneric("name<-", function(x, value) standardGeneric("name<-"))
 #' ## Note that the provided name was too long and is truncated:
 #' name(mod.intro)
 #'
+#' ## print all sample names in the module:
+#' unlist(lapply(as.list(1:31), function(x)
+#'   name(PTSample(mod.intro, x))))
+#'
 #' @family character.operations
 #' @family sample.operations
 #' @author Pepijn de Vries
 #' @export
 setMethod("name", "PTSample", function(x){
-  return(x@name)
+  return(rawToCharNull(x@name))
 })
 
 #' @rdname name
@@ -876,7 +918,7 @@ setMethod("sampleLength", "PTSample", function(sample){
   return(length(sample@left))
 })
 
-setGeneric("waveform", function(sample) standardGeneric("waveform"))
+setGeneric("waveform", function(sample, start.pos = 1, stop.pos = sampleLength(sample), loop = TRUE) standardGeneric("waveform"))
 setGeneric("waveform<-", function(sample, value) standardGeneric("waveform<-"))
 
 #' Extract or replace a PTSample waveform
@@ -898,6 +940,19 @@ setGeneric("waveform<-", function(sample, value) standardGeneric("waveform<-"))
 #' @aliases waveform,PTSample-method
 #' @param sample A \code{\link{PTSample}} object from which the waveform needs to
 #' be extracted or replaced.
+#' @param start.pos A \code{numeric} starting index, giving the starting
+#' position for the waveform to be returned. Default value is \code{1}. This
+#' index should be greater than zero.
+#' @param stop.pos A \code{numeric} stopping index, giving the stopping
+#' position for the waveform to be returned. Default value is
+#' \code{sampleLength(sample)} This index should be greater than
+#' \code{start.pos}.
+#' @param loop A \code{logical} value indicating whether the waveform
+#' should be modulated between the specified loop positions
+#' (see \code{\link{loopStart}} and \code{\link{loopLength}}),
+#' or the waveform should stop at the end of the sample (padded with \code{NA}
+#' values beyond the sample length). Will do the first
+#' when set to \code{TRUE} and the latter when set to \code{FALSE}.
 #' @param value A \code{vector} of numeric values ranging from 0 up to 255,
 #' representing the waveform that should be used to replace that of object
 #' \code{sample}. The length should be even and not exceed \code{2*0xffff} =
@@ -907,11 +962,22 @@ setGeneric("waveform<-", function(sample, value) standardGeneric("waveform<-"))
 #' Use \code{NA} to generate an empty/blank \code{\link{PTSample}} object.
 #' @return For \code{waveform}, the waveform of \code{sample} is returned
 #' as a \code{vector} of \code{numeric} values ranging from 0 up to 255.
+#' If '\code{loop}' is set to \code{FALSE}
+#' and the starting position is beyond the sample length, \code{NA} values
+#' are returned. If '\code{loop}' is set to \code{TRUE} and the starting
+#' position is beyond the sample loop (if present, see
+#' \code{\link{loopState}}), the waveform is modulated between the loop
+#' positions.
 #'
 #' For \code{waveform<-}, a copy of object \code{sample} is returned in which
 #' the waveform has been replaced with \code{value}.
 #' @examples
 #' data("mod.intro")
+#'
+#' ## Loop sample #1 of mod.intro beyond it's
+#' ## length of 1040 samples:
+#' wav1 <- waveform(PTSample(mod.intro, 1),
+#'                  1, 5000)
 #'
 #' ## get the waveform from sample #2
 #' ## of mod.intro:
@@ -933,8 +999,20 @@ setGeneric("waveform<-", function(sample, value) standardGeneric("waveform<-"))
 #' @family sample.operations
 #' @author Pepijn de Vries
 #' @export
-setMethod("waveform", "PTSample", function(sample){
-  return (as.integer(sample@left))
+setMethod("waveform", "PTSample", function(sample, start.pos, stop.pos, loop){
+  start.pos  <- as.integer(abs(start.pos[[1]]))
+  stop.pos   <- as.integer(abs(stop.pos[[1]]))
+  if (start.pos < 1) stop("Starting position should be greater than or equal to 1...")
+  if (start.pos > stop.pos) stop("Starting position should be greater than stopping position...")
+  loop       <- as.logical(loop[[1]])
+  samp_range <- start.pos:stop.pos
+  if (loop && loopState(sample))
+  {
+    ls <- loopStart(sample)
+    samp_range[samp_range > (ls + 1)] <-
+      ((samp_range[samp_range > (ls + 1)] - (ls + 1)) %% loopLength(sample)) + ls + 1
+  }
+  return (as.integer(sample@left)[samp_range])
 })
 
 #' @rdname waveform
@@ -943,6 +1021,7 @@ setMethod("waveform", "PTSample", function(sample){
 #' @export
 setReplaceMethod("waveform", c("PTSample", "ANY"), function(sample, value){
   value <- as.numeric(value)
+  if (loopLength(sample) == 0 && length(value) > 0) loopLength(sample) <- 2
   if (any(is.na(value)) && length(value) > 1) stop ("NAs are not allowed in the data, if length > 1!")
   if (!any(is.na(value)) && (length(value)%%2) == 1)
   {
@@ -1024,19 +1103,14 @@ setGeneric("loopSample", function(sample, times, n_samples) standardGeneric("loo
 #' @export
 setMethod("loopSample", c("PTSample", "ANY", "ANY"), function(sample, times, n_samples){
   if (missing(times) && missing(n_samples)) stop ("Either 'times' or 'n_samples' should be specified.")
-  if (!loopStart(sample)) stop("No loop set to sample...")
-  if (!missing(times)) times <- as.integer(abs(times[[1]]))
-  if (!missing(n_samples))
+  if (!loopState(sample)) stop("No loop set to sample...")
+  if (!missing(times))
   {
-    n_samples <- as.integer(abs(n_samples[[1]]))
-    times     <- ceiling((n_samples - loopStart(sample))/loopLength(sample))
-    if (times < 0) times <- 0
+    times <- as.integer(abs(times[[1]]))
+    n_samples <- loopStart(sample) + times*loopLength(sample)
   }
-  result <- waveform(sample)[0:loopStart(sample)]
-  result <- c(result, rep(waveform(sample)[(1 + loopStart(sample)):(loopStart(sample) + loopLength(sample) - 1)],
-                            times))
-  if (!missing(n_samples)) result <- result[1:n_samples]
-  return (result)
+  if (!missing(n_samples)) n_samples <- as.integer(abs(n_samples[[1]]))
+  return (waveform(sample, 1, n_samples))
 })
 
 setGeneric("loopState", function(sample) standardGeneric("loopState"))

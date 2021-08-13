@@ -116,7 +116,7 @@ setClass("PTCell",
 #' can be used to extract and replace raw data.
 #'
 #' @docType methods
-#' @rdname as.raw-method
+#' @rdname as.raw
 #' @name as.raw
 #' @aliases as.raw,PTCell-method
 #' @aliases as.raw,PTTrack-method
@@ -173,7 +173,7 @@ setMethod("as.raw", "PTCell", function(x){
 
 setGeneric("as.raw<-", function(x, value) standardGeneric("as.raw<-"))
 
-#' @rdname as.raw-method
+#' @rdname as.raw
 #' @name as.raw<-
 #' @aliases as.raw<-,PTCell,raw-method
 #' @export
@@ -326,7 +326,7 @@ setGeneric("effect<-", function(x, value) standardGeneric("effect<-"))
 #' effect(cell) <- "C20"
 #'
 #' ## the above expression sets the volume (effect 0xC)
-#' ## to 50% (0x20 which if halve of the maximum 0x40)
+#' ## to 50% (0x20 which is halve of the maximum 0x40)
 #' @author Pepijn de Vries
 #' @family cell.operations
 #' @export

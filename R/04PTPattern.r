@@ -74,13 +74,13 @@ setMethod("as.character", "PTPattern", function(x){
   return(result)
 })
 
-#' @rdname as.raw-method
+#' @rdname as.raw
 #' @export
 setMethod("as.raw", "PTPattern", function(x){
   x@data
 })
 
-#' @rdname as.raw-method
+#' @rdname as.raw
 #' @aliases as.raw<-,PTPattern,matrix-method
 #' @export
 setReplaceMethod("as.raw", c("PTPattern", "matrix"), function(x, value){

@@ -37,7 +37,7 @@ rawToCharNull <-
       runlength <- rle(result)$lengths
       if (length(runlength) > 2)
       {
-        rel_range <- (runlength[1] + 1):(length(result) - tail(runlength, 1))
+        rel_range <- (runlength[1] + 1):(length(result) - runlength[length(runlength)])
         result[rel_range][result[rel_range] == as.raw(0x00)] <- as.raw(0x20)
       }
       try(result <- rawToChar(result), silent = T)
@@ -323,16 +323,16 @@ noteToPeriod <-
 #' @name sampleRate
 #' @aliases periodToSampleRate
 #' @aliases noteToSampleRate
-#' @param period a ProTracker \code{integer} value of a period value for which the sample rate
+#' @param period A ProTracker \code{integer} value of a period value for which the sample rate
 #' is to be calculated.
-#' @param note \code{character} string representing a note for which the sample
+#' @param note A \code{character} string representing a note for which the sample
 #' rate is to be calculated.
-#' @param finetune \code{integer} value ranging from -8 up to 7. A value used to
+#' @param finetune An \code{integer} value ranging from -8 up to 7. A value used to
 #' tune an audio sample.
-#' @param video the video mode used to calculate the sample rate. A \code{character}
+#' @param video The video mode used to calculate the sample rate. A \code{character}
 #' string that can have either the value `\href{https://en.wikipedia.org/wiki/PAL}{PAL}'
 #' or `\href{https://en.wikipedia.org/wiki/NTSC}{NTSC}'. PAL is used by default.
-#' @return Returns the sample rate in samples per seconds
+#' @return Returns the sample rate in samples per seconds.
 #' @examples
 #' ## calculate the sample rate for a ProTracker period value of 200
 #' periodToSampleRate(200)
@@ -578,43 +578,3 @@ proTrackerVibrato <- function(x)
     }
     return(result)
   }
-
-effectCode <- function(effect)
-{
-# XXX to be exported in later releases
-  if (class(effect) != "character")
-    stop("Effect should be a 3 character hexadecimal representation...")
-  if (any(nchar(effect) != 3))
-    stop("Effect should be a 3 character hexadecimal representation...")
-  if (any(is.na(suppressWarnings(as.numeric(paste("0", effect, sep = "x"))))))
-    stop("Effect should be a 3 character hexadecimal representation...")
-  return(substr(effect, 1, 1))
-}
-
-effectMagnitude <- function(effect, what = c("hex", "dec", "low", "high"))
-# XXX to be exported in later releases
-{
-  if (class(effect) != "character")
-    stop("Effect should be a 3 character hexadecimal representation...")
-  if (any(nchar(effect) != 3))
-    stop("Effect should be a 3 character hexadecimal representation...")
-  if (any(is.na(suppressWarnings(as.numeric(paste("0", effect, sep = "x"))))))
-    stop("Effect should be a 3 character hexadecimal representation...")
-  if (match.arg(what) == "hex")
-  {
-    return(as.numeric(paste("0", substr(effect, 2, 3), sep = "x")))
-  }
-  if (match.arg(what) == "low")
-  {
-    return(as.numeric(paste("0", substr(effect, 3, 3), sep = "x")))
-  }
-  if (match.arg(what) == "high")
-  {
-    return(as.numeric(paste("0", substr(effect, 2, 2), sep = "x")))
-  }
-  if (match.arg(what) == "dec")
-  {
-    # XXX wat te doen als de string niet decimale characters bevat...
-    return(as.numeric(substr(effect, 2, 3)))
-  }
-}

@@ -8,13 +8,30 @@
 \alias{waveform<-,PTSample-method}
 \title{Extract or replace a PTSample waveform}
 \usage{
-\S4method{waveform}{PTSample}(sample)
+\S4method{waveform}{PTSample}(sample, start.pos = 1,
+  stop.pos = sampleLength(sample), loop = TRUE)
 
 \S4method{waveform}{PTSample}(sample) <- value
 }
 \arguments{
 \item{sample}{A \code{\link{PTSample}} object from which the waveform needs to
 be extracted or replaced.}
+
+\item{start.pos}{A \code{numeric} starting index, giving the starting
+position for the waveform to be returned. Default value is \code{1}. This
+index should be greater than zero.}
+
+\item{stop.pos}{A \code{numeric} stopping index, giving the stopping
+position for the waveform to be returned. Default value is
+\code{sampleLength(sample)} This index should be greater than
+\code{start.pos}.}
+
+\item{loop}{A \code{logical} value indicating whether the waveform
+should be modulated between the specified loop positions
+(see \code{\link{loopStart}} and \code{\link{loopLength}}),
+or the waveform should stop at the end of the sample (padded with \code{NA}
+values beyond the sample length). Will do the first
+when set to \code{TRUE} and the latter when set to \code{FALSE}.}
 
 \item{value}{A \code{vector} of numeric values ranging from 0 up to 255,
 representing the waveform that should be used to replace that of object
@@ -27,6 +44,12 @@ Use \code{NA} to generate an empty/blank \code{\link{PTSample}} object.}
 \value{
 For \code{waveform}, the waveform of \code{sample} is returned
 as a \code{vector} of \code{numeric} values ranging from 0 up to 255.
+If '\code{loop}' is set to \code{FALSE}
+and the starting position is beyond the sample length, \code{NA} values
+are returned. If '\code{loop}' is set to \code{TRUE} and the starting
+position is beyond the sample loop (if present, see
+\code{\link{loopState}}), the waveform is modulated between the loop
+positions.
 
 For \code{waveform<-}, a copy of object \code{sample} is returned in which
 the waveform has been replaced with \code{value}.
@@ -48,6 +71,11 @@ extract a waveform or replace it.
 }
 \examples{
 data("mod.intro")
+
+## Loop sample #1 of mod.intro beyond it's
+## length of 1040 samples:
+wav1 <- waveform(PTSample(mod.intro, 1),
+                 1, 5000)
 
 ## get the waveform from sample #2
 ## of mod.intro:

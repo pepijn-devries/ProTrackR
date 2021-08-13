@@ -1,3 +1,54 @@
+ProTrackR v0.2.3 (Release date: 2015-11-07)
+=============
+
+ * Minor corrections in manual to pass
+   CRAN checks.
+
+ProTrackR v0.2.2 (Release date: 2015-11-07)
+=============
+
+ * Minor corrections in manual to pass
+   CRAN checks.
+
+ProTrackR v0.2.1 (Release date: 2015-11-07)
+=============
+
+ * 'clearSamples'-method was added to the package.
+
+ * 'clearSong'-method was added to the package.
+
+ * 'modToWave'-method was added to the package
+
+ * 'playingtable'-method was added to the package
+
+ * 'playMod'-method was added to the package
+
+ * 'playWave'-method was added to the package
+
+ * 'resample'-function added to the package
+   to avoid 'seewave' dependency (which is
+   not available for all platforms).
+
+ * 'waveform'-method now includes additional
+   arguments: 'start.pos', 'stop.pos' and 'loop'
+
+ * removed 'utils' import...
+
+ * 'name' method, for PTSample objects, incorrectly
+   returned raw representation of the sample name
+   instead of a character representation. This is
+   now fixed.
+
+ * 'playSample' was printing the names of additional
+   (...) arguments in previous release. This was meant
+   as a test and this behaviour was not intended for
+   the release. It has been removed.
+
+ * A section on ProTracker effect commands is
+   added to the manual
+
+ * Some minor corrections were made in the manual
+
 ProTrackR v0.1.3 (Release date: 2015-09-25)
 =============
 
@@ -9,8 +60,8 @@ ProTrackR v0.1.2 (Release date: 2015-09-25)
 
  * Minor fixes to pass CRAN checks.
 
- * In the 'playSample' method, the 'finetune' argument is now
-   correctly passed to the 'noteToSampleRate' function.
+ * In the 'playSample' method, the 'finetune' argument is
+   now correctly passed to the 'noteToSampleRate' function.
    Before, it was only possible to play at the finetune
    specified for a sample.
 

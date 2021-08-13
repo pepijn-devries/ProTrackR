@@ -86,6 +86,11 @@ playSample(PTSample(mod.intro, 3), video = "NTSC", finetune = -5)
 Pepijn de Vries
 }
 \seealso{
+Other play.audio.routines: \code{\link{playMod}},
+  \code{\link{playMod,PTModule-method}};
+  \code{\link{playWave}},
+  \code{\link{playWave,Wave-method}}
+
 Other sample.operations: \code{\link{PTSample,PTModule,numeric-method}},
   \code{\link{PTSample,Wave,missing-method}},
   \code{\link{PTSample,raw,missing-method}},

@@ -80,13 +80,13 @@ setMethod("as.character", "PTTrack", function(x){
   apply(x@data, 1, function(x) as.character(new("PTCell", data = x)))
 })
 
-#' @rdname as.raw-method
+#' @rdname as.raw
 #' @export
 setMethod("as.raw", "PTTrack", function(x){
   x@data
 })
 
-#' @rdname as.raw-method
+#' @rdname as.raw
 #' @aliases as.raw<-,PTTrack,matrix-method
 #' @export
 setReplaceMethod("as.raw", c("PTTrack", "matrix"), function(x, value){

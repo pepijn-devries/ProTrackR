@@ -10,7 +10,7 @@ validity.PTModule <- function(object)
   # We're only being compatible with ProTracker, which holds 31 samples
   if (length(object@samples)       != 31)                    return (F)
   if (!all(unlist(lapply(object@samples, class)) == "PTSample"))
-      return (F)
+    return (F)
   if (!all(unlist(lapply(object@samples, validObject))))     return (F)
   if (!all(unlist(lapply(object@patterns, class)) == "PTPattern"))
     return (F)
@@ -125,7 +125,7 @@ setClass("PTModule",
 #' lattice-package. Plots each (non-empty) waveform in a separate panel. Use arguments
 #' of the \code{\link[lattice]{xyplot}} function to customise the plot.
 #' @docType methods
-#' @rdname plot-methods
+#' @rdname plot
 #' @name plot
 #' @aliases plot,PTModule,missing-method
 #' @param x A \code{\link{PTModule}} object for which the
@@ -181,9 +181,9 @@ setMethod("plot", c("PTModule", "missing"), function(x, y, plot.loop.positions =
             len[has_data][lattice::packet.number()] == 1))
       {
         lattice::panel.abline(v =                2*start[has_data][lattice::packet.number()] /
-                                 noteToSampleRate(), col = "green")
+                                noteToSampleRate(), col = "green")
         lattice::panel.abline(v = 2*((len[has_data] - 0.5) + start[has_data])[lattice::packet.number()] /
-                                 noteToSampleRate(), col = "red")
+                                noteToSampleRate(), col = "red")
       }
     }
     lattice::xyplot(amplitude~`time (s)`|samp_name,
@@ -238,7 +238,9 @@ setMethod("playSample", "PTModule", function(x, silence, wait, note, loop, ...){
         if (loopStart(samp) + loopLength(samp) > n_samp) n_samp <- loopStart(samp) + loopLength(samp)
         wf <- loopSample(samp, n_samples = n_samp)
       }
-      wf     <- seewave::resamp(vl*(wf - 128)/(128*0x40), sr, 44100)
+      ## seewave not available for OS X replace resampling with custom
+      ## resampling algorithm
+      wf     <- resample(vl*(wf - 128)/(128*0x40), sr, 44100, method = "constant")
       wf_all <- c(wf_all, wf, rep(0, silence*44100))
     }
   }
@@ -1068,4 +1070,68 @@ setMethod("moduleSize", "PTModule", function(x){
     pat.len*pattern_size + samp.len
   class(result) <- "object_size"
   return(result)
+})
+
+setGeneric("clearSong", function(mod) standardGeneric("clearSong"))
+
+#' Clear all pattern info from module
+#'
+#' Remove all patterns (\code{\link{PTPattern}}) and \code{\link{patternOrder}}
+#' info from a \code{\link{PTModule}} object.
+#'
+#' Conform the original ProTracker, this method removes all patterns
+#' (\code{\link{PTPattern}}) and \code{\link{patternOrder}}
+#' info from a module. You keep the audio \code{\link{PTSample}}s.
+#'
+#' @rdname clearSong
+#' @name clearSong
+#' @aliases clearSong,PTModule-method
+#' @param mod A \code{\link{PTModule}} object from which all pattern (order)
+#' info needs to be removed.
+#' @return Returns a copy of of object \code{mod} in which all pattern (order)
+#' info is removed.
+#' @examples
+#' data(mod.intro)
+#'
+#' ## 'clear.mod' is a copy of 'mod.intro' without the
+#' ## pattern (order) info. It still has the audio samples.
+#' clear.mod <- clearSong(mod.intro)
+#' @family module.operations
+#' @author Pepijn de Vries
+#' @export
+setMethod("clearSong", "PTModule", function(mod){
+  mod@patterns <- list(new("PTPattern"))
+  suppressWarnings(patternOrder(mod, T) <- 0)
+  return(mod)
+})
+
+setGeneric("clearSamples", function(mod) standardGeneric("clearSamples"))
+
+#' Clear all samples from module
+#'
+#' Remove all \code{\link{PTSample}}s from a \code{\link{PTModule}} object.
+#'
+#' Conform the original ProTracker, this method removes all patterns
+#' \code{\link{PTSample}}s from a module. You keep all patterns
+#' (\code{\link{PTPattern}}) and \code{\link{patternOrder}} info.
+#'
+#' @rdname clearSamples
+#' @name clearSamples
+#' @aliases clearSamples,PTModule-method
+#' @param mod A \code{\link{PTModule}} object from which all samples needs
+#' to be removed.
+#' @return Returns a copy of of object \code{mod} in which all samples are removed.
+#' @examples
+#' data(mod.intro)
+#'
+#' ## 'clear.mod' is a copy of 'mod.intro' without the
+#' ## samples. It still holds all pattern tables and
+#' ## pattern order info.
+#' clear.mod <- clearSamples(mod.intro)
+#' @family module.operations
+#' @author Pepijn de Vries
+#' @export
+setMethod("clearSamples", "PTModule", function(mod){
+  mod@samples <- lapply(as.list(1:31), function(x) new("PTSample"))
+  return(mod)
 })

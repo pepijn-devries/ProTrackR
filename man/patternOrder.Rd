@@ -113,8 +113,14 @@ Other module.operations: \code{\link{PTModule}},
   \code{\link{PTModule-class}};
   \code{\link{appendPattern}},
   \code{\link{appendPattern,PTModule,PTPattern-method}};
+  \code{\link{clearSamples}},
+  \code{\link{clearSamples,PTModule-method}};
+  \code{\link{clearSong}},
+  \code{\link{clearSong,PTModule-method}};
   \code{\link{deletePattern}},
   \code{\link{deletePattern,PTModule,numeric-method}};
+  \code{\link{modToWave}},
+  \code{\link{modToWave,PTModule-method}};
   \code{\link{moduleSize}},
   \code{\link{moduleSize,PTModule-method}};
   \code{\link{patternLength}},
@@ -123,6 +129,10 @@ Other module.operations: \code{\link{PTModule}},
   \code{\link{patternOrderLength,PTModule-method}},
   \code{\link{patternOrderLength<-}},
   \code{\link{patternOrderLength<-,PTModule,numeric-method}};
+  \code{\link{playMod}},
+  \code{\link{playMod,PTModule-method}};
+  \code{\link{playingtable}},
+  \code{\link{playingtable,PTModule-method}};
   \code{\link{read.module}},
   \code{\link{read.module,ANY-method}},
   \code{\link{read.module,character-method}};
