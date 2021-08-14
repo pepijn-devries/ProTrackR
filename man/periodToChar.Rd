@@ -30,18 +30,29 @@ periodToChar(200:400)
 
 }
 \seealso{
-Other character.operations: \code{\link{as.character}},
-  \code{\link{name}}, \code{\link{rawToCharNull}},
-  \code{\link{sampleRate}}
+Other character.operations: 
+\code{\link{as.character}()},
+\code{\link{name}},
+\code{\link{rawToCharNull}()},
+\code{\link{sampleRate}}
 
-Other period.operations: \code{\link{noteToPeriod}},
-  \code{\link{note}}, \code{\link{octave}},
-  \code{\link{period_table}}, \code{\link{sampleRate}}
+Other period.operations: 
+\code{\link{noteToPeriod}()},
+\code{\link{note}()},
+\code{\link{octave}()},
+\code{\link{period_table}},
+\code{\link{sampleRate}}
 
-Other note.and.octave.operations: \code{\link{noteToPeriod}},
-  \code{\link{noteUp}}, \code{\link{note}},
-  \code{\link{octave}}, \code{\link{sampleRate}}
+Other note.and.octave.operations: 
+\code{\link{noteToPeriod}()},
+\code{\link{noteUp}()},
+\code{\link{note}()},
+\code{\link{octave}()},
+\code{\link{sampleRate}}
 }
 \author{
 Pepijn de Vries
 }
+\concept{character.operations}
+\concept{note.and.octave.operations}
+\concept{period.operations}

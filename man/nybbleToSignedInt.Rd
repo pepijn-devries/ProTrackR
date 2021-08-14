@@ -42,25 +42,33 @@ sinth <- nybbleToSignedInt(rdat, "high")
 
 }
 \seealso{
-Other nybble.functions: \code{\link{nybble}},
-  \code{\link{signedIntToNybble}}
+Other nybble.functions: 
+\code{\link{nybble}()},
+\code{\link{signedIntToNybble}()}
 
-Other raw.operations: \code{\link{as.raw}},
-  \code{\link{nybble}}, \code{\link{rawToCharNull}},
-  \code{\link{rawToPTModule}},
-  \code{\link{rawToSignedInt}},
-  \code{\link{rawToUnsignedInt}},
-  \code{\link{signedIntToNybble}},
-  \code{\link{signedIntToRaw}},
-  \code{\link{unsignedIntToRaw}}
+Other raw.operations: 
+\code{\link{as.raw}()},
+\code{\link{nybble}()},
+\code{\link{rawToCharNull}()},
+\code{\link{rawToPTModule}()},
+\code{\link{rawToSignedInt}()},
+\code{\link{rawToUnsignedInt}()},
+\code{\link{signedIntToNybble}()},
+\code{\link{signedIntToRaw}()},
+\code{\link{unsignedIntToRaw}()}
 
-Other integer.operations: \code{\link{nybble}},
-  \code{\link{rawToSignedInt}},
-  \code{\link{rawToUnsignedInt}},
-  \code{\link{signedIntToNybble}},
-  \code{\link{signedIntToRaw}},
-  \code{\link{unsignedIntToRaw}}, \code{\link{waveform}}
+Other integer.operations: 
+\code{\link{nybble}()},
+\code{\link{rawToSignedInt}()},
+\code{\link{rawToUnsignedInt}()},
+\code{\link{signedIntToNybble}()},
+\code{\link{signedIntToRaw}()},
+\code{\link{unsignedIntToRaw}()},
+\code{\link{waveform}()}
 }
 \author{
 Pepijn de Vries
 }
+\concept{integer.operations}
+\concept{nybble.functions}
+\concept{raw.operations}

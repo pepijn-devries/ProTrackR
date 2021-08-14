@@ -1,8 +1,8 @@
 Package: ProTrackR
 Type: Package
 Title: Manipulate and Play 'ProTracker' Modules
-Version: 0.3.6
-Date: 2019-02-06
+Version: 0.3.7
+Date: 2020-02-03
 Authors@R: c(person("Pepijn", "de Vries", role =c("aut", "cre", "dtc"),
     email = "pepijn.devries@outlook.com"))
 Author: Pepijn de Vries [aut, cre, dtc]
@@ -20,8 +20,8 @@ LazyData: True
 Depends: audio, lattice, signal, tuneR (>= 1.0)
 Imports: graphics, methods, stats, utils, XML
 Suggests: AmigaFFH (>= 0.2.0)
-RoxygenNote: 6.0.1
+RoxygenNote: 7.0.2
 NeedsCompilation: no
-Packaged: 2019-02-06 11:56:45 UTC; vries171
+Packaged: 2020-02-03 15:15:13 UTC; vries171
 Repository: CRAN
-Date/Publication: 2019-02-06 13:03:22 UTC
+Date/Publication: 2020-02-03 16:00:02 UTC

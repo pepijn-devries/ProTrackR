@@ -4,8 +4,6 @@
 \alias{sampleRate}
 \alias{noteToSampleRate}
 \alias{periodToSampleRate}
-\alias{sampleRate}
-\alias{periodToSampleRate}
 \title{Calculate the sample rate for a note or period value}
 \usage{
 noteToSampleRate(note = "C-3", finetune = 0, video = c("PAL", "NTSC"))
@@ -54,20 +52,33 @@ noteToSampleRate("A-3", finetune = -1)
 
 }
 \seealso{
-Other character.operations: \code{\link{as.character}},
-  \code{\link{name}}, \code{\link{periodToChar}},
-  \code{\link{rawToCharNull}}
+Other character.operations: 
+\code{\link{as.character}()},
+\code{\link{name}},
+\code{\link{periodToChar}()},
+\code{\link{rawToCharNull}()}
 
-Other period.operations: \code{\link{noteToPeriod}},
-  \code{\link{note}}, \code{\link{octave}},
-  \code{\link{periodToChar}}, \code{\link{period_table}}
+Other period.operations: 
+\code{\link{noteToPeriod}()},
+\code{\link{note}()},
+\code{\link{octave}()},
+\code{\link{periodToChar}()},
+\code{\link{period_table}}
 
-Other sample.rate.operations: \code{\link{playSample}}
+Other sample.rate.operations: 
+\code{\link{playSample}()}
 
-Other note.and.octave.operations: \code{\link{noteToPeriod}},
-  \code{\link{noteUp}}, \code{\link{note}},
-  \code{\link{octave}}, \code{\link{periodToChar}}
+Other note.and.octave.operations: 
+\code{\link{noteToPeriod}()},
+\code{\link{noteUp}()},
+\code{\link{note}()},
+\code{\link{octave}()},
+\code{\link{periodToChar}()}
 }
 \author{
 Pepijn de Vries
 }
+\concept{character.operations}
+\concept{note.and.octave.operations}
+\concept{period.operations}
+\concept{sample.rate.operations}

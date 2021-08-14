@@ -23,8 +23,7 @@
 
 \S4method{PTTrack}{PTModule,numeric,numeric}(x, track, pattern)
 
-\S4method{PTTrack}{PTModule,numeric,numeric,PTTrack}(x, track,
-  pattern) <- value
+\S4method{PTTrack}{PTModule,numeric,numeric,PTTrack}(x, track, pattern) <- value
 
 \S4method{PTTrack}{PTPattern,numeric,missing}(x, track)
 
@@ -95,8 +94,10 @@ PTTrack(mod.intro, 2, 1) <- chan
 
 }
 \seealso{
-Other track.operations: \code{\link{as.character}}
+Other track.operations: 
+\code{\link{as.character}()}
 }
 \author{
 Pepijn de Vries
 }
+\concept{track.operations}

@@ -66,18 +66,29 @@ unlist(lapply(as.list(1:31), function(x)
 
 }
 \seealso{
-Other character.operations: \code{\link{as.character}},
-  \code{\link{periodToChar}}, \code{\link{rawToCharNull}},
-  \code{\link{sampleRate}}
+Other character.operations: 
+\code{\link{as.character}()},
+\code{\link{periodToChar}()},
+\code{\link{rawToCharNull}()},
+\code{\link{sampleRate}}
 
-Other sample.operations: \code{\link{PTSample-class}},
-  \code{\link{PTSample-method}}, \code{\link{fineTune}},
-  \code{\link{loopLength}}, \code{\link{loopSample}},
-  \code{\link{loopStart}}, \code{\link{loopState}},
-  \code{\link{playSample}}, \code{\link{read.sample}},
-  \code{\link{sampleLength}}, \code{\link{volume}},
-  \code{\link{waveform}}, \code{\link{write.sample}}
+Other sample.operations: 
+\code{\link{PTSample-class}},
+\code{\link{PTSample-method}},
+\code{\link{fineTune}()},
+\code{\link{loopLength}()},
+\code{\link{loopSample}()},
+\code{\link{loopStart}()},
+\code{\link{loopState}()},
+\code{\link{playSample}()},
+\code{\link{read.sample}()},
+\code{\link{sampleLength}()},
+\code{\link{volume}()},
+\code{\link{waveform}()},
+\code{\link{write.sample}()}
 }
 \author{
 Pepijn de Vries
 }
+\concept{character.operations}
+\concept{sample.operations}

@@ -27,7 +27,11 @@ a requirement.
 data("period_table")
 }
 \seealso{
-Other period.operations: \code{\link{noteToPeriod}},
-  \code{\link{note}}, \code{\link{octave}},
-  \code{\link{periodToChar}}, \code{\link{sampleRate}}
+Other period.operations: 
+\code{\link{noteToPeriod}()},
+\code{\link{note}()},
+\code{\link{octave}()},
+\code{\link{periodToChar}()},
+\code{\link{sampleRate}}
 }
+\concept{period.operations}

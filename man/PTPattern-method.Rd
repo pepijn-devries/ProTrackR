@@ -81,14 +81,18 @@ PTPattern(mod.intro,
           patternOrder(mod.intro)[1] + 1) <- pat
 }
 \seealso{
-Other pattern.operations: \code{\link{MODPlugToPTPattern}},
-  \code{\link{PTPattern-class}},
-  \code{\link{PTPatternToMODPlug}},
-  \code{\link{appendPattern}}, \code{\link{deletePattern}},
-  \code{\link{pasteBlock}}, \code{\link{patternLength}},
-  \code{\link{patternOrderLength}},
-  \code{\link{patternOrder}}
+Other pattern.operations: 
+\code{\link{MODPlugToPTPattern}()},
+\code{\link{PTPattern-class}},
+\code{\link{PTPatternToMODPlug}()},
+\code{\link{appendPattern}()},
+\code{\link{deletePattern}()},
+\code{\link{pasteBlock}()},
+\code{\link{patternLength}()},
+\code{\link{patternOrderLength}()},
+\code{\link{patternOrder}()}
 }
 \author{
 Pepijn de Vries
 }
+\concept{pattern.operations}

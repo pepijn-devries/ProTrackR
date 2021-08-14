@@ -517,13 +517,13 @@ modArchive.search.mod <- function(search.text,
 #' @rdname modArchive
 #' @export
 modArchive.request.count <- function(api.key) {
-  return(.requests(4, api.key))
+  return(.requests("current", api.key))
 }
 
 #' @rdname modArchive
 #' @export
 modArchive.max.requests <- function(api.key) {
-  return(.requests(3, api.key))
+  return(.requests("maximum", api.key))
 }
 
 .requests <- function(index, api.key)
@@ -533,7 +533,7 @@ modArchive.max.requests <- function(api.key) {
                                             "&request=view_requests"))
   count.root <- XML::xmlRoot(request.count)
   count.values <- XML::xmlSApply(count.root, function(x) XML::xmlSApply(x, XML::xmlValue))
-  return(as.integer(count.values[[index]]))
+  return(as.integer(count.values$requests[[index]]))
 }
 
 #' @rdname modArchive

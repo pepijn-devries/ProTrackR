@@ -8,8 +8,14 @@
 \usage{
 modLand.search.mod(search.text)
 
-modLand.download.mod(format, author, title, mirror = c("modland.com",
-  "ftp.modland.com", "antarctica.no", "ziphoid.com", "exotica.org.uk"), ...)
+modLand.download.mod(
+  format,
+  author,
+  title,
+  mirror = c("modland.com", "ftp.modland.com", "antarctica.no", "ziphoid.com",
+    "exotica.org.uk"),
+  ...
+)
 }
 \arguments{
 \item{search.text}{A single length \code{character} vector, containing

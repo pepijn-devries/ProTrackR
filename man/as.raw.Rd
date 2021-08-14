@@ -5,11 +5,11 @@
 \name{as.raw}
 \alias{as.raw}
 \alias{as.raw,PTCell-method}
+\alias{as.raw,PTTrack-method}
+\alias{as.raw,PTPattern-method}
 \alias{as.raw<-}
 \alias{as.raw<-,PTCell,raw-method}
-\alias{as.raw,PTTrack-method}
 \alias{as.raw<-,PTTrack,matrix-method}
-\alias{as.raw,PTPattern-method}
 \alias{as.raw<-,PTPattern,matrix-method}
 \alias{as.raw,PTModule-method}
 \title{Extract and replace raw data}
@@ -104,15 +104,18 @@ as.raw(PTCell(mod.intro, 1, 1, 1)) <-
 
 }
 \seealso{
-Other raw.operations: \code{\link{nybbleToSignedInt}},
-  \code{\link{nybble}}, \code{\link{rawToCharNull}},
-  \code{\link{rawToPTModule}},
-  \code{\link{rawToSignedInt}},
-  \code{\link{rawToUnsignedInt}},
-  \code{\link{signedIntToNybble}},
-  \code{\link{signedIntToRaw}},
-  \code{\link{unsignedIntToRaw}}
+Other raw.operations: 
+\code{\link{nybbleToSignedInt}()},
+\code{\link{nybble}()},
+\code{\link{rawToCharNull}()},
+\code{\link{rawToPTModule}()},
+\code{\link{rawToSignedInt}()},
+\code{\link{rawToUnsignedInt}()},
+\code{\link{signedIntToNybble}()},
+\code{\link{signedIntToRaw}()},
+\code{\link{unsignedIntToRaw}()}
 }
 \author{
 Pepijn de Vries
 }
+\concept{raw.operations}

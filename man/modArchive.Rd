@@ -5,86 +5,100 @@
 \alias{modArchive.info}
 \alias{modArchive.download}
 \alias{modArchive.search.mod}
+\alias{modArchive.search.genre}
+\alias{modArchive.search.hash}
+\alias{modArchive.search.artist}
+\alias{modArchive.random.pick}
+\alias{modArchive.view.by}
 \alias{modArchive.request.count}
 \alias{modArchive.max.requests}
-\alias{modArchive.view.by}
-\alias{modArchive.search.genre}
-\alias{modArchive.search.artist}
-\alias{modArchive.search.hash}
-\alias{modArchive.random.pick}
 \title{ModArchive helper functions}
 \usage{
 modArchive.info(mod.id, api.key)
 
 modArchive.download(mod.id, ...)
 
-modArchive.search.mod(search.text, search.where = c("filename_or_songtitle",
-  "filename_and_songtitle", "filename", "songtitle", "module_instruments",
-  "module_comments"), format.filter = c("unset", "669", "AHX", "DMF", "HVL",
-  "IT", "MED", "MO3", "MOD", "MTM", "OCT", "OKT", "S3M", "STM", "XM"),
-  size.filter = c("unset", "0-99", "100-299", "300-599", "600-1025",
-  "1025-2999", "3072-6999", "7168-100000"), genre.filter = "deprecated", page,
-  api.key)
+modArchive.search.mod(
+  search.text,
+  search.where = c("filename_or_songtitle", "filename_and_songtitle", "filename",
+    "songtitle", "module_instruments", "module_comments"),
+  format.filter = c("unset", "669", "AHX", "DMF", "HVL", "IT", "MED", "MO3", "MOD",
+    "MTM", "OCT", "OKT", "S3M", "STM", "XM"),
+  size.filter = c("unset", "0-99", "100-299", "300-599", "600-1025", "1025-2999",
+    "3072-6999", "7168-100000"),
+  genre.filter = "deprecated",
+  page,
+  api.key
+)
 
 modArchive.request.count(api.key)
 
 modArchive.max.requests(api.key)
 
-modArchive.view.by(view.query, view.by = c("view_by_list",
-  "view_by_rating_comments", "view_by_rating_reviews",
-  "view_modules_by_artistid", "view_modules_by_guessed_artist"),
-  format.filter = c("unset", "669", "AHX", "DMF", "HVL", "IT", "MED", "MO3",
-  "MOD", "MTM", "OCT", "OKT", "S3M", "STM", "XM"), size.filter = c("unset",
-  "0-99", "100-299", "300-599", "600-1025", "1025-2999", "3072-6999",
-  "7168-100000"), page, api.key)
+modArchive.view.by(
+  view.query,
+  view.by = c("view_by_list", "view_by_rating_comments", "view_by_rating_reviews",
+    "view_modules_by_artistid", "view_modules_by_guessed_artist"),
+  format.filter = c("unset", "669", "AHX", "DMF", "HVL", "IT", "MED", "MO3", "MOD",
+    "MTM", "OCT", "OKT", "S3M", "STM", "XM"),
+  size.filter = c("unset", "0-99", "100-299", "300-599", "600-1025", "1025-2999",
+    "3072-6999", "7168-100000"),
+  page,
+  api.key
+)
 
-modArchive.search.genre(genre.filter = c("unset", "Alternative", "Gothic",
-  "Grunge", "Metal - Extreme", "Metal (general)", "Punk", "Chiptune",
-  "Demo Style", "One Hour Compo", "Chillout", "Electronic - Ambient",
-  "Electronic - Breakbeat", "Electronic - Dance", "Electronic - Drum and Bass",
-  "Electronic - Gabber", "Electronic - Hardcore", "Electronic - House",
-  "Electronic - IDM", "Electronic - Industrial", "Electronic - Jungle",
-  "Electronic - Minimal", "Electronic - Other", "Electronic - Progressive",
-  "Electronic - Rave", "Electronic - Techno",      "Electronic (general)",
-  "Trance - Acid", "Trance - Dream", "Trance - Goa", "Trance - Hard",
-  "Trance - Progressive", "Trance - Tribal", "Trance (general)", "Big Band",
-  "Blues", "Jazz - Acid", "Jazz - Modern", "Jazz (general)", "Swing",
-  "Bluegrass", "Classical", "Comedy", "Country", "Experimental", "Fantasy",
-  "Folk", "Fusion", "Medieval", "New Ages", "Orchestral", "Other", "Piano",
-  "Religious", "Soundtrack", "Spiritual", "Video Game", "Vocal Montage",
-  "World", "Ballad", "Disco", "Easy Listening",      "Funk", "Pop - Soft",
-  "Pop - Synth", "Pop (general)", "Rock - Hard", "Rock - Soft",
-  "Rock (general)", "Christmas", "Halloween", "Hip-Hop", "R and B", "Reggae",
-  "Ska", "Soul"), format.filter = c("unset", "669", "AHX", "DMF", "HVL", "IT",
-  "MED", "MO3", "MOD", "MTM", "OCT", "OKT", "S3M", "STM", "XM"),
-  size.filter = c("unset", "0-99", "100-299", "300-599", "600-1025",
-  "1025-2999", "3072-6999", "7168-100000"), page, api.key)
+modArchive.search.genre(
+  genre.filter = c("unset", "Alternative", "Gothic", "Grunge", "Metal - Extreme",
+    "Metal (general)", "Punk", "Chiptune", "Demo Style", "One Hour Compo", "Chillout",
+    "Electronic - Ambient", "Electronic - Breakbeat", "Electronic - Dance",
+    "Electronic - Drum and Bass", "Electronic - Gabber", "Electronic - Hardcore",
+    "Electronic - House", "Electronic - IDM", "Electronic - Industrial",
+    "Electronic - Jungle", "Electronic - Minimal", "Electronic - Other",
+    "Electronic - Progressive", "Electronic - Rave", "Electronic - Techno",     
+    "Electronic (general)", "Trance - Acid", "Trance - Dream", "Trance - Goa",
+    "Trance - Hard", "Trance - Progressive", "Trance - Tribal", "Trance (general)",
+    "Big Band", "Blues", "Jazz - Acid", "Jazz - Modern", "Jazz (general)", "Swing",
+    "Bluegrass", "Classical", "Comedy", "Country", "Experimental", "Fantasy", "Folk",
+    "Fusion", "Medieval", "New Ages", "Orchestral", "Other", "Piano", "Religious",
+    "Soundtrack", "Spiritual", "Video Game", "Vocal Montage", "World", "Ballad", "Disco",
+    "Easy Listening",      "Funk", "Pop - Soft", "Pop - Synth", "Pop (general)",
+    "Rock - Hard", "Rock - Soft", "Rock (general)", "Christmas", "Halloween", "Hip-Hop",
+    "R and B", "Reggae", "Ska", "Soul"),
+  format.filter = c("unset", "669", "AHX", "DMF", "HVL", "IT", "MED", "MO3", "MOD",
+    "MTM", "OCT", "OKT", "S3M", "STM", "XM"),
+  size.filter = c("unset", "0-99", "100-299", "300-599", "600-1025", "1025-2999",
+    "3072-6999", "7168-100000"),
+  page,
+  api.key
+)
 
 modArchive.search.artist(search.artist, page, api.key)
 
 modArchive.search.hash(search.hash, api.key)
 
-modArchive.random.pick(genre.filter = c("Alternative", "Gothic", "Grunge",
-  "Metal - Extreme", "Metal (general)", "Punk", "Chiptune", "Demo Style",
-  "One Hour Compo", "Chillout", "Electronic - Ambient",
-  "Electronic - Breakbeat", "Electronic - Dance", "Electronic - Drum and Bass",
-  "Electronic - Gabber", "Electronic - Hardcore", "Electronic - House",
-  "Electronic - IDM", "Electronic - Industrial", "Electronic - Jungle",
-  "Electronic - Minimal", "Electronic - Other", "Electronic - Progressive",
-  "Electronic - Rave", "Electronic - Techno", "Electronic (general)",     
-  "Trance - Acid", "Trance - Dream", "Trance - Goa", "Trance - Hard",
-  "Trance - Progressive", "Trance - Tribal", "Trance (general)", "Big Band",
-  "Blues", "Jazz - Acid", "Jazz - Modern", "Jazz (general)", "Swing",
-  "Bluegrass", "Classical", "Comedy", "Country", "Experimental", "Fantasy",
-  "Folk", "Fusion", "Medieval", "New Ages", "Orchestral", "Other", "Piano",
-  "Religious", "Soundtrack", "Spiritual", "Video Game", "Vocal Montage",
-  "World", "Ballad", "Disco", "Easy Listening", "Funk", "Pop - Soft",     
-  "Pop - Synth", "Pop (general)", "Rock - Hard", "Rock - Soft",
-  "Rock (general)", "Christmas", "Halloween", "Hip-Hop", "R and B", "Reggae",
-  "Ska", "Soul"), format.filter = c("unset", "669", "AHX", "DMF", "HVL", "IT",
-  "MED", "MO3", "MOD", "MTM", "OCT", "OKT", "S3M", "STM", "XM"),
-  size.filter = c("unset", "0-99", "100-299", "300-599", "600-1025",
-  "1025-2999", "3072-6999", "7168-100000"), api.key)
+modArchive.random.pick(
+  genre.filter = c("Alternative", "Gothic", "Grunge", "Metal - Extreme",
+    "Metal (general)", "Punk", "Chiptune", "Demo Style", "One Hour Compo", "Chillout",
+    "Electronic - Ambient", "Electronic - Breakbeat", "Electronic - Dance",
+    "Electronic - Drum and Bass", "Electronic - Gabber", "Electronic - Hardcore",
+    "Electronic - House", "Electronic - IDM", "Electronic - Industrial",
+    "Electronic - Jungle", "Electronic - Minimal", "Electronic - Other",
+    "Electronic - Progressive", "Electronic - Rave", "Electronic - Techno",
+    "Electronic (general)",      "Trance - Acid", "Trance - Dream", "Trance - Goa",
+    "Trance - Hard", "Trance - Progressive", "Trance - Tribal", "Trance (general)",
+    "Big Band", "Blues", "Jazz - Acid", "Jazz - Modern", "Jazz (general)", "Swing",
+    "Bluegrass", "Classical", "Comedy", "Country", "Experimental", "Fantasy", "Folk",
+    "Fusion", "Medieval", "New Ages", "Orchestral", "Other", "Piano", "Religious",
+    "Soundtrack", "Spiritual", "Video Game", "Vocal Montage", "World", "Ballad", "Disco",
+    "Easy Listening", "Funk", "Pop - Soft",      "Pop - Synth", "Pop (general)",
+    "Rock - Hard", "Rock - Soft", "Rock (general)", "Christmas", "Halloween", "Hip-Hop",
+    "R and B", "Reggae", "Ska", "Soul"),
+  format.filter = c("unset", "669", "AHX", "DMF", "HVL", "IT", "MED", "MO3", "MOD",
+    "MTM", "OCT", "OKT", "S3M", "STM", "XM"),
+  size.filter = c("unset", "0-99", "100-299", "300-599", "600-1025", "1025-2999",
+    "3072-6999", "7168-100000"),
+  api.key
+)
 }
 \arguments{
 \item{mod.id}{An \code{integer} code used as module identifier in the ModArchive database.

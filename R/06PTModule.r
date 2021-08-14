@@ -449,6 +449,7 @@ setGeneric("write.module", def = function(mod, file){
 #' @return Writes to a module file but returns nothing.
 #'
 #' @examples
+#' \dontrun{
 #' ## get the PTModule object provided with the ProTrackR package
 #' data("mod.intro")
 #'
@@ -461,6 +462,7 @@ setGeneric("write.module", def = function(mod, file){
 #'
 #' ## don't forget to close the connection after you're done:
 #' close(con)
+#' }
 #' @references \url{http://wiki.multimedia.cx/index.php?title=Protracker_Module}
 #'
 #' \url{http://coppershade.org/articles/More!/Topics/Protracker_File_Format/}

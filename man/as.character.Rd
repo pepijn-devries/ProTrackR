@@ -61,12 +61,17 @@ as.character(PTPattern(mod.intro, 1))
 
 }
 \seealso{
-Other character.operations: \code{\link{name}},
-  \code{\link{periodToChar}}, \code{\link{rawToCharNull}},
-  \code{\link{sampleRate}}
+Other character.operations: 
+\code{\link{name}},
+\code{\link{periodToChar}()},
+\code{\link{rawToCharNull}()},
+\code{\link{sampleRate}}
 
-Other track.operations: \code{\link{PTTrack-method}}
+Other track.operations: 
+\code{\link{PTTrack-method}}
 }
 \author{
 Pepijn de Vries
 }
+\concept{character.operations}
+\concept{track.operations}

@@ -101,14 +101,22 @@ This slot is inherited from the \code{\link[tuneR]{Wave}} class, for
 }}
 
 \seealso{
-Other sample.operations: \code{\link{PTSample-method}},
-  \code{\link{fineTune}}, \code{\link{loopLength}},
-  \code{\link{loopSample}}, \code{\link{loopStart}},
-  \code{\link{loopState}}, \code{\link{name}},
-  \code{\link{playSample}}, \code{\link{read.sample}},
-  \code{\link{sampleLength}}, \code{\link{volume}},
-  \code{\link{waveform}}, \code{\link{write.sample}}
+Other sample.operations: 
+\code{\link{PTSample-method}},
+\code{\link{fineTune}()},
+\code{\link{loopLength}()},
+\code{\link{loopSample}()},
+\code{\link{loopStart}()},
+\code{\link{loopState}()},
+\code{\link{name}},
+\code{\link{playSample}()},
+\code{\link{read.sample}()},
+\code{\link{sampleLength}()},
+\code{\link{volume}()},
+\code{\link{waveform}()},
+\code{\link{write.sample}()}
 }
 \author{
 Pepijn de Vries
 }
+\concept{sample.operations}

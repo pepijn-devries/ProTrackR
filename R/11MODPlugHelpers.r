@@ -205,10 +205,10 @@ MODPlugToPTPattern <- function(text = NULL, what = c("PTPattern", "PTBlock")) {
 #' @family pattern.operations
 #' @export
 PTPatternToMODPlug <- function(x, to.clipboard = T) {
-  if (class(x) != "PTPattern" && !.validity.PTBlock(x)) stop ("x is neither a PTPattern nor a PTBlock object.")
+  if (!("PTPattern" %in% class(x)) && !.validity.PTBlock(x)) stop ("x is neither a PTPattern nor a PTBlock object.")
   # convert the information that is provided into a matrix of characters
   # and work with that.
-  if (class(x) != "PTPattern") {
+  if (!("PTPattern" %in% class(x))) {
     pat <- as.character(x)
   } else {
     pat <- apply(x, 2, function(y) unlist(lapply(y, function(z) as.character(z))))

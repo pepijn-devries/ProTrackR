@@ -5,7 +5,6 @@
 \alias{read.module}
 \alias{read.module,character,logical-method}
 \alias{read.module,ANY,missing-method}
-\alias{read.module,ANY,missing-method}
 \alias{read.module,character,missing-method}
 \alias{read.module,ANY,logical-method}
 \title{Read a ProTracker module file}
@@ -76,19 +75,31 @@ close(con)
 \url{http://coppershade.org/articles/More!/Topics/Protracker_File_Format/}
 }
 \seealso{
-Other io.operations: \code{\link{read.sample}},
-  \code{\link{write.module}}, \code{\link{write.sample}}
+Other io.operations: 
+\code{\link{read.sample}()},
+\code{\link{write.module}()},
+\code{\link{write.sample}()}
 
-Other module.operations: \code{\link{PTModule-class}},
-  \code{\link{appendPattern}}, \code{\link{clearSamples}},
-  \code{\link{clearSong}}, \code{\link{deletePattern}},
-  \code{\link{fix.PTModule}}, \code{\link{modToWave}},
-  \code{\link{moduleSize}}, \code{\link{patternLength}},
-  \code{\link{patternOrderLength}},
-  \code{\link{patternOrder}}, \code{\link{playMod}},
-  \code{\link{playingtable}}, \code{\link{rawToPTModule}},
-  \code{\link{trackerFlag}}, \code{\link{write.module}}
+Other module.operations: 
+\code{\link{PTModule-class}},
+\code{\link{appendPattern}()},
+\code{\link{clearSamples}()},
+\code{\link{clearSong}()},
+\code{\link{deletePattern}()},
+\code{\link{fix.PTModule}()},
+\code{\link{modToWave}()},
+\code{\link{moduleSize}()},
+\code{\link{patternLength}()},
+\code{\link{patternOrderLength}()},
+\code{\link{patternOrder}()},
+\code{\link{playMod}()},
+\code{\link{playingtable}()},
+\code{\link{rawToPTModule}()},
+\code{\link{trackerFlag}()},
+\code{\link{write.module}()}
 }
 \author{
 Pepijn de Vries
 }
+\concept{io.operations}
+\concept{module.operations}

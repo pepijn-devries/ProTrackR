@@ -44,23 +44,33 @@ rawl <- signedIntToNybble(dati)
 rawh <- signedIntToNybble(dati, "high")
 }
 \seealso{
-Other nybble.functions: \code{\link{nybbleToSignedInt}},
-  \code{\link{nybble}}
+Other nybble.functions: 
+\code{\link{nybbleToSignedInt}()},
+\code{\link{nybble}()}
 
-Other raw.operations: \code{\link{as.raw}},
-  \code{\link{nybbleToSignedInt}}, \code{\link{nybble}},
-  \code{\link{rawToCharNull}}, \code{\link{rawToPTModule}},
-  \code{\link{rawToSignedInt}},
-  \code{\link{rawToUnsignedInt}},
-  \code{\link{signedIntToRaw}},
-  \code{\link{unsignedIntToRaw}}
+Other raw.operations: 
+\code{\link{as.raw}()},
+\code{\link{nybbleToSignedInt}()},
+\code{\link{nybble}()},
+\code{\link{rawToCharNull}()},
+\code{\link{rawToPTModule}()},
+\code{\link{rawToSignedInt}()},
+\code{\link{rawToUnsignedInt}()},
+\code{\link{signedIntToRaw}()},
+\code{\link{unsignedIntToRaw}()}
 
-Other integer.operations: \code{\link{nybbleToSignedInt}},
-  \code{\link{nybble}}, \code{\link{rawToSignedInt}},
-  \code{\link{rawToUnsignedInt}},
-  \code{\link{signedIntToRaw}},
-  \code{\link{unsignedIntToRaw}}, \code{\link{waveform}}
+Other integer.operations: 
+\code{\link{nybbleToSignedInt}()},
+\code{\link{nybble}()},
+\code{\link{rawToSignedInt}()},
+\code{\link{rawToUnsignedInt}()},
+\code{\link{signedIntToRaw}()},
+\code{\link{unsignedIntToRaw}()},
+\code{\link{waveform}()}
 }
 \author{
 Pepijn de Vries
 }
+\concept{integer.operations}
+\concept{nybble.functions}
+\concept{raw.operations}

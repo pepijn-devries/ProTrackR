@@ -40,7 +40,7 @@ rawToCharNull <- function(raw_dat) {
       result <- result[result != raw(1)]
     }
     try(result <- rawToChar(result), silent = T)
-    if (class(result) == "raw") result <- ""
+    if ("raw" %in% class(result)) result <- ""
   }
   return(result)
 }
@@ -73,7 +73,7 @@ rawToCharNull <- function(raw_dat) {
 rawToUnsignedInt <-
   function(raw_dat)
   {
-    if (class(raw_dat) != "raw") stop ("This function requires raw data as input")
+    if (!("raw" %in% class(raw_dat))) stop ("This function requires raw data as input")
     result <- as.integer(raw_dat)
     return(as.integer(sum(result*(256^((length(result):1) - 1)))))
   }
@@ -193,7 +193,7 @@ rawToSignedInt <-
   function(raw_dat)
     ## function that converts raw data into a signed (short) integers
   {
-    if (class(raw_dat) != "raw") stop("Argument 'raw_dat' is not of class 'raw'")
+    if (!("raw" %in% class(raw_dat))) stop("Argument 'raw_dat' is not of class 'raw'")
     result <- as.integer(raw_dat)
     result[result > 127] <- result[result > 127] - 256
     return(as.integer(result))
@@ -422,7 +422,7 @@ loNybble <-
   function(raw_dat)
     ## function that gets the value [0,16] of the 4 low bits of a raw byte
   {
-    if (class(raw_dat) != "raw") stop ("Only raw data is accepted as input")
+    if (!("raw" %in% class(raw_dat))) stop ("Only raw data is accepted as input")
     return(as.integer(raw_dat)%%16)
   }
 
@@ -432,7 +432,7 @@ hiNybble <-
   function(raw_dat)
     ## function that gets the value [0,16] of the 4 high bits of a raw byte
   {
-    if (class(raw_dat) != "raw") stop ("Only raw data is accepted as input")
+    if (!("raw" %in% class(raw_dat))) stop ("Only raw data is accepted as input")
     return(as.integer(as.integer(raw_dat)/16))
   }
 
@@ -560,7 +560,7 @@ proTrackerVibrato <- function(x)
     ## based on following specs:
     ## http://amigadev.elowar.com/read/ADCD_2.1/Devices_Manual_guide/node02D6.html
   {
-    if (class(raw_data) != "raw") stop ("Only raw data is accepted as input")
+    if (!("raw" %in% class(raw_data))) stop ("Only raw data is accepted as input")
     fibonacci <- c(-34, -21, -13, -8, -5, -3, -2, -1, 0, 1, 2, 3, 5, 8, 13, 21)
     result    <- as.raw(rep(0, 2*length(raw_data) - 2))
     result[1] <- raw_data[2]

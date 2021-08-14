@@ -56,16 +56,22 @@ PTPatternToMODPlug(block)
 }
 }
 \seealso{
-Other MODPlug.operations: \code{\link{MODPlugToPTPattern}}
+Other MODPlug.operations: 
+\code{\link{MODPlugToPTPattern}()}
 
-Other pattern.operations: \code{\link{MODPlugToPTPattern}},
-  \code{\link{PTPattern-class}},
-  \code{\link{PTPattern-method}},
-  \code{\link{appendPattern}}, \code{\link{deletePattern}},
-  \code{\link{pasteBlock}}, \code{\link{patternLength}},
-  \code{\link{patternOrderLength}},
-  \code{\link{patternOrder}}
+Other pattern.operations: 
+\code{\link{MODPlugToPTPattern}()},
+\code{\link{PTPattern-class}},
+\code{\link{PTPattern-method}},
+\code{\link{appendPattern}()},
+\code{\link{deletePattern}()},
+\code{\link{pasteBlock}()},
+\code{\link{patternLength}()},
+\code{\link{patternOrderLength}()},
+\code{\link{patternOrder}()}
 }
 \author{
 Pepijn de Vries
 }
+\concept{MODPlug.operations}
+\concept{pattern.operations}

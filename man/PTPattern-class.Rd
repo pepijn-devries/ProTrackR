@@ -47,14 +47,18 @@ in the \code{\link{PTCell}} documentation.}
 }}
 
 \seealso{
-Other pattern.operations: \code{\link{MODPlugToPTPattern}},
-  \code{\link{PTPattern-method}},
-  \code{\link{PTPatternToMODPlug}},
-  \code{\link{appendPattern}}, \code{\link{deletePattern}},
-  \code{\link{pasteBlock}}, \code{\link{patternLength}},
-  \code{\link{patternOrderLength}},
-  \code{\link{patternOrder}}
+Other pattern.operations: 
+\code{\link{MODPlugToPTPattern}()},
+\code{\link{PTPattern-method}},
+\code{\link{PTPatternToMODPlug}()},
+\code{\link{appendPattern}()},
+\code{\link{deletePattern}()},
+\code{\link{pasteBlock}()},
+\code{\link{patternLength}()},
+\code{\link{patternOrderLength}()},
+\code{\link{patternOrder}()}
 }
 \author{
 Pepijn de Vries
 }
+\concept{pattern.operations}

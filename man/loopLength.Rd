@@ -59,17 +59,28 @@ loopLength(PTSample(mod.intro, 1)) <- FALSE
 
 }
 \seealso{
-Other loop.methods: \code{\link{loopSample}},
-  \code{\link{loopStart}}, \code{\link{loopState}}
+Other loop.methods: 
+\code{\link{loopSample}()},
+\code{\link{loopStart}()},
+\code{\link{loopState}()}
 
-Other sample.operations: \code{\link{PTSample-class}},
-  \code{\link{PTSample-method}}, \code{\link{fineTune}},
-  \code{\link{loopSample}}, \code{\link{loopStart}},
-  \code{\link{loopState}}, \code{\link{name}},
-  \code{\link{playSample}}, \code{\link{read.sample}},
-  \code{\link{sampleLength}}, \code{\link{volume}},
-  \code{\link{waveform}}, \code{\link{write.sample}}
+Other sample.operations: 
+\code{\link{PTSample-class}},
+\code{\link{PTSample-method}},
+\code{\link{fineTune}()},
+\code{\link{loopSample}()},
+\code{\link{loopStart}()},
+\code{\link{loopState}()},
+\code{\link{name}},
+\code{\link{playSample}()},
+\code{\link{read.sample}()},
+\code{\link{sampleLength}()},
+\code{\link{volume}()},
+\code{\link{waveform}()},
+\code{\link{write.sample}()}
 }
 \author{
 Pepijn de Vries
 }
+\concept{loop.methods}
+\concept{sample.operations}

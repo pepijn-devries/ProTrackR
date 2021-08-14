@@ -35,19 +35,25 @@ rawToCharNull(some.raw.data)
 
 }
 \seealso{
-Other raw.operations: \code{\link{as.raw}},
-  \code{\link{nybbleToSignedInt}}, \code{\link{nybble}},
-  \code{\link{rawToPTModule}},
-  \code{\link{rawToSignedInt}},
-  \code{\link{rawToUnsignedInt}},
-  \code{\link{signedIntToNybble}},
-  \code{\link{signedIntToRaw}},
-  \code{\link{unsignedIntToRaw}}
+Other raw.operations: 
+\code{\link{as.raw}()},
+\code{\link{nybbleToSignedInt}()},
+\code{\link{nybble}()},
+\code{\link{rawToPTModule}()},
+\code{\link{rawToSignedInt}()},
+\code{\link{rawToUnsignedInt}()},
+\code{\link{signedIntToNybble}()},
+\code{\link{signedIntToRaw}()},
+\code{\link{unsignedIntToRaw}()}
 
-Other character.operations: \code{\link{as.character}},
-  \code{\link{name}}, \code{\link{periodToChar}},
-  \code{\link{sampleRate}}
+Other character.operations: 
+\code{\link{as.character}()},
+\code{\link{name}},
+\code{\link{periodToChar}()},
+\code{\link{sampleRate}}
 }
 \author{
 Pepijn de Vries
 }
+\concept{character.operations}
+\concept{raw.operations}

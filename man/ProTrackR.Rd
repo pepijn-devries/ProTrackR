@@ -4,7 +4,6 @@
 \name{ProTrackR}
 \alias{ProTrackR}
 \alias{EffectCommands}
-\alias{ProTrackR-package}
 \title{Manipulate and play ProTracker Modules. A description of the package,
 ProTracker effect commands and test cases.}
 \description{

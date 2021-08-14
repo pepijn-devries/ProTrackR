@@ -48,14 +48,22 @@ volume(PTSample(mod.intro, 1)) <- 0x20
 
 }
 \seealso{
-Other sample.operations: \code{\link{PTSample-class}},
-  \code{\link{PTSample-method}}, \code{\link{fineTune}},
-  \code{\link{loopLength}}, \code{\link{loopSample}},
-  \code{\link{loopStart}}, \code{\link{loopState}},
-  \code{\link{name}}, \code{\link{playSample}},
-  \code{\link{read.sample}}, \code{\link{sampleLength}},
-  \code{\link{waveform}}, \code{\link{write.sample}}
+Other sample.operations: 
+\code{\link{PTSample-class}},
+\code{\link{PTSample-method}},
+\code{\link{fineTune}()},
+\code{\link{loopLength}()},
+\code{\link{loopSample}()},
+\code{\link{loopStart}()},
+\code{\link{loopState}()},
+\code{\link{name}},
+\code{\link{playSample}()},
+\code{\link{read.sample}()},
+\code{\link{sampleLength}()},
+\code{\link{waveform}()},
+\code{\link{write.sample}()}
 }
 \author{
 Pepijn de Vries
 }
+\concept{sample.operations}

@@ -21,13 +21,11 @@
 
 \S4method{PTCell}{PTModule,numeric,numeric,numeric}(x, row, track, pattern)
 
-\S4method{PTCell}{PTModule,numeric,numeric,numeric,PTCell}(x, row, track,
-  pattern) <- value
+\S4method{PTCell}{PTModule,numeric,numeric,numeric,PTCell}(x, row, track, pattern) <- value
 
 \S4method{PTCell}{PTPattern,numeric,numeric,missing}(x, row, track)
 
-\S4method{PTCell}{PTPattern,numeric,numeric,missing,PTCell}(x, row,
-  track) <- value
+\S4method{PTCell}{PTPattern,numeric,numeric,missing,PTCell}(x, row, track) <- value
 
 \S4method{PTCell}{PTTrack,numeric,missing,missing}(x, row)
 
@@ -112,10 +110,13 @@ PTCell(mod.intro, 3, 2, 1) <- cell
 
 }
 \seealso{
-Other cell.operations: \code{\link{PTCell-class}},
-  \code{\link{effect}}, \code{\link{note}},
-  \code{\link{sampleNumber}}
+Other cell.operations: 
+\code{\link{PTCell-class}},
+\code{\link{effect}()},
+\code{\link{note}()},
+\code{\link{sampleNumber}()}
 }
 \author{
 Pepijn de Vries
 }
+\concept{cell.operations}

@@ -1,3 +1,12 @@
+ProTrackR v0.3.7 (Release date: 2020-02-03)
+=============
+
+ * Fixes to modArchive functions, due to changes to their API
+
+ * Fix in structure and examples to pass CRAN tests.
+
+ * Fix in validation functions in order to support changes in latest version of R
+
 ProTrackR v0.3.6 (Release date: 2019-02-06)
 =============
 
@@ -29,7 +38,7 @@ ProTrackR v0.3.6 (Release date: 2019-02-06)
    to achieve the inverse.
 
  * Endianess should have been set to "big" instead of "little" (whoops),
-   luckily, this has no consequences as all data is read as raw data. I
+   luckily, this has no consequences as all data are read as raw data. I
    have corrected the code nonetheless
 
  * Minor corrections to manual

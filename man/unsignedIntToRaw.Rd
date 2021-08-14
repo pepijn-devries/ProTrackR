@@ -40,20 +40,28 @@ unsignedIntToRaw(some.raw.data, length.out = 1)
 
 }
 \seealso{
-Other raw.operations: \code{\link{as.raw}},
-  \code{\link{nybbleToSignedInt}}, \code{\link{nybble}},
-  \code{\link{rawToCharNull}}, \code{\link{rawToPTModule}},
-  \code{\link{rawToSignedInt}},
-  \code{\link{rawToUnsignedInt}},
-  \code{\link{signedIntToNybble}},
-  \code{\link{signedIntToRaw}}
+Other raw.operations: 
+\code{\link{as.raw}()},
+\code{\link{nybbleToSignedInt}()},
+\code{\link{nybble}()},
+\code{\link{rawToCharNull}()},
+\code{\link{rawToPTModule}()},
+\code{\link{rawToSignedInt}()},
+\code{\link{rawToUnsignedInt}()},
+\code{\link{signedIntToNybble}()},
+\code{\link{signedIntToRaw}()}
 
-Other integer.operations: \code{\link{nybbleToSignedInt}},
-  \code{\link{nybble}}, \code{\link{rawToSignedInt}},
-  \code{\link{rawToUnsignedInt}},
-  \code{\link{signedIntToNybble}},
-  \code{\link{signedIntToRaw}}, \code{\link{waveform}}
+Other integer.operations: 
+\code{\link{nybbleToSignedInt}()},
+\code{\link{nybble}()},
+\code{\link{rawToSignedInt}()},
+\code{\link{rawToUnsignedInt}()},
+\code{\link{signedIntToNybble}()},
+\code{\link{signedIntToRaw}()},
+\code{\link{waveform}()}
 }
 \author{
 Pepijn de Vries
 }
+\concept{integer.operations}
+\concept{raw.operations}

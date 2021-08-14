@@ -76,10 +76,13 @@ as.raw(cell)
 as.character(cell)
 }
 \seealso{
-Other cell.operations: \code{\link{PTCell-method}},
-  \code{\link{effect}}, \code{\link{note}},
-  \code{\link{sampleNumber}}
+Other cell.operations: 
+\code{\link{PTCell-method}},
+\code{\link{effect}()},
+\code{\link{note}()},
+\code{\link{sampleNumber}()}
 }
 \author{
 Pepijn de Vries
 }
+\concept{cell.operations}

@@ -1,7 +1,7 @@
 .validity.PTBlock <- function(object){
-  if (class(object) != "matrix") stop("Not a valid PTBlock")
+  if (!("matrix" %in% class(object))) stop("Not a valid PTBlock")
   if (typeof(object) != "list") stop("Not a valid PTBlock")
-  if (any(unlist(lapply(object, class)) != "PTCell")) stop("Not a valid PTBlock")
+  if (any(unlist(lapply(object, function(x) !("PTCell" %in% class(x)))))) stop("Not a valid PTBlock")
   if (any(unlist(lapply(object, length)) != 1)) stop("Not a valid PTBlock")
   if (any(!unlist(lapply(object, validObject)))) stop("Not a valid PTBlock")
   return(T)

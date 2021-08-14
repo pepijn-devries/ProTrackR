@@ -116,16 +116,22 @@ blk <- MODPlugToPTPattern(modPlugPattern[1:10], "PTBlock")
 }
 }
 \seealso{
-Other MODPlug.operations: \code{\link{PTPatternToMODPlug}}
+Other MODPlug.operations: 
+\code{\link{PTPatternToMODPlug}()}
 
-Other pattern.operations: \code{\link{PTPattern-class}},
-  \code{\link{PTPattern-method}},
-  \code{\link{PTPatternToMODPlug}},
-  \code{\link{appendPattern}}, \code{\link{deletePattern}},
-  \code{\link{pasteBlock}}, \code{\link{patternLength}},
-  \code{\link{patternOrderLength}},
-  \code{\link{patternOrder}}
+Other pattern.operations: 
+\code{\link{PTPattern-class}},
+\code{\link{PTPattern-method}},
+\code{\link{PTPatternToMODPlug}()},
+\code{\link{appendPattern}()},
+\code{\link{deletePattern}()},
+\code{\link{pasteBlock}()},
+\code{\link{patternLength}()},
+\code{\link{patternOrderLength}()},
+\code{\link{patternOrder}()}
 }
 \author{
 Pepijn de Vries
 }
+\concept{MODPlug.operations}
+\concept{pattern.operations}
