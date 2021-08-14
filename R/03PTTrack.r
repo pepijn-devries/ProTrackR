@@ -31,8 +31,8 @@ validity.PTTrack <- function(object)
 #'
 #' The Commodore Amiga original chipset supported four audio channels. Meaning
 #' that audio could be played simultaneously and independently on each of these
-#' channels. Two channels (2 and 3) were hardware-mixed fully to the left stereo
-#' outputs and the other two (1 and 4) fully to the right stereo outputs.
+#' channels. Two channels (2 and 3) were hardware-mixed fully to the right stereo
+#' outputs and the other two (1 and 4) fully to the left stereo outputs.
 #'
 #' This class represents such a single channel, reffered to as a track. A \code{\link{PTPattern}} is
 #' composed of four such channels. As a ProTracker pattern consists of 64 rows,

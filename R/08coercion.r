@@ -489,8 +489,8 @@ setMethod("PTSample", c("Wave", "missing"), function(x){
     warning("Wave object x is too long. Object length will be clipped to maximum length.")
     temp <- as.matrix(temp[1:(2*0xffff),])
   }
-  delta <- integer(1)
-  if(any(temp < 0)) delta <- as.integer(128)
+  delta <- 0L
+  if(any(temp < 0)) delta <- 128L
   # length of a sample should be even:
   if ((nrow(temp) %% 2) == 1)
   {

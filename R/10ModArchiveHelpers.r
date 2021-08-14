@@ -200,7 +200,7 @@ htmlcodes <- rbind(htmlcodes, data.frame(
 
 #' ModArchive helper functions
 #'
-#' \url{http://ModArchive.org} is the largest online archive of module files. These functions
+#' \url{http://ModArchive.org} is on of the largest online archive of module files. These functions
 #' will assist in accessing this archive.
 #'
 #' The \code{modArchive.info} function will retrieve info on a specific module from the
@@ -227,7 +227,7 @@ htmlcodes <- rbind(htmlcodes, data.frame(
 #'
 #' @section ModArchive API key:
 #' Since ProTrackR 0.3.4, the ModArchive helper functions have changed. In earlier
-#' version, a lable html scraper was used, in 0.3.4 and later, this is replaced by
+#' version, a labile html scraper was used, in 0.3.4 and later, this is replaced by
 #' functions that more robustly use the Application Programming Interface (API)
 #' provided by ModArchive. There are some downsides to this new approach: a
 #' personal API key needs to be obtained from the ModArchive team; and the
@@ -249,6 +249,8 @@ htmlcodes <- rbind(htmlcodes, data.frame(
 #' on the forum. For more info, see also the \href{http://modarchive.org/?xml-api}{API
 #' page} on ModArchive.
 #'
+#' If you want to search for module files without an API key, one could make use of
+#' to the \link{modLand} collection instead.
 #' @param mod.id An \code{integer} code used as module identifier in the ModArchive database.
 #' A \code{mod.id} can be obtained by performing a search with \code{modArchive.search.mod}.
 #' When downloading a module, make sure that the identifier represents a MOD file, as

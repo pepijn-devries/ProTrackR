@@ -8,7 +8,7 @@
 \usage{
 \S4method{modToWave}{PTModule}(mod, video = c("PAL", "NTSC"),
   target.rate = 44100, target.bit = 16, stereo.separation = 1,
-  low.pass.filter = TRUE, tracks = 1:4, ...)
+  low.pass.filter = TRUE, tracks = 1:4, mix = TRUE, ...)
 }
 \arguments{
 \item{mod}{An object of class \code{\link{PTModule}}}
@@ -51,11 +51,18 @@ this typical Amiga sound, turn the filters off to save processing time.}
 which of the 4 \code{\link{PTTrack}}s are to be converted. By default
 all 4 tracks are selected.}
 
+\item{mix}{A logical value indicating whether the 4 Amiga channels should
+be mixed to the 2 (stereo) output channels. When set to \code{TRUE} (default) a stereo
+\code{\link[tuneR]{Wave}} object is returned. When set to \code{FALSE} a
+multi-channel \code{\link[tuneR]{WaveMC}} object is returned. The
+\code{stereo.separation} argument is ignored in the latter case.}
+
 \item{...}{Additional arguments that are passed to \code{\link{playingtable}}.}
 }
 \value{
 A \code{\link[tuneR]{Wave}} object, generated from the
-\code{mod} object is returned.
+\code{mod} object is returned. A \code{\link[tuneR]{WaveMC}} object is returned when
+the \code{mix} argument is set to \code{FALSE}.
 }
 \description{
 Converts a \code{\link{PTModule}} object into a \code{\link[tuneR]{Wave}}
@@ -121,8 +128,9 @@ Other module.operations: \code{\link{PTModule-class}},
   \code{\link{patternLength}},
   \code{\link{patternOrderLength}},
   \code{\link{patternOrder}}, \code{\link{playMod}},
-  \code{\link{playingtable}}, \code{\link{read.module}},
-  \code{\link{trackerFlag}}, \code{\link{write.module}}
+  \code{\link{playingtable}}, \code{\link{rawToPTModule}},
+  \code{\link{read.module}}, \code{\link{trackerFlag}},
+  \code{\link{write.module}}
 }
 \author{
 Pepijn de Vries

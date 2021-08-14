@@ -35,7 +35,7 @@ as.integer(some.raw.data)
 \seealso{
 Other raw.operations: \code{\link{as.raw}},
   \code{\link{nybbleToSignedInt}}, \code{\link{nybble}},
-  \code{\link{rawToCharNull}},
+  \code{\link{rawToCharNull}}, \code{\link{rawToPTModule}},
   \code{\link{rawToSignedInt}},
   \code{\link{signedIntToNybble}},
   \code{\link{signedIntToRaw}},

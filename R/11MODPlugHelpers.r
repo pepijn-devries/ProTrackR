@@ -25,7 +25,7 @@
 #' @examples
 #' \dontrun{
 #' ## This is what Mod Plug Pattern data looks like on
-#' ## the systems clipboard:
+#' ## the system's clipboard:
 #' modPlugPattern <- c("ModPlug Tracker MOD",
 #'                     "|C-601...A08|C-602...C40|A#403...F06|A#504......",
 #'                     "|...01...A08|C-602...C30|........A01|........A02",
@@ -108,8 +108,8 @@
 #' @family MODPlug.operations
 #' @family pattern.operations
 #' @export
-MODPlugToPTPattern <- function(text = NULL, what = "PTPattern") {
-  what <- match.arg(what, c("PTPattern", "PTBlock"))
+MODPlugToPTPattern <- function(text = NULL, what = c("PTPattern", "PTBlock")) {
+  what <- match.arg(what)
   if (is.null(text)) {
     text <- readLines("clipboard")
   } else {

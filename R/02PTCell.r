@@ -99,7 +99,8 @@ setClass("PTCell",
 #'
 #' Information of \code{\link{PTCell}}, \code{\link{PTTrack}} and
 #' \code{\link{PTPattern}} objects are stored as \code{raw} values. This
-#' method can be used to extract and replace this raw data.
+#' method can be used to extract and replace this raw data. \code{\link{PTModule}}
+#' objects can also be converted to raw data but not replaced by it.
 #'
 #' A \code{\link{PTCell}} is an element of a \code{\link{PTTrack}} which
 #' in turn is an element of a \code{\link{PTPattern}}. A \code{\link{PTPattern}}
@@ -113,6 +114,10 @@ setClass("PTCell",
 #' (see documentation of each of these classes for more details). This method
 #' can be used to extract and replace raw data.
 #'
+#' The \code{PTModule} object has a more complex structure but can also be converted
+#' into raw data (the way it would be stored in a ProTracker module file). However,
+#' this object cannot be replaced by raw data.
+#'
 #' @docType methods
 #' @rdname as.raw
 #' @name as.raw
@@ -121,7 +126,8 @@ setClass("PTCell",
 #' @aliases as.raw,PTPattern-method
 #' @param x A \code{\link{PTCell}}, \code{\link{PTTrack}} or
 #' \code{\link{PTPattern}} object, for which the raw data needs to extracted
-#' or replaced.
+#' or replaced. A \code{\link{PTModule}} object is also allowed, but this
+#' object cannot be replaced.
 #' @param value \code{raw} data with which the \code{raw} data in object
 #' \code{x} needs to be replaced.
 #'
@@ -139,6 +145,9 @@ setClass("PTCell",
 #' @return For \code{as.raw}, a length 4 vector, 64 by 4 matrix or a 64 by 16
 #' matrix of \code{raw} data is returned, when x is of class \code{PTCell},
 #' \code{PTTrack} or \code{PTPattern}, respectively.
+#'
+#' If \code{x} is a \code{PTModule} object, the \code{raw} data returned will
+#' have the same format as the ProTracker file format.
 #'
 #' For \code{as.raw<-}, a copy of object \code{x} is returned in which the
 #' \code{raw} data is replaced by \code{value}.

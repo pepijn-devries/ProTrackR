@@ -567,7 +567,8 @@ setGeneric("read.sample", function(filename, what = c("wav", "mp3", "8svx", "raw
 #' \code{\link[tuneR]{readMP3}} methods from \code{\link[tuneR]{tuneR}}. It also
 #' provides the means to import audio from file formats native to the Commodore
 #' Amiga. Simple \href{https://en.wikipedia.org/wiki/8SVX}{8svx} files (also known
-#' as "iff" files) can be read, it has not yet been tested with more complex 8svx files.
+#' as "iff" files) can be read. This uses the \code{\link[AmigaFFH]{read.iff}} method
+#' from the \code{\link[AmigaFFH]{AmigaFFH}} package.
 #' It was also common practice to store audio samples as raw data on the
 #' Commodore Amiga, where each byte simply represented a signed integer value
 #' of the waveform.
@@ -580,7 +581,8 @@ setGeneric("read.sample", function(filename, what = c("wav", "mp3", "8svx", "raw
 #' @param filename A \code{character} string representing the filename to be read.
 #' @param what A \code{character} string indicating what type of file is to be
 #' read. Can be one of the following: "\code{wav}" (default), "\code{mp3}",
-#' "\code{8svx}" or "\code{raw}".
+#' "\code{8svx}" or "\code{raw}". The \code{AmigaFFH} package needs to be
+#' installed in order to read 8svx files.
 #' @return Returns a \code{PTSample} object based on the file read.
 #' @examples
 #' \dontrun{
@@ -623,7 +625,7 @@ setMethod("read.sample", c("character", "ANY"), function(filename, what = c("wav
     repeat
     {
       l1 <- length(result)
-      result <- c(result, readBin(con, "raw", 1024, endian = "little"))
+      result <- c(result, readBin(con, "raw", 1024, endian = "big"))
       l2 <- length(result)
       if ((l2 - l1) < 1024 || length(result) > 2*0xffff) break
     }
@@ -639,75 +641,20 @@ setMethod("read.sample", c("character", "ANY"), function(filename, what = c("wav
     }
     return(result)
   }
-  VHDR_samp_rate       <- noteToSampleRate()
   if (match.arg(what) == "8svx")
   {
-    # read Amiga IFF 8SVX (or raw) audio sample from file connection
-    # and return as raw data
-    # function based on file format specs provided here:
-    # http://www.fileformat.info/format/iff/corion.htm
-    # http://wiki.amigaos.net/wiki/8SVX_IFF_8-Bit_Sampled_Voice
-    con <- file(filename, "rb")
-
-    VHDR_compress        <- 0
-    BODY_data            <- NULL
-
-    FORM_id_char         <- readBin(con, "raw", 4, endian = "little")
-    if (!all(FORM_id_char == charToRaw("FORM")))
-    {
-      warning ("Not an IFF file! Attempting to read as raw file")
-      # reset connection to start of file:
-      seek(con, 0)
-      # keep reading chunks of 1 Kb of raw data untill end of file is reached
-      BODY_data <- readRaw(con)
-    } else
-    {
-      FORM_size_remainder  <- rawToUnsignedInt(readBin(con, "raw", 4, endian = "little"))
-      FORM_file_type       <- readBin(con, "raw", 4, endian = "little")
-      if (!all(FORM_file_type == charToRaw("8SVX"))) stop ("File appears to be an iff but not an 8SVX file!")
-      repeat
-      {
-        CHUNK_id_char      <- readBin(con, "raw", 4, endian = "little")
-        CHUNK_size         <- rawToUnsignedInt(readBin(con, "raw", 4, endian = "little"))
-        if (all(CHUNK_id_char == charToRaw("BODY")))
-        {
-          BODY_data        <- readBin(con, "raw", CHUNK_size, endian = "little")
-          break
-        } else if (all(CHUNK_id_char == charToRaw("VHDR")))
-        {
-          VHDR_samp_high <- rawToUnsignedInt(readBin(con, "raw", 4, endian = "little"))
-          VHDR_samp_low  <- rawToUnsignedInt(readBin(con, "raw", 4, endian = "little"))
-          VHDR_samp_cyc  <- rawToUnsignedInt(readBin(con, "raw", 4, endian = "little"))
-          VHDR_samp_rate <- rawToUnsignedInt(readBin(con, "raw", 2, endian = "little"))
-          VHDR_num_oct   <- rawToUnsignedInt(readBin(con, "raw", 1, endian = "little"))
-          VHDR_compress  <- rawToUnsignedInt(readBin(con, "raw", 1, endian = "little"))
-
-          ############################################################
-          # only delta-Fibonacci compression is currently supported
-          ############################################################
-
-          if (VHDR_compress > 1) stop("The compression type is currently not supported")
-          if (VHDR_compress == 1) warning("Sample is compressed with a delta-Fibonacci algorithm. Decompression is implemented but not fully tested in this version of ProTrackR.")
-          VHDR_volume    <- rawToUnsignedInt(readBin(con, "raw", 4, endian = "little"))
-        } else if (all(CHUNK_id_char == charToRaw("NAME")))
-        {
-          samp_name <- rawToCharNull(readBin(con, "raw", CHUNK_size, endian = "little"))
-        } else
-        {
-          # non relevant chunk, put in trashcan
-          trashcan       <- readBin(con, "raw", CHUNK_size, endian = "little")
-          rm(trashcan)
-        }
-      }
-    }
-    if (is.null(BODY_data)) stop("File BODY data is missing!")
-    if (VHDR_compress == 1) BODY_data <- .unpackFibonacciDelta(BODY_data)
-    close(con)
-    result <- new("PTSample",
-                  left = as.integer(rawToSignedInt(BODY_data) + 128),
-                  samp.rate = VHDR_samp_rate,
-                  wlooplen = as.raw(0:1))
-    name(result) <- samp_name
+    if (!("AmigaFFH" %in% utils::installed.packages())) stop("You need to install package 'AmigaFFH' in order to load 8svx files.")
+    result <- AmigaFFH::read.iff(filename)
+    samp.name <- raw(22)
+    try(samp.name <- AmigaFFH::getIFFChunk(result, c("8SVX", "NAME"))@chunk.data[[1]], silent = T)
+    samp.name <- samp.name[1:22]
+    samp.name[is.na(samp.name)] <- raw(1)
+    result <- AmigaFFH::interpretIFFChunk(result)[[1]]
+    if (!("IFF.8SVX" %in% class(result))) stop("Not an 8SVX IFF file!")
+    ## XXX maybe it is possible to preserve loop-information from the 8SVX file
+    ## in future versions
+    result <- PTSample(result[[1]])
+    result@name <- samp.name
     return (result)
   }
   if (match.arg(what) == "raw")
@@ -717,7 +664,7 @@ setMethod("read.sample", c("character", "ANY"), function(filename, what = c("wav
     close(con)
     result <- new("PTSample",
                   left = as.integer(rawToSignedInt(BODY_data) + 128),
-                  samp.rate = VHDR_samp_rate,
+                  samp.rate = noteToSampleRate(),
                   wlooplen = as.raw(0:1))
     name(result) <- samp_name
     return (result)
@@ -746,7 +693,8 @@ setGeneric("write.sample", function(sample, filename, what = c("wav", "8svx", "r
 #' the audio needs to be saved.
 #' @param what A \code{character} string indicating what type of file is to be
 #' exported. Can be one of the following: "\code{wav}" (default),
-#' "\code{8svx}" or "\code{raw}".
+#' "\code{8svx}" or "\code{raw}". The \code{AmigaFFH} package needs to be
+#' installed in order to write 8svx files.
 #' @return Saves the audio to a file, but returns nothing.
 #' @examples
 #' \dontrun{
@@ -773,38 +721,15 @@ setMethod("write.sample", c("PTSample", "character", "ANY"), function(sample, fi
   }
   if (match.arg(what) == "8svx")
   {
-    con <- file(filename, "wb")
-    writeBin(charToRaw("FORM"), con)
-    #hier moet de bestandsgrootte minus 8 byte (104 is grootte header):
-    writeBin(unsignedIntToRaw(length(sample@left) + 104 - 8, 4), con)
-    writeBin(charToRaw("8SVX"), con)
-    writeBin(charToRaw("VHDR"), con)
-    # VHDR size
-    writeBin(unsignedIntToRaw(20, 4), con)
-    # VHDR samp high
-    writeBin(unsignedIntToRaw(length(sample@left), 4), con)
-    # VHDR samp low
-    writeBin(unsignedIntToRaw(0, 4), con)
-    # VHDR samp cyc
-    writeBin(unsignedIntToRaw(32, 4), con)
-    # VHDR samp rate
-    writeBin(unsignedIntToRaw(sample@samp.rate, 2), con)
-    # VHDR samp oct
-    writeBin(unsignedIntToRaw(1, 1), con)
-    # VHDR samp compress
-    writeBin(unsignedIntToRaw(0, 1), con)
-    # VHDR samp volume
-    writeBin(unsignedIntToRaw(0x0000ffff, 4), con)
-    writeBin(charToRaw("ANNO"), con)
-    writeBin(unsignedIntToRaw(20, 4), con)
-    writeBin(c(charToRaw("ProTrackR"), raw(11)), con)
-    writeBin(charToRaw("NAME"), con)
-    writeBin(unsignedIntToRaw(20, 4), con)
-    writeBin(sample@name[1:20], con)
-    writeBin(charToRaw("BODY"), con)
-    writeBin(unsignedIntToRaw(length(sample@left), 4), con)
-    writeBin(signedIntToRaw(sample@left - 128), con)
-    close(con)
+    if (!("AmigaFFH" %in% utils::installed.packages())) stop("You need to install package 'AmigaFFH' in order to write 8svx files.")
+    out <- AmigaFFH::WaveToIFF(sample)
+    out@chunk.data[[1]]@chunk.data <- c(
+      out@chunk.data[[1]]@chunk.data[1:2],
+      methods::new("IFFChunk", chunk.type = "ANNO", chunk.data = list(charToRaw("ProTrackR"))),
+      methods::new("IFFChunk", chunk.type = "NAME", chunk.data = list(sample@name)),
+      out@chunk.data[[1]]@chunk.data[3]
+    )
+    AmigaFFH::write.iff(out, filename)
   }
   if (match.arg(what) == "raw")
   {
@@ -1078,7 +1003,7 @@ setGeneric("loopSample", function(sample, times, n_samples) standardGeneric("loo
 #' @aliases loopSample,PTSample-method
 #' @param sample A \code{\link{PTSample}} object that needs to be looped.
 #' @param times A positive \code{integer} value indicating the number of
-#' times a sample loop should be repeated. This argument is ignore if
+#' times a sample loop should be repeated. This argument is ignored if
 #' \code{n_samples} is specified.
 #' @param n_samples A positive \code{integer} value indicating the desired length
 #' of the looped waveform in number of samples. This argument overrules the

@@ -1,3 +1,39 @@
+ProTrackR v0.3.6 (Release date: 2019-02-06)
+=============
+
+ * Added modLand helper functions.
+
+ * Reading and writing 8svx samples with read.sample and write.sample
+   is now implemented using the AmigaFFH package, which has a more
+   robust implementation of Interchange File Format handlers.
+
+ * Added a 'mix' argument to the 'modToWave'-method. When set to FALSE, the
+   method can now return all individual channels (without mixing them).
+
+ * The 'playWave'-method was updated such that it also accepts multi-channel
+   waves (WaveMC), in order to make it compatible with the modification
+   specified above.
+
+ * Available documentation on which of the 4 channels are mixed to the left and
+   right audio output channel respectively is inconsistent. This version will
+   assume that channels 1 and 4 (or 0 and 3 using Amiga indexing) are mixed to
+   the left channel and channels 2 and 3 (or 1 and 2 using Amiga indexing) are
+   mixed to the right channel. This means that the output channels are now swapped
+   compared to earlier versions of this package.
+
+ * There was a bug in the implementation of the 'porta to note'
+   effects (3 and 5), it is now fixed.
+
+ * Added a new implementation of the generic 'as.raw' method, which allows to
+   convert PTModule objects into raw data. Also added a 'rawToPTModule' method
+   to achieve the inverse.
+
+ * Endianess should have been set to "big" instead of "little" (whoops),
+   luckily, this has no consequences as all data is read as raw data. I
+   have corrected the code nonetheless
+
+ * Minor corrections to manual
+
 ProTrackR v0.3.5 (Release date: 2017-10-14)
 =============
 

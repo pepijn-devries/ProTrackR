@@ -49,7 +49,7 @@ Other nybble.functions: \code{\link{nybbleToSignedInt}},
 
 Other raw.operations: \code{\link{as.raw}},
   \code{\link{nybbleToSignedInt}}, \code{\link{nybble}},
-  \code{\link{rawToCharNull}},
+  \code{\link{rawToCharNull}}, \code{\link{rawToPTModule}},
   \code{\link{rawToSignedInt}},
   \code{\link{rawToUnsignedInt}},
   \code{\link{signedIntToRaw}},

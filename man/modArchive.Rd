@@ -175,7 +175,7 @@ that are left for this month, for the provided key.
 provided key.
 }
 \description{
-\url{http://ModArchive.org} is the largest online archive of module files. These functions
+\url{http://ModArchive.org} is on of the largest online archive of module files. These functions
 will assist in accessing this archive.
 }
 \details{
@@ -204,7 +204,7 @@ section for details).
 \section{ModArchive API key}{
 
 Since ProTrackR 0.3.4, the ModArchive helper functions have changed. In earlier
-version, a lable html scraper was used, in 0.3.4 and later, this is replaced by
+version, a labile html scraper was used, in 0.3.4 and later, this is replaced by
 functions that more robustly use the Application Programming Interface (API)
 provided by ModArchive. There are some downsides to this new approach: a
 personal API key needs to be obtained from the ModArchive team; and the
@@ -225,6 +225,9 @@ So how do you get your personal API key? First, you need to register at the
 instructions provided in this \href{https://modarchive.org/forums/index.php?topic=1950.0}{topic}
 on the forum. For more info, see also the \href{http://modarchive.org/?xml-api}{API
 page} on ModArchive.
+
+If you want to search for module files without an API key, one could make use of
+to the \link{modLand} collection instead.
 }
 
 \examples{

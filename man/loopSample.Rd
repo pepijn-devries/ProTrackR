@@ -12,7 +12,7 @@
 \item{sample}{A \code{\link{PTSample}} object that needs to be looped.}
 
 \item{times}{A positive \code{integer} value indicating the number of
-times a sample loop should be repeated. This argument is ignore if
+times a sample loop should be repeated. This argument is ignored if
 \code{n_samples} is specified.}
 
 \item{n_samples}{A positive \code{integer} value indicating the desired length

@@ -14,7 +14,8 @@
 
 \item{what}{A \code{character} string indicating what type of file is to be
 read. Can be one of the following: "\code{wav}" (default), "\code{mp3}",
-"\code{8svx}" or "\code{raw}".}
+"\code{8svx}" or "\code{raw}". The \code{AmigaFFH} package needs to be
+installed in order to read 8svx files.}
 }
 \value{
 Returns a \code{PTSample} object based on the file read.
@@ -28,7 +29,8 @@ This method provides a wrapper for the \code{\link[tuneR]{readWave}} and
 \code{\link[tuneR]{readMP3}} methods from \code{\link[tuneR]{tuneR}}. It also
 provides the means to import audio from file formats native to the Commodore
 Amiga. Simple \href{https://en.wikipedia.org/wiki/8SVX}{8svx} files (also known
-as "iff" files) can be read, it has not yet been tested with more complex 8svx files.
+as "iff" files) can be read. This uses the \code{\link[AmigaFFH]{read.iff}} method
+from the \code{\link[AmigaFFH]{AmigaFFH}} package.
 It was also common practice to store audio samples as raw data on the
 Commodore Amiga, where each byte simply represented a signed integer value
 of the waveform.

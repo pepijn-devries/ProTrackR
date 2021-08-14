@@ -59,8 +59,8 @@ Other module.operations: \code{\link{PTModule-class}},
   \code{\link{moduleSize}}, \code{\link{patternLength}},
   \code{\link{patternOrderLength}},
   \code{\link{patternOrder}}, \code{\link{playMod}},
-  \code{\link{playingtable}}, \code{\link{read.module}},
-  \code{\link{trackerFlag}}
+  \code{\link{playingtable}}, \code{\link{rawToPTModule}},
+  \code{\link{read.module}}, \code{\link{trackerFlag}}
 }
 \author{
 Pepijn de Vries

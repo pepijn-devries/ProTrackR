@@ -18,7 +18,8 @@ the audio needs to be saved.}
 
 \item{what}{A \code{character} string indicating what type of file is to be
 exported. Can be one of the following: "\code{wav}" (default),
-"\code{8svx}" or "\code{raw}".}
+"\code{8svx}" or "\code{raw}". The \code{AmigaFFH} package needs to be
+installed in order to write 8svx files.}
 }
 \value{
 Saves the audio to a file, but returns nothing.

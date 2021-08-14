@@ -37,6 +37,7 @@ rawToCharNull(some.raw.data)
 \seealso{
 Other raw.operations: \code{\link{as.raw}},
   \code{\link{nybbleToSignedInt}}, \code{\link{nybble}},
+  \code{\link{rawToPTModule}},
   \code{\link{rawToSignedInt}},
   \code{\link{rawToUnsignedInt}},
   \code{\link{signedIntToNybble}},

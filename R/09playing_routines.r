@@ -70,12 +70,17 @@ setGeneric("playWave", function(wave, wait = T) standardGeneric("playWave"))
 #' As the \code{\link{tuneR}} package play-function relies on external
 #' players, this method is provided as a convenient approach to play
 #' samples in the R console, using the \code{audio} package. Wave
-#' objects are played at the rate as specified in the object.
+#' objects are played at the rate as specified in the object. Of course
+#' you can also play the \code{Wave} objects with the \code{tuneR} implementation
+#' of \code{\link{tuneR}{play}}, by calling \code{tuneR::play(wave)}.
 #' @rdname playWave
 #' @name playWave
 #' @aliases playWave,Wave-method
-#' @param wave An object of class \code{\link[tuneR]{Wave}}.
-#' @param wait A logical value. When set to \code{TRUE} the playing
+#' @param wave An object of class \code{\link[tuneR]{Wave}} or
+#' \code{\link[tuneR]{WaveMC}}. Note that the playing routine implemented
+#' here can only play stereo waves. Multi-channel waves are therefore
+#' converted to stereo before playing.
+#' @param wait A \code{logical} value. When set to \code{TRUE} the playing
 #' routine will wait with executing any code until the playing is
 #' finished. When set to \code{FALSE}, subsequent R code will be
 #' executed while playing.
@@ -107,6 +112,28 @@ setMethod("playWave", "Wave", function(wave, wait){
   return (result)
 })
 
+#' @rdname playWave
+#' @name playWave
+#' @aliases playWave,WaveMC-method
+#' @export
+setMethod("playWave", "WaveMC", function(wave, wait){
+  ## drop the center channels and mix the left and right channels:
+  if (is.null(colnames(wave@.Data))) colnames(wave@.Data) <- tuneR::MCnames$name[1:ncol(wave@.Data)]
+  wave <- Wave(left  = rowMeans(wave@.Data[,grepl("L", colnames(wave@.Data)), drop = F]),
+               right = rowMeans(wave@.Data[,grepl("R", colnames(wave@.Data)), drop = F]),
+               bit   = wave@bit,
+               samp.rate = wave@samp.rate,
+               pcm   = wave@pcm)
+  if (all(is.nan(wave@left))) {
+    wave@left  <- wave@right
+    wave@right <- numeric(0)
+  }
+  if (all(is.nan(wave@right))) {
+    wave@right <- numeric(0)
+  }
+  playWave(wave, wait)
+})
+
 setGeneric("modToWave",
            function(mod,
                     video             = c("PAL", "NTSC"),
@@ -115,6 +142,7 @@ setGeneric("modToWave",
                     stereo.separation = 1,
                     low.pass.filter   = TRUE,
                     tracks            = 1:4,
+                    mix               = TRUE,
                     ...){
              standardGeneric("modToWave")
            })
@@ -202,9 +230,15 @@ setGeneric("modToWave",
 #' @param tracks Either \code{logical} or \code{numeric} values indicating
 #' which of the 4 \code{\link{PTTrack}}s are to be converted. By default
 #' all 4 tracks are selected.
+#' @param mix A logical value indicating whether the 4 Amiga channels should
+#' be mixed to the 2 (stereo) output channels. When set to \code{TRUE} (default) a stereo
+#' \code{\link[tuneR]{Wave}} object is returned. When set to \code{FALSE} a
+#' multi-channel \code{\link[tuneR]{WaveMC}} object is returned. The
+#' \code{stereo.separation} argument is ignored in the latter case.
 #' @param ... Additional arguments that are passed to \code{\link{playingtable}}.
 #' @return A \code{\link[tuneR]{Wave}} object, generated from the
-#' \code{mod} object is returned.
+#' \code{mod} object is returned. A \code{\link[tuneR]{WaveMC}} object is returned when
+#' the \code{mix} argument is set to \code{FALSE}.
 #' @examples
 #' \dontrun{
 #' data(mod.intro)
@@ -213,7 +247,8 @@ setGeneric("modToWave",
 #' @author Pepijn de Vries
 #' @family module.operations
 #' @export
-setMethod("modToWave", "PTModule", function(mod, video, target.rate, target.bit, stereo.separation, low.pass.filter, tracks, ...){
+setMethod("modToWave", "PTModule", function(mod, video, target.rate, target.bit, stereo.separation, low.pass.filter, tracks, mix, ...){
+  mix <- as.logical(mix)[[1]]
   video <- match.arg(video)
   verbose <- T
   tracks <- sort(unique((1:maximumTrackCount)[tracks]))
@@ -240,12 +275,14 @@ setMethod("modToWave", "PTModule", function(mod, video, target.rate, target.bit,
   if (rmin < 0) result <- 255*(result - rmin)/(255 - rmin)
   rmax <- max(result)
   if (rmax > 255) result <- 255*result/rmax
-  if (stereo.separation <= 0) {
-    result <- matrix(rowMeans(result), ncol = 1)
-    result <- cbind(result, result)
-  } else {
-    result <- cbind(rowMeans(result[, tracks %in% (2:3), drop = F]),
-                    rowMeans(result[, tracks %in% c(1,4), drop = F]))
+  if (mix) {
+    if (stereo.separation <= 0) {
+      result <- matrix(rowMeans(result), ncol = 1)
+      result <- cbind(result, result)
+    } else {
+      result <- cbind(rowMeans(result[, tracks %in% c(1,4), drop = F]),
+                      rowMeans(result[, tracks %in% c(2,3), drop = F]))
+    }
   }
   result <- (((2^(target.bit - 8)))*(256/255) - (1/255))*result
   result <- apply(result, 2, as.integer)
@@ -253,22 +290,26 @@ setMethod("modToWave", "PTModule", function(mod, video, target.rate, target.bit,
   {
     result <- result - as.integer(ceiling((2^target.bit)/2))
   }
-  result <- Wave(left      = as.integer(result[,1]),
-                 right     = as.integer(result[,2]),
-                 bit       = target.bit,
-                 samp.rate = target.rate)
-  result@left[is.na(result@left)] <- ifelse(target.bit == 8, 127, 0)
-  result@right[is.na(result@right)] <- ifelse(target.bit == 8, 127, 0)
-  if (stereo.separation <= 0)
-    result <- tuneR::mono(result)
-  else if(stereo.separation < 1)
-  {
-    result <- Wave(left      = as.integer(result@left*(0.5 + 0.5*stereo.separation) +
-                                            result@right*(0.5 - 0.5*stereo.separation)),
-                   right     = as.integer(result@right*(0.5 + 0.5*stereo.separation) +
-                                            result@left*(0.5 - 0.5*stereo.separation)),
+  result[is.na(result)] <- ifelse(target.bit == 8, 127, 0)
+  if (mix) {
+    result <- Wave(left      = as.integer(result[,1]),
+                   right     = as.integer(result[,2]),
                    bit       = target.bit,
                    samp.rate = target.rate)
+    if (stereo.separation <= 0)
+      result <- tuneR::mono(result)
+    else if(stereo.separation < 1)
+    {
+      result <- Wave(left      = as.integer(result@left*(0.5 + 0.5*stereo.separation) +
+                                              result@right*(0.5 - 0.5*stereo.separation)),
+                     right     = as.integer(result@right*(0.5 + 0.5*stereo.separation) +
+                                              result@left*(0.5 - 0.5*stereo.separation)),
+                     bit       = target.bit,
+                     samp.rate = target.rate)
+    }
+  } else {
+    colnames(result) <- c("FL", "FR", "BR", "BL")[tracks]
+    result <- WaveMC(result, samp.rate = target.rate, bit = target.bit)
   }
   if (verbose) cat("\t\t\tdone\n")
   return(result)
@@ -506,6 +547,7 @@ setMethod("playingtable", "PTModule", function(mod,
     result$position.jump <- .specificEffectMagnitudes(as.raw(0x0B),
                                                       as.raw(c(0x00, 0xFF)),
                                                       highest_track)
+
     ##############################################
     ## Bxy position jump
     ## end
@@ -675,7 +717,7 @@ setMethod("playingtable", "PTModule", function(mod,
     {
       row.skip <- pat_tab$pattern.break[!is.na(pat_tab$pattern.break)][1]
       ## when pattern break was used in combination with EEx, the break position
-      ## can beyond the end of the next pattern, hence the following wrap:
+      ## can be beyond the end of the next pattern, hence the following wrap:
       if (row.skip >= maximumPatternTableRowCount)
       {
         row.skip <- row.skip - maximumPatternTableRowCount
@@ -1153,10 +1195,20 @@ setMethod("playingtable", "PTModule", function(mod,
                                        ft <- unlist(lapply(as.list(samp[x:y]), function(x) ifelse(x == 0, 0, fineTune(mod@samples[[x]]))))
                                        target <- substr(target, 1, 3)
                                        tar.per <- noteToPeriod(target[x:y], ft)
-                                       tar.per[tar.per < noteToPeriod("B-3")] <- noteToPeriod("B-3")
+                                       tar.per[tar.per < noteToPeriod("B#3")] <- noteToPeriod("B-3")
                                        sgn <- sign(tar.per - z)
                                        cums <- sgn*cumsum(mag[x:y])
-                                       cums[which(sgn*(tar.per - (z + cums)) < 0)] <- (tar.per - z)[which(sgn*(tar.per - (z + cums)) < 0)]
+                                       clamp <- which(sgn*(tar.per - (z + cums)) < 0)
+                                       skip.clamp <- which(potential.target[x:y])
+                                       if (length(clamp) > 0 && length(skip.clamp) > 0) {
+                                         skip.clamp <- skip.clamp[skip.clamp %in% clamp]
+                                         if (length(skip.clamp) > 0) {
+                                           skip.clamp <- skip.clamp[[1]]
+                                           cums[clamp[clamp >= skip.clamp]] <- NA
+                                           clamp <- clamp[clamp < skip.clamp]
+                                         }
+                                       }
+                                       cums[clamp] <- (tar.per - z)[clamp]
                                        # XXX do I need to check whether the period is out of range? Probably not possible since it slides to valid target
                                        cums[!tnr[x:y]] <- 0
                                        return(cums + z)

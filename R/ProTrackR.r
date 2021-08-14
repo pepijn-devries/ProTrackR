@@ -175,6 +175,6 @@
 #' @importFrom methods as new validObject
 #' @importFrom signal butter filter
 #' @importFrom stats aggregate approx
-#' @importFrom tuneR mono readMP3 readWave Wave writeWave
-#' @importFrom utils URLencode
+#' @importFrom tuneR MCnames mono readMP3 readWave Wave WaveMC writeWave
+#' @importFrom utils installed.packages URLencode
 NULL

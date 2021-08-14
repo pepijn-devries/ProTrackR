@@ -353,7 +353,7 @@ setMethod("read.module", c("ANY", "logical"), function(file, ignore.validity) {
   mod <- new("PTModule")
 
   # read module name from file
-  mod@name <- readBin(con, "raw", 20, endian = "little")
+  mod@name <- readBin(con, "raw", 20, endian = "big")
 
   samp.lengths <- list()
 
@@ -362,47 +362,47 @@ setMethod("read.module", c("ANY", "logical"), function(file, ignore.validity) {
   for (i_sample in 1:length(mod@samples))
   {
     # read the sample name from the file
-    mod@samples[[i_sample]]@name         <- readBin(con, "raw", 22, endian = "little")
+    mod@samples[[i_sample]]@name         <- readBin(con, "raw", 22, endian = "big")
 
     # sample length in words, multiply by two for length in bytes
-    samp.lengths[[i_sample]]             <- readBin(con, "raw", 2, endian = "little")
+    samp.lengths[[i_sample]]             <- readBin(con, "raw", 2, endian = "big")
 
     # read the fine tune value for the sample:
-    mod@samples[[i_sample]]@finetune     <- readBin(con, "raw", 1, endian = "little")
+    mod@samples[[i_sample]]@finetune     <- readBin(con, "raw", 1, endian = "big")
 
     # read the default volume value for the sample,
     # ranging from 0x00 (min) to 0x40 (max):
-    mod@samples[[i_sample]]@volume       <- readBin(con, "raw", 1, endian = "little")
+    mod@samples[[i_sample]]@volume       <- readBin(con, "raw", 1, endian = "big")
 
     # the sample loop start position in words (0 when loop is off):
-    mod@samples[[i_sample]]@wloopstart   <- readBin(con, "raw", 2, endian = "little")
+    mod@samples[[i_sample]]@wloopstart   <- readBin(con, "raw", 2, endian = "big")
 
     # the sample loop end position in words (1 when loop is off):
-    mod@samples[[i_sample]]@wlooplen     <- readBin(con, "raw", 2, endian = "little")
+    mod@samples[[i_sample]]@wlooplen     <- readBin(con, "raw", 2, endian = "big")
   }
   # clean up memory:
   rm(i_sample)
 
   # read the length of the table specifying the order of patterns to be played:
-  mod@pattern.order.length <- readBin(con, "raw", 1, endian = "little")
+  mod@pattern.order.length <- readBin(con, "raw", 1, endian = "big")
 
   # read a byte that may give us some info on
   # the tracker used to create the module:
-  mod@tracker.byte         <- readBin(con, "raw", 1, endian = "little")
+  mod@tracker.byte         <- readBin(con, "raw", 1, endian = "big")
 
   # read the table specifying the order of patterns to be played:
-  mod@pattern.order        <- readBin(con, "raw", 128, endian = "little")
+  mod@pattern.order        <- readBin(con, "raw", 128, endian = "big")
 
   # read a tag that can help us to determine which
   # tracker was used to create the module:
-  mod@tracker.flag         <- readBin(con, "raw", 4, endian = "little")
+  mod@tracker.flag         <- readBin(con, "raw", 4, endian = "big")
 
   # Go for ProTracker compatibility. Forget about other trackers:
   pattern_count     <- max(as.numeric(mod@pattern.order)) + 1
 
   # read pattern data from file.
   pattern.data <- array(
-    readBin(con, "raw", maximumPatternTableRowCount*maximumTrackCount*4*pattern_count, endian = "little"),
+    readBin(con, "raw", maximumPatternTableRowCount*maximumTrackCount*4*pattern_count, endian = "big"),
     c(maximumTrackCount*4, maximumPatternTableRowCount, pattern_count))
   mod@patterns <- apply(pattern.data, 3, function(x) {
     res <- new("PTPattern")
@@ -414,11 +414,11 @@ setMethod("read.module", c("ANY", "logical"), function(file, ignore.validity) {
   # read sample wave data
   for (i_sample in 1:length(samp.lengths))
   {
-    mod@samples[[i_sample]]@left <- as.integer(128 + rawToSignedInt(readBin(con, "raw", 2*rawToUnsignedInt(samp.lengths[[i_sample]]), endian = "little")))
+    mod@samples[[i_sample]]@left <- as.integer(128 + rawToSignedInt(readBin(con, "raw", 2*rawToUnsignedInt(samp.lengths[[i_sample]]), endian = "big")))
   }
 
   # test if the end of file is reached (should be the case):
-  test_byte <- readBin(con, "raw", 1, endian = "little")
+  test_byte <- readBin(con, "raw", 1, endian = "big")
   if (length(test_byte) > 0) warning("\nFinished reading module data from file,\nbut end of file is not reached.")
 
   if (!ignore.validity && !validity.PTModule(mod)) stop("File is not a valid ProTracker Module.")
@@ -475,7 +475,7 @@ setMethod("write.module", c("PTModule", "ANY"), function(mod, file)
   con_info <- summary(con)
   if (!(con_info$text == "binary" && con_info$`can write` == "yes")) stop("Unsuitable connection provided. write.module() requires a connection to which binary data can be written.")
 
-  # read module name from file
+  # write module name to the file
   writeBin(mod@name, con)
 
   # loop the 31 samples and write all required info,
@@ -1286,4 +1286,62 @@ setMethod("fix.PTModule", c("PTModule", "logical"), function(mod, verbose = T){
 #' @export
 setMethod("fix.PTModule", c("PTModule", "missing"), function(mod){
   fix.PTModule(mod, T)
+})
+
+#' @rdname as.raw
+#' @export
+setMethod("as.raw", "PTModule", function(x){
+  con <- rawConnection(raw(0), "wb")
+  write.module(x, con)
+  result <- rawConnectionValue(con)
+  close(con)
+  return(result)
+})
+
+setGeneric("rawToPTModule", function(x, ignore.validity = F) standardGeneric("rawToPTModule"))
+
+#' Convert a vector of raw data into a PTModule object
+#'
+#' This method treats a vector of \code{raw} data as if it where a
+#' file, and converts it into a \code{\link{PTModule-class}} object.
+#'
+#' Data is read from a vector of \code{raw} data as if it where a file
+#' and converted into a \code{\link{PTModule-class}} object. This
+#' method can be useful for module files stored on virtual Amiga Disk Files
+#' (adf), which can be read as raw data, using the \code{AmigaFFH}
+#' package.
+#'
+#' Use \code{\link[ProTrackR]{as.raw}} to achieve the inverse.
+#'
+#' @rdname rawToPTModule
+#' @name rawToPTModule
+#' @aliases rawToPTModule,raw-method
+#' @param x A vector of \code{raw} data, conform ProTracker file specs.
+#' @param ignore.validity A \code{logical} value. When set as \code{TRUE}
+#' this method will attempt to decode the raw data (\code{x}), even when it is invalid.
+#' When set to \code{FALSE} (default) validity is checked and an error is
+#' thrown when invalidity occurs.
+#' @return returns a \code{\link{PTModule-class}} object.
+#' @examples
+#' \dontrun{
+#' ## convert the example mod into raw data
+#' data("mod.intro")
+#' mod.raw <- as.raw(mod.intro)
+#'
+#' ## restore it as a PTModule-class object
+#' mod.restored <- rawToPTModule(mod.raw)
+#'
+#' ## In this case the result is identical to the original:
+#' identical(mod.restored, mod.intro)
+#' }
+#' @family module.operations
+#' @family raw.operations
+#' @author Pepijn de Vries
+#' @export
+setMethod("rawToPTModule", "raw", function(x, ignore.validity) {
+  ignore.validity <- as.logical(ignore.validity)[[1]]
+  con <- rawConnection(x, "rb")
+  result <- read.module(con, ignore.validity)
+  close(con)
+  return(result)
 })

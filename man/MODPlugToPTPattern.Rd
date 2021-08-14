@@ -4,7 +4,7 @@
 \alias{MODPlugToPTPattern}
 \title{Convert MODPlug pattern into a PTPattern object}
 \usage{
-MODPlugToPTPattern(text = NULL, what = "PTPattern")
+MODPlugToPTPattern(text = NULL, what = c("PTPattern", "PTBlock"))
 }
 \arguments{
 \item{text}{A \code{vector} of \code{character}s, representing MOD pattern data
@@ -35,7 +35,7 @@ and use this function to import it to R as a \code{\link{PTPattern}} or
 \examples{
 \dontrun{
 ## This is what Mod Plug Pattern data looks like on
-## the systems clipboard:
+## the system's clipboard:
 modPlugPattern <- c("ModPlug Tracker MOD",
                     "|C-601...A08|C-602...C40|A#403...F06|A#504......",
                     "|...01...A08|C-602...C30|........A01|........A02",
