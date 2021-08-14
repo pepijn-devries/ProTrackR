@@ -77,18 +77,6 @@ genre,                 genre.id
                           Ska,                         24
                           Soul,                        25", header = T, sep = ",", stringsAsFactors = F, strip.white = T)
 
-empty.line <- data.frame(mod.id        = integer(0),
-                         title         = character(0),
-                         filename      = character(0),
-                         downloads     = integer(0),
-                         favorited     = integer(0),
-                         MD5           = character(0),
-                         format        = character(0),
-                         size          = character(0),
-                         genre         = character(0),
-                         member.rating = character(0),
-                         revwr.rating  = character(0))
-
 #html escape codes
 
 htmlcodes <- read.table(text = "
@@ -216,10 +204,50 @@ htmlcodes <- rbind(htmlcodes, data.frame(
 #' will assist in accessing this archive.
 #'
 #' The \code{modArchive.info} function will retrieve info on a specific module from the
-#' ModArchive. The \code{modArchive.download} will download modules from the archive.
-#' The \code{modArchive.search.mod} function will search the archive for modules. Note
-#' that the ModArchive also contains file formats other that ProTracker's MOD format.
-#' This package will only handle the MOD format.
+#' ModArchive. The \code{modArchive.search.mod}, \code{modArchive.search.genre} and
+#' \code{modArchive.search.hash} functions can be used to find specific modules
+#' in the archive. Use \code{modArchive.random.pick} to get module info on a random
+#' module in the archive.
+#'
+#' Use the \code{modArchive.view.by}
+#' function to browse the archive by specific aspects.
+#' Note that the ModArchive also contains file formats other than ProTracker's MOD format.
+#' This package can only handle the MOD format.
+#'
+#' The \code{modArchive.download} function will download a module from the archive.
+#'
+#' Use \code{modArchive.search.artist} to find artist details in the archive.
+#'
+#' Use \code{modArchive.request.count} to determine how many request you have
+#' made in the current month with the specified key (see `ModArchive API key'
+#' section for details).
+#' Use \code{modArchive.max.requests} to determine how many request you are
+#' allowed to make each month with the provided key (see `ModArchive API key'
+#' section for details).
+#'
+#' @section ModArchive API key:
+#' Since ProTrackR 0.3.4, the ModArchive helper functions have changed. In earlier
+#' version, a lable html scraper was used, in 0.3.4 and later, this is replaced by
+#' functions that more robustly use the Application Programming Interface (API)
+#' provided by ModArchive. There are some downsides to this new approach: a
+#' personal API key needs to be obtained from the ModArchive team; and the
+#' ProTrackR package relies on yet another package (XML)
+#' to parse the XML files that are returned by the API.
+#'
+#' So why is this switch? Well, first of all, this approach is better supported
+#' by ModArchive. The personal API key is used to avoid excessive access by imposing
+#' a monthly request limit (keep in mind that ModArchive provides free services and is
+#' run by volunteers). The upside is that the XML files are a lot lighter than the
+#' html files returned by the regular website. Therefore, the new functions are faster,
+#' and they reduce the load on the ModArchive servers. The XML files also allow for
+#' easier access to more of the ModArchive functionality as implemented in the
+#' ModArchive helper functions described here.
+#'
+#' So how do you get your personal API key? First, you need to register at the
+#' \href{https://modarchive.org/forums/}{ModArchive Forums}. Then follow the
+#' instructions provided in this \href{https://modarchive.org/forums/index.php?topic=1950.0}{topic}
+#' on the forum. For more info, see also the \href{http://modarchive.org/?xml-api}{API
+#' page} on ModArchive.
 #'
 #' @param mod.id An \code{integer} code used as module identifier in the ModArchive database.
 #' A \code{mod.id} can be obtained by performing a search with \code{modArchive.search.mod}.
@@ -241,96 +269,214 @@ htmlcodes <- rbind(htmlcodes, data.frame(
 #' module is approximately 4068 kilobytes, meaning that the largest file size
 #' category is irrelevant for `MOD' files. Also note that the category names are
 #' inconsistant, these are the literal catagories used by ModArchive
-#' @param genre.filter Genre filter to be used in a search in the ModArchive.
+#' @param genre.filter Genre filter to be used in some of the overviews from the ModArchive.
 #' Needs to be a \code{character} string representation of a genre
 #' as specified on ModArchive.org.
-#' See the usage section for all possible options. Default is "unset" (meaning that
-#' it will search for any genre).
-#' @return \code{modArchive.info} will return a \code{\link{list}} with module info.
+#' See the usage section for all possible options.
+#' This argument is deprecated in the function \code{modArchive.search} since ProTrackR
+#' version 0.3.4, other functions will still accept this argument.
+#' @param search.artist A character string representing the (guessed) artist name
+#' or id number that you ar looking for in the archive.
+#' @param search.hash The MD5 hash code of the specific module you are looking
+#' for. See \url{http://modarchive.org/?xml-api-usage-level3} for details.
+#' @param view.query A query to be used in combination with the \code{view.by}
+#' argument. Use the queries in combination with \code{view.by} as follows:
+#' \itemize{
+#'   \item{\code{view_by_list}: Use a single capital starting letter to browse
+#'   modules by name}
+#'   \item{\code{view_by_rating_comments}: Provide a (user) rating by which you
+#'   wish to browse the modules}
+#'   \item{\code{view_by_rating_reviews}: Provide a (reviewer) rating by which you
+#'   wish to browse the modules}
+#'   \item{\code{view_modules_by_artistid}: Provide an artist id number
+#'   for whom you wish to browse his/her modules}
+#'   \item{\code{view_modules_by_guessed_artist}: Provide an artist guessed
+#'   name for whom you wish to browser his/her modules}
+#' }
+#' @param api.key Most ModArchive functions require a personal secret API key. This key can
+#' be obtained from the ModArchive forum. See `ModArchive API Key' section below for instructions
+#' on how to obtain such a key.
+#' @param page Many of the ModArchive returns paginated tables. When this argument
+#' is omitted, the first page is returned. Use an integer value to return a specific
+#' page. The total number of pages of a search or view is returned as an attribute
+#' to the returned \code{\link[base]{data.frame}}.
+#' @param view.by Indicate how the \code{modArchive.view.by} function should sort
+#' the overview tables of modules. See `usage' section for the possible options.
+#' @param ... arguments that are passed on to \code{\link{read.module}}.
+#' @return \code{modArchive.info}, \code{modArchive.search.genre},
+#' \code{modArchive.search.hash}, \code{modArchive.random.pick} and
+#' \code{modArchive.view.by} will return a \code{\link{data.frame}}
+#' containing information on modules in the ModArchive. Note that this
+#' data.frame is formatted differently since ProTrackR 0.3.4, which
+#' may cause backward compatibility issues.
+#'
 #' \code{modArchive.download} will download a module and return it as a
-#' \code{\link{PTModule}} object. \code{modArchive.download} will search on the modArchive
-#' and return the first page of search results in the form of a \code{\link{data.frame}}.
+#' \code{\link{PTModule}} object.
+#'
+#' \code{modArchive.search.artist}  will return a \code{\link{data.frame}}
+#' containing information on artists on the ModArchive.
+#'
+#' \code{modArchive.request.count} returns the number of ModArchive API request
+#' that are left for this month, for the provided key.
+#'
+#' \code{modArchive.max.requests} returns the maximum monthly requests for the
+#' provided key.
 #' @name modArchive
 #' @aliases modArchive.info
 #' @aliases modArchive.download
 #' @aliases modArchive.search.mod
+#' @aliases modArchive.search.genre
+#' @aliases modArchive.search.hash
+#' @aliases modArchive.search.artist
+#' @aliases modArchive.random.pick
+#' @aliases modArchive.view.by
+#' @aliases modArchive.request.count
+#' @aliases modArchive.max.requests
 #' @rdname modArchive
-#' @note The `\code{modArchive}' functions were created for your convenience.
-#' However, users and developers should not rely too heavily on them for
-#' the following two reasons:
-#' \itemize{
-#' \item{The ModArchive is developed and maintained by a third party. Changes
-#' in the structure of that database or the dissemination of the data may
-#' cause the functions in this package to fail. I don't have any control on
-#' these kind of changes.}
-#' \item{Some of the \code{modArchive} functions implemented here, rely on regular
-#' expressions to lookup information in ModArchive html code. I do realise
-#' that using regular expressions in html code is the root of all evil (as
-#' html is not a regular language). However, this approach is used to keep this package
-#' light (i.e., not to rely on too many other packages), without having to write
-#' a custom html-parser. That being said, this approach should work in most
-#' cases, but may fail in some.}
-#' }
 #' @examples
 #' \dontrun{
+#' ## most of the example below will fail as they require a
+#' ## real modArchive API key. The key used in these example
+#' ## is just a dummy. See details on how to get a key
+#' ## in the section 'ModArchive API Key' in the manual.
+#'
 #' ## Search for the module that is also used as
 #' ## an example in this package:
-#' search.results <- modArchive.search.mod("ProTrackR", "module_instruments", "MOD")
+#' search.results <- modArchive.search.mod("*_-_intro.mod",
+#'                                         size.filter = "0-99",
+#'                                         format.filter = "MOD",
+#'                                         api.key = "<your key here>")
 #'
 #' ## apparently there are multiple modules in
-#' ## database that use 'ProTrackR' as a
-#' ## sample name. Select the actual module from the
-#' ## list:
-#' search.select <- subset(search.results, title == "intro")
+#' ## database that have '_-_intro' in their
+#' ## file name or title. Select the wanted
+#' ## module from the list (the one with the
+#' ## word 'protrackr' in the instrument names):
+#' search.select <- subset(search.results,
+#'                         grepl("protrackr", search.results$instruments))
 #'
-#' ## get all available details for this mod from
-#' ## ModArchive.org:
-#' modArchive.info(search.select$mod.id)
+#' ## get the same details, but now only for
+#' ## the specific module based on its ModArchive ID:
+#' modArchive.info(search.select$id, api.key = "<your key here>")
 #'
 #' ## download the selected module from ModArchive.org:
-#' mod <- modArchive.download(search.select$mod.id)
+#' mod <- modArchive.download(search.select$id)
+#'
+#' ## here's a randomly picked module from the ModArchive:
+#' info.random <- modArchive.random.pick(api.key = "<your key here>")
+#'
+#' ## use modArchive.view.by to list the 2nd page
+#' ## of MOD files that start with the letter 'A'
+#' info.list  <- modArchive.view.by("A", "view_by_list", "MOD",
+#'                                  page = 2,
+#'                                  api.key = "<your key here>")
+#'
+#' ## list the modules of the artist with id number 89200:
+#' artist.mods <- modArchive.view.by("89200", "view_modules_by_artistid",
+#'                                   format.filter = "MOD",
+#'                                   api.key = "<your key here>")
+#'
+#' ## here's how you can list MOD files of a
+#' ## specific genre:
+#' list.genre  <- modArchive.search.genre("Chiptune", "MOD",
+#'                                        api.key = "<your key here>")
+#'
+#' ## get module info for a specific hash code
+#' mod.hash    <- modArchive.search.hash("8f80bcab909f700619025bd7f2975749",
+#'                                       "<your key here>")
+#'
+#' ## find modarchive artist info, search for artist name
+#' ## or artist id:
+#' artist.list <- modArchive.search.artist("89200",
+#'                                         api.key = "<your key here>")
+#'
+#' ## How many requests did I make this month?:
+#' modArchive.request.count("<your key here>")
+#'
+#' ## How many requests am I allowed to make each month?:
+#' modArchive.max.requests("<your key here>")
 #' }
 #' @author Pepijn de Vries
 #' @export
-modArchive.info <- function(mod.id)
+modArchive.info <- function(mod.id, api.key)
 {
-  mod.id <- as.integer(mod.id[[1]])
-  result = list()
-  con <- url(paste("http://modarchive.org/module.php?", mod.id, sep = ""), "rb")
-  page.source <- readLines(con, warn = F)
-  close(con)
-  if (any(grepl("<h1 class='notification'>Error</h1>", page.source)))
-  {
-    stop(unlist(regmatches(page.source, gregexpr("(?<=<p class='notification'>).*?(?=</p>)", page.source, perl = TRUE))))
-  }
-  result$mod.id        <- mod.id
-  result$title         <- unlist(regmatches(page.source, gregexpr("(?<=<h1>).*?(?= <span class=\"module-sub-header\">[(])", page.source, perl = TRUE)))
-  result$title         <- .htmlUnescape(result$title)
-  result$filename      <- unlist(regmatches(page.source, gregexpr("(?<=<span class=\"module-sub-header\">[(]).*?(?=[)]</span></h1>)", page.source, perl = TRUE)))
-  result$downloads     <- unlist(regmatches(page.source, gregexpr("(?<=<li class=\"stats\">Downloads: ).*?(?=</li>)", page.source, perl = TRUE)))
-  result$favorited     <- unlist(regmatches(page.source, gregexpr("(?<=<li class=\"stats\">Favourited: ).*?(?= times</li>)", page.source, perl = TRUE)))
-  result$MD5           <- unlist(regmatches(page.source, gregexpr("(?<=<li class=\"stats\">MD5: ).*?(?=</li>)", page.source, perl = TRUE)))
-  result$format        <- unlist(regmatches(page.source, gregexpr("(?<=<li class=\"stats\">Format: ).*?(?=</li>)", page.source, perl = TRUE)))
-  result$size          <- unlist(regmatches(page.source, gregexpr("(?<=<li class=\"stats\">Uncompressed Size: ).*?(?=</li>)", page.source, perl = TRUE)))
-  result$genre         <- unlist(regmatches(page.source, gregexpr("(?<=<li class=\"stats\">Genre: ).*?(?=</li>)", page.source, perl = TRUE)))
-  result$url           <- unlist(regmatches(page.source, gregexpr("(?<=&nbsp;<a href=\").*?(?=\" class=\"standard-link\">Download</a>)", page.source, perl = TRUE)))
-  result$member.rating <- unlist(regmatches(page.source, gregexpr("(?<=Member Rating: ).*?(?=\\))", page.source, perl = TRUE)))
-  result$member.rating <- gsub("<.*?>", "", result$member.rating, perl = T)
-  result$member.rating <- gsub(" (", "", result$member.rating, fixed = T)
-  result$revwr.rating  <- unlist(regmatches(page.source, gregexpr("(?<=Reviewer Rating: ).*?(?=\\))", page.source, perl = TRUE)))
-  result$revwr.rating  <- gsub("<.*?>", "", result$revwr.rating, perl = T)
-  result$revwr.rating  <- gsub(" (", "", result$revwr.rating, fixed = T)
-  result               <- format.modarchive.table(result)
+  mod.id      <- as.integer(mod.id[[1]])
+  api.key     <- as.character(api.key[[1]])
+  request.mod <- paste0("http://api.modarchive.org/xml-tools.php?key=",
+                        api.key, "&request=view_by_moduleid&query=",mod.id)
+  result <- .get.module.table(request.mod, "module")
+  return(result)
+}
+
+.get.module.table <- function(xmlcode, what) {
+  xmlcode <- XML::xmlParse(xmlcode, options = XML::NOCDATA)
+  result <- XML::xmlToList(xmlcode)
+  if (any("error" %in% names(result))) stop (as.character(result$error))
+  totalpages  <- as.numeric(result$totalpages)
+  results     <- as.numeric(result$results)
+
+  if (what == "item") result <- result$items
+  result <- lapply(result[names(result) == what], function(x) {
+    lapply(x, function(x) {
+      if (length(x) > 1) {
+        x <- lapply(x, function(x) {
+          x[is.null(x)] <- "NULL"
+          x
+        })
+        x <- unlist(x)
+        paste(apply(cbind(names(x), paste0("<", x, ">")), 1, paste,
+                    collapse = "="), collapse = ";")
+      } else
+      {
+        x[is.null(x)] <- ""
+        x
+      }
+    })
+  })
+
+  result      <- lapply(result, function(x) {
+    x <- lapply(x, function(x) if (length(x) == 0) return("") else return(x))
+    data.frame(t(unlist(x)))
+  })
+  result      <- do.call(rbind, result)
+  row.names(result) <- NULL
+  if (what == "module") result      <- .fix.module.table(result)
+  if (what == "item")   result      <- .fix.artist.table(result)
+  attr(result, "results")    <- results
+  attr(result, "totalpages") <- totalpages
+  return(result)
+}
+
+.fix.module.table <- function(result) {
+  result <- as.data.frame(as.matrix(result), stringsAsFactors = F)
+  result$songtitle   <- .htmlUnescape(result$songtitle)
+  result$instruments <- .htmlUnescape(result$instruments)
+  result$comment     <- .htmlUnescape(result$comment)
+  result$timestamp   <- as.POSIXct(as.numeric(result$timestamp),
+                                   origin = "1970-01-01 00:00", tz = "CET")
+  numeric_sel        <- c("bytes", "hits", "genreid", "id", "channels")
+  result[,numeric_sel] <- as.data.frame(lapply(result[,numeric_sel], as.numeric))
+
+  return(result)
+}
+
+.fix.artist.table <- function(result) {
+  result <- as.data.frame(as.matrix(result), stringsAsFactors = F)
+  result$timestamp   <- as.POSIXct(as.numeric(result$timestamp),
+                                   origin = "1970-01-01 00:00", tz = "CET")
+  numeric_sel        <- c("id", "isartist")
+  result[,numeric_sel] <- as.data.frame(lapply(result[,numeric_sel], as.numeric))
+
   return(result)
 }
 
 #' @rdname modArchive
 #' @export
-modArchive.download <- function(mod.id)
+modArchive.download <- function(mod.id, ...)
 {
   mod.id <- as.integer(mod.id[[1]])
   con <- url(paste("http://api.modarchive.org/downloads.php?moduleid=", mod.id, sep = ""), "rb")
-  mod <- read.module(con)
+  mod <- read.module(con, ...)
   close(con)
   return (mod)
 }
@@ -341,98 +487,171 @@ modArchive.search.mod <- function(search.text,
                                   search.where  = c("filename_or_songtitle", "filename_and_songtitle", "filename", "songtitle", "module_instruments", "module_comments"),
                                   format.filter = c("unset", "669", "AHX", "DMF", "HVL", "IT", "MED", "MO3", "MOD", "MTM", "OCT", "OKT", "S3M", "STM", "XM"),
                                   size.filter   = c("unset", "0-99", "100-299", "300-599", "600-1025", "1025-2999", "3072-6999", "7168-100000"),
-                                  genre.filter  = c("unset", "Alternative", "Gothic", "Grunge", "Metal - Extreme", "Metal (general)", "Punk", "Chiptune", "Demo Style",
-                                                    "One Hour Compo", "Chillout", "Electronic - Ambient", "Electronic - Breakbeat", "Electronic - Dance",
-                                                    "Electronic - Drum and Bass", "Electronic - Gabber", "Electronic - Hardcore", "Electronic - House", "Electronic - IDM",
-                                                    "Electronic - Industrial", "Electronic - Jungle", "Electronic - Minimal", "Electronic - Other",
-                                                    "Electronic - Progressive", "Electronic - Rave", "Electronic - Techno", "Electronic (general)", "Trance - Acid",
-                                                    "Trance - Dream", "Trance - Goa", "Trance - Hard", "Trance - Progressive", "Trance - Tribal", "Trance (general)",
-                                                    "Big Band", "Blues", "Jazz - Acid", "Jazz - Modern", "Jazz (general)", "Swing", "Bluegrass", "Classical", "Comedy",
-                                                    "Country", "Experimental", "Fantasy", "Folk", "Fusion", "Medieval", "New Ages", "Orchestral", "Other", "Piano",
-                                                    "Religious", "Soundtrack", "Spiritual", "Video Game", "Vocal Montage", "World", "Ballad", "Disco", "Easy Listening",
-                                                    "Funk", "Pop - Soft", "Pop - Synth", "Pop (general)", "Rock - Hard", "Rock - Soft", "Rock (general)", "Christmas",
-                                                    "Halloween", "Hip-Hop", "R and B", "Reggae", "Ska", "Soul"))
+                                  genre.filter = "deprecated",
+                                  page,
+                                  api.key)
 {
+  search.text   <- utils::URLencode(as.character(search.text[[1]]))
   search.where  <- match.arg(search.where)
   format.filter <- match.arg(format.filter)
   size.filter   <- match.arg(size.filter)
-  genre.filter  <- match.arg(genre.filter)
-  genre.filter  <- genre.table$genre.id[genre.table$genre == genre.filter]
-  ## Set filters:
-  con <- url(paste("http://modarchive.org/filter.php?genreid=", genre.filter, sep = ""))
-  page.source   <- readLines(con, warn = F)
-  close(con)
-  ## Set filters:
-  con <- url(paste("http://modarchive.org/filter.php?format=", format.filter, sep = ""))
-  page.source   <- readLines(con, warn = F)
-  close(con)
-  ## Set filters:
-  con <- url(paste("http://modarchive.org/filter.php?size=", size.filter, sep = ""))
-  page.source   <- readLines(con, warn = F)
-  close(con)
-  ## make sure that details are returned:
-  con <- url("http://modarchive.org/index.php?detail=1")
-  page.source   <- readLines(con, warn = F)
-  close(con)
-  ## perform search:
-  con <- url(paste("http://modarchive.org/index.php?request=search&query=",
-                   utils::URLencode(search.text),
-                   "&submit=Find&search_type=",
-                   search.where, sep = ""))
-  page.source   <- readLines(con, warn = F)
-  close(con)
-  ## analyse search results:
-  result        <- lines.between(page.source, "Search Results</h1>", "Search</h1>")
-  if (is.null(result)) return (empty.line)
-  result        <- paste(result, collapse = "\n")
-  ## split per table row:
-  result        <- unlist(strsplit(result, "</tr>", fixed = T))
-  result        <- as.list(result[c(-1, -length(result))])
-  result        <- lapply(result, extract.search.results)
-  result        <- do.call(rbind, result)
-  result        <- format.modarchive.table(result)
-  result$filename <- gsub("^.*?[#$]", "", result$url)
+  api.key       <- as.character(api.key[[1]])
+  if (!missing(genre.filter)) warning("Argument 'genre.filter' is deprecated in this function and not used since ProTrackR version 0.3.4. Use 'modArchive.view.by' to browse modules by genre.")
+
+  xmlcode <- paste0("http://api.modarchive.org/xml-tools.php?key=",
+                    api.key,
+                    "&request=search&query=",
+                    search.text,
+                    "&type=",
+                    search.where)
+  if (format.filter != "unset") xmlcode <- paste0(xmlcode, "&format=",  format.filter)
+  if (genre.filter  != "unset") xmlcode <- paste0(xmlcode, "&genreid=", genre.filter)
+  if (size.filter   != "unset") xmlcode <- paste0(xmlcode, "&size=",    size.filter)
+  if (!missing(page)) xmlcode <- paste0(xmlcode, "&page=", as.integer(page[[1]]))
+  result <- .get.module.table(xmlcode, "module")
   return(result)
 }
 
-extract.search.results <- function(page.source)
-{
-  result <- list()
-  result$mod.id        <- unlist(regmatches(page.source, gregexpr("(?<=<span class=\"module-detail\">Module ID:</span> <span class='module-detail'>).*?(?=</span>)", page.source, perl = TRUE)))
-  result$title         <- unlist(regmatches(page.source, gregexpr("(?<=listing\">\n).*?(?=\n</span>)", page.source, perl = TRUE)))
-  result$title         <- .htmlUnescape(result$title)
-  result$filename      <- NA
-  result$downloads     <- unlist(regmatches(page.source, gregexpr("(?<=<span class=\"module-detail\">Downloads:</span> <span class='module-detail'>).*?(?=</span>)", page.source, perl = TRUE)))
-  result$favorited     <- NA
-  result$MD5           <- NA
-  result$format        <- unlist(regmatches(page.source, gregexpr("(?<=<span class=\"format-icon\">).*?(?=</span>)", page.source, perl = TRUE)))
-  result$size          <- unlist(regmatches(page.source, gregexpr("(?<=<span class=\"module-detail\">Size:</span> <span class='module-detail'>).*?(?=</span>)", page.source, perl = TRUE)))
-  result$genre         <- unlist(regmatches(page.source, gregexpr("(?<=<span class=\"module-detail\">Genre:</span> <span class='module-detail'>).*?(?=</span>)", page.source, perl = TRUE)))
-  result$url           <- unlist(regmatches(page.source, gregexpr("(?<=<a href=\").*?(?=\" title)", page.source, perl = TRUE)))
-
-  result$member.rating <- unlist(regmatches(page.source, gregexpr("(?<=<span class='module-listing'>).*?(?=</span>)", page.source, perl = TRUE)))
-  result$member.rating <- gsub("<.*?>", "", result$member.rating, perl = T)
-  result$member.rating <- gsub("Rated ", "", result$member.rating, fixed = T)
-  result$revwr.rating  <- NA
-  return (unlist(result))
+#' @rdname modArchive
+#' @export
+modArchive.request.count <- function(api.key) {
+  return(.requests(4, api.key))
 }
 
-lines.between <- function(source.text, start, end)
-{
-  start <- which(grepl(start, source.text))[1]
-  end   <- which(grepl(end, source.text))
-  end   <- end[length(end)]
-  if (length(start) == 0 || length(end) == 0 ||
-      is.na(start) || is.na(end)) return (NULL)
-  if (start > end) return (NULL)
-  return(source.text[start:end])
+#' @rdname modArchive
+#' @export
+modArchive.max.requests <- function(api.key) {
+  return(.requests(3, api.key))
 }
 
-format.modarchive.table <- function(x)
+.requests <- function(index, api.key)
 {
-  if (is.null(dim(x))) x <- t(as.matrix(x))
-  x[,"mod.id"]    <- as.integer(as.character(x[,"mod.id"]))
-  x[,"downloads"] <- as.integer(as.character(x[,"downloads"]))
-  x[,"favorited"] <- as.integer(as.character(x[,"favorited"]))
-  x               <- as.data.frame(x, stringsAsFactors = F)
+  request.count <- XML::xmlTreeParse(paste0("http://api.modarchive.org/xml-tools.php?key=",
+                                            api.key,
+                                            "&request=view_requests"))
+  count.root <- XML::xmlRoot(request.count)
+  count.values <- XML::xmlSApply(count.root, function(x) XML::xmlSApply(x, XML::xmlValue))
+  return(as.integer(count.values[[index]]))
+}
+
+#' @rdname modArchive
+#' @export
+modArchive.view.by <- function(view.query,
+                               view.by = c("view_by_list",
+                                           "view_by_rating_comments",
+                                           "view_by_rating_reviews",
+                                           "view_modules_by_artistid",
+                                           "view_modules_by_guessed_artist"),
+                               format.filter = c("unset", "669", "AHX", "DMF", "HVL", "IT", "MED", "MO3", "MOD", "MTM", "OCT", "OKT", "S3M", "STM", "XM"),
+                               size.filter   = c("unset", "0-99", "100-299", "300-599", "600-1025", "1025-2999", "3072-6999", "7168-100000"),
+                               page,
+                               api.key) {
+  view.query    <- as.character(view.query[[1]])
+  format.filter <- match.arg(format.filter)
+  size.filter   <- match.arg(size.filter)
+  api.key       <- as.character(api.key[[1]])
+
+  xmlcode <- paste0("http://api.modarchive.org/xml-tools.php?key=",
+                    api.key,
+                    "&request=", view.by,
+                    "&query=",
+                    view.query)
+  if (format.filter != "unset") xmlcode <- paste0(xmlcode, "&format=",  format.filter)
+  if (size.filter   != "unset") xmlcode <- paste0(xmlcode, "&size=",    size.filter)
+  if (!missing(page)) xmlcode <- paste0(xmlcode, "&page=", as.integer(page[[1]]))
+  result <- .get.module.table(xmlcode, "module")
+  return(result)
+}
+
+#' @rdname modArchive
+#' @export
+modArchive.search.genre <- function(genre.filter  = c("unset", "Alternative", "Gothic", "Grunge", "Metal - Extreme", "Metal (general)", "Punk", "Chiptune", "Demo Style",
+                                                      "One Hour Compo", "Chillout", "Electronic - Ambient", "Electronic - Breakbeat", "Electronic - Dance",
+                                                      "Electronic - Drum and Bass", "Electronic - Gabber", "Electronic - Hardcore", "Electronic - House", "Electronic - IDM",
+                                                      "Electronic - Industrial", "Electronic - Jungle", "Electronic - Minimal", "Electronic - Other",
+                                                      "Electronic - Progressive", "Electronic - Rave", "Electronic - Techno", "Electronic (general)", "Trance - Acid",
+                                                      "Trance - Dream", "Trance - Goa", "Trance - Hard", "Trance - Progressive", "Trance - Tribal", "Trance (general)",
+                                                      "Big Band", "Blues", "Jazz - Acid", "Jazz - Modern", "Jazz (general)", "Swing", "Bluegrass", "Classical", "Comedy",
+                                                      "Country", "Experimental", "Fantasy", "Folk", "Fusion", "Medieval", "New Ages", "Orchestral", "Other", "Piano",
+                                                      "Religious", "Soundtrack", "Spiritual", "Video Game", "Vocal Montage", "World", "Ballad", "Disco", "Easy Listening",
+                                                      "Funk", "Pop - Soft", "Pop - Synth", "Pop (general)", "Rock - Hard", "Rock - Soft", "Rock (general)", "Christmas",
+                                                      "Halloween", "Hip-Hop", "R and B", "Reggae", "Ska", "Soul"),
+                                    format.filter = c("unset", "669", "AHX", "DMF", "HVL", "IT", "MED", "MO3", "MOD", "MTM", "OCT", "OKT", "S3M", "STM", "XM"),
+                                    size.filter   = c("unset", "0-99", "100-299", "300-599", "600-1025", "1025-2999", "3072-6999", "7168-100000"),
+                                    page,
+                                    api.key) {
+  genre.filter  <- match.arg(genre.filter)
+  genre.filter  <- genre.table$genre.id[genre.table$genre == genre.filter]
+  format.filter <- match.arg(format.filter)
+  size.filter   <- match.arg(size.filter)
+  api.key       <- as.character(api.key[[1]])
+
+  xmlcode <- paste0("http://api.modarchive.org/xml-tools.php?key=",
+                    api.key,
+                    "&request=search&type=genre&query=",
+                    genre.filter)
+  if (format.filter != "unset") xmlcode <- paste0(xmlcode, "&format=",  format.filter)
+  if (size.filter   != "unset") xmlcode <- paste0(xmlcode, "&size=",    size.filter)
+  if (!missing(page)) xmlcode <- paste0(xmlcode, "&page=", as.integer(page[[1]]))
+  result <- .get.module.table(xmlcode, "module")
+  return(result)
+}
+
+#' @rdname modArchive
+#' @export
+modArchive.search.artist <- function(search.artist, page, api.key) {
+  api.key       <- as.character(api.key[[1]])
+  search.artist <- as.character(search.artist[[1]])
+  api.key       <- as.character(api.key[[1]])
+  xmlcode <- paste0("http://api.modarchive.org/xml-tools.php?key=",
+                    api.key,
+                    "&request=search_artist&query=",
+                    search.artist)
+  if (!missing(page)) xmlcode <- paste0(xmlcode, "&page=", as.integer(page[[1]]))
+  result <- .get.module.table(xmlcode, "item")
+  return(result)
+}
+
+#' @rdname modArchive
+#' @export
+modArchive.search.hash <- function(search.hash, api.key) {
+  search.hash   <- as.character(search.hash[[1]])
+  api.key       <- as.character(api.key[[1]])
+  xmlcode <- paste0("http://api.modarchive.org/xml-tools.php?key=",
+                    api.key,
+                    "&request=search&type=hash&query=",
+                    search.hash)
+  result <- .get.module.table(xmlcode, "module")
+  return(result)
+}
+
+#' @rdname modArchive
+#' @export
+modArchive.random.pick <- function(genre.filter  = c("Alternative", "Gothic", "Grunge", "Metal - Extreme", "Metal (general)", "Punk", "Chiptune", "Demo Style",
+                                                     "One Hour Compo", "Chillout", "Electronic - Ambient", "Electronic - Breakbeat", "Electronic - Dance",
+                                                     "Electronic - Drum and Bass", "Electronic - Gabber", "Electronic - Hardcore", "Electronic - House", "Electronic - IDM",
+                                                     "Electronic - Industrial", "Electronic - Jungle", "Electronic - Minimal", "Electronic - Other",
+                                                     "Electronic - Progressive", "Electronic - Rave", "Electronic - Techno", "Electronic (general)", "Trance - Acid",
+                                                     "Trance - Dream", "Trance - Goa", "Trance - Hard", "Trance - Progressive", "Trance - Tribal", "Trance (general)",
+                                                     "Big Band", "Blues", "Jazz - Acid", "Jazz - Modern", "Jazz (general)", "Swing", "Bluegrass", "Classical", "Comedy",
+                                                     "Country", "Experimental", "Fantasy", "Folk", "Fusion", "Medieval", "New Ages", "Orchestral", "Other", "Piano",
+                                                     "Religious", "Soundtrack", "Spiritual", "Video Game", "Vocal Montage", "World", "Ballad", "Disco", "Easy Listening",
+                                                     "Funk", "Pop - Soft", "Pop - Synth", "Pop (general)", "Rock - Hard", "Rock - Soft", "Rock (general)", "Christmas",
+                                                     "Halloween", "Hip-Hop", "R and B", "Reggae", "Ska", "Soul"),
+                                   format.filter = c("unset", "669", "AHX", "DMF", "HVL", "IT", "MED", "MO3", "MOD", "MTM", "OCT", "OKT", "S3M", "STM", "XM"),
+                                   size.filter   = c("unset", "0-99", "100-299", "300-599", "600-1025", "1025-2999", "3072-6999", "7168-100000"),
+                                   api.key) {
+  genre.filter  <- match.arg(genre.filter)
+  genre.filter  <- genre.table$genre.id[genre.table$genre == genre.filter]
+  format.filter <- match.arg(format.filter)
+  size.filter   <- match.arg(size.filter)
+  api.key       <- as.character(api.key[[1]])
+
+  xmlcode <- paste0("http://api.modarchive.org/xml-tools.php?key=",
+                    api.key, "&request=random")
+  if (format.filter != "unset") xmlcode <- paste0(xmlcode, "&format=",  format.filter)
+  if (size.filter   != "unset") xmlcode <- paste0(xmlcode, "&size=",    size.filter)
+  if (genre.filter  != "unset") xmlcode <- paste0(xmlcode, "&genreid=", genre.filter)
+  result <- .get.module.table(xmlcode, "module")
+  return(result)
 }

@@ -63,11 +63,11 @@ Pepijn de Vries
 Other module.operations: \code{\link{PTModule-class}},
   \code{\link{appendPattern}}, \code{\link{clearSamples}},
   \code{\link{clearSong}}, \code{\link{deletePattern}},
-  \code{\link{modToWave}}, \code{\link{moduleSize}},
-  \code{\link{patternLength}}, \code{\link{patternOrder}},
-  \code{\link{playMod}}, \code{\link{playingtable}},
-  \code{\link{read.module}}, \code{\link{trackerFlag}},
-  \code{\link{write.module}}
+  \code{\link{fix.PTModule}}, \code{\link{modToWave}},
+  \code{\link{moduleSize}}, \code{\link{patternLength}},
+  \code{\link{patternOrder}}, \code{\link{playMod}},
+  \code{\link{playingtable}}, \code{\link{read.module}},
+  \code{\link{trackerFlag}}, \code{\link{write.module}}
 
 Other pattern.operations: \code{\link{PTPattern-class}},
   \code{\link{PTPattern-method}},

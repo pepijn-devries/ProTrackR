@@ -4,42 +4,99 @@
 \alias{modArchive}
 \alias{modArchive.download}
 \alias{modArchive.info}
+\alias{modArchive.max.requests}
+\alias{modArchive.random.pick}
+\alias{modArchive.request.count}
+\alias{modArchive.search.artist}
+\alias{modArchive.search.genre}
+\alias{modArchive.search.hash}
 \alias{modArchive.search.mod}
+\alias{modArchive.view.by}
 \title{ModArchive helper functions}
 \usage{
-modArchive.info(mod.id)
+modArchive.info(mod.id, api.key)
 
-modArchive.download(mod.id)
+modArchive.download(mod.id, ...)
 
 modArchive.search.mod(search.text, search.where = c("filename_or_songtitle",
   "filename_and_songtitle", "filename", "songtitle", "module_instruments",
   "module_comments"), format.filter = c("unset", "669", "AHX", "DMF", "HVL",
   "IT", "MED", "MO3", "MOD", "MTM", "OCT", "OKT", "S3M", "STM", "XM"),
   size.filter = c("unset", "0-99", "100-299", "300-599", "600-1025",
-  "1025-2999", "3072-6999", "7168-100000"), genre.filter = c("unset",
-  "Alternative", "Gothic", "Grunge", "Metal - Extreme", "Metal (general)",
-  "Punk", "Chiptune", "Demo Style", "One Hour Compo", "Chillout",
-  "Electronic - Ambient", "Electronic - Breakbeat", "Electronic - Dance",
-  "Electronic - Drum and Bass", "Electronic - Gabber", "Electronic - Hardcore",
-  "Electronic - House", "Electronic - IDM", "Electronic - Industrial",
-  "Electronic - Jungle", "Electronic - Minimal", "Electronic - Other",
-  "Electronic - Progressive", "Electronic - Rave", "Electronic - Techno",     
-  "Electronic (general)", "Trance - Acid", "Trance - Dream", "Trance - Goa",
-  "Trance - Hard", "Trance - Progressive", "Trance - Tribal",
-  "Trance (general)", "Big Band", "Blues", "Jazz - Acid", "Jazz - Modern",
-  "Jazz (general)", "Swing", "Bluegrass", "Classical", "Comedy", "Country",
-  "Experimental", "Fantasy", "Folk", "Fusion", "Medieval", "New Ages",
-  "Orchestral", "Other", "Piano", "Religious", "Soundtrack", "Spiritual",
-  "Video Game", "Vocal Montage", "World", "Ballad", "Disco", "Easy Listening",  
-     "Funk", "Pop - Soft", "Pop - Synth", "Pop (general)", "Rock - Hard",
-  "Rock - Soft", "Rock (general)", "Christmas", "Halloween", "Hip-Hop",
-  "R and B", "Reggae", "Ska", "Soul"))
+  "1025-2999", "3072-6999", "7168-100000"), genre.filter = "deprecated", page,
+  api.key)
+
+modArchive.request.count(api.key)
+
+modArchive.max.requests(api.key)
+
+modArchive.view.by(view.query, view.by = c("view_by_list",
+  "view_by_rating_comments", "view_by_rating_reviews",
+  "view_modules_by_artistid", "view_modules_by_guessed_artist"),
+  format.filter = c("unset", "669", "AHX", "DMF", "HVL", "IT", "MED", "MO3",
+  "MOD", "MTM", "OCT", "OKT", "S3M", "STM", "XM"), size.filter = c("unset",
+  "0-99", "100-299", "300-599", "600-1025", "1025-2999", "3072-6999",
+  "7168-100000"), page, api.key)
+
+modArchive.search.genre(genre.filter = c("unset", "Alternative", "Gothic",
+  "Grunge", "Metal - Extreme", "Metal (general)", "Punk", "Chiptune",
+  "Demo Style", "One Hour Compo", "Chillout", "Electronic - Ambient",
+  "Electronic - Breakbeat", "Electronic - Dance", "Electronic - Drum and Bass",
+  "Electronic - Gabber", "Electronic - Hardcore", "Electronic - House",
+  "Electronic - IDM", "Electronic - Industrial", "Electronic - Jungle",
+  "Electronic - Minimal", "Electronic - Other", "Electronic - Progressive",
+  "Electronic - Rave", "Electronic - Techno",      "Electronic (general)",
+  "Trance - Acid", "Trance - Dream", "Trance - Goa", "Trance - Hard",
+  "Trance - Progressive", "Trance - Tribal", "Trance (general)", "Big Band",
+  "Blues", "Jazz - Acid", "Jazz - Modern", "Jazz (general)", "Swing",
+  "Bluegrass", "Classical", "Comedy", "Country", "Experimental", "Fantasy",
+  "Folk", "Fusion", "Medieval", "New Ages", "Orchestral", "Other", "Piano",
+  "Religious", "Soundtrack", "Spiritual", "Video Game", "Vocal Montage",
+  "World", "Ballad", "Disco", "Easy Listening",      "Funk", "Pop - Soft",
+  "Pop - Synth", "Pop (general)", "Rock - Hard", "Rock - Soft",
+  "Rock (general)", "Christmas", "Halloween", "Hip-Hop", "R and B", "Reggae",
+  "Ska", "Soul"), format.filter = c("unset", "669", "AHX", "DMF", "HVL", "IT",
+  "MED", "MO3", "MOD", "MTM", "OCT", "OKT", "S3M", "STM", "XM"),
+  size.filter = c("unset", "0-99", "100-299", "300-599", "600-1025",
+  "1025-2999", "3072-6999", "7168-100000"), page, api.key)
+
+modArchive.search.artist(search.artist, page, api.key)
+
+modArchive.search.hash(search.hash, api.key)
+
+modArchive.random.pick(genre.filter = c("Alternative", "Gothic", "Grunge",
+  "Metal - Extreme", "Metal (general)", "Punk", "Chiptune", "Demo Style",
+  "One Hour Compo", "Chillout", "Electronic - Ambient",
+  "Electronic - Breakbeat", "Electronic - Dance", "Electronic - Drum and Bass",
+  "Electronic - Gabber", "Electronic - Hardcore", "Electronic - House",
+  "Electronic - IDM", "Electronic - Industrial", "Electronic - Jungle",
+  "Electronic - Minimal", "Electronic - Other", "Electronic - Progressive",
+  "Electronic - Rave", "Electronic - Techno", "Electronic (general)",     
+  "Trance - Acid", "Trance - Dream", "Trance - Goa", "Trance - Hard",
+  "Trance - Progressive", "Trance - Tribal", "Trance (general)", "Big Band",
+  "Blues", "Jazz - Acid", "Jazz - Modern", "Jazz (general)", "Swing",
+  "Bluegrass", "Classical", "Comedy", "Country", "Experimental", "Fantasy",
+  "Folk", "Fusion", "Medieval", "New Ages", "Orchestral", "Other", "Piano",
+  "Religious", "Soundtrack", "Spiritual", "Video Game", "Vocal Montage",
+  "World", "Ballad", "Disco", "Easy Listening", "Funk", "Pop - Soft",     
+  "Pop - Synth", "Pop (general)", "Rock - Hard", "Rock - Soft",
+  "Rock (general)", "Christmas", "Halloween", "Hip-Hop", "R and B", "Reggae",
+  "Ska", "Soul"), format.filter = c("unset", "669", "AHX", "DMF", "HVL", "IT",
+  "MED", "MO3", "MOD", "MTM", "OCT", "OKT", "S3M", "STM", "XM"),
+  size.filter = c("unset", "0-99", "100-299", "300-599", "600-1025",
+  "1025-2999", "3072-6999", "7168-100000"), api.key)
 }
 \arguments{
 \item{mod.id}{An \code{integer} code used as module identifier in the ModArchive database.
 A \code{mod.id} can be obtained by performing a search with \code{modArchive.search.mod}.
 When downloading a module, make sure that the identifier represents a MOD file, as
 other types will result in an error.}
+
+\item{api.key}{Most ModArchive functions require a personal secret API key. This key can
+be obtained from the ModArchive forum. See `ModArchive API Key' section below for instructions
+on how to obtain such a key.}
+
+\item{...}{arguments that are passed on to \code{\link{read.module}}.}
 
 \item{search.text}{A \code{character} string to be used as terms to search
 in the ModArchive.}
@@ -61,17 +118,61 @@ module is approximately 4068 kilobytes, meaning that the largest file size
 category is irrelevant for `MOD' files. Also note that the category names are
 inconsistant, these are the literal catagories used by ModArchive}
 
-\item{genre.filter}{Genre filter to be used in a search in the ModArchive.
+\item{genre.filter}{Genre filter to be used in some of the overviews from the ModArchive.
 Needs to be a \code{character} string representation of a genre
 as specified on ModArchive.org.
-See the usage section for all possible options. Default is "unset" (meaning that
-it will search for any genre).}
+See the usage section for all possible options.
+This argument is deprecated in the function \code{modArchive.search} since ProTrackR
+version 0.3.4, other functions will still accept this argument.}
+
+\item{page}{Many of the ModArchive returns paginated tables. When this argument
+is omitted, the first page is returned. Use an integer value to return a specific
+page. The total number of pages of a search or view is returned as an attribute
+to the returned \code{\link[base]{data.frame}}.}
+
+\item{view.query}{A query to be used in combination with the \code{view.by}
+argument. Use the queries in combination with \code{view.by} as follows:
+\itemize{
+  \item{\code{view_by_list}: Use a single capital starting letter to browse
+  modules by name}
+  \item{\code{view_by_rating_comments}: Provide a (user) rating by which you
+  wish to browse the modules}
+  \item{\code{view_by_rating_reviews}: Provide a (reviewer) rating by which you
+  wish to browse the modules}
+  \item{\code{view_modules_by_artistid}: Provide an artist id number
+  for whom you wish to browse his/her modules}
+  \item{\code{view_modules_by_guessed_artist}: Provide an artist guessed
+  name for whom you wish to browser his/her modules}
+}}
+
+\item{view.by}{Indicate how the \code{modArchive.view.by} function should sort
+the overview tables of modules. See `usage' section for the possible options.}
+
+\item{search.artist}{A character string representing the (guessed) artist name
+or id number that you ar looking for in the archive.}
+
+\item{search.hash}{The MD5 hash code of the specific module you are looking
+for. See \url{http://modarchive.org/?xml-api-usage-level3} for details.}
 }
 \value{
-\code{modArchive.info} will return a \code{\link{list}} with module info.
+\code{modArchive.info}, \code{modArchive.search.genre},
+\code{modArchive.search.hash}, \code{modArchive.random.pick} and
+\code{modArchive.view.by} will return a \code{\link{data.frame}}
+containing information on modules in the ModArchive. Note that this
+data.frame is formatted differently since ProTrackR 0.3.4, which
+may cause backward compatibility issues.
+
 \code{modArchive.download} will download a module and return it as a
-\code{\link{PTModule}} object. \code{modArchive.download} will search on the modArchive
-and return the first page of search results in the form of a \code{\link{data.frame}}.
+\code{\link{PTModule}} object.
+
+\code{modArchive.search.artist}  will return a \code{\link{data.frame}}
+containing information on artists on the ModArchive.
+
+\code{modArchive.request.count} returns the number of ModArchive API request
+that are left for this month, for the provided key.
+
+\code{modArchive.max.requests} returns the maximum monthly requests for the
+provided key.
 }
 \description{
 \url{http://ModArchive.org} is the largest online archive of module files. These functions
@@ -79,47 +180,114 @@ will assist in accessing this archive.
 }
 \details{
 The \code{modArchive.info} function will retrieve info on a specific module from the
-ModArchive. The \code{modArchive.download} will download modules from the archive.
-The \code{modArchive.search.mod} function will search the archive for modules. Note
-that the ModArchive also contains file formats other that ProTracker's MOD format.
-This package will only handle the MOD format.
+ModArchive. The \code{modArchive.search.mod}, \code{modArchive.search.genre} and
+\code{modArchive.search.hash} functions can be used to find specific modules
+in the archive. Use \code{modArchive.random.pick} to get module info on a random
+module in the archive.
+
+Use the \code{modArchive.view.by}
+function to browse the archive by specific aspects.
+Note that the ModArchive also contains file formats other than ProTracker's MOD format.
+This package can only handle the MOD format.
+
+The \code{modArchive.download} function will download a module from the archive.
+
+Use \code{modArchive.search.artist} to find artist details in the archive.
+
+Use \code{modArchive.request.count} to determine how many request you have
+made in the current month with the specified key (see `ModArchive API key'
+section for details).
+Use \code{modArchive.max.requests} to determine how many request you are
+allowed to make each month with the provided key (see `ModArchive API key'
+section for details).
 }
-\note{
-The `\code{modArchive}' functions were created for your convenience.
-However, users and developers should not rely too heavily on them for
-the following two reasons:
-\itemize{
-\item{The ModArchive is developed and maintained by a third party. Changes
-in the structure of that database or the dissemination of the data may
-cause the functions in this package to fail. I don't have any control on
-these kind of changes.}
-\item{Some of the \code{modArchive} functions implemented here, rely on regular
-expressions to lookup information in ModArchive html code. I do realise
-that using regular expressions in html code is the root of all evil (as
-html is not a regular language). However, this approach is used to keep this package
-light (i.e., not to rely on too many other packages), without having to write
-a custom html-parser. That being said, this approach should work in most
-cases, but may fail in some.}
-}
+\section{ModArchive API key}{
+
+Since ProTrackR 0.3.4, the ModArchive helper functions have changed. In earlier
+version, a lable html scraper was used, in 0.3.4 and later, this is replaced by
+functions that more robustly use the Application Programming Interface (API)
+provided by ModArchive. There are some downsides to this new approach: a
+personal API key needs to be obtained from the ModArchive team; and the
+ProTrackR package relies on yet another package (XML)
+to parse the XML files that are returned by the API.
+
+So why is this switch? Well, first of all, this approach is better supported
+by ModArchive. The personal API key is used to avoid excessive access by imposing
+a monthly request limit (keep in mind that ModArchive provides free services and is
+run by volunteers). The upside is that the XML files are a lot lighter than the
+html files returned by the regular website. Therefore, the new functions are faster,
+and they reduce the load on the ModArchive servers. The XML files also allow for
+easier access to more of the ModArchive functionality as implemented in the
+ModArchive helper functions described here.
+
+So how do you get your personal API key? First, you need to register at the
+\href{https://modarchive.org/forums/}{ModArchive Forums}. Then follow the
+instructions provided in this \href{https://modarchive.org/forums/index.php?topic=1950.0}{topic}
+on the forum. For more info, see also the \href{http://modarchive.org/?xml-api}{API
+page} on ModArchive.
 }
 \examples{
 \dontrun{
+## most of the example below will fail as they require a
+## real modArchive API key. The key used in these example
+## is just a dummy. See details on how to get a key
+## in the section 'ModArchive API Key' in the manual.
+
 ## Search for the module that is also used as
 ## an example in this package:
-search.results <- modArchive.search.mod("ProTrackR", "module_instruments", "MOD")
+search.results <- modArchive.search.mod("*_-_intro.mod",
+                                        size.filter = "0-99",
+                                        format.filter = "MOD",
+                                        api.key = "<your key here>")
 
 ## apparently there are multiple modules in
-## database that use 'ProTrackR' as a
-## sample name. Select the actual module from the
-## list:
-search.select <- subset(search.results, title == "intro")
+## database that have '_-_intro' in their
+## file name or title. Select the wanted
+## module from the list (the one with the
+## word 'protrackr' in the instrument names):
+search.select <- subset(search.results,
+                        grepl("protrackr", search.results$instruments))
 
-## get all available details for this mod from
-## ModArchive.org:
-modArchive.info(search.select$mod.id)
+## get the same details, but now only for
+## the specific module based on its ModArchive ID:
+modArchive.info(search.select$id, api.key = "<your key here>")
 
 ## download the selected module from ModArchive.org:
-mod <- modArchive.download(search.select$mod.id)
+mod <- modArchive.download(search.select$id)
+
+## here's a randomly picked module from the ModArchive:
+info.random <- modArchive.random.pick(api.key = "<your key here>")
+
+## use modArchive.view.by to list the 2nd page
+## of MOD files that start with the letter 'A'
+info.list  <- modArchive.view.by("A", "view_by_list", "MOD",
+                                 page = 2,
+                                 api.key = "<your key here>")
+
+## list the modules of the artist with id number 89200:
+artist.mods <- modArchive.view.by("89200", "view_modules_by_artistid",
+                                  format.filter = "MOD",
+                                  api.key = "<your key here>")
+
+## here's how you can list MOD files of a
+## specific genre:
+list.genre  <- modArchive.search.genre("Chiptune", "MOD",
+                                       api.key = "<your key here>")
+
+## get module info for a specific hash code
+mod.hash    <- modArchive.search.hash("8f80bcab909f700619025bd7f2975749",
+                                      "<your key here>")
+
+## find modarchive artist info, search for artist name
+## or artist id:
+artist.list <- modArchive.search.artist("89200",
+                                        api.key = "<your key here>")
+
+## How many requests did I make this month?:
+modArchive.request.count("<your key here>")
+
+## How many requests am I allowed to make each month?:
+modArchive.max.requests("<your key here>")
 }
 }
 \author{

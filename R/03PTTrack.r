@@ -5,12 +5,22 @@ validity.PTTrack <- function(object)
   # Data in matrix should be of type raw
   if (typeof(object@data) != "raw") return (F)
   # All cell data should also be OK
-  cell_check <- apply(object@data, 1, function(x){
-    ptc <- new("PTCell")
-    ptc@data <- x
-    return (validity.PTCell(ptc))
-  })
-  if (any(!cell_check)) return(F)
+
+  # max. 32 samples (including number 0) allowed:
+  samp.num <- hiNybble(object@data[,1])*0x01 + hiNybble(object@data[,3])
+  if (any(samp.num > 0x1F)) return (F)
+
+  per      <- loNybble(object@data[,1])*0x100 + as.integer(object@data[,2])
+  oct      <- octave(per)
+
+  # only octaves 1 up to 3 are allowed:
+  if (any(!(oct[per != 0] %in% c(1:3)))) return (F)
+
+  # only period values from period_table are allowed:
+  if (any(!(per[per != 0] %in% unlist(ProTrackR::period_table[ProTrackR::period_table$tuning == 0,
+                                                              !(names(ProTrackR::period_table) %in% c("octave", "tuning"))]))))
+    return (F)
+
   return(T)
 }
 

@@ -5,12 +5,24 @@ validity.PTPattern <- function(object)
   # data should be of type raw
   if (typeof(object@data) != "raw") return (F)
   # tracks should also be OK
-  for (i in 1:maximumTrackCount)
-  {
-    ptc      <- new("PTTrack")
-    ptc@data <- object@data[,-3 + ((i*4):(i*4 + 3))]
-    if (!validity.PTTrack(ptc)) return (F)
-  }
+  trackdat <- do.call(rbind, lapply(as.list(1:maximumTrackCount), function (x) {
+    object@data[,-3 + ((x*4):(x*4 + 3))]
+  }))
+  # max. 32 samples (including number 0) allowed:
+  samp.num <- hiNybble(trackdat[,1])*0x01 + hiNybble(trackdat[,3])
+  if (any(samp.num > 0x1F)) return (F)
+
+  per      <- loNybble(trackdat[,1])*0x100 + as.integer(trackdat[,2])
+  oct      <- octave(per)
+
+  # only octaves 1 up to 3 are allowed:
+  if (any(!(oct[per != 0] %in% c(1:3)))) return (F)
+
+  # only period values from period_table are allowed:
+  if (any(!(per[per != 0] %in% unlist(ProTrackR::period_table[ProTrackR::period_table$tuning == 0,
+                                                    !(names(ProTrackR::period_table) %in% c("octave", "tuning"))]))))
+      return (F)
+
   return(T)
 }
 

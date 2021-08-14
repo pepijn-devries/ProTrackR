@@ -11,10 +11,10 @@ validity.PTModule <- function(object)
   if (length(object@samples)       != 31)                    return (F)
   if (!all(unlist(lapply(object@samples, class)) == "PTSample"))
     return (F)
-  if (!all(unlist(lapply(object@samples, validObject))))     return (F)
+  if (!all(unlist(lapply(object@samples, validObject, test = T))))     return (F)
   if (!all(unlist(lapply(object@patterns, class)) == "PTPattern"))
     return (F)
-  if (!all(unlist(lapply(object@patterns, validObject))))    return (F)
+  if (!all(unlist(lapply(object@patterns, validObject, test = T))))    return (F)
   if (length(object@tracker.flag)  != 4)                     return (F)
   if (!all(object@tracker.flag     == charToRaw("M.K.")) &&
       !all(object@tracker.flag     == charToRaw("M!K!")))    return (F)
@@ -274,7 +274,7 @@ setGeneric("read.module", function(file, ignore.validity = F) standardGeneric("r
 #' @docType methods
 #' @name  read.module
 #' @rdname read.module
-#' @aliases read.module,character-method
+#' @aliases read.module,character,logical-method
 #' @param file either a filename or a file connection, that
 #' allows reading binary data (see e.g., \code{\link[base]{file}} or \code{\link[base]{url}}).
 #' @param ignore.validity A \code{logical} value indicating whether the
@@ -314,7 +314,7 @@ setGeneric("read.module", function(file, ignore.validity = F) standardGeneric("r
 #' @family module.operations
 #' @author Pepijn de Vries
 #' @export
-setMethod("read.module", c("character"), function(file, ignore.validity){
+setMethod("read.module", c("character", "logical"), function(file, ignore.validity){
   ignore.validity <- as.logical(ignore.validity)[[1]]
   con <- file(file, "rb")
   mod <- read.module(con, ignore.validity)
@@ -323,10 +323,23 @@ setMethod("read.module", c("character"), function(file, ignore.validity){
 })
 
 #' @rdname read.module
-#' @aliases read.module,ANY-method
+#' @aliases read.module,ANY,missing-method
 #' @export
-setMethod("read.module", c("ANY"), function(file, ignore.validity)
-{
+setMethod("read.module", c("ANY", "missing"), function(file, ignore.validity) {
+  read.module(file, F)
+})
+
+#' @rdname read.module
+#' @aliases read.module,character,missing-method
+#' @export
+setMethod("read.module", c("ANY", "missing"), function(file, ignore.validity) {
+  read.module(file, F)
+})
+
+#' @rdname read.module
+#' @aliases read.module,ANY,logical-method
+#' @export
+setMethod("read.module", c("ANY", "logical"), function(file, ignore.validity) {
   ignore.validity <- as.logical(ignore.validity)[[1]]
   # function to read module from file
   # connection following the specs listed here:
@@ -387,15 +400,16 @@ setMethod("read.module", c("ANY"), function(file, ignore.validity)
   # Go for ProTracker compatibility. Forget about other trackers:
   pattern_count     <- max(as.numeric(mod@pattern.order)) + 1
 
-  # read pattern data from file. Loop through each pattern
-  for (i_pattern in 1:pattern_count)
-  {
-    mod@patterns[[i_pattern]] <- new("PTPattern",
-                                     data = matrix(readBin(con, "raw", maximumPatternTableRowCount*maximumTrackCount*4),
-                                                   ncol = maximumTrackCount*4,
-                                                   nrow = maximumPatternTableRowCount,
-                                                   byrow = T))
-  }
+  # read pattern data from file.
+  pattern.data <- array(
+    readBin(con, "raw", maximumPatternTableRowCount*maximumTrackCount*4*pattern_count),
+    c(maximumTrackCount*4, maximumPatternTableRowCount, pattern_count))
+  mod@patterns <- apply(pattern.data, 3, function(x) {
+    res <- new("PTPattern")
+    res@data <- t(x)
+    res})
+
+  rm(pattern.data)
 
   # read sample wave data
   for (i_sample in 1:length(samp.lengths))
@@ -407,7 +421,7 @@ setMethod("read.module", c("ANY"), function(file, ignore.validity)
   test_byte <- readBin(con, "raw", 1)
   if (length(test_byte) > 0) warning("\nFinished reading module data from file,\nbut end of file is not reached.")
 
-  if (!validity.PTModule(mod) & ignore.validity) stop("File is not a valid ProTracker Module.")
+  if (!ignore.validity && !validity.PTModule(mod)) stop("File is not a valid ProTracker Module.")
 
   return (mod)
 })
@@ -464,20 +478,20 @@ setMethod("write.module", c("PTModule", "ANY"), function(mod, file)
   # read module name from file
   writeBin(mod@name, con)
 
-  # loop the 31 samples and read all required info,
+  # loop the 31 samples and write all required info,
   # except for the wave data itself, from the file
   for (i_sample in 1:length(mod@samples))
   {
-    # read the sample name from the file
+    # write the sample name from the file
     writeBin(mod@samples[[i_sample]]@name, con)
 
     # sample length in words, multiply by two for length in bytes
     writeBin(unsignedIntToRaw(length(mod@samples[[i_sample]]@left)/2, 2), con)
 
-    # read the fine tune value for the sample:
+    # write the fine tune value for the sample:
     writeBin(mod@samples[[i_sample]]@finetune, con)
 
-    # read the default volume value for the sample,
+    # write the default volume value for the sample,
     # ranging from 0x00 (min) to 0x40 (max):
     writeBin(mod@samples[[i_sample]]@volume, con)
 
@@ -490,34 +504,30 @@ setMethod("write.module", c("PTModule", "ANY"), function(mod, file)
   # clean up memory:
   rm(i_sample)
 
-  # read the length of the table specifying the order of patterns to be played:
+  # write the length of the table specifying the order of patterns to be played:
   writeBin(mod@pattern.order.length, con)
 
-  # read a byte that may give us some info on
+  # write a byte that may give us some info on
   # the tracker used to create the module:
   writeBin(mod@tracker.byte, con)
 
-  # read the table specifying the order of patterns to be played:
+  # write the table specifying the order of patterns to be played:
   writeBin(mod@pattern.order, con)
 
-  # read a tag that can help us to determine which
+  # write a tag that can help us to determine which
   # tracker was used to create the module:
   writeBin(mod@tracker.flag, con)
 
   # Go for ProTracker compatibility. Forget about other trackers:
   pattern_count     <- max(as.numeric(mod@pattern.order)) + 1
 
-  # read pattern data from file. Loop through each pattern
-  for (i_pattern in 1:pattern_count)
-  {
-    writeBin(as.vector(t(mod@patterns[[i_pattern]]@data)), con)
-  }
+  # write pattern data from file.
+  writeBin(as.vector(do.call(c, lapply(mod@patterns,
+                                           function(x) as.vector(t(x@data))))), con)
 
-  # read sample wave data
-  for (i_sample in 1:length(mod@samples))
-  {
-    writeBin(signedIntToRaw(mod@samples[[i_sample]]@left - 128), con)
-  }
+  # write sample wave data
+  writeBin(do.call(c, lapply(mod@samples,
+                             function(x) signedIntToRaw(x@left - 128))), con)
   invisible()
 })
 
@@ -670,6 +680,7 @@ setReplaceMethod("patternOrder", c("PTModule", "ANY", "numeric"), function(x, fu
   if (any(is.na(value))) stop ("NAs are not allowed in replacement!")
   if (length(value) > 128)
   {
+    value <- value[1:128]
     warning("Replacement has more than 128 elements. Only the first 128 elements used")
   } else if(!full)
   {
@@ -1000,7 +1011,7 @@ setGeneric("appendPattern", function(x, pattern){
 #' @export
 setMethod("appendPattern", c("PTModule", "PTPattern"), function(x, pattern){
   max.patterns <- ifelse(all(x@tracker.flag    == charToRaw("M!K!")), 100, 64)
-  if (length(x@patterns) > max.patterns) stop ("Can't insert pattern. Module already holds maximum number of patterns.")
+  if (length(x@patterns) >= max.patterns) stop ("Can't insert pattern. Module already holds maximum number of patterns.")
   p.order     <- patternOrder(x, full = T)
   p.order.len <- patternOrderLength(x)
   x@patterns[[length(x@patterns) + 1]] <- pattern
@@ -1088,7 +1099,7 @@ setGeneric("clearSong", function(mod) standardGeneric("clearSong"))
 #' @aliases clearSong,PTModule-method
 #' @param mod A \code{\link{PTModule}} object from which all pattern (order)
 #' info needs to be removed.
-#' @return Returns a copy of of object \code{mod} in which all pattern (order)
+#' @return Returns a copy of object \code{mod} in which all pattern (order)
 #' info is removed.
 #' @examples
 #' data(mod.intro)
@@ -1120,7 +1131,7 @@ setGeneric("clearSamples", function(mod) standardGeneric("clearSamples"))
 #' @aliases clearSamples,PTModule-method
 #' @param mod A \code{\link{PTModule}} object from which all samples needs
 #' to be removed.
-#' @return Returns a copy of of object \code{mod} in which all samples are removed.
+#' @return Returns a copy of object \code{mod} in which all samples are removed.
 #' @examples
 #' data(mod.intro)
 #'
@@ -1134,4 +1145,145 @@ setGeneric("clearSamples", function(mod) standardGeneric("clearSamples"))
 setMethod("clearSamples", "PTModule", function(mod){
   mod@samples <- lapply(as.list(1:31), function(x) new("PTSample"))
   return(mod)
+})
+
+setGeneric("fix.PTModule", function(mod, verbose) standardGeneric("fix.PTModule"))
+
+#' Attempt to fix PTModule to ProTracker specs
+#'
+#' Try to fix non-valid \code{\link{PTModule}} objects in order to meet with
+#' ProTracker specs such that they pass validity tests.
+#'
+#' Almost any file can be read as a \code{\link{PTModule}} object (using
+#' \code{\link{read.module}}) when validity is ignored and no unexpected end
+#' of file is reached. This package's object validity are very strickly testing
+#' for compliance with ProTracker specifications. As many modules could have
+#' been created with other trackers (which often will play just as well in
+#' ProTracker) it is desirable to convert such object to ProTracker specs.
+#' This method attempts to do so, by fixing each aspect, that is also tested
+#' in the object validity functions. Note that the attempts are no guarantee for success,
+#' and `fixed' modules may not play as intended.
+#'
+#' @rdname fix.PTModule
+#' @name fix.PTModule
+#' @aliases fix.PTModule,PTModule,logical-method
+#' @param mod A \code{\link{PTModule}} object which needs fixing.
+#' @param verbose With the default value of \code{TRUE}, the method
+#' prints a progress report to the \code{\link{sink}}. When set
+#' to \code{FALSE}, the progress report is suppressed.
+#' @return Returns a copy of object \code{mod} in which all non-conformaties are
+#' attempted to be fixed. (Attempted) fixes are listed printed
+#' in the progress report.
+#' @note In the current version, pattern data itself is not checked for
+#' non-conformaties nor is it fixed.
+#' @examples
+#' \dontrun{
+#' data("mod.intro")
+#'
+#' ## Let's do something illegal and destroy mod.intro:
+#' mod.intro@pattern.order <- mod.intro@pattern.order[1:9]
+#'
+#' ## We should have used the 'patternOrder'-method to
+#' ## change the pattern order. Now we have broken the
+#' ## object:
+#' validObject(mod.intro, TRUE)
+#'
+#' ## No worries, we can fix it:
+#' mod.intro <- fix.PTModule(mod.intro)
+#'
+#' ## See, it's all OK again:
+#' validObject(mod.intro, TRUE)
+#' }
+#' @family module.operations
+#' @author Pepijn de Vries
+#' @export
+setMethod("fix.PTModule", c("PTModule", "logical"), function(mod, verbose = T){
+  if (verbose) cat("Check and fix if pattern.order.length is a raw of length 1\n")
+  mod@pattern.order.length <- as.raw(mod@pattern.order.length[[1]])
+  if (verbose) cat("Check and fix if pattern.order.length value is out of range (1-128)\n")
+  mod@pattern.order.length[mod@pattern.order.length < 1]   <- as.raw(1)
+  mod@pattern.order.length[mod@pattern.order.length > 128] <- as.raw(128)
+  if (verbose) cat("Check and fix if the module name has a length of exactly 20 raw values\n")
+  mod@name <- as.raw(mod@name[1:20])
+  if (verbose) cat("Check and fix if the pattern order table length is not equal to 128\n")
+  mod@pattern.order <- as.raw(mod@pattern.order[1:128])
+  if (verbose) cat("Check and fix if the tracker byte when it is not equal to that of ProTracker (0x7F)\n")
+  mod@tracker.byte <- as.raw(0x7F)
+  if (verbose) cat("Check and fix if the number of samples is not equal to ProTracker's capacity of 31\n")
+  mod@samples <- test <- lapply(1:31, function(x) {
+    samp <- mod@samples[x][[1]]
+    if (is.null(samp)) samp <- new("PTSample")
+    samp
+  })
+
+  for (i in 1:31) {
+    if (verbose) cat(paste("Fixing sample number", i, "\n"))
+    if (verbose) cat("Check and fix sample name\n")
+    mod@samples[[i]]@name <- mod@samples[[i]]@name[1:22]
+    if (verbose) cat("Check and fix finetune\n")
+    mod@samples[[i]]@finetune <- mod@samples[[i]]@finetune[1]
+    mod@samples[[i]]@finetune[mod@samples[[i]]@finetune > 0x0f] <- as.raw(0x0f)
+    if (verbose) cat("Check and fix volume\n")
+    mod@samples[[i]]@volume <- mod@samples[[i]]@volume[1]
+    mod@samples[[i]]@volume[mod@samples[[i]]@volume > 0x40] <- as.raw(0x40)
+    cat(paste("Check and fix if loopstart is out of the samples range\n"))
+    if (loopStart(mod@samples[[i]]) > (length(mod@samples[[i]]@left) - 2)) {
+      ls <- length(mod@samples[[i]]@left) - 2
+      ls[ls < 0] <- 0
+      mod@samples[[i]]@wloopstart <- unsignedIntToRaw(ls, 2)
+    }
+    if (length(mod@samples[[i]]@left) > 0 && loopLength(mod@samples[[i]]) == 0)
+      loopLength(mod@samples[[i]]) <- 2
+    if ((loopLength(mod@samples[[i]]) +
+         loopStart(mod@samples[[i]])) > sampleLength(mod@samples[[i]]) &&
+        loopLength(mod@samples[[i]]) != 2) {
+      ll <- sampleLength(mod@samples[[i]]) -
+        loopStart(mod@samples[[i]])
+      ll[ll < 2] <- 2
+      loopLength(mod@samples[[i]]) <- ll
+      ## will not check if the sample is 8 bit. Can't fix that in
+      ## a proper way anyway. Dito for pcm.
+    }
+
+    cat("Check and fix if the right channel of the sample is empty\n")
+    mod@samples[[i]]@right <- numeric(0)
+    cat("Check and fix if the sample does not contain too much data\n")
+    if (length(mod@samples[[i]]@left)  > 2*0xFFFF)
+      mod@samples[[i]]@left <- mod@samples[[i]]@left[1:2*0xFFFF]
+    cat("Check and fix if the sample length is not even\n")
+    if ((length(mod@samples[[i]]@left)%%2) == 1)
+      mod@samples[[i]]@left <- mod@samples[[i]]@left[1:(length(mod@samples[[i]]@left) + 1)]
+  }
+
+  if (verbose) cat("Check and fix the tracker flag if it's not equal to either of ProTrackers values 'M.K.' or 'M!K!'\n")
+  mod@tracker.flag <- as.raw(mod@tracker.flag[1:4])
+  if (!all(mod@tracker.flag     == charToRaw("M.K.")) &&
+      !all(mod@tracker.flag     == charToRaw("M!K!")))
+    mod@tracker.flag <- charToRaw("M!K!")
+  tf <- all(mod@tracker.flag    == charToRaw("M!K!"))
+  if (verbose) cat("Check and fix if the number of patterns are out of range (either 1-64, or 1-100, depending on the tracker flag)\n")
+  ml <- ifelse(tf, 100, 64)
+  cl <- length(mod@patterns)
+  if (cl < 1) mod@patterns <- new("PTPattern")
+  if (cl > ml) mod@patterns <- mod@patterns[1:ml]
+  if (verbose) cat("Check and fix if the maximum number of patterns is listed in the pattern order table\n")
+  cl <- length(mod@patterns)
+  mlo <- max(as.integer(mod@pattern.order)) + 1
+  if (cl < mlo) {
+    mod@patterns <- c(mod@patterns, lapply(1:(mlo - cl), function(x) new("PTPattern")))
+  } else if (cl > mlo) {
+    mod@patterns <- mod@patterns[1:mlo]
+  }
+  ## Pattern data itself is currently not checked and fixed
+
+  if (verbose && validObject(mod, T)) cat("Module successfully fixed\n") else
+    cat("Fixing module failed\n")
+  return(mod)
+})
+
+#' @rdname fix.PTModule
+#' @aliases fix.PTModule,PTModule,missing-method
+#' @export
+setMethod("fix.PTModule", c("PTModule", "missing"), function(mod){
+  fix.PTModule(mod, T)
 })

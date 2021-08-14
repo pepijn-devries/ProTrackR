@@ -86,8 +86,9 @@ Pepijn de Vries
 \seealso{
 Other module.operations: \code{\link{appendPattern}},
   \code{\link{clearSamples}}, \code{\link{clearSong}},
-  \code{\link{deletePattern}}, \code{\link{modToWave}},
-  \code{\link{moduleSize}}, \code{\link{patternLength}},
+  \code{\link{deletePattern}}, \code{\link{fix.PTModule}},
+  \code{\link{modToWave}}, \code{\link{moduleSize}},
+  \code{\link{patternLength}},
   \code{\link{patternOrderLength}},
   \code{\link{patternOrder}}, \code{\link{playMod}},
   \code{\link{playingtable}}, \code{\link{read.module}},

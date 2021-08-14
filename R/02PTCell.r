@@ -1,6 +1,9 @@
 validity.PTCell <- function(object)
 {
   if (length(object@data) != 4) return (F)
+  # Data in vector should be of type raw
+  if (typeof(object@data) != "raw") return (F)
+
   # max. 32 samples (including number 0) allowed:
   if (sampleNumber(object) > 0x1F) return (F)
 

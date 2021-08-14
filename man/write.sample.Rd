@@ -32,7 +32,7 @@ from \code{\link[tuneR]{tuneR}}. It also provides the means to export audio
 to file formats native to the Commodore Amiga. \code{PTSample}s can be
 exported as simple (uncompressed) \href{https://en.wikipedia.org/wiki/8SVX}{8svx}
 files also known as "iff" files). In addition they can be exported as raw data,
-where each byte simply represented a signed integer value of the waveform.
+where each byte simply represents a signed integer value of the waveform.
 }
 \examples{
 \dontrun{

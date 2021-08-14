@@ -1,6 +1,6 @@
 ## http://pastebin.com/pg95YduC
 ## https://bel.fi/alankila/modguide/interpolate.txt
-## XXX max output rate differs per channel?:
+## XXX max output rate differs per channel still need to try to confirm that?:
 ## http://eab.abime.net/showthread.php?t=70783
 
 ## The amiga hardware reference manual:
@@ -215,7 +215,7 @@ setGeneric("modToWave",
 #' @export
 setMethod("modToWave", "PTModule", function(mod, video, target.rate, target.bit, stereo.separation, low.pass.filter, tracks, ...){
   video <- match.arg(video)
-  verbose <- F
+  verbose <- T
   tracks <- sort(unique((1:maximumTrackCount)[tracks]))
   moreArgs <- list(...)
   if ("verbose" %in% names(moreArgs)) verbose <- moreArgs[["verbose"]]
@@ -228,12 +228,12 @@ setMethod("modToWave", "PTModule", function(mod, video, target.rate, target.bit,
   if (stereo.separation < 0 || stereo.separation > 1) stop("stereo.separation should be a value between 0 and 1.")
 
   pt       <- playingtable(mod, video = video, ...)
-  if (!verbose) cat("generating channel wave data:\n")
+  if (verbose) cat("generating channel wave data:\n")
   result   <- apply(t(as.matrix(tracks)), 2,
                     function(x) .generate.channel.data(mod, pt, x, target.rate,
                                                        video, low.pass.filter,
                                                        verbose))
-  if (!verbose) cat("mixing channels...")
+  if (verbose) cat("mixing channels...")
   ## filtering can result in values out of range (<0 or >255)
   ## let's normalise the data when nessecary:
   rmin <- min(result)
@@ -265,7 +265,7 @@ setMethod("modToWave", "PTModule", function(mod, video, target.rate, target.bit,
                    bit       = target.bit,
                    samp.rate = target.rate)
   }
-  if (!verbose) cat("\t\t\tdone\n")
+  if (verbose) cat("\t\t\tdone\n")
   return(result)
 })
 
@@ -277,7 +277,7 @@ setGeneric("playingtable",
                     tempo             = 0x7D,
                     video             = c("PAL", "NTSC"),
                     play.once         = T,
-                    verbose           = F){
+                    verbose           = T){
              standardGeneric("playingtable")
            })
 
@@ -348,8 +348,8 @@ setGeneric("playingtable",
 #' break. Will be overruled when the \code{maximum.duration} is reached
 #' before the end of the song.
 #' @param verbose A \code{logical} value. Suppresses a progress report
-#' from being printed to the \code{\link[base]{sink}} when set to \code{TRUE}.
-#' The default value is \code{FALSE}.
+#' from being printed to the \code{\link[base]{sink}} when set to \code{FALSE}.
+#' The default value is \code{TRUE}.
 #' @return Returns a \code{data.frame} with pattern rows put in the right
 #' order. Information contained in the returned table is described in the
 #' 'Details' section
@@ -389,7 +389,7 @@ setMethod("playingtable", "PTModule", function(mod,
   filter_fin <- F
   threshold  <- 0.1/44100
   # first create tables per pattern:
-  if (!verbose) cat("Processing pattern tables...")
+  if (verbose) cat("Processing pattern tables...")
 
   pat_play_tables <- lapply(mod@patterns, function(pattern){
     result  <- data.frame(row = 1:maximumPatternTableRowCount)
@@ -554,7 +554,7 @@ setMethod("playingtable", "PTModule", function(mod,
 
     return(result)
   })
-  if (!verbose)
+  if (verbose)
   {
     cat("\t\tdone\n")
     cat("Processing pattern order...")
@@ -718,7 +718,7 @@ setMethod("playingtable", "PTModule", function(mod,
   result$note.track2 <- noteAsFact(result$note.track2)
   result$note.track3 <- noteAsFact(result$note.track3)
   result$note.track4 <- noteAsFact(result$note.track4)
-  if (!verbose) cat("\t\tdone\n")
+  if (verbose) cat("\t\tdone\n")
   return(result)
 })
 
@@ -756,7 +756,7 @@ setMethod("playingtable", "PTModule", function(mod,
 
 .generate.channel.data <- function(mod, pt, track.nr, target.rate, video = c("PAL", "NTSC"), low.pass.filter = T, verbose = F)
 {
-  if (!verbose) cat(paste("Track ", track.nr, ":\n", sep =""))
+  if (verbose) cat(paste("Track ", track.nr, ":\n", sep =""))
   video <- match.arg(video)
   vblank_duration <- ifelse(video == "PAL", 1/50, 1/60)
 
@@ -825,7 +825,7 @@ setMethod("playingtable", "PTModule", function(mod,
   result$retrigger.sample <- retrig
   rm(retrig, len.rem)
 
-  if (!verbose) cat("    Processing volume effects...")
+  if (verbose) cat("    Processing volume effects...")
   ## Set volume and volume effects:
 
   ## retrigger volume when a new note is played (that is not sample.nr == 0),
@@ -1016,8 +1016,8 @@ setMethod("playingtable", "PTModule", function(mod,
   ## 7xy - Tremolo (end)
   ##############################################
 
-  if (!verbose) cat("\tdone\n")
-  if (!verbose) cat("    Processing period effects...")
+  if (verbose) cat("\tdone\n")
+  if (verbose) cat("    Processing period effects...")
 
   result$period <- NA
   effect_sel <- with(result, retrigger.sample == 1 &
@@ -1178,7 +1178,6 @@ setMethod("playingtable", "PTModule", function(mod,
                                          if (is.na(z)) return(rep(NA, y - x + 1))
                                          while (T)
                                          {
-                                           #browser()
                                            cums <- cumsum(mag[x:y])
                                            res <- bitwAnd(0xFFF, cums + z)
 
@@ -1302,7 +1301,6 @@ setMethod("playingtable", "PTModule", function(mod,
   ## Fix period values above range - start
   ##############################################
 
-  #browser()
   out.of.range <- rep(NA, nrow(result))
   out.of.range[1] <- F
   out.of.range[result$retrigger.sample == 1] <- F
@@ -1450,8 +1448,8 @@ setMethod("playingtable", "PTModule", function(mod,
   ## Fix period values below range - end
   ##############################################
 
-  if (!verbose) cat("\tdone\n")
-  if (!verbose) cat("    Resampling...")
+  if (verbose) cat("\tdone\n")
+  if (verbose) cat("    Resampling...")
 
   # XXX when sample number switches from one to another while it is not retriggered
   # The sample will stop playing at the end of its loop (or the end of the sample
@@ -1630,7 +1628,7 @@ setMethod("playingtable", "PTModule", function(mod,
   })))
 
   channel <- as.integer(128 + ((channel - 128)*chan.vol/0x40))
-  if (!verbose) cat("\t\t\tdone\n")
+  if (verbose) cat("\t\t\tdone\n")
 
   ##############################################
   ## E0x turn filter on/off
@@ -1649,7 +1647,7 @@ setMethod("playingtable", "PTModule", function(mod,
 
   if (target.rate > 4900 && low.pass.filter)
   {
-    if (!verbose) cat("    Applying low pass filter...")
+    if (verbose) cat("    Applying low pass filter...")
     sel_filter <- as.vector(unlist(apply(result, 1, function(x){
       rep(x["filter"], as.integer(x["target.nsamples"]))
     })))
@@ -1660,7 +1658,7 @@ setMethod("playingtable", "PTModule", function(mod,
     ## standard filter:
     butterworth <- signal::butter(1, 4900/target.rate, "low")
     channel[!sel_filter] <- signal::filter(butterworth, channel[!sel_filter])
-    if (!verbose) cat("\t\tdone\n")
+    if (verbose) cat("\t\tdone\n")
   }
   ##############################################
   ## E0x turn filter on/off

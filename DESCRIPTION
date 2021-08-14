@@ -1,15 +1,15 @@
 Package: ProTrackR
 Type: Package
 Title: Manipulate and Play 'ProTracker' Modules
-Version: 0.3.3
-Date: 2016-03-26
+Version: 0.3.4
+Date: 2016-11-25
 Authors@R: c(person("Pepijn", "de Vries", role =c("aut", "cre", "dtc"),
     email = "pepijn.devries@outlook.com"))
 Author: Pepijn de Vries [aut, cre, dtc]
 Maintainer: Pepijn de Vries <pepijn.devries@outlook.com>
 Description: 'ProTracker' is a popular music tracker to sequence
     music on a Commodore Amiga machine. This package offers the
-    opportunity to import, export, manipulate an play 'ProTracker'
+    opportunity to import, export, manipulate and play 'ProTracker'
     module files. Even though the file format could be considered
     archaic, it still remains popular to this date. This package
     intends to contribute to this popularity and therewith
@@ -17,10 +17,10 @@ Description: 'ProTracker' is a popular music tracker to sequence
     alive.
 License: GPL-3
 LazyData: True
-Depends: lattice, tuneR (>= 1.0), audio, signal
-Imports: graphics, methods, stats, utils
+Depends: audio, lattice, signal, tuneR (>= 1.0)
+Imports: graphics, methods, stats, utils, XML
 RoxygenNote: 5.0.1
 NeedsCompilation: no
-Packaged: 2016-03-26 17:25:50 UTC; vries171
+Packaged: 2016-11-25 14:42:04 UTC; vries171
 Repository: CRAN
-Date/Publication: 2016-03-26 22:02:07
+Date/Publication: 2016-11-25 19:47:57

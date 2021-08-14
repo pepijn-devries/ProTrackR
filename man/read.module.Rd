@@ -3,13 +3,19 @@
 \docType{methods}
 \name{read.module}
 \alias{read.module}
-\alias{read.module,ANY-method}
-\alias{read.module,character-method}
+\alias{read.module,ANY,logical-method}
+\alias{read.module,ANY,missing-method}
+\alias{read.module,character,logical-method}
+\alias{read.module,character,missing-method}
 \title{Read a ProTracker module file}
 \usage{
-\S4method{read.module}{character}(file, ignore.validity = F)
+\S4method{read.module}{character,logical}(file, ignore.validity = F)
 
-\S4method{read.module}{ANY}(file, ignore.validity = F)
+\S4method{read.module}{ANY,missing}(file, ignore.validity = F)
+
+\S4method{read.module}{ANY,missing}(file, ignore.validity = F)
+
+\S4method{read.module}{ANY,logical}(file, ignore.validity = F)
 }
 \arguments{
 \item{file}{either a filename or a file connection, that
@@ -78,8 +84,8 @@ Other io.operations: \code{\link{read.sample}},
 Other module.operations: \code{\link{PTModule-class}},
   \code{\link{appendPattern}}, \code{\link{clearSamples}},
   \code{\link{clearSong}}, \code{\link{deletePattern}},
-  \code{\link{modToWave}}, \code{\link{moduleSize}},
-  \code{\link{patternLength}},
+  \code{\link{fix.PTModule}}, \code{\link{modToWave}},
+  \code{\link{moduleSize}}, \code{\link{patternLength}},
   \code{\link{patternOrderLength}},
   \code{\link{patternOrder}}, \code{\link{playMod}},
   \code{\link{playingtable}}, \code{\link{trackerFlag}},

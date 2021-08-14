@@ -8,7 +8,7 @@
 \usage{
 \S4method{playingtable}{PTModule}(mod, starting.position = 1,
   max.duration = 2 * 60, speed = 6, tempo = 125, video = c("PAL",
-  "NTSC"), play.once = T, verbose = F)
+  "NTSC"), play.once = T, verbose = T)
 }
 \arguments{
 \item{mod}{An object of class \code{\link{PTModule}}.}
@@ -45,8 +45,8 @@ break. Will be overruled when the \code{maximum.duration} is reached
 before the end of the song.}
 
 \item{verbose}{A \code{logical} value. Suppresses a progress report
-from being printed to the \code{\link[base]{sink}} when set to \code{TRUE}.
-The default value is \code{FALSE}.}
+from being printed to the \code{\link[base]{sink}} when set to \code{FALSE}.
+The default value is \code{TRUE}.}
 }
 \value{
 Returns a \code{data.frame} with pattern rows put in the right
@@ -104,8 +104,8 @@ Pepijn de Vries
 Other module.operations: \code{\link{PTModule-class}},
   \code{\link{appendPattern}}, \code{\link{clearSamples}},
   \code{\link{clearSong}}, \code{\link{deletePattern}},
-  \code{\link{modToWave}}, \code{\link{moduleSize}},
-  \code{\link{patternLength}},
+  \code{\link{fix.PTModule}}, \code{\link{modToWave}},
+  \code{\link{moduleSize}}, \code{\link{patternLength}},
   \code{\link{patternOrderLength}},
   \code{\link{patternOrder}}, \code{\link{playMod}},
   \code{\link{read.module}}, \code{\link{trackerFlag}},

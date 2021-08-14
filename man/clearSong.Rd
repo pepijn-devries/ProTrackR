@@ -13,7 +13,7 @@
 info needs to be removed.}
 }
 \value{
-Returns a copy of of object \code{mod} in which all pattern (order)
+Returns a copy of object \code{mod} in which all pattern (order)
 info is removed.
 }
 \description{
@@ -38,8 +38,9 @@ Pepijn de Vries
 \seealso{
 Other module.operations: \code{\link{PTModule-class}},
   \code{\link{appendPattern}}, \code{\link{clearSamples}},
-  \code{\link{deletePattern}}, \code{\link{modToWave}},
-  \code{\link{moduleSize}}, \code{\link{patternLength}},
+  \code{\link{deletePattern}}, \code{\link{fix.PTModule}},
+  \code{\link{modToWave}}, \code{\link{moduleSize}},
+  \code{\link{patternLength}},
   \code{\link{patternOrderLength}},
   \code{\link{patternOrder}}, \code{\link{playMod}},
   \code{\link{playingtable}}, \code{\link{read.module}},

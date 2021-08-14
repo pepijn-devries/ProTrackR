@@ -268,7 +268,7 @@ setMethod("volume", "PTSample", function(sample){
 #' @export
 setReplaceMethod("volume", c("PTSample", "numeric"), function(sample, value){
   value <- as.integer(value[[1]])
-  if (value < 0 || value > 63) stop("Volume out of range [0-64]!")
+  if (value < 0 || value > 64) stop("Volume out of range [0-64]!")
   sample@volume <- as.raw(value)
   return (sample)
 })
@@ -333,7 +333,7 @@ setMethod("loopStart", "PTSample", function(sample){
 #' @export
 setReplaceMethod("loopStart", c("PTSample", "ANY"), function(sample, value){
   value <- value[[1]]
-  if (is.na(value) || value == "off" || value == F)
+  if (is.na(value) || value == "off" || (is.logical(value) && value == F))
   {
     sample@wloopstart <- unsignedIntToRaw(0, 2)
     sample@wlooplen <- unsignedIntToRaw(1, 2)
@@ -420,8 +420,8 @@ setReplaceMethod("loopLength", c("PTSample", "ANY"), function(sample, value){
       sample@wlooplen <- unsignedIntToRaw(0, 2)
     else
     {
-      if (value < 1 || value > (0xffff)) stop("Loop length out of range [2 - (2*0xffff)]!")
-      if ((value + rawToUnsignedInt(sample@wloopstart))*2 > length(sample@left)) stop("Loop start plus length is greater than sample length")
+      if (value < 1|| value > (0xffff)) stop("Loop length out of range [1 - (2*0xffff)]!")
+      if (value > 1 && (value + rawToUnsignedInt(sample@wloopstart))*2 > length(sample@left)) stop("Loop start plus length is greater than sample length")
       sample@wlooplen <- unsignedIntToRaw(value, 2)
     }
   }
@@ -735,7 +735,7 @@ setGeneric("write.sample", function(sample, filename, what = c("wav", "8svx", "r
 #' to file formats native to the Commodore Amiga. \code{PTSample}s can be
 #' exported as simple (uncompressed) \href{https://en.wikipedia.org/wiki/8SVX}{8svx}
 #' files also known as "iff" files). In addition they can be exported as raw data,
-#' where each byte simply represented a signed integer value of the waveform.
+#' where each byte simply represents a signed integer value of the waveform.
 #'
 #' @rdname write.sample
 #' @name write.sample
@@ -1003,7 +1003,8 @@ setMethod("waveform", "PTSample", function(sample, start.pos, stop.pos, loop){
   start.pos  <- as.integer(abs(start.pos[[1]]))
   stop.pos   <- as.integer(abs(stop.pos[[1]]))
   if (start.pos < 1) stop("Starting position should be greater than or equal to 1...")
-  if (start.pos > stop.pos) stop("Starting position should be greater than stopping position...")
+  if (start.pos > stop.pos && stop.pos != 0) stop("Starting position should be greater than stopping position...")
+  if (stop.pos == 0) return (numeric(0))
   loop       <- as.logical(loop[[1]])
   samp_range <- start.pos:stop.pos
   if (loop && loopState(sample))
@@ -1021,7 +1022,7 @@ setMethod("waveform", "PTSample", function(sample, start.pos, stop.pos, loop){
 #' @export
 setReplaceMethod("waveform", c("PTSample", "ANY"), function(sample, value){
   value <- as.numeric(value)
-  if (loopLength(sample) == 0 && length(value) > 0) loopLength(sample) <- 2
+  if (loopLength(sample) == 0 && length(value) > 0) sample@wlooplen <- unsignedIntToRaw(1, 2)
   if (any(is.na(value)) && length(value) > 1) stop ("NAs are not allowed in the data, if length > 1!")
   if (!any(is.na(value)) && (length(value)%%2) == 1)
   {

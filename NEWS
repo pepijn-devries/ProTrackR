@@ -1,3 +1,40 @@
+ProTrackR v0.3.4 (Release date: 2016-11-25)
+=============
+
+ * added a "fix.PTModule" method that attempts to
+   fix a module object when it is not conform
+   ProTracker specs...
+
+ * period limits for the porta effects have been fixed
+
+ * inverted the logical interpretation of the
+   'verbose' argument, as it was incorrect in
+   earlier versions.
+
+ * added and modified several of the 'modArchive'-
+   functions, for better support from www.modarchive.org
+
+ * modified S4-object validation functions such that
+   they run faster.
+
+ * modified 'write.module'-method such that it will
+   write modules much faster
+
+ * fixed bug in 'read.module'-method and modified it
+   such that it will read modules much faster.
+
+ * fixed bug in 'loopStart<-'-method
+
+ * fixed bug in 'loopLength<-'-method
+
+ * fixed bug in 'patternOrder<-'-method
+
+ * fixed bug in 'appendPattern'-method
+
+ * fixed bug in 'volume<-'-method
+
+ * fixed bug in 'waveform<-'- and 'waveform'-method
+
 ProTrackR v0.3.3 (Release date: 2016-03-26)
 =============
 
