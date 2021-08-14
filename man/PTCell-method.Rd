@@ -2,15 +2,15 @@
 % Please edit documentation in R/08coercion.r
 \docType{methods}
 \name{PTCell-method}
-\alias{PTCell,PTModule,numeric,numeric,numeric-method}
-\alias{PTCell,PTPattern,numeric,numeric,missing-method}
-\alias{PTCell,PTTrack,numeric,missing,missing-method}
-\alias{PTCell,character,missing,missing,missing-method}
-\alias{PTCell,raw,missing,missing,missing-method}
 \alias{PTCell-method}
+\alias{PTCell,raw,missing,missing,missing-method}
+\alias{PTCell,character,missing,missing,missing-method}
+\alias{PTCell,PTModule,numeric,numeric,numeric-method}
 \alias{PTCell<-}
 \alias{PTCell<-,PTModule,numeric,numeric,numeric,PTCell-method}
+\alias{PTCell,PTPattern,numeric,numeric,missing-method}
 \alias{PTCell<-,PTPattern,numeric,numeric,missing,PTCell-method}
+\alias{PTCell,PTTrack,numeric,missing,missing-method}
 \alias{PTCell<-,PTTrack,numeric,missing,missing,PTCell-method}
 \alias{PTCell<-,PTTrack,numeric,missing,missing-method}
 \title{Coerce to or replace PTCell}
@@ -26,8 +26,8 @@
 
 \S4method{PTCell}{PTPattern,numeric,numeric,missing}(x, row, track)
 
-\S4method{PTCell}{PTPattern,numeric,numeric,missing,PTCell}(x, row, track) <-
-  value
+\S4method{PTCell}{PTPattern,numeric,numeric,missing,PTCell}(x, row,
+  track) <- value
 
 \S4method{PTCell}{PTTrack,numeric,missing,missing}(x, row)
 
@@ -111,12 +111,11 @@ data("mod.intro")
 PTCell(mod.intro, 3, 2, 1) <- cell
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other cell.operations: \code{\link{PTCell-class}},
   \code{\link{effect}}, \code{\link{note}},
   \code{\link{sampleNumber}}
 }
-
+\author{
+Pepijn de Vries
+}

@@ -56,10 +56,15 @@ patternOrderLength(mod.intro) <- 1
 patternOrder(mod.intro, full = TRUE)
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
+Other pattern.operations: \code{\link{MODPlugToPTPattern}},
+  \code{\link{PTPattern-class}},
+  \code{\link{PTPattern-method}},
+  \code{\link{PTPatternToMODPlug}},
+  \code{\link{appendPattern}}, \code{\link{deletePattern}},
+  \code{\link{pasteBlock}}, \code{\link{patternLength}},
+  \code{\link{patternOrder}}
+
 Other module.operations: \code{\link{PTModule-class}},
   \code{\link{appendPattern}}, \code{\link{clearSamples}},
   \code{\link{clearSong}}, \code{\link{deletePattern}},
@@ -68,11 +73,7 @@ Other module.operations: \code{\link{PTModule-class}},
   \code{\link{patternOrder}}, \code{\link{playMod}},
   \code{\link{playingtable}}, \code{\link{read.module}},
   \code{\link{trackerFlag}}, \code{\link{write.module}}
-
-Other pattern.operations: \code{\link{PTPattern-class}},
-  \code{\link{PTPattern-method}},
-  \code{\link{appendPattern}}, \code{\link{deletePattern}},
-  \code{\link{pasteBlock}}, \code{\link{patternLength}},
-  \code{\link{patternOrder}}
 }
-
+\author{
+Pepijn de Vries
+}

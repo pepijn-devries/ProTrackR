@@ -2,8 +2,8 @@
 % Please edit documentation in R/03PTTrack.r
 \docType{class}
 \name{PTTrack-class}
-\alias{PTTrack}
 \alias{PTTrack-class}
+\alias{PTTrack}
 \title{The PTTrack class}
 \description{
 The four audio channels of the Commodore Amiga are represented as tracks
@@ -34,6 +34,7 @@ a \code{PTTrack} object explictly of class \code{\link{PTCell}}.
 Row numbers correspond with the row numbers of \code{\link{PTPattern}}
 objects.}
 }}
+
 \examples{
 data("mod.intro")
 
@@ -60,4 +61,3 @@ patt <- PTPattern(cbind(
 \author{
 Pepijn de Vries
 }
-

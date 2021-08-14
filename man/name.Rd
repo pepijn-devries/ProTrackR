@@ -3,11 +3,11 @@
 \docType{methods}
 \name{name}
 \alias{name}
-\alias{name,PTModule-method}
 \alias{name,PTSample-method}
 \alias{name<-}
-\alias{name<-,PTModule,character-method}
 \alias{name<-,PTSample,character-method}
+\alias{name,PTModule-method}
+\alias{name<-,PTModule,character-method}
 \title{Obtain or replace the name of a PTModule or PTSample}
 \usage{
 \S4method{name}{PTSample}(x)
@@ -65,9 +65,6 @@ unlist(lapply(as.list(1:31), function(x)
   name(PTSample(mod.intro, x))))
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other character.operations: \code{\link{as.character}},
   \code{\link{periodToChar}}, \code{\link{rawToCharNull}},
@@ -81,4 +78,6 @@ Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{sampleLength}}, \code{\link{volume}},
   \code{\link{waveform}}, \code{\link{write.sample}}
 }
-
+\author{
+Pepijn de Vries
+}

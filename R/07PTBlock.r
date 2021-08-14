@@ -142,9 +142,6 @@ setMethod("pasteBlock", c("PTPattern", "matrix", "numeric", "numeric"),
   if ((ntrack.end/4 + track.start) > maximumTrackCount)
     ntrack.end <- 4*(maximumTrackCount - track.start + 1)
 
-  print(nrow.end)
-  print(ntrack.end)
-
   pattern@data[row.start:(row.start + nrow.end - 1),
                (track.start*4 - 3):(track.start*4 + ntrack.end - 4)] <-
     block[1:nrow.end, 1:ntrack.end]

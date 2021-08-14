@@ -3,8 +3,8 @@
 \docType{methods}
 \name{note}
 \alias{note}
-\alias{note,PTCell-method}
 \alias{note,numeric-method}
+\alias{note,PTCell-method}
 \alias{note<-}
 \alias{note<-,PTCell,character-method}
 \title{Extract or replace a note}
@@ -73,20 +73,19 @@ note(PTCell(mod.intro, 1, 2, 3)) <- "A-"
 note(200:400)
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
-Other cell.operations: \code{\link{PTCell-class}},
-  \code{\link{PTCell-method}}, \code{\link{effect}},
-  \code{\link{sampleNumber}}
+Other period.operations: \code{\link{noteToPeriod}},
+  \code{\link{octave}}, \code{\link{periodToChar}},
+  \code{\link{period_table}}, \code{\link{sampleRate}}
 
 Other note.and.octave.operations: \code{\link{noteToPeriod}},
   \code{\link{noteUp}}, \code{\link{octave}},
   \code{\link{periodToChar}}, \code{\link{sampleRate}}
 
-Other period.operations: \code{\link{noteToPeriod}},
-  \code{\link{octave}}, \code{\link{periodToChar}},
-  \code{\link{period_table}}, \code{\link{sampleRate}}
+Other cell.operations: \code{\link{PTCell-class}},
+  \code{\link{PTCell-method}}, \code{\link{effect}},
+  \code{\link{sampleNumber}}
 }
-
+\author{
+Pepijn de Vries
+}

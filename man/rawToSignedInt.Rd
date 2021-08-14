@@ -28,16 +28,7 @@ some.raw.data <- as.raw(c(0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x90))
 rawToSignedInt(some.raw.data)
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
-Other integer.operations: \code{\link{nybbleToSignedInt}},
-  \code{\link{nybble}}, \code{\link{rawToUnsignedInt}},
-  \code{\link{signedIntToNybble}},
-  \code{\link{signedIntToRaw}},
-  \code{\link{unsignedIntToRaw}}, \code{\link{waveform}}
-
 Other raw.operations: \code{\link{as.raw}},
   \code{\link{nybbleToSignedInt}}, \code{\link{nybble}},
   \code{\link{rawToCharNull}},
@@ -45,5 +36,13 @@ Other raw.operations: \code{\link{as.raw}},
   \code{\link{signedIntToNybble}},
   \code{\link{signedIntToRaw}},
   \code{\link{unsignedIntToRaw}}
-}
 
+Other integer.operations: \code{\link{nybbleToSignedInt}},
+  \code{\link{nybble}}, \code{\link{rawToUnsignedInt}},
+  \code{\link{signedIntToNybble}},
+  \code{\link{signedIntToRaw}},
+  \code{\link{unsignedIntToRaw}}, \code{\link{waveform}}
+}
+\author{
+Pepijn de Vries
+}

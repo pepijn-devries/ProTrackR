@@ -34,14 +34,7 @@ try(rawToChar(some.raw.data))
 rawToCharNull(some.raw.data)
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
-Other character.operations: \code{\link{as.character}},
-  \code{\link{name}}, \code{\link{periodToChar}},
-  \code{\link{sampleRate}}
-
 Other raw.operations: \code{\link{as.raw}},
   \code{\link{nybbleToSignedInt}}, \code{\link{nybble}},
   \code{\link{rawToSignedInt}},
@@ -49,5 +42,11 @@ Other raw.operations: \code{\link{as.raw}},
   \code{\link{signedIntToNybble}},
   \code{\link{signedIntToRaw}},
   \code{\link{unsignedIntToRaw}}
-}
 
+Other character.operations: \code{\link{as.character}},
+  \code{\link{name}}, \code{\link{periodToChar}},
+  \code{\link{sampleRate}}
+}
+\author{
+Pepijn de Vries
+}

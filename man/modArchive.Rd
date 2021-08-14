@@ -2,16 +2,16 @@
 % Please edit documentation in R/10ModArchiveHelpers.r
 \name{modArchive}
 \alias{modArchive}
-\alias{modArchive.download}
 \alias{modArchive.info}
-\alias{modArchive.max.requests}
-\alias{modArchive.random.pick}
-\alias{modArchive.request.count}
-\alias{modArchive.search.artist}
-\alias{modArchive.search.genre}
-\alias{modArchive.search.hash}
+\alias{modArchive.download}
 \alias{modArchive.search.mod}
+\alias{modArchive.request.count}
+\alias{modArchive.max.requests}
 \alias{modArchive.view.by}
+\alias{modArchive.search.genre}
+\alias{modArchive.search.artist}
+\alias{modArchive.search.hash}
+\alias{modArchive.random.pick}
 \title{ModArchive helper functions}
 \usage{
 modArchive.info(mod.id, api.key)
@@ -226,6 +226,7 @@ instructions provided in this \href{https://modarchive.org/forums/index.php?topi
 on the forum. For more info, see also the \href{http://modarchive.org/?xml-api}{API
 page} on ModArchive.
 }
+
 \examples{
 \dontrun{
 ## most of the example below will fail as they require a
@@ -293,4 +294,3 @@ modArchive.max.requests("<your key here>")
 \author{
 Pepijn de Vries
 }
-

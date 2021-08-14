@@ -240,8 +240,13 @@ setMethod("modToWave", "PTModule", function(mod, video, target.rate, target.bit,
   if (rmin < 0) result <- 255*(result - rmin)/(255 - rmin)
   rmax <- max(result)
   if (rmax > 255) result <- 255*result/rmax
-  result <- cbind(rowMeans(result[, tracks %in% (2:3), drop = F]),
-                  rowMeans(result[, tracks %in% c(1,4), drop = F]))
+  if (stereo.separation <= 0) {
+    result <- matrix(rowMeans(result), ncol = 1)
+    result <- cbind(result, result)
+  } else {
+    result <- cbind(rowMeans(result[, tracks %in% (2:3), drop = F]),
+                    rowMeans(result[, tracks %in% c(1,4), drop = F]))
+  }
   result <- (((2^(target.bit - 8)))*(256/255) - (1/255))*result
   result <- apply(result, 2, as.integer)
   if (target.bit > 8)
@@ -1597,10 +1602,10 @@ setMethod("playingtable", "PTModule", function(mod,
 
   duration <- 125*vblank_duration/result$tempo
   resamp.table <- stats::aggregate(cbind(target.nsamples, duration)~resamp.start, result, sum)
-  resamp.table <- merge(resamp.table, aggregate(cbind(sample.nr, sample.rate, sample.pos)~resamp.start, result, function(x) x[[1]]))
+  resamp.table <- merge(resamp.table, stats::aggregate(cbind(sample.nr, sample.rate, sample.pos)~resamp.start, result, function(x) x[[1]]))
   rm(duration)
 
-  resamp.agg <- aggregate(row.nr~sample.nr+target.nsamples+sample.rate+sample.pos, cbind(resamp.table, row.nr = 1:nrow(resamp.table)), function(x) x)
+  resamp.agg <- stats::aggregate(row.nr~sample.nr+target.nsamples+sample.rate+sample.pos, cbind(resamp.table, row.nr = 1:nrow(resamp.table)), function(x) x, simplify = F)
 
   resamp.order <- lapply(as.list(1:nrow(resamp.table)), function(x) which(unlist(lapply(resamp.agg$row.nr, function(y) x %in% y))))
 

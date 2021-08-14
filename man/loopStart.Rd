@@ -57,13 +57,7 @@ loopStart(PTSample(mod.intro, 1)) <- 500
 loopStart(PTSample(mod.intro, 1)) <- FALSE
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
-Other loop.methods: \code{\link{loopLength}},
-  \code{\link{loopSample}}, \code{\link{loopState}}
-
 Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{PTSample-method}}, \code{\link{fineTune}},
   \code{\link{loopLength}}, \code{\link{loopSample}},
@@ -71,5 +65,10 @@ Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{playSample}}, \code{\link{read.sample}},
   \code{\link{sampleLength}}, \code{\link{volume}},
   \code{\link{waveform}}, \code{\link{write.sample}}
-}
 
+Other loop.methods: \code{\link{loopLength}},
+  \code{\link{loopSample}}, \code{\link{loopState}}
+}
+\author{
+Pepijn de Vries
+}

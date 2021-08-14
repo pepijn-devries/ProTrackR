@@ -94,9 +94,6 @@ waveform(PTSample(mod.intro, 2)) <- wav2
 waveform(PTSample(mod.intro, 1)) <- NA
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other integer.operations: \code{\link{nybbleToSignedInt}},
   \code{\link{nybble}}, \code{\link{rawToSignedInt}},
@@ -113,4 +110,6 @@ Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{read.sample}}, \code{\link{sampleLength}},
   \code{\link{volume}}, \code{\link{write.sample}}
 }
-
+\author{
+Pepijn de Vries
+}

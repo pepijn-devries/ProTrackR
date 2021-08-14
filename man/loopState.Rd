@@ -37,9 +37,6 @@ loopState(PTSample(mod.intro, 1))
 ## (it has no loop):
 loopState(PTSample(mod.intro, 2))
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other loop.methods: \code{\link{loopLength}},
   \code{\link{loopSample}}, \code{\link{loopStart}}
@@ -52,4 +49,6 @@ Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{sampleLength}}, \code{\link{volume}},
   \code{\link{waveform}}, \code{\link{write.sample}}
 }
-
+\author{
+Pepijn de Vries
+}

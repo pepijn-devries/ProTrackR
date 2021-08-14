@@ -353,7 +353,7 @@ setMethod("read.module", c("ANY", "logical"), function(file, ignore.validity) {
   mod <- new("PTModule")
 
   # read module name from file
-  mod@name <- readBin(con, "raw", 20)
+  mod@name <- readBin(con, "raw", 20, endian = "little")
 
   samp.lengths <- list()
 
@@ -362,47 +362,47 @@ setMethod("read.module", c("ANY", "logical"), function(file, ignore.validity) {
   for (i_sample in 1:length(mod@samples))
   {
     # read the sample name from the file
-    mod@samples[[i_sample]]@name         <- readBin(con, "raw", 22)
+    mod@samples[[i_sample]]@name         <- readBin(con, "raw", 22, endian = "little")
 
     # sample length in words, multiply by two for length in bytes
-    samp.lengths[[i_sample]]             <- readBin(con, "raw", 2)
+    samp.lengths[[i_sample]]             <- readBin(con, "raw", 2, endian = "little")
 
     # read the fine tune value for the sample:
-    mod@samples[[i_sample]]@finetune     <- readBin(con, "raw", 1)
+    mod@samples[[i_sample]]@finetune     <- readBin(con, "raw", 1, endian = "little")
 
     # read the default volume value for the sample,
     # ranging from 0x00 (min) to 0x40 (max):
-    mod@samples[[i_sample]]@volume       <- readBin(con, "raw", 1)
+    mod@samples[[i_sample]]@volume       <- readBin(con, "raw", 1, endian = "little")
 
     # the sample loop start position in words (0 when loop is off):
-    mod@samples[[i_sample]]@wloopstart   <- readBin(con, "raw", 2)
+    mod@samples[[i_sample]]@wloopstart   <- readBin(con, "raw", 2, endian = "little")
 
     # the sample loop end position in words (1 when loop is off):
-    mod@samples[[i_sample]]@wlooplen     <- readBin(con, "raw", 2)
+    mod@samples[[i_sample]]@wlooplen     <- readBin(con, "raw", 2, endian = "little")
   }
   # clean up memory:
   rm(i_sample)
 
   # read the length of the table specifying the order of patterns to be played:
-  mod@pattern.order.length <- readBin(con, "raw", 1)
+  mod@pattern.order.length <- readBin(con, "raw", 1, endian = "little")
 
   # read a byte that may give us some info on
   # the tracker used to create the module:
-  mod@tracker.byte         <- readBin(con, "raw", 1)
+  mod@tracker.byte         <- readBin(con, "raw", 1, endian = "little")
 
   # read the table specifying the order of patterns to be played:
-  mod@pattern.order        <- readBin(con, "raw", 128)
+  mod@pattern.order        <- readBin(con, "raw", 128, endian = "little")
 
   # read a tag that can help us to determine which
   # tracker was used to create the module:
-  mod@tracker.flag         <- readBin(con, "raw", 4)
+  mod@tracker.flag         <- readBin(con, "raw", 4, endian = "little")
 
   # Go for ProTracker compatibility. Forget about other trackers:
   pattern_count     <- max(as.numeric(mod@pattern.order)) + 1
 
   # read pattern data from file.
   pattern.data <- array(
-    readBin(con, "raw", maximumPatternTableRowCount*maximumTrackCount*4*pattern_count),
+    readBin(con, "raw", maximumPatternTableRowCount*maximumTrackCount*4*pattern_count, endian = "little"),
     c(maximumTrackCount*4, maximumPatternTableRowCount, pattern_count))
   mod@patterns <- apply(pattern.data, 3, function(x) {
     res <- new("PTPattern")
@@ -414,11 +414,11 @@ setMethod("read.module", c("ANY", "logical"), function(file, ignore.validity) {
   # read sample wave data
   for (i_sample in 1:length(samp.lengths))
   {
-    mod@samples[[i_sample]]@left <- as.integer(128 + rawToSignedInt(readBin(con, "raw", 2*rawToUnsignedInt(samp.lengths[[i_sample]]))))
+    mod@samples[[i_sample]]@left <- as.integer(128 + rawToSignedInt(readBin(con, "raw", 2*rawToUnsignedInt(samp.lengths[[i_sample]]), endian = "little")))
   }
 
   # test if the end of file is reached (should be the case):
-  test_byte <- readBin(con, "raw", 1)
+  test_byte <- readBin(con, "raw", 1, endian = "little")
   if (length(test_byte) > 0) warning("\nFinished reading module data from file,\nbut end of file is not reached.")
 
   if (!ignore.validity && !validity.PTModule(mod)) stop("File is not a valid ProTracker Module.")

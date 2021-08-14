@@ -62,12 +62,11 @@ effect(cell) <- "C20"
 ## the above expression sets the volume (effect 0xC)
 ## to 50\% (0x20 which is halve of the maximum 0x40)
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other cell.operations: \code{\link{PTCell-class}},
   \code{\link{PTCell-method}}, \code{\link{note}},
   \code{\link{sampleNumber}}
 }
-
+\author{
+Pepijn de Vries
+}

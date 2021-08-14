@@ -64,17 +64,18 @@ PTPattern(mod.intro, 1) <-
   pasteBlock(PTPattern(mod.intro, 1), block, 49, 2)
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other block.operations: \code{\link{PTBlock}}
 
-Other pattern.operations: \code{\link{PTPattern-class}},
+Other pattern.operations: \code{\link{MODPlugToPTPattern}},
+  \code{\link{PTPattern-class}},
   \code{\link{PTPattern-method}},
+  \code{\link{PTPatternToMODPlug}},
   \code{\link{appendPattern}}, \code{\link{deletePattern}},
   \code{\link{patternLength}},
   \code{\link{patternOrderLength}},
   \code{\link{patternOrder}}
 }
-
+\author{
+Pepijn de Vries
+}

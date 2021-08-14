@@ -47,9 +47,6 @@ object.size(mod.intro)
 ## costs 4 times as much memory as the original 8 bit.
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other module.operations: \code{\link{PTModule-class}},
   \code{\link{appendPattern}}, \code{\link{clearSamples}},
@@ -61,4 +58,6 @@ Other module.operations: \code{\link{PTModule-class}},
   \code{\link{playingtable}}, \code{\link{read.module}},
   \code{\link{trackerFlag}}, \code{\link{write.module}}
 }
-
+\author{
+Pepijn de Vries
+}

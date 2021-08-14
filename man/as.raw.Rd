@@ -4,12 +4,12 @@
 \name{as.raw}
 \alias{as.raw}
 \alias{as.raw,PTCell-method}
-\alias{as.raw,PTPattern-method}
-\alias{as.raw,PTTrack-method}
 \alias{as.raw<-}
 \alias{as.raw<-,PTCell,raw-method}
-\alias{as.raw<-,PTPattern,matrix-method}
+\alias{as.raw,PTTrack-method}
 \alias{as.raw<-,PTTrack,matrix-method}
+\alias{as.raw,PTPattern-method}
+\alias{as.raw<-,PTPattern,matrix-method}
 \title{Extract and replace raw data}
 \usage{
 \S4method{as.raw}{PTCell}(x)
@@ -90,9 +90,6 @@ as.raw(PTCell(mod.intro, 1, 1, 1)) <-
   as.raw(PTCell(mod.intro, 2, 1, 1))
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other raw.operations: \code{\link{nybbleToSignedInt}},
   \code{\link{nybble}}, \code{\link{rawToCharNull}},
@@ -102,4 +99,6 @@ Other raw.operations: \code{\link{nybbleToSignedInt}},
   \code{\link{signedIntToRaw}},
   \code{\link{unsignedIntToRaw}}
 }
-
+\author{
+Pepijn de Vries
+}

@@ -37,16 +37,15 @@ noteToPeriod(c("A-3", "A#3"), -1)
 noteToPeriod("A-3", 0:1)
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
-Other note.and.octave.operations: \code{\link{noteUp}},
-  \code{\link{note}}, \code{\link{octave}},
-  \code{\link{periodToChar}}, \code{\link{sampleRate}}
-
 Other period.operations: \code{\link{note}},
   \code{\link{octave}}, \code{\link{periodToChar}},
   \code{\link{period_table}}, \code{\link{sampleRate}}
-}
 
+Other note.and.octave.operations: \code{\link{noteUp}},
+  \code{\link{note}}, \code{\link{octave}},
+  \code{\link{periodToChar}}, \code{\link{sampleRate}}
+}
+\author{
+Pepijn de Vries
+}

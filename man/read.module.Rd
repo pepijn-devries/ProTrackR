@@ -3,10 +3,11 @@
 \docType{methods}
 \name{read.module}
 \alias{read.module}
-\alias{read.module,ANY,logical-method}
-\alias{read.module,ANY,missing-method}
 \alias{read.module,character,logical-method}
+\alias{read.module,ANY,missing-method}
+\alias{read.module,ANY,missing-method}
 \alias{read.module,character,missing-method}
+\alias{read.module,ANY,logical-method}
 \title{Read a ProTracker module file}
 \usage{
 \S4method{read.module}{character,logical}(file, ignore.validity = F)
@@ -69,9 +70,6 @@ mod2 <- read.module(con)
 close(con)
 }
 }
-\author{
-Pepijn de Vries
-}
 \references{
 \url{http://wiki.multimedia.cx/index.php?title=Protracker_Module}
 
@@ -91,4 +89,6 @@ Other module.operations: \code{\link{PTModule-class}},
   \code{\link{playingtable}}, \code{\link{trackerFlag}},
   \code{\link{write.module}}
 }
-
+\author{
+Pepijn de Vries
+}

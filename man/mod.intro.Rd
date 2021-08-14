@@ -34,4 +34,3 @@ write.module(mod.intro, "intro.mod")
 \author{
 Pepijn de Vries
 }
-

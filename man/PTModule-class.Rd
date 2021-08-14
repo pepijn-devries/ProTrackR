@@ -2,8 +2,8 @@
 % Please edit documentation in R/06PTModule.r
 \docType{class}
 \name{PTModule-class}
-\alias{PTModule}
 \alias{PTModule-class}
+\alias{PTModule}
 \title{The PTModule class}
 \description{
 The PTModule class provides a container to store and modify and use ProTracker
@@ -64,6 +64,7 @@ can hold. For details, and extracting and replacing this flag see the
 The list should have at least 1 element, and can have a maximum of 64 or
 100 elements (depending on the state of the \code{\link{trackerFlag}}).}
 }}
+
 \examples{
 ## create an empty PTModule class object:
 mod.empty <- new("PTModule")
@@ -72,9 +73,6 @@ mod.empty <- new("PTModule")
 ## provided with the ProTrackR package:
 data("mod.intro")
 
-}
-\author{
-Pepijn de Vries
 }
 \references{
 \url{https://en.wikipedia.org/wiki/MOD_(file_format)}
@@ -94,4 +92,6 @@ Other module.operations: \code{\link{appendPattern}},
   \code{\link{playingtable}}, \code{\link{read.module}},
   \code{\link{trackerFlag}}, \code{\link{write.module}}
 }
-
+\author{
+Pepijn de Vries
+}

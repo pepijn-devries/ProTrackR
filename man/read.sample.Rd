@@ -54,13 +54,7 @@ print(snare)
 }
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
-Other io.operations: \code{\link{read.module}},
-  \code{\link{write.module}}, \code{\link{write.sample}}
-
 Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{PTSample-method}}, \code{\link{fineTune}},
   \code{\link{loopLength}}, \code{\link{loopSample}},
@@ -68,5 +62,10 @@ Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{name}}, \code{\link{playSample}},
   \code{\link{sampleLength}}, \code{\link{volume}},
   \code{\link{waveform}}, \code{\link{write.sample}}
-}
 
+Other io.operations: \code{\link{read.module}},
+  \code{\link{write.module}}, \code{\link{write.sample}}
+}
+\author{
+Pepijn de Vries
+}

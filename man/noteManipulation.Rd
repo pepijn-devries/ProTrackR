@@ -2,22 +2,22 @@
 % Please edit documentation in R/02PTCell.r, R/03PTTrack.r, R/04PTPattern.r
 \docType{methods}
 \name{noteUp}
-\alias{noteDown}
-\alias{noteDown,PTCell-method}
-\alias{noteDown,PTPattern-method}
-\alias{noteDown,PTTrack-method}
 \alias{noteUp}
 \alias{noteUp,PTCell-method}
-\alias{noteUp,PTPattern-method}
-\alias{noteUp,PTTrack-method}
-\alias{octaveDown}
-\alias{octaveDown,PTCell-method}
-\alias{octaveDown,PTPattern-method}
-\alias{octaveDown,PTTrack-method}
+\alias{noteDown}
+\alias{noteDown,PTCell-method}
 \alias{octaveUp}
 \alias{octaveUp,PTCell-method}
-\alias{octaveUp,PTPattern-method}
+\alias{octaveDown}
+\alias{octaveDown,PTCell-method}
+\alias{noteUp,PTTrack-method}
+\alias{noteDown,PTTrack-method}
 \alias{octaveUp,PTTrack-method}
+\alias{octaveDown,PTTrack-method}
+\alias{noteUp,PTPattern-method}
+\alias{noteDown,PTPattern-method}
+\alias{octaveUp,PTPattern-method}
+\alias{octaveDown,PTPattern-method}
 \title{Raise or lower notes and octaves}
 \usage{
 \S4method{noteUp}{PTCell}(x, sample.nr = "all")
@@ -99,12 +99,11 @@ noteUp(PTPattern(mod.intro, 2), 4)
 noteUp(PTPattern(mod.intro, 2), c(2, 4))
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other note.and.octave.operations: \code{\link{noteToPeriod}},
   \code{\link{note}}, \code{\link{octave}},
   \code{\link{periodToChar}}, \code{\link{sampleRate}}
 }
-
+\author{
+Pepijn de Vries
+}

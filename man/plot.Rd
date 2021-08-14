@@ -47,4 +47,3 @@ plot(mod.intro, type = "l", layout = c(1,4),
 \author{
 Pepijn de Vries
 }
-

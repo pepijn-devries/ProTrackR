@@ -47,9 +47,6 @@ volume(PTSample(mod.intro, 1))
 volume(PTSample(mod.intro, 1)) <- 0x20
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{PTSample-method}}, \code{\link{fineTune}},
@@ -59,4 +56,6 @@ Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{read.sample}}, \code{\link{sampleLength}},
   \code{\link{waveform}}, \code{\link{write.sample}}
 }
-
+\author{
+Pepijn de Vries
+}

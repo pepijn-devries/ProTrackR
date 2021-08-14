@@ -2,8 +2,8 @@
 % Please edit documentation in R/04PTPattern.r
 \docType{class}
 \name{PTPattern-class}
-\alias{PTPattern}
 \alias{PTPattern-class}
+\alias{PTPattern}
 \title{The PTPattern class}
 \description{
 The \code{PTPattern} (or simply pattern) is a table that determines which
@@ -45,14 +45,16 @@ representing each of the 4 audio channels/tracks (as each \code{\link{PTCell}} o
 values). The \code{raw} data is formatted conform the specifications given
 in the \code{\link{PTCell}} documentation.}
 }}
-\author{
-Pepijn de Vries
-}
+
 \seealso{
-Other pattern.operations: \code{\link{PTPattern-method}},
+Other pattern.operations: \code{\link{MODPlugToPTPattern}},
+  \code{\link{PTPattern-method}},
+  \code{\link{PTPatternToMODPlug}},
   \code{\link{appendPattern}}, \code{\link{deletePattern}},
   \code{\link{pasteBlock}}, \code{\link{patternLength}},
   \code{\link{patternOrderLength}},
   \code{\link{patternOrder}}
 }
-
+\author{
+Pepijn de Vries
+}

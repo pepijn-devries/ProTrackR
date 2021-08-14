@@ -1,3 +1,26 @@
+ProTrackR v0.3.5 (Release date: 2017-10-14)
+=============
+
+ * Added functions to exchange pattern data with
+   MODPlug tracker.
+
+ * Endianness is explicitely set to "little" when reading
+   and writing samples and modules. As all data is read and
+   written as raw, this should not affect the package
+   functioning.
+
+ * Removed unnecessary print statement from PTBlock
+   routine.
+
+ * Fixed a bug in the 'rawToCharNull' function.
+
+ * Fixed a bug in the 'modToWave' routine that caused an error
+   under rare conditions.
+
+ * Setting stereo.separation to 0 was not handled correctly in
+   'modToWave' routine. Channels were not mixed before
+   converting to mono. This is now fixed.
+
 ProTrackR v0.3.4 (Release date: 2016-11-25)
 =============
 

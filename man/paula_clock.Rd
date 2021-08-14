@@ -27,4 +27,3 @@ data("paula_clock")
 \references{
 \url{https://en.wikipedia.org/wiki/Original_Chip_Set#Paula}
 }
-

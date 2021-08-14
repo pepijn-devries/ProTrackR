@@ -48,9 +48,6 @@ fineTune(PTSample(mod.intro, 1))
 fineTune(PTSample(mod.intro, 1)) <- -1
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{PTSample-method}}, \code{\link{loopLength}},
@@ -60,4 +57,6 @@ Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{sampleLength}}, \code{\link{volume}},
   \code{\link{waveform}}, \code{\link{write.sample}}
 }
-
+\author{
+Pepijn de Vries
+}

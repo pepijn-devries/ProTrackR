@@ -2,8 +2,8 @@
 % Please edit documentation in R/05PTSample.r
 \docType{class}
 \name{PTSample-class}
-\alias{PTSample}
 \alias{PTSample-class}
+\alias{PTSample}
 \title{The PTSample class}
 \description{
 This class holds audio fragments with meta-information, to be used in
@@ -99,9 +99,7 @@ should always be 8.}
 This slot is inherited from the \code{\link[tuneR]{Wave}} class, for
 \code{PTSample}s its value should always be \code{TRUE}.}
 }}
-\author{
-Pepijn de Vries
-}
+
 \seealso{
 Other sample.operations: \code{\link{PTSample-method}},
   \code{\link{fineTune}}, \code{\link{loopLength}},
@@ -111,4 +109,6 @@ Other sample.operations: \code{\link{PTSample-method}},
   \code{\link{sampleLength}}, \code{\link{volume}},
   \code{\link{waveform}}, \code{\link{write.sample}}
 }
-
+\author{
+Pepijn de Vries
+}

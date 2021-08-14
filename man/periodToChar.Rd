@@ -29,20 +29,19 @@ periodToChar(200)
 periodToChar(200:400)
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other character.operations: \code{\link{as.character}},
   \code{\link{name}}, \code{\link{rawToCharNull}},
   \code{\link{sampleRate}}
 
-Other note.and.octave.operations: \code{\link{noteToPeriod}},
-  \code{\link{noteUp}}, \code{\link{note}},
-  \code{\link{octave}}, \code{\link{sampleRate}}
-
 Other period.operations: \code{\link{noteToPeriod}},
   \code{\link{note}}, \code{\link{octave}},
   \code{\link{period_table}}, \code{\link{sampleRate}}
-}
 
+Other note.and.octave.operations: \code{\link{noteToPeriod}},
+  \code{\link{noteUp}}, \code{\link{note}},
+  \code{\link{octave}}, \code{\link{sampleRate}}
+}
+\author{
+Pepijn de Vries
+}

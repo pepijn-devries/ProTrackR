@@ -3,8 +3,8 @@
 \docType{methods}
 \name{octave}
 \alias{octave}
-\alias{octave,PTCell-method}
 \alias{octave,numeric-method}
+\alias{octave,PTCell-method}
 \alias{octave<-}
 \alias{octave<-,PTCell,numeric-method}
 \title{Extract or replace an octave}
@@ -67,16 +67,15 @@ octave(PTCell(mod.intro, 1, 2, 3)) <- 2
 
 octave(200:400)
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
-Other note.and.octave.operations: \code{\link{noteToPeriod}},
-  \code{\link{noteUp}}, \code{\link{note}},
-  \code{\link{periodToChar}}, \code{\link{sampleRate}}
-
 Other period.operations: \code{\link{noteToPeriod}},
   \code{\link{note}}, \code{\link{periodToChar}},
   \code{\link{period_table}}, \code{\link{sampleRate}}
-}
 
+Other note.and.octave.operations: \code{\link{noteToPeriod}},
+  \code{\link{noteUp}}, \code{\link{note}},
+  \code{\link{periodToChar}}, \code{\link{sampleRate}}
+}
+\author{
+Pepijn de Vries
+}

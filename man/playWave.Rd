@@ -39,11 +39,10 @@ data(mod.intro)
 playWave(PTSample(mod.intro, 2))
 }
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other play.audio.routines: \code{\link{playMod}},
   \code{\link{playSample}}
 }
-
+\author{
+Pepijn de Vries
+}

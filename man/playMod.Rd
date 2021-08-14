@@ -43,10 +43,10 @@ data("mod.intro")
 wav <- playMod(mod.intro)
 }
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
+Other play.audio.routines: \code{\link{playSample}},
+  \code{\link{playWave}}
+
 Other module.operations: \code{\link{PTModule-class}},
   \code{\link{appendPattern}}, \code{\link{clearSamples}},
   \code{\link{clearSong}}, \code{\link{deletePattern}},
@@ -56,8 +56,7 @@ Other module.operations: \code{\link{PTModule-class}},
   \code{\link{patternOrder}}, \code{\link{playingtable}},
   \code{\link{read.module}}, \code{\link{trackerFlag}},
   \code{\link{write.module}}
-
-Other play.audio.routines: \code{\link{playSample}},
-  \code{\link{playWave}}
 }
-
+\author{
+Pepijn de Vries
+}

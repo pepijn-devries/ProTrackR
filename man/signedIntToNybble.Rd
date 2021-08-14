@@ -43,16 +43,7 @@ rawl <- signedIntToNybble(dati)
 
 rawh <- signedIntToNybble(dati, "high")
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
-Other integer.operations: \code{\link{nybbleToSignedInt}},
-  \code{\link{nybble}}, \code{\link{rawToSignedInt}},
-  \code{\link{rawToUnsignedInt}},
-  \code{\link{signedIntToRaw}},
-  \code{\link{unsignedIntToRaw}}, \code{\link{waveform}}
-
 Other nybble.functions: \code{\link{nybbleToSignedInt}},
   \code{\link{nybble}}
 
@@ -63,5 +54,13 @@ Other raw.operations: \code{\link{as.raw}},
   \code{\link{rawToUnsignedInt}},
   \code{\link{signedIntToRaw}},
   \code{\link{unsignedIntToRaw}}
-}
 
+Other integer.operations: \code{\link{nybbleToSignedInt}},
+  \code{\link{nybble}}, \code{\link{rawToSignedInt}},
+  \code{\link{rawToUnsignedInt}},
+  \code{\link{signedIntToRaw}},
+  \code{\link{unsignedIntToRaw}}, \code{\link{waveform}}
+}
+\author{
+Pepijn de Vries
+}

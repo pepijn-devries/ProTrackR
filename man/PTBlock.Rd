@@ -65,10 +65,9 @@ cell1 <- block[1, 1][[1]]
 
 print(cell1)
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other block.operations: \code{\link{pasteBlock}}
 }
-
+\author{
+Pepijn de Vries
+}

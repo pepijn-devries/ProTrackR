@@ -39,16 +39,7 @@ unsignedIntToRaw(some.raw.data, length.out = 1)
 }
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
-Other integer.operations: \code{\link{nybbleToSignedInt}},
-  \code{\link{nybble}}, \code{\link{rawToSignedInt}},
-  \code{\link{rawToUnsignedInt}},
-  \code{\link{signedIntToNybble}},
-  \code{\link{signedIntToRaw}}, \code{\link{waveform}}
-
 Other raw.operations: \code{\link{as.raw}},
   \code{\link{nybbleToSignedInt}}, \code{\link{nybble}},
   \code{\link{rawToCharNull}},
@@ -56,5 +47,13 @@ Other raw.operations: \code{\link{as.raw}},
   \code{\link{rawToUnsignedInt}},
   \code{\link{signedIntToNybble}},
   \code{\link{signedIntToRaw}}
-}
 
+Other integer.operations: \code{\link{nybbleToSignedInt}},
+  \code{\link{nybble}}, \code{\link{rawToSignedInt}},
+  \code{\link{rawToUnsignedInt}},
+  \code{\link{signedIntToNybble}},
+  \code{\link{signedIntToRaw}}, \code{\link{waveform}}
+}
+\author{
+Pepijn de Vries
+}

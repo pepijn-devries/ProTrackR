@@ -42,4 +42,3 @@ resamp.data <- resample(some.data, 100, 200, method = "constant")
 \author{
 Pepijn de Vries
 }
-

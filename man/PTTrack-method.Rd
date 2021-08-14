@@ -2,15 +2,15 @@
 % Please edit documentation in R/08coercion.r
 \docType{methods}
 \name{PTTrack-method}
-\alias{PTTrack,PTModule,numeric,numeric-method}
-\alias{PTTrack,PTPattern,numeric,missing-method}
-\alias{PTTrack,character,missing,missing-method}
-\alias{PTTrack,matrix,missing,missing-method}
-\alias{PTTrack,numeric,missing-method}
-\alias{PTTrack,raw,missing,missing-method}
 \alias{PTTrack-method}
+\alias{PTTrack,raw,missing,missing-method}
+\alias{PTTrack,matrix,missing,missing-method}
+\alias{PTTrack,character,missing,missing-method}
+\alias{PTTrack,PTModule,numeric,numeric-method}
 \alias{PTTrack<-}
 \alias{PTTrack<-,PTModule,numeric,numeric,PTTrack-method}
+\alias{PTTrack,PTPattern,numeric,missing-method}
+\alias{PTTrack,numeric,missing-method}
 \alias{PTTrack<-,PTPattern,numeric,missing,PTTrack-method}
 \alias{PTTrack<-,numeric,missing,PTTrack-method}
 \title{Coerce to or replace PTTrack}
@@ -23,7 +23,8 @@
 
 \S4method{PTTrack}{PTModule,numeric,numeric}(x, track, pattern)
 
-\S4method{PTTrack}{PTModule,numeric,numeric,PTTrack}(x, track, pattern) <- value
+\S4method{PTTrack}{PTModule,numeric,numeric,PTTrack}(x, track,
+  pattern) <- value
 
 \S4method{PTTrack}{PTPattern,numeric,missing}(x, track)
 
@@ -93,10 +94,9 @@ data("mod.intro")
 PTTrack(mod.intro, 2, 1) <- chan
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other track.operations: \code{\link{as.character}}
 }
-
+\author{
+Pepijn de Vries
+}

@@ -31,4 +31,3 @@ Other period.operations: \code{\link{noteToPeriod}},
   \code{\link{note}}, \code{\link{octave}},
   \code{\link{periodToChar}}, \code{\link{sampleRate}}
 }
-

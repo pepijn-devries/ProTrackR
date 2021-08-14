@@ -2,10 +2,10 @@
 % Please edit documentation in R/08coercion.r
 \docType{methods}
 \name{PTSample-method}
-\alias{PTSample,PTModule,numeric-method}
+\alias{PTSample-method}
 \alias{PTSample,Wave,missing-method}
 \alias{PTSample,raw,missing-method}
-\alias{PTSample-method}
+\alias{PTSample,PTModule,numeric-method}
 \alias{PTSample<-}
 \alias{PTSample<-,PTModule,numeric,PTSample-method}
 \title{Coerce to or replace PTSample}
@@ -81,9 +81,6 @@ PTSample(mod.intro, 1) <-
 loopLength(PTSample(mod.intro, 1)) <- 276
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{fineTune}}, \code{\link{loopLength}},
@@ -93,4 +90,6 @@ Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{sampleLength}}, \code{\link{volume}},
   \code{\link{waveform}}, \code{\link{write.sample}}
 }
-
+\author{
+Pepijn de Vries
+}

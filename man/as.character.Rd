@@ -4,8 +4,8 @@
 \name{as.character}
 \alias{as.character}
 \alias{as.character,PTCell-method}
-\alias{as.character,PTPattern-method}
 \alias{as.character,PTTrack-method}
+\alias{as.character,PTPattern-method}
 \title{Character representation of ProTrackR objects}
 \usage{
 \S4method{as.character}{PTCell}(x)
@@ -60,9 +60,6 @@ as.character(PTTrack(mod.intro, 1, 1))
 as.character(PTPattern(mod.intro, 1))
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other character.operations: \code{\link{name}},
   \code{\link{periodToChar}}, \code{\link{rawToCharNull}},
@@ -70,4 +67,6 @@ Other character.operations: \code{\link{name}},
 
 Other track.operations: \code{\link{PTTrack-method}}
 }
-
+\author{
+Pepijn de Vries
+}

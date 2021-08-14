@@ -43,9 +43,6 @@ write.module(mod.intro, con)
 ## don't forget to close the connection after you're done:
 close(con)
 }
-\author{
-Pepijn de Vries
-}
 \references{
 \url{http://wiki.multimedia.cx/index.php?title=Protracker_Module}
 
@@ -65,4 +62,6 @@ Other module.operations: \code{\link{PTModule-class}},
   \code{\link{playingtable}}, \code{\link{read.module}},
   \code{\link{trackerFlag}}
 }
-
+\author{
+Pepijn de Vries
+}

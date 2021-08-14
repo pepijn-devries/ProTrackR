@@ -2,8 +2,8 @@
 % Please edit documentation in R/ProTrackR.r
 \docType{package}
 \name{ProTrackR}
-\alias{EffectCommands}
 \alias{ProTrackR}
+\alias{EffectCommands}
 \alias{ProTrackR-package}
 \title{Manipulate and play ProTracker Modules. A description of the package,
 ProTracker effect commands and test cases.}
@@ -168,9 +168,7 @@ versions.
  \href{http://wiki.openmpt.org/Development:_Test_Cases/MOD\%23VibratoReset.mod}{VibratoReset.mod} \tab Pass
 }
 }
-\author{
-Pepijn de Vries
-}
+
 \references{
 Some basic information on ProTracker:
 \url{https://en.wikipedia.org/wiki/Protracker}
@@ -185,4 +183,6 @@ Some informal but extensive technical documentation on ProTracker:
 \url{ftp://ftp.modland.com/pub/documents/format_documentation/Protracker\%20effects\%20(FireLight)\%20(.mod).txt}
 \url{http://www.chemie.fu-berlin.de/chemnet/doc/tracker-4.31/technotes}
 }
-
+\author{
+Pepijn de Vries
+}

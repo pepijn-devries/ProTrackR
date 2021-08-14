@@ -2,10 +2,10 @@
 % Please edit documentation in R/08coercion.r
 \docType{methods}
 \name{PTPattern-method}
-\alias{PTPattern,PTModule,numeric-method}
-\alias{PTPattern,matrix,missing-method}
-\alias{PTPattern,raw,missing-method}
 \alias{PTPattern-method}
+\alias{PTPattern,raw,missing-method}
+\alias{PTPattern,matrix,missing-method}
+\alias{PTPattern,PTModule,numeric-method}
 \alias{PTPattern<-}
 \alias{PTPattern<-,PTModule,numeric,PTPattern-method}
 \title{Coerce to or replace PTPattern}
@@ -80,14 +80,15 @@ data("mod.intro")
 PTPattern(mod.intro,
           patternOrder(mod.intro)[1] + 1) <- pat
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
-Other pattern.operations: \code{\link{PTPattern-class}},
+Other pattern.operations: \code{\link{MODPlugToPTPattern}},
+  \code{\link{PTPattern-class}},
+  \code{\link{PTPatternToMODPlug}},
   \code{\link{appendPattern}}, \code{\link{deletePattern}},
   \code{\link{pasteBlock}}, \code{\link{patternLength}},
   \code{\link{patternOrderLength}},
   \code{\link{patternOrder}}
 }
-
+\author{
+Pepijn de Vries
+}

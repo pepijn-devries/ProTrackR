@@ -58,9 +58,6 @@ loopLength(PTSample(mod.intro, 1)) <- 200
 loopLength(PTSample(mod.intro, 1)) <- FALSE
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other loop.methods: \code{\link{loopSample}},
   \code{\link{loopStart}}, \code{\link{loopState}}
@@ -73,4 +70,6 @@ Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{sampleLength}}, \code{\link{volume}},
   \code{\link{waveform}}, \code{\link{write.sample}}
 }
-
+\author{
+Pepijn de Vries
+}

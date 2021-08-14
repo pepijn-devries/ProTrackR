@@ -31,9 +31,6 @@ data("mod.intro")
 sampleLength(PTSample(mod.intro, 2))
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{PTSample-method}}, \code{\link{fineTune}},
@@ -43,4 +40,6 @@ Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{read.sample}}, \code{\link{volume}},
   \code{\link{waveform}}, \code{\link{write.sample}}
 }
-
+\author{
+Pepijn de Vries
+}

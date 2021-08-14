@@ -45,9 +45,6 @@ wform <- loopSample(PTSample(mod.intro, 4), n_samples = 5000)
 plot(wform, type = "l")
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other loop.methods: \code{\link{loopLength}},
   \code{\link{loopStart}}, \code{\link{loopState}}
@@ -60,4 +57,6 @@ Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{sampleLength}}, \code{\link{volume}},
   \code{\link{waveform}}, \code{\link{write.sample}}
 }
-
+\author{
+Pepijn de Vries
+}

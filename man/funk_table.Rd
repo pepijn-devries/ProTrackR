@@ -20,4 +20,3 @@ data("funk_table")
 \references{
 \url{http://fossies.org/linux/uade/amigasrc/players/tracker/eagleplayers/mod32_protracker/PTK_versions.txt}
 }
-

@@ -2,8 +2,8 @@
 % Please edit documentation in R/02PTCell.r
 \docType{class}
 \name{PTCell-class}
-\alias{PTCell}
 \alias{PTCell-class}
+\alias{PTCell}
 \title{The PTCell class}
 \description{
 The \code{PTCell} class is the smallest possible element of a \code{\link{PTPattern}}
@@ -48,6 +48,7 @@ can be derived by looking up the period value in the \code{\link{period_table}}
 The period value \code{0x0d6} =  \code{214} corresponds with note "C"
 in octave 3.}
 }}
+
 \examples{
 data("mod.intro")
 
@@ -74,12 +75,11 @@ as.raw(cell)
 ## get the character representation of this cell:
 as.character(cell)
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other cell.operations: \code{\link{PTCell-method}},
   \code{\link{effect}}, \code{\link{note}},
   \code{\link{sampleNumber}}
 }
-
+\author{
+Pepijn de Vries
+}

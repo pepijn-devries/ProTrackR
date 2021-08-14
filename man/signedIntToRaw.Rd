@@ -30,16 +30,7 @@ some.integers <- c(-100, 40, 0, 30, -123)
 signedIntToRaw(some.integers)
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
-Other integer.operations: \code{\link{nybbleToSignedInt}},
-  \code{\link{nybble}}, \code{\link{rawToSignedInt}},
-  \code{\link{rawToUnsignedInt}},
-  \code{\link{signedIntToNybble}},
-  \code{\link{unsignedIntToRaw}}, \code{\link{waveform}}
-
 Other raw.operations: \code{\link{as.raw}},
   \code{\link{nybbleToSignedInt}}, \code{\link{nybble}},
   \code{\link{rawToCharNull}},
@@ -47,5 +38,13 @@ Other raw.operations: \code{\link{as.raw}},
   \code{\link{rawToUnsignedInt}},
   \code{\link{signedIntToNybble}},
   \code{\link{unsignedIntToRaw}}
-}
 
+Other integer.operations: \code{\link{nybbleToSignedInt}},
+  \code{\link{nybble}}, \code{\link{rawToSignedInt}},
+  \code{\link{rawToUnsignedInt}},
+  \code{\link{signedIntToNybble}},
+  \code{\link{unsignedIntToRaw}}, \code{\link{waveform}}
+}
+\author{
+Pepijn de Vries
+}

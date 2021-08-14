@@ -50,12 +50,11 @@ sampleNumber(PTCell(mod.intro, 1, 2, 3))
 
 sampleNumber(PTCell(mod.intro, 1, 2, 3)) <- 1
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
 Other cell.operations: \code{\link{PTCell-class}},
   \code{\link{PTCell-method}}, \code{\link{effect}},
   \code{\link{note}}
 }
-
+\author{
+Pepijn de Vries
+}

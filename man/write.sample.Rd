@@ -49,13 +49,7 @@ write.sample(PTSample(mod.intro, 2), "snaredrum.raw", "raw")
 }
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
-Other io.operations: \code{\link{read.module}},
-  \code{\link{read.sample}}, \code{\link{write.module}}
-
 Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{PTSample-method}}, \code{\link{fineTune}},
   \code{\link{loopLength}}, \code{\link{loopSample}},
@@ -63,5 +57,10 @@ Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{name}}, \code{\link{playSample}},
   \code{\link{read.sample}}, \code{\link{sampleLength}},
   \code{\link{volume}}, \code{\link{waveform}}
-}
 
+Other io.operations: \code{\link{read.module}},
+  \code{\link{read.sample}}, \code{\link{write.module}}
+}
+\author{
+Pepijn de Vries
+}

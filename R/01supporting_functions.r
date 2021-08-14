@@ -25,26 +25,25 @@
 #' @family character.operations
 #' @author Pepijn de Vries
 #' @export
-rawToCharNull <-
-  function(raw_dat)
-    ## function that converts vectors of raw data into character strings
-    ## where null-characters are converted into spaces.
+rawToCharNull <- function(raw_dat) {
+  result <- ""
+  if (length(raw_dat) < 3) try(result <- (rawToChar(raw_dat)), silent = T) else
   {
-    result <- ""
-    if (length(raw_dat) < 3) try(result <- (rawToChar(raw_dat)), silent = T) else
+    result    <- raw_dat
+    runlength <- rle(result)$lengths
+    if (length(runlength) > 2)
     {
-      result    <- raw_dat
-      runlength <- rle(result)$lengths
-      if (length(runlength) > 2)
-      {
-        rel_range <- (runlength[1] + 1):(length(result) - runlength[length(runlength)])
-        result[rel_range][result[rel_range] == as.raw(0x00)] <- as.raw(0x20)
-      }
-      try(result <- rawToChar(result), silent = T)
-      if (class(result) == "raw") result <- ""
+      rel_range <- (runlength[1] + 1):(length(result) - runlength[length(runlength)])
+      if (result[[1]] != raw(1)) rel_range <- 1:rel_range[length(rel_range)]
+      if (result[[length(result)]] != raw(1)) rel_range <- rel_range[1]:length(result)
+      result[rel_range][result[rel_range] == as.raw(0x00)] <- as.raw(0x20)
+      result <- result[result != raw(1)]
     }
-    return(result)
+    try(result <- rawToChar(result), silent = T)
+    if (class(result) == "raw") result <- ""
   }
+  return(result)
+}
 
 #' Convert raw vector into a single unsigned integer value
 #'

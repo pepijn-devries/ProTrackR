@@ -1,8 +1,8 @@
 Package: ProTrackR
 Type: Package
 Title: Manipulate and Play 'ProTracker' Modules
-Version: 0.3.4
-Date: 2016-11-25
+Version: 0.3.5
+Date: 2017-10-14
 Authors@R: c(person("Pepijn", "de Vries", role =c("aut", "cre", "dtc"),
     email = "pepijn.devries@outlook.com"))
 Author: Pepijn de Vries [aut, cre, dtc]
@@ -19,8 +19,8 @@ License: GPL-3
 LazyData: True
 Depends: audio, lattice, signal, tuneR (>= 1.0)
 Imports: graphics, methods, stats, utils, XML
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 NeedsCompilation: no
-Packaged: 2016-11-25 14:42:04 UTC; vries171
+Packaged: 2017-10-14 08:06:41 UTC; gl_de_000
 Repository: CRAN
-Date/Publication: 2016-11-25 19:47:57
+Date/Publication: 2017-10-14 22:11:49 UTC

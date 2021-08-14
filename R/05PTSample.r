@@ -623,7 +623,7 @@ setMethod("read.sample", c("character", "ANY"), function(filename, what = c("wav
     repeat
     {
       l1 <- length(result)
-      result <- c(result, readBin(con, "raw", 1024))
+      result <- c(result, readBin(con, "raw", 1024, endian = "little"))
       l2 <- length(result)
       if ((l2 - l1) < 1024 || length(result) > 2*0xffff) break
     }
@@ -652,7 +652,7 @@ setMethod("read.sample", c("character", "ANY"), function(filename, what = c("wav
     VHDR_compress        <- 0
     BODY_data            <- NULL
 
-    FORM_id_char         <- readBin(con, "raw", 4)
+    FORM_id_char         <- readBin(con, "raw", 4, endian = "little")
     if (!all(FORM_id_char == charToRaw("FORM")))
     {
       warning ("Not an IFF file! Attempting to read as raw file")
@@ -662,25 +662,25 @@ setMethod("read.sample", c("character", "ANY"), function(filename, what = c("wav
       BODY_data <- readRaw(con)
     } else
     {
-      FORM_size_remainder  <- rawToUnsignedInt(readBin(con, "raw", 4))
-      FORM_file_type       <- readBin(con, "raw", 4)
+      FORM_size_remainder  <- rawToUnsignedInt(readBin(con, "raw", 4, endian = "little"))
+      FORM_file_type       <- readBin(con, "raw", 4, endian = "little")
       if (!all(FORM_file_type == charToRaw("8SVX"))) stop ("File appears to be an iff but not an 8SVX file!")
       repeat
       {
-        CHUNK_id_char      <- readBin(con, "raw", 4)
-        CHUNK_size         <- rawToUnsignedInt(readBin(con, "raw", 4))
+        CHUNK_id_char      <- readBin(con, "raw", 4, endian = "little")
+        CHUNK_size         <- rawToUnsignedInt(readBin(con, "raw", 4, endian = "little"))
         if (all(CHUNK_id_char == charToRaw("BODY")))
         {
-          BODY_data        <- readBin(con, "raw", CHUNK_size)
+          BODY_data        <- readBin(con, "raw", CHUNK_size, endian = "little")
           break
         } else if (all(CHUNK_id_char == charToRaw("VHDR")))
         {
-          VHDR_samp_high <- rawToUnsignedInt(readBin(con, "raw", 4))
-          VHDR_samp_low  <- rawToUnsignedInt(readBin(con, "raw", 4))
-          VHDR_samp_cyc  <- rawToUnsignedInt(readBin(con, "raw", 4))
-          VHDR_samp_rate <- rawToUnsignedInt(readBin(con, "raw", 2))
-          VHDR_num_oct   <- rawToUnsignedInt(readBin(con, "raw", 1))
-          VHDR_compress  <- rawToUnsignedInt(readBin(con, "raw", 1))
+          VHDR_samp_high <- rawToUnsignedInt(readBin(con, "raw", 4, endian = "little"))
+          VHDR_samp_low  <- rawToUnsignedInt(readBin(con, "raw", 4, endian = "little"))
+          VHDR_samp_cyc  <- rawToUnsignedInt(readBin(con, "raw", 4, endian = "little"))
+          VHDR_samp_rate <- rawToUnsignedInt(readBin(con, "raw", 2, endian = "little"))
+          VHDR_num_oct   <- rawToUnsignedInt(readBin(con, "raw", 1, endian = "little"))
+          VHDR_compress  <- rawToUnsignedInt(readBin(con, "raw", 1, endian = "little"))
 
           ############################################################
           # only delta-Fibonacci compression is currently supported
@@ -688,14 +688,14 @@ setMethod("read.sample", c("character", "ANY"), function(filename, what = c("wav
 
           if (VHDR_compress > 1) stop("The compression type is currently not supported")
           if (VHDR_compress == 1) warning("Sample is compressed with a delta-Fibonacci algorithm. Decompression is implemented but not fully tested in this version of ProTrackR.")
-          VHDR_volume    <- rawToUnsignedInt(readBin(con, "raw", 4))
+          VHDR_volume    <- rawToUnsignedInt(readBin(con, "raw", 4, endian = "little"))
         } else if (all(CHUNK_id_char == charToRaw("NAME")))
         {
-          samp_name <- rawToCharNull(readBin(con, "raw", CHUNK_size))
+          samp_name <- rawToCharNull(readBin(con, "raw", CHUNK_size, endian = "little"))
         } else
         {
           # non relevant chunk, put in trashcan
-          trashcan       <- readBin(con, "raw", CHUNK_size)
+          trashcan       <- readBin(con, "raw", CHUNK_size, endian = "little")
           rm(trashcan)
         }
       }

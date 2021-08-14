@@ -3,8 +3,8 @@
 \docType{methods}
 \name{playSample}
 \alias{playSample}
-\alias{playSample,PTModule-method}
 \alias{playSample,PTSample-method}
+\alias{playSample,PTModule-method}
 \title{Play audio samples}
 \usage{
 \S4method{playSample}{PTSample}(x, silence = 0, wait = T, note = "C-3",
@@ -83,13 +83,7 @@ playSample(PTSample(mod.intro, 3), video = "NTSC", finetune = -5)
 }
 
 }
-\author{
-Pepijn de Vries
-}
 \seealso{
-Other play.audio.routines: \code{\link{playMod}},
-  \code{\link{playWave}}
-
 Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{PTSample-method}}, \code{\link{fineTune}},
   \code{\link{loopLength}}, \code{\link{loopSample}},
@@ -99,5 +93,10 @@ Other sample.operations: \code{\link{PTSample-class}},
   \code{\link{waveform}}, \code{\link{write.sample}}
 
 Other sample.rate.operations: \code{\link{sampleRate}}
-}
 
+Other play.audio.routines: \code{\link{playMod}},
+  \code{\link{playWave}}
+}
+\author{
+Pepijn de Vries
+}
