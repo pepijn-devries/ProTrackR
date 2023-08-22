@@ -4,17 +4,19 @@
 \name{mod.intro}
 \alias{mod.intro}
 \title{Example of a PTModule object}
-\format{A \code{\link{PTModule}} object containing 4
+\format{
+A \code{\link{PTModule}} object containing 4
 \code{\link{PTSample}} objects (and 27 empty \code{PTSample}
 objects, adding up to the 31 samples a \code{PTModule} should hold) and 4
-\code{\link{PTPattern}} objects.}
+\code{\link{PTPattern}} objects.
+}
 \description{
 A \code{\link{PTModule}} object included in the package as example.
 }
 \details{
 This PTModule object is based on an original ProTracker module file
 I've composed in the late nineteen nineties. It is used as example for many
-of the \code{\link{ProTrackR}} methods and you can use it to test your own
+of the \code{\link[=ProTrackR-package]{ProTrackR}} methods and you can use it to test your own
 code. It can also be exported back to the original ProTracker module file
 by using \code{\link{write.module}}.
 }

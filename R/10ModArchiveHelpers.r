@@ -200,7 +200,7 @@ htmlcodes <- rbind(htmlcodes, data.frame(
 
 #' ModArchive helper functions
 #'
-#' \url{http://ModArchive.org} is on of the largest online archive of module files. These functions
+#' \url{https://ModArchive.org} is on of the largest online archive of module files. These functions
 #' will assist in accessing this archive.
 #'
 #' The \code{modArchive.info} function will retrieve info on a specific module from the
@@ -246,7 +246,7 @@ htmlcodes <- rbind(htmlcodes, data.frame(
 #' So how do you get your personal API key? First, you need to register at the
 #' \href{https://modarchive.org/forums/}{ModArchive Forums}. Then follow the
 #' instructions provided in this \href{https://modarchive.org/forums/index.php?topic=1950.0}{topic}
-#' on the forum. For more info, see also the \href{http://modarchive.org/?xml-api}{API
+#' on the forum. For more info, see also the \href{https://modarchive.org/?xml-api}{API
 #' page} on ModArchive.
 #'
 #' If you want to search for module files without an API key, one could make use of
@@ -280,7 +280,7 @@ htmlcodes <- rbind(htmlcodes, data.frame(
 #' @param search.artist A character string representing the (guessed) artist name
 #' or id number that you ar looking for in the archive.
 #' @param search.hash The MD5 hash code of the specific module you are looking
-#' for. See \url{http://modarchive.org/?xml-api-usage-level3} for details.
+#' for. See \url{https://modarchive.org/?xml-api-usage-level3} for details.
 #' @param view.query A query to be used in combination with the \code{view.by}
 #' argument. Use the queries in combination with \code{view.by} as follows:
 #' \itemize{
@@ -305,7 +305,7 @@ htmlcodes <- rbind(htmlcodes, data.frame(
 #' @param view.by Indicate how the \code{modArchive.view.by} function should sort
 #' the overview tables of modules. See `usage' section for the possible options.
 #' @param ... arguments that are passed on to \code{\link{read.module}}.
-#' @return \code{modArchive.info}, \code{modArchive.search.genre},
+#' @returns \code{modArchive.info}, \code{modArchive.search.genre},
 #' \code{modArchive.search.hash}, \code{modArchive.random.pick} and
 #' \code{modArchive.view.by} will return a \code{\link{data.frame}}
 #' containing information on modules in the ModArchive. Note that this
@@ -404,7 +404,7 @@ modArchive.info <- function(mod.id, api.key)
 {
   mod.id      <- as.integer(mod.id[[1]])
   api.key     <- as.character(api.key[[1]])
-  request.mod <- paste0("http://api.modarchive.org/xml-tools.php?key=",
+  request.mod <- paste0("https://api.modarchive.org/xml-tools.php?key=",
                         api.key, "&request=view_by_moduleid&query=",mod.id)
   result <- .get.module.table(request.mod, "module")
   return(result)
@@ -477,7 +477,7 @@ modArchive.info <- function(mod.id, api.key)
 modArchive.download <- function(mod.id, ...)
 {
   mod.id <- as.integer(mod.id[[1]])
-  con <- url(paste("http://api.modarchive.org/downloads.php?moduleid=", mod.id, sep = ""), "rb")
+  con <- url(paste("https://api.modarchive.org/downloads.php?moduleid=", mod.id, sep = ""), "rb")
   mod <- read.module(con, ...)
   close(con)
   return (mod)
@@ -500,7 +500,7 @@ modArchive.search.mod <- function(search.text,
   api.key       <- as.character(api.key[[1]])
   if (!missing(genre.filter)) warning("Argument 'genre.filter' is deprecated in this function and not used since ProTrackR version 0.3.4. Use 'modArchive.view.by' to browse modules by genre.")
 
-  xmlcode <- paste0("http://api.modarchive.org/xml-tools.php?key=",
+  xmlcode <- paste0("https://api.modarchive.org/xml-tools.php?key=",
                     api.key,
                     "&request=search&query=",
                     search.text,
@@ -528,7 +528,7 @@ modArchive.max.requests <- function(api.key) {
 
 .requests <- function(index, api.key)
 {
-  request.count <- XML::xmlTreeParse(paste0("http://api.modarchive.org/xml-tools.php?key=",
+  request.count <- XML::xmlTreeParse(paste0("https://api.modarchive.org/xml-tools.php?key=",
                                             api.key,
                                             "&request=view_requests"))
   count.root <- XML::xmlRoot(request.count)
@@ -553,7 +553,7 @@ modArchive.view.by <- function(view.query,
   size.filter   <- match.arg(size.filter)
   api.key       <- as.character(api.key[[1]])
 
-  xmlcode <- paste0("http://api.modarchive.org/xml-tools.php?key=",
+  xmlcode <- paste0("https://api.modarchive.org/xml-tools.php?key=",
                     api.key,
                     "&request=", view.by,
                     "&query=",
@@ -588,7 +588,7 @@ modArchive.search.genre <- function(genre.filter  = c("unset", "Alternative", "G
   size.filter   <- match.arg(size.filter)
   api.key       <- as.character(api.key[[1]])
 
-  xmlcode <- paste0("http://api.modarchive.org/xml-tools.php?key=",
+  xmlcode <- paste0("https://api.modarchive.org/xml-tools.php?key=",
                     api.key,
                     "&request=search&type=genre&query=",
                     genre.filter)
@@ -605,7 +605,7 @@ modArchive.search.artist <- function(search.artist, page, api.key) {
   api.key       <- as.character(api.key[[1]])
   search.artist <- as.character(search.artist[[1]])
   api.key       <- as.character(api.key[[1]])
-  xmlcode <- paste0("http://api.modarchive.org/xml-tools.php?key=",
+  xmlcode <- paste0("https://api.modarchive.org/xml-tools.php?key=",
                     api.key,
                     "&request=search_artist&query=",
                     search.artist)
@@ -619,7 +619,7 @@ modArchive.search.artist <- function(search.artist, page, api.key) {
 modArchive.search.hash <- function(search.hash, api.key) {
   search.hash   <- as.character(search.hash[[1]])
   api.key       <- as.character(api.key[[1]])
-  xmlcode <- paste0("http://api.modarchive.org/xml-tools.php?key=",
+  xmlcode <- paste0("https://api.modarchive.org/xml-tools.php?key=",
                     api.key,
                     "&request=search&type=hash&query=",
                     search.hash)
@@ -649,7 +649,7 @@ modArchive.random.pick <- function(genre.filter  = c("Alternative", "Gothic", "G
   size.filter   <- match.arg(size.filter)
   api.key       <- as.character(api.key[[1]])
 
-  xmlcode <- paste0("http://api.modarchive.org/xml-tools.php?key=",
+  xmlcode <- paste0("https://api.modarchive.org/xml-tools.php?key=",
                     api.key, "&request=random")
   if (format.filter != "unset") xmlcode <- paste0(xmlcode, "&format=",  format.filter)
   if (size.filter   != "unset") xmlcode <- paste0(xmlcode, "&size=",    size.filter)

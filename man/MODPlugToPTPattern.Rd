@@ -24,7 +24,7 @@ MODPlug tracker and convert it into a \code{PTPattern} or \code{PTBlock}
 object.
 }
 \details{
-The Open MODPlug Tracker (\url{https://www.openmpt.org}) is a modern
+The Open MODPlug Tracker (\url{https://openmpt.org}) is a modern
 music tracker that is for free. It too can handle ProTracker modules.
 This function assists in moving pattern data from Open MPT to R.
 

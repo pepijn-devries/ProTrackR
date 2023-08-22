@@ -53,13 +53,13 @@ NULL
 #' Small list of numbers used by an obscure audio effect in ProTracker
 #'
 #' This dataset is included for completeness sake. It is not yet used by any
-#' class, method or function in the \code{\link{ProTrackR}} package. It may
+#' class, method or function in the \code{\link[=ProTrackR-package]{ProTrackR}} package. It may
 #' very well be obsolete for recent ProTracker versions.
 #' @docType data
 #' @name funk_table
 #' @format A \code{numeric} \code{vector} of length 16 holding values to be
 #' used in ProTracker funk repeat effects.
-#' @references \url{http://fossies.org/linux/uade/amigasrc/players/tracker/eagleplayers/mod32_protracker/PTK_versions.txt}
+#' @references \url{https://fossies.org/linux/uade/amigasrc/players/tracker/eagleplayers/mod32_protracker/PTK_versions.txt}
 #' @examples data("funk_table")
 NULL
 
@@ -69,7 +69,7 @@ NULL
 #'
 #' This PTModule object is based on an original ProTracker module file
 #' I've composed in the late nineteen nineties. It is used as example for many
-#' of the \code{\link{ProTrackR}} methods and you can use it to test your own
+#' of the \code{\link[=ProTrackR-package]{ProTrackR}} methods and you can use it to test your own
 #' code. It can also be exported back to the original ProTracker module file
 #' by using \code{\link{write.module}}.
 #' @docType data

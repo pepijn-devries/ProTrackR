@@ -28,7 +28,7 @@ within a \code{\link{PTPattern}} or to other positions in the
 \item{\code{data}}{A \code{vector} of class "\code{raw}" of length 4. The \code{raw}
 data is stored identical to the way it is stored in a ProTracker module
 file. The \code{character} representation is easier to understand, and
-with the \link{ProTrackR} package it shouldn't be necessary to manipulate
+with the \link[=ProTrackR-package]{ProTrackR} package it shouldn't be necessary to manipulate
 the \code{raw} data directly.
 
 The structure is illustrated with an example. Let's start with a

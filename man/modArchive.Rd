@@ -54,14 +54,16 @@ modArchive.search.genre(
     "Electronic - Drum and Bass", "Electronic - Gabber", "Electronic - Hardcore",
     "Electronic - House", "Electronic - IDM", "Electronic - Industrial",
     "Electronic - Jungle", "Electronic - Minimal", "Electronic - Other",
-    "Electronic - Progressive", "Electronic - Rave", "Electronic - Techno",     
+    "Electronic - Progressive", "Electronic - Rave", "Electronic - Techno", 
+    
     "Electronic (general)", "Trance - Acid", "Trance - Dream", "Trance - Goa",
     "Trance - Hard", "Trance - Progressive", "Trance - Tribal", "Trance (general)",
     "Big Band", "Blues", "Jazz - Acid", "Jazz - Modern", "Jazz (general)", "Swing",
     "Bluegrass", "Classical", "Comedy", "Country", "Experimental", "Fantasy", "Folk",
     "Fusion", "Medieval", "New Ages", "Orchestral", "Other", "Piano", "Religious",
     "Soundtrack", "Spiritual", "Video Game", "Vocal Montage", "World", "Ballad", "Disco",
-    "Easy Listening",      "Funk", "Pop - Soft", "Pop - Synth", "Pop (general)",
+    "Easy Listening", 
+     "Funk", "Pop - Soft", "Pop - Synth", "Pop (general)",
     "Rock - Hard", "Rock - Soft", "Rock (general)", "Christmas", "Halloween", "Hip-Hop",
     "R and B", "Reggae", "Ska", "Soul"),
   format.filter = c("unset", "669", "AHX", "DMF", "HVL", "IT", "MED", "MO3", "MOD",
@@ -84,13 +86,15 @@ modArchive.random.pick(
     "Electronic - House", "Electronic - IDM", "Electronic - Industrial",
     "Electronic - Jungle", "Electronic - Minimal", "Electronic - Other",
     "Electronic - Progressive", "Electronic - Rave", "Electronic - Techno",
-    "Electronic (general)",      "Trance - Acid", "Trance - Dream", "Trance - Goa",
+    "Electronic (general)", 
+     "Trance - Acid", "Trance - Dream", "Trance - Goa",
     "Trance - Hard", "Trance - Progressive", "Trance - Tribal", "Trance (general)",
     "Big Band", "Blues", "Jazz - Acid", "Jazz - Modern", "Jazz (general)", "Swing",
     "Bluegrass", "Classical", "Comedy", "Country", "Experimental", "Fantasy", "Folk",
     "Fusion", "Medieval", "New Ages", "Orchestral", "Other", "Piano", "Religious",
     "Soundtrack", "Spiritual", "Video Game", "Vocal Montage", "World", "Ballad", "Disco",
-    "Easy Listening", "Funk", "Pop - Soft",      "Pop - Synth", "Pop (general)",
+    "Easy Listening", "Funk", "Pop - Soft", 
+     "Pop - Synth", "Pop (general)",
     "Rock - Hard", "Rock - Soft", "Rock (general)", "Christmas", "Halloween", "Hip-Hop",
     "R and B", "Reggae", "Ska", "Soul"),
   format.filter = c("unset", "669", "AHX", "DMF", "HVL", "IT", "MED", "MO3", "MOD",
@@ -166,7 +170,7 @@ the overview tables of modules. See `usage' section for the possible options.}
 or id number that you ar looking for in the archive.}
 
 \item{search.hash}{The MD5 hash code of the specific module you are looking
-for. See \url{http://modarchive.org/?xml-api-usage-level3} for details.}
+for. See \url{https://modarchive.org/?xml-api-usage-level3} for details.}
 }
 \value{
 \code{modArchive.info}, \code{modArchive.search.genre},
@@ -189,7 +193,7 @@ that are left for this month, for the provided key.
 provided key.
 }
 \description{
-\url{http://ModArchive.org} is on of the largest online archive of module files. These functions
+\url{https://ModArchive.org} is on of the largest online archive of module files. These functions
 will assist in accessing this archive.
 }
 \details{
@@ -237,7 +241,7 @@ ModArchive helper functions described here.
 So how do you get your personal API key? First, you need to register at the
 \href{https://modarchive.org/forums/}{ModArchive Forums}. Then follow the
 instructions provided in this \href{https://modarchive.org/forums/index.php?topic=1950.0}{topic}
-on the forum. For more info, see also the \href{http://modarchive.org/?xml-api}{API
+on the forum. For more info, see also the \href{https://modarchive.org/?xml-api}{API
 page} on ModArchive.
 
 If you want to search for module files without an API key, one could make use of

@@ -27,7 +27,7 @@ Use a \code{\link{PTPattern}} or \code{\link{PTBlock}} to create
 a pattern table with a MODPlug flavour.
 }
 \details{
-The Open MODPlug Tracker (\url{https://www.openmpt.org}) is a modern
+The Open MODPlug Tracker (\url{https://openmpt.org}) is a modern
 music tracker that is for free. It too can handle ProTracker modules.
 This function assists in moving pattern data from R to Open MPT.
 }

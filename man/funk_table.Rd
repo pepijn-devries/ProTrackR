@@ -4,19 +4,21 @@
 \name{funk_table}
 \alias{funk_table}
 \title{ProTracker Funk Table}
-\format{A \code{numeric} \code{vector} of length 16 holding values to be
-used in ProTracker funk repeat effects.}
+\format{
+A \code{numeric} \code{vector} of length 16 holding values to be
+used in ProTracker funk repeat effects.
+}
 \description{
 Small list of numbers used by an obscure audio effect in ProTracker
 }
 \details{
 This dataset is included for completeness sake. It is not yet used by any
-class, method or function in the \code{\link{ProTrackR}} package. It may
+class, method or function in the \code{\link[=ProTrackR-package]{ProTrackR}} package. It may
 very well be obsolete for recent ProTracker versions.
 }
 \examples{
 data("funk_table")
 }
 \references{
-\url{http://fossies.org/linux/uade/amigasrc/players/tracker/eagleplayers/mod32_protracker/PTK_versions.txt}
+\url{https://fossies.org/linux/uade/amigasrc/players/tracker/eagleplayers/mod32_protracker/PTK_versions.txt}
 }

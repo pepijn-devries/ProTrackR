@@ -61,11 +61,11 @@ errors when the mod file is not available or when there are network
 problems...
 }
 \description{
-\url{http://modland.com} is on of the largest online archive of module files. These functions
+\url{https://modland.com} is on of the largest online archive of module files. These functions
 will assist in accessing this archive.
 }
 \details{
-Like the \url{http://modarchive.org}, modland provides access to a large collection of module files.
+Like the \url{https://modarchive.org}, modland provides access to a large collection of module files.
 Compared to the \link{modArchive}, modLand provides limited searching features. However, it
 does not require an API key.
 

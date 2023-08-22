@@ -144,7 +144,7 @@ setClass("PTSample",
 #' @param ... Arguments passed on to \code{\link[stats]{approx}}.
 #' To simulate the Commodore Amiga hardware, it's best to
 #' use '\code{method = "constant"} for resampling 8 bit samples.
-#' @return Returns a resampled \code{numeric} \code{vector} of length
+#' @returns Returns a resampled \code{numeric} \code{vector} of length
 #' \code{round(length(x) * target.rate / source.rate)} based on \code{x}.
 #' @examples
 #' some.data <- 1:100
@@ -186,7 +186,7 @@ setGeneric("fineTune<-", def = function(sample, value) standardGeneric("fineTune
 #' needs to be extracted or replace.
 #' @param value A \code{numeric} value ranging from -8 up to 7, representing
 #' the fine tune.
-#' @return For \code{fineTune} the fine tune value, represented by an
+#' @returns For \code{fineTune} the fine tune value, represented by an
 #' \code{integer} value ranging from -8 up to 7, is returned.
 #'
 #' For \code{fineTune<-} A \code{\link{PTSample}} \code{sample}, updated
@@ -238,7 +238,7 @@ setGeneric("volume<-", function(sample, value) standardGeneric("volume<-"))
 #' needs to be extracted or replace.
 #' @param value A \code{numeric} value ranging from 0 up to 64, representing
 #' the volume level.
-#' @return For \code{volume} the volume value, represented by an
+#' @returns For \code{volume} the volume value, represented by an
 #' \code{integer} value ranging from 0 up to 64, is returned.
 #'
 #' For \code{volume<-} A \code{\link{PTSample}} \code{sample}, updated
@@ -297,7 +297,7 @@ setGeneric("loopStart<-", function(sample, value) standardGeneric("loopStart<-")
 #'
 #' Use a \code{value} of either \code{character} "\code{off}" or \code{logical}
 #' "\code{FALSE}", in order to turn off the loop all together.
-#' @return For \code{loopStart} the loop start position (in samples), represented by
+#' @returns For \code{loopStart} the loop start position (in samples), represented by
 #' an even \code{integer} value ranging from 0 up to 131070, is returned.
 #'
 #' For \code{loopStart<-} A \code{\link{PTSample}} \code{sample}, updated
@@ -372,7 +372,7 @@ setGeneric("loopLength<-", function(sample, value) standardGeneric("loopLength<-
 #'
 #' Use a \code{value} of either \code{character} "\code{off}" or \code{logical}
 #' "\code{FALSE}", in order to turn off the loop all together.
-#' @return For \code{loopLength} the loop length (in samples), represented by
+#' @returns For \code{loopLength} the loop length (in samples), represented by
 #' an even \code{integer} value ranging from 0 up to 131070, is returned.
 #'
 #' For \code{loopLength<-} A \code{\link{PTSample}} \code{sample}, updated
@@ -492,7 +492,7 @@ setGeneric("playSample", function(x, silence = 0, wait = T,
 #' to set (or disable) a loop.
 #' @param ... Further arguments passed on to \code{\link{noteToSampleRate}}.
 #' Can be used to change the video mode, or finetune argument for the call to that method.
-#' @return Returns nothing but plays the sample(s) as audio.
+#' @returns Returns nothing but plays the sample(s) as audio.
 #' @examples
 #' \dontrun{
 #' data("mod.intro")
@@ -583,7 +583,7 @@ setGeneric("read.sample", function(filename, what = c("wav", "mp3", "8svx", "raw
 #' read. Can be one of the following: "\code{wav}" (default), "\code{mp3}",
 #' "\code{8svx}" or "\code{raw}". The \code{AmigaFFH} package needs to be
 #' installed in order to read 8svx files.
-#' @return Returns a \code{PTSample} object based on the file read.
+#' @returns Returns a \code{PTSample} object based on the file read.
 #' @examples
 #' \dontrun{
 #' data("mod.intro")
@@ -695,7 +695,7 @@ setGeneric("write.sample", function(sample, filename, what = c("wav", "8svx", "r
 #' exported. Can be one of the following: "\code{wav}" (default),
 #' "\code{8svx}" or "\code{raw}". The \code{AmigaFFH} package needs to be
 #' installed in order to write 8svx files.
-#' @return Saves the audio to a file, but returns nothing.
+#' @returns Saves the audio to a file, but returns nothing.
 #' @examples
 #' \dontrun{
 #' data("mod.intro")
@@ -768,7 +768,7 @@ setGeneric("name<-", function(x, value) standardGeneric("name<-"))
 #' object for which to obtain or replace the name.
 #' @param value A \code{character} string which should be used to replace the
 #' name of \code{\link{PTModule}} or \code{\link{PTSample}} \code{x}.
-#' @return For \code{name}, the name of the \code{\link{PTModule}} or
+#' @returns For \code{name}, the name of the \code{\link{PTModule}} or
 #' \code{\link{PTSample}} object as a \code{character} string is returned.
 #'
 #' For \code{name<-}, object \code{x} with an updated name is returned.
@@ -828,7 +828,7 @@ setGeneric("sampleLength", function(sample) standardGeneric("sampleLength"))
 #' @name sampleLength
 #' @aliases sampleLength,PTSample-method
 #' @param sample A \code{PTSample} object for which the length needs to be returned.
-#' @return Returns a \code{numeric} value representing the number of samples
+#' @returns Returns a \code{numeric} value representing the number of samples
 #' (bytes) the \code{PTSample} object \code{sample} is composed of.
 #' @examples
 #' data("mod.intro")
@@ -856,7 +856,7 @@ setGeneric("waveform<-", function(sample, value) standardGeneric("waveform<-"))
 #' from -128 up to +127 in original ProTracker files. However, as the
 #' \code{\link{PTSample}} class extends the \code{\link[tuneR]{Wave}} class,
 #' the waveforms are represented by integer values ranging from 0 up to 255
-#' in the \link{ProTrackR} package. As per ProTracker specifications,
+#' in the \link[=ProTrackR-package]{ProTrackR} package. As per ProTracker specifications,
 #' samples are of 8 bit mono quality and can only have an even length with
 #' a maximum of \code{2*0xffff} = \code{131070}. This method can be used to
 #' extract a waveform or replace it.
@@ -885,7 +885,7 @@ setGeneric("waveform<-", function(sample, value) standardGeneric("waveform<-"))
 #' be adjusted automatically when they are out of range for the new waveform.
 #'
 #' Use \code{NA} to generate an empty/blank \code{\link{PTSample}} object.
-#' @return For \code{waveform}, the waveform of \code{sample} is returned
+#' @returns For \code{waveform}, the waveform of \code{sample} is returned
 #' as a \code{vector} of \code{numeric} values ranging from 0 up to 255.
 #' If '\code{loop}' is set to \code{FALSE}
 #' and the starting position is beyond the sample length, \code{NA} values
@@ -1008,7 +1008,7 @@ setGeneric("loopSample", function(sample, times, n_samples) standardGeneric("loo
 #' @param n_samples A positive \code{integer} value indicating the desired length
 #' of the looped waveform in number of samples. This argument overrules the
 #' \code{times} argument.
-#' @return Returns a \code{\link{waveform}} represented by a \code{numeric}
+#' @returns Returns a \code{\link{waveform}} represented by a \code{numeric}
 #' \code{vector} of values ranging from 0 up to 255. Has a length of
 #' \code{n_samples} when that argument is specified.
 #' @examples
@@ -1055,7 +1055,7 @@ setGeneric("loopState", function(sample) standardGeneric("loopState"))
 #' @aliases loopState,PTSample-method
 #' @param sample A \code{\link{PTSample}} object for which the loop state needs
 #' to be determined.
-#' @return Returns a \code{logical} value indicating whether a loop is (\code{TRUE})
+#' @returns Returns a \code{logical} value indicating whether a loop is (\code{TRUE})
 #' or isn't (\code{FALSE}) specified for the \code{sample}.
 #' @examples
 #' data("mod.intro")

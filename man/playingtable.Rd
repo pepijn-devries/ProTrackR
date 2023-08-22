@@ -30,11 +30,11 @@ or contain infinite loops or position jumps, the maximum duration
 is required to break out of the routine for generating the table.}
 
 \item{speed}{Default speed to use when it is not specified in the
-pattern data. See \link{ProTrackR} documentation for more info on
+pattern data. See \link[=ProTrackR-package]{ProTrackR} documentation for more info on
 `speed' and `tempo'.}
 
 \item{tempo}{Default tempo to use when it is not specified in the
-pattern data.  See \link{ProTrackR} documentation for more info on
+pattern data.  See \link[=ProTrackR-package]{ProTrackR} documentation for more info on
 `speed' and `tempo'.}
 
 \item{video}{The video mode of a Commodore Amiga affects timing routines.
@@ -68,7 +68,7 @@ format.
 This method generates a table (\code{data.frame}) in which information
 from the pattern tables (\code{\link{PTPattern}}) are put in the right
 order, taking into account pattern breaks, position jumps and pattern
-loops (see also \link{ProTrackR} documentation,
+loops (see also \link[=ProTrackR-package]{ProTrackR} documentation,
 section on effect commands). The information is put in
 a comprehensive format in a \code{data.frame}, with the following columns:
 \describe{
@@ -76,7 +76,7 @@ a comprehensive format in a \code{data.frame}, with the following columns:
 \code{\link{PTPattern}} object.}
 \item{filter}{A \code{logical} value indicating whether the
 Amiga hardware audio filter was either turned on or off using
-effect command E00/E01 (see also \link{ProTrackR} documentation,
+effect command E00/E01 (see also \link[=ProTrackR-package]{ProTrackR} documentation,
 section on effect commands).}
 \item{speed}{Number of `ticks' per row as set with the Fxy
 effect commands in the module.}

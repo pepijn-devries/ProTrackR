@@ -46,7 +46,7 @@ close(con)
 }
 }
 \references{
-\url{http://wiki.multimedia.cx/index.php?title=Protracker_Module}
+\url{https://wiki.multimedia.cx/index.php?title=Protracker_Module}
 
 \url{http://coppershade.org/articles/More!/Topics/Protracker_File_Format/}
 }

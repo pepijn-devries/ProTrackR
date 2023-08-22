@@ -16,7 +16,7 @@ setGeneric("PTBlock", function(pattern, row, track) standardGeneric("PTBlock"))
 #' \code{\link{PTCell}}s and paste the modified cells back into
 #' a \code{\link{PTPattern}}.
 #'
-#' Most objects in this \link{ProTrackR} package are very strict in the operations
+#' Most objects in this \link[=ProTrackR-package]{ProTrackR} package are very strict in the operations
 #' that are allowed, in order to guarantee validity and compatibility with
 #' the original ProTracker. This makes those objects not very flexible.
 #'
@@ -41,7 +41,7 @@ setGeneric("PTBlock", function(pattern, row, track) standardGeneric("PTBlock"))
 #' copied from the \code{pattern} into the PTBlock.
 #' @param track A \code{numeric} index or indices of tracks that needs to be
 #' copied from the \code{pattern} into the PTBlock.
-#' @return Returns a \code{matrix} from the selected \code{row}s and \code{track}s
+#' @returns Returns a \code{matrix} from the selected \code{row}s and \code{track}s
 #' from the \code{pattern}. Each element in the \code{matrix} is a \code{list} holding
 #' a single \code{\link{PTCell}}.
 #' @examples
@@ -105,7 +105,7 @@ setGeneric("pasteBlock", function(pattern, block, row.start, track.start) standa
 #' @param track.start A positive \code{integer} value (ranging from 1 up to 4)
 #' indicating the starting position (track) in the \code{pattern} to paste the
 #' \code{block} into.
-#' @return Returns a copy of \code{pattern} into which \code{block} is pasted.
+#' @returns Returns a copy of \code{pattern} into which \code{block} is pasted.
 #' @examples
 #' data("mod.intro")
 #'

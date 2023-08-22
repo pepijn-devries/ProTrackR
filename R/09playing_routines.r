@@ -1,7 +1,7 @@
-## http://pastebin.com/pg95YduC
+## https://pastebin.com/pg95YduC
 ## https://bel.fi/alankila/modguide/interpolate.txt
 ## XXX max output rate differs per channel still need to try to confirm that?:
-## http://eab.abime.net/showthread.php?t=70783
+## https://eab.abime.net/showthread.php?t=70783
 
 ## The amiga hardware reference manual:
 ## https://archive.org/stream/Amiga_Hardware_Reference_Manual_1985_Commodore_a/Amiga_Hardware_Reference_Manual_1985_Commodore_a_djvu.txt
@@ -11,7 +11,7 @@
 ## It doesn't say if these are hard limits, or whether these
 ## are just the specs, that you possible go beyond.
 ## in de WINUAE emulator lijkt de period value lager te kunnen dan de 124
-## each channel different limit: http://eab.abime.net/showthread.php?t=70783
+## each channel different limit: https://eab.abime.net/showthread.php?t=70783
 ## WINUAE seem to use noteToPeriod("B-3") as the limit for all channels
 
 ## Olav Sorensen:
@@ -40,7 +40,7 @@ setGeneric("playMod", function(mod, wait = T, ...) standardGeneric("playMod"))
 #' finished. When set to \code{FALSE}, subsequent R code will be
 #' executed while playing.
 #' @param ... Arguments that are passed on to \code{\link{modToWave}}.
-#' @return A \code{\link[tuneR]{Wave}} object, generated from the
+#' @returns A \code{\link[tuneR]{Wave}} object, generated from the
 #' \code{mod} object, is returned.
 #' @examples
 #' \dontrun{
@@ -84,7 +84,7 @@ setGeneric("playWave", function(wave, wait = T) standardGeneric("playWave"))
 #' routine will wait with executing any code until the playing is
 #' finished. When set to \code{FALSE}, subsequent R code will be
 #' executed while playing.
-#' @return Returns an \code{\link[audio]{$.audioInstance}}.
+#' @returns Returns an \code{\link[audio]{$.audioInstance}}.
 #' @examples
 #' \dontrun{
 #' data(mod.intro)
@@ -222,7 +222,7 @@ setGeneric("modToWave",
 #' had hardware audio filters. One (low pass 6 db/Oct tuned at
 #' 4.9 kHz) that filters all audio and one (low pass 12 db/Oct tuned at
 #' approximately 3.3 kHz) that can be turned on and off at will with effect
-#' command E00/E01 (see also \link{ProTrackR} documentation,
+#' command E00/E01 (see also \link[=ProTrackR-package]{ProTrackR} documentation,
 #' section on effect commands). These filters are only applied when the
 #' \code{low.pass.filter} argument is set to \code{TRUE} and the
 #' \code{target.rate} is set to values > 4.9 kHz. If you don't want to simulate
@@ -236,7 +236,7 @@ setGeneric("modToWave",
 #' multi-channel \code{\link[tuneR]{WaveMC}} object is returned. The
 #' \code{stereo.separation} argument is ignored in the latter case.
 #' @param ... Additional arguments that are passed to \code{\link{playingtable}}.
-#' @return A \code{\link[tuneR]{Wave}} object, generated from the
+#' @returns A \code{\link[tuneR]{Wave}} object, generated from the
 #' \code{mod} object is returned. A \code{\link[tuneR]{WaveMC}} object is returned when
 #' the \code{mix} argument is set to \code{FALSE}.
 #' @examples
@@ -336,7 +336,7 @@ setGeneric("playingtable",
 #' This method generates a table (\code{data.frame}) in which information
 #' from the pattern tables (\code{\link{PTPattern}}) are put in the right
 #' order, taking into account pattern breaks, position jumps and pattern
-#' loops (see also \link{ProTrackR} documentation,
+#' loops (see also \link[=ProTrackR-package]{ProTrackR} documentation,
 #' section on effect commands). The information is put in
 #' a comprehensive format in a \code{data.frame}, with the following columns:
 #' \describe{
@@ -344,7 +344,7 @@ setGeneric("playingtable",
 #' \code{\link{PTPattern}} object.}
 #' \item{filter}{A \code{logical} value indicating whether the
 #' Amiga hardware audio filter was either turned on or off using
-#' effect command E00/E01 (see also \link{ProTrackR} documentation,
+#' effect command E00/E01 (see also \link[=ProTrackR-package]{ProTrackR} documentation,
 #' section on effect commands).}
 #' \item{speed}{Number of `ticks' per row as set with the Fxy
 #' effect commands in the module.}
@@ -377,10 +377,10 @@ setGeneric("playingtable",
 #' or contain infinite loops or position jumps, the maximum duration
 #' is required to break out of the routine for generating the table.
 #' @param speed Default speed to use when it is not specified in the
-#' pattern data. See \link{ProTrackR} documentation for more info on
+#' pattern data. See \link[=ProTrackR-package]{ProTrackR} documentation for more info on
 #' `speed' and `tempo'.
 #' @param tempo Default tempo to use when it is not specified in the
-#' pattern data.  See \link{ProTrackR} documentation for more info on
+#' pattern data.  See \link[=ProTrackR-package]{ProTrackR} documentation for more info on
 #' `speed' and `tempo'.
 #' @param video The video mode of a Commodore Amiga affects timing routines.
 #' This mode can be specified with this argument and
@@ -396,7 +396,7 @@ setGeneric("playingtable",
 #' @param verbose A \code{logical} value. Suppresses a progress report
 #' from being printed to the \code{\link[base]{sink}} when set to \code{FALSE}.
 #' The default value is \code{TRUE}.
-#' @return Returns a \code{data.frame} with pattern rows put in the right
+#' @returns Returns a \code{data.frame} with pattern rows put in the right
 #' order. Information contained in the returned table is described in the
 #' 'Details' section
 #' @examples
@@ -1692,8 +1692,8 @@ setMethod("playingtable", "PTModule", function(mod,
   ## start
   ##############################################
   ## filter frequencies:
-  ## http://forum.audacityteam.org/viewtopic.php?f=42&t=70941
-  ## http://forum.arduino.cc/index.php?topic=21484.0
+  ## https://forum.audacityteam.org/viewtopic.php?f=42&t=70941
+  ## https://forum.arduino.cc/index.php?topic=21484.0
   ## https://bel.fi/alankila/modguide/interpolate.txt
   ## x == even -> filter on
   ## x == odd  -> filter off

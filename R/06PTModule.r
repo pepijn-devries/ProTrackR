@@ -84,7 +84,7 @@ validity.PTModule <- function(object)
 #' @references
 #' \url{https://en.wikipedia.org/wiki/MOD_(file_format)}
 #'
-#' \url{http://wiki.multimedia.cx/index.php?title=Protracker_Module}
+#' \url{https://wiki.multimedia.cx/index.php?title=Protracker_Module}
 #'
 #' \url{http://coppershade.org/articles/More!/Topics/Protracker_File_Format/}
 #' @examples
@@ -135,7 +135,7 @@ setClass("PTModule",
 #' loop positions need to be visualised. For looped samples, the starting
 #' and ending positions are marked by a vertical green and red line, respectively.
 #' @param ... Arguments that are passed on to \code{\link[lattice]{xyplot}}.
-#' @return Returns an object of class \code{trellis}. See documentation of
+#' @returns Returns an object of class \code{trellis}. See documentation of
 #' \code{\link[lattice]{xyplot}} for more details.
 #'
 #' @examples
@@ -269,7 +269,7 @@ setGeneric("read.module", function(file, ignore.validity = F) standardGeneric("r
 #' was one of the more popular versions of ProTracker back in the days).
 #'
 #' It should also be able to read most of the .mod files in
-#' \href{http://modarchive.org/}{The Mod Archive}.
+#' \href{https://modarchive.org/}{The Mod Archive}.
 #'
 #' @docType methods
 #' @name  read.module
@@ -286,7 +286,7 @@ setGeneric("read.module", function(file, ignore.validity = F) standardGeneric("r
 #' objects is very strict, it can be useful to ignore this check. This way
 #' you can try to read a broken module file, try to fix it such that it becomes valid and
 #' save (with \code{\link{write.module}}) it again.
-#' @return Returns a \code{PTModule} object read from the provided ProTracker file
+#' @returns Returns a \code{PTModule} object read from the provided ProTracker file
 #'
 #' @examples
 #' \dontrun{
@@ -307,7 +307,7 @@ setGeneric("read.module", function(file, ignore.validity = F) standardGeneric("r
 #' ## don't forget to close the file:
 #' close(con)
 #' }
-#' @references \url{http://wiki.multimedia.cx/index.php?title=Protracker_Module}
+#' @references \url{https://wiki.multimedia.cx/index.php?title=Protracker_Module}
 #'
 #' \url{http://coppershade.org/articles/More!/Topics/Protracker_File_Format/}
 #' @family io.operations
@@ -343,7 +343,7 @@ setMethod("read.module", c("ANY", "logical"), function(file, ignore.validity) {
   ignore.validity <- as.logical(ignore.validity)[[1]]
   # function to read module from file
   # connection following the specs listed here:
-  # http://wiki.multimedia.cx/index.php?title=Protracker_Module
+  # https://wiki.multimedia.cx/index.php?title=Protracker_Module
   # check if we got a connection we can use (otherwise throw error):
   con <- file
   if (!("connection" %in% class(con))) stop ("argument con is not a file connection!")
@@ -446,7 +446,7 @@ setGeneric("write.module", def = function(mod, file){
 #' @param mod A valid PTModule object to be saved as a ProTracker *.mod file
 #' @param file either a filename to write to, or a file connection, that
 #' allows to write binary data (see \code{\link[base]{file}}).
-#' @return Writes to a module file but returns nothing.
+#' @returns Writes to a module file but returns nothing.
 #'
 #' @examples
 #' \dontrun{
@@ -463,7 +463,7 @@ setGeneric("write.module", def = function(mod, file){
 #' ## don't forget to close the connection after you're done:
 #' close(con)
 #' }
-#' @references \url{http://wiki.multimedia.cx/index.php?title=Protracker_Module}
+#' @references \url{https://wiki.multimedia.cx/index.php?title=Protracker_Module}
 #'
 #' \url{http://coppershade.org/articles/More!/Topics/Protracker_File_Format/}
 #' @family io.operations
@@ -611,7 +611,7 @@ setGeneric("patternOrder", function(x, full = FALSE) standardGeneric("patternOrd
 #' repplace the part of the order table up to the length of \code{value}. The
 #' remainder of the table is not changed. The \code{\link{patternOrderLength}}
 #' is also not modified in this case.
-#' @return For \code{patternOrder}, a \code{vector} of \code{numeric}
+#' @returns For \code{patternOrder}, a \code{vector} of \code{numeric}
 #' \code{\link{PTPattern}} indices is returned.
 #'
 #' For \code{patternOrder<-}, an updated version of object \code{x} is returned,
@@ -733,7 +733,7 @@ setGeneric("patternLength", function(x) standardGeneric("patternLength"))
 #' @aliases patternLength,PTModule-method
 #' @param x A \code{\link{PTModule}} object for which the number of
 #' \code{\link{PTPattern}} tables need to be returned.
-#' @return Returns a \code{numeric} value representing the number of
+#' @returns Returns a \code{numeric} value representing the number of
 #' \code{\link{PTPattern}} tables in object \code{x}.
 #' @examples
 #' data("mod.intro")
@@ -773,7 +773,7 @@ setGeneric("patternOrderLength<-", function(x, value) standardGeneric("patternOr
 #' visible part of the pattern order table is to be returned.
 #' @param value A \code{numeric} value which is to be used to set the visible
 #' length of the pattern order table.
-#' @return For \code{patternOrderLength} the visible length of the pattern
+#' @returns For \code{patternOrderLength} the visible length of the pattern
 #' order table of \code{\link{PTModule}} \code{x} is returned as a \code{numeric}
 #' value, ranging from 1 up to 128.
 #'
@@ -841,7 +841,7 @@ setGeneric("trackerFlag<-", function(x, value = c("M.K.", "M!K!")) standardGener
 #' or "\code{M!K!}". Note that if a current flag "\code{M!K!}" is
 #' replaced by "\code{M.K.}", \code{\link{PTPattern}}s may get lost as the
 #' latter supports less patterns.
-#' @return For \code{trackerFlag}, the tracker flag of object \code{x} is returned.
+#' @returns For \code{trackerFlag}, the tracker flag of object \code{x} is returned.
 #'
 #' For \code{trackerFlag<-}, a copy of object \code{x} with an updated tracker
 #' flag is returned.
@@ -930,7 +930,7 @@ setGeneric("deletePattern", function(x, index){
 #' patterns simultaneously with this method. A \code{\link{PTModule}}
 #' should always hold at least 1 pattern table, therefore, the last
 #' \code{\link{PTPattern}} table cannot be deleted.
-#' @return Returns a \code{\link{PTModule}} from which the selected
+#' @returns Returns a \code{\link{PTModule}} from which the selected
 #' \code{\link{PTPattern}} is deleted.
 #' @examples
 #' data("mod.intro")
@@ -993,7 +993,7 @@ setGeneric("appendPattern", function(x, pattern){
 #' \code{\link{PTPattern}} is to be appended.
 #' @param pattern A \code{\link{PTPattern}} object which is
 #' to be appended to the \code{\link{PTModule}} \code{x}.
-#' @return Returns a \code{\link{PTModule}}, to which the
+#' @returns Returns a \code{\link{PTModule}}, to which the
 #' \code{\link{PTPattern}} is appended.
 #' @examples
 #' data("mod.intro")
@@ -1050,7 +1050,7 @@ setGeneric("moduleSize", function(x) standardGeneric("moduleSize"))
 #' @aliases moduleSize,PTModule-method
 #' @param x A \code{\link{PTModule}} object for which the file size is
 #' to be calculated.
-#' @return Returns potential uncompressed module file size in bytes represented
+#' @returns Returns potential uncompressed module file size in bytes represented
 #' by a number of class \code{object_size}.
 #' @examples
 #' ## Calculate the file size for the example module 'mod.intro':
@@ -1101,7 +1101,7 @@ setGeneric("clearSong", function(mod) standardGeneric("clearSong"))
 #' @aliases clearSong,PTModule-method
 #' @param mod A \code{\link{PTModule}} object from which all pattern (order)
 #' info needs to be removed.
-#' @return Returns a copy of object \code{mod} in which all pattern (order)
+#' @returns Returns a copy of object \code{mod} in which all pattern (order)
 #' info is removed.
 #' @examples
 #' data(mod.intro)
@@ -1133,7 +1133,7 @@ setGeneric("clearSamples", function(mod) standardGeneric("clearSamples"))
 #' @aliases clearSamples,PTModule-method
 #' @param mod A \code{\link{PTModule}} object from which all samples needs
 #' to be removed.
-#' @return Returns a copy of object \code{mod} in which all samples are removed.
+#' @returns Returns a copy of object \code{mod} in which all samples are removed.
 #' @examples
 #' data(mod.intro)
 #'
@@ -1173,7 +1173,7 @@ setGeneric("fix.PTModule", function(mod, verbose) standardGeneric("fix.PTModule"
 #' @param verbose With the default value of \code{TRUE}, the method
 #' prints a progress report to the \code{\link{sink}}. When set
 #' to \code{FALSE}, the progress report is suppressed.
-#' @return Returns a copy of object \code{mod} in which all non-conformaties are
+#' @returns Returns a copy of object \code{mod} in which all non-conformaties are
 #' attempted to be fixed. (Attempted) fixes are listed printed
 #' in the progress report.
 #' @note In the current version, pattern data itself is not checked for
@@ -1323,7 +1323,7 @@ setGeneric("rawToPTModule", function(x, ignore.validity = F) standardGeneric("ra
 #' this method will attempt to decode the raw data (\code{x}), even when it is invalid.
 #' When set to \code{FALSE} (default) validity is checked and an error is
 #' thrown when invalidity occurs.
-#' @return returns a \code{\link{PTModule-class}} object.
+#' @returns returns a \code{\link{PTModule-class}} object.
 #' @examples
 #' \dontrun{
 #' ## convert the example mod into raw data
