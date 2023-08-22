@@ -30,7 +30,7 @@ allows a more flexible approach to select and modify
 a \code{\link{PTPattern}}.
 }
 \details{
-Most objects in this \link{ProTrackR} package are very strict in the operations
+Most objects in this \link[=ProTrackR-package]{ProTrackR} package are very strict in the operations
 that are allowed, in order to guarantee validity and compatibility with
 the original ProTracker. This makes those objects not very flexible.
 

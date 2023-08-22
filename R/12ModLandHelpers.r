@@ -1,9 +1,9 @@
 #' ModLand helper functions
 #'
-#' \url{http://modland.com} is on of the largest online archive of module files. These functions
+#' \url{https://modland.com} is on of the largest online archive of module files. These functions
 #' will assist in accessing this archive.
 #'
-#' Like the \url{http://modarchive.org}, modland provides access to a large collection of module files.
+#' Like the \url{https://modarchive.org}, modland provides access to a large collection of module files.
 #' Compared to the \link{modArchive}, modLand provides limited searching features. However, it
 #' does not require an API key.
 #'
@@ -31,7 +31,7 @@
 #' mirrors listed in the `usage' section. Select a mirror site from which
 #' the module file needs to be downloaded.
 #' @param ... Argument that are passed on to \code{\link{read.module}}.
-#' @return \code{modLand.search.mod} returns a \code{data.frame}.
+#' @returns \code{modLand.search.mod} returns a \code{data.frame}.
 #' The \code{data.frame} contains a search result in each row.
 #' The data.frame contains a number of columns, each containing
 #' \code{character} strings. The column `title' contains the mod file name;
@@ -115,11 +115,11 @@ modLand.download.mod <- function(format,
                    "ziphoid.com",
                    "exotica.org.uk")
   mirror <- match(match.arg(mirror, mirror.args), mirror.args)
-  mirror <- c("http://modland.com/pub/modules/",
+  mirror <- c("https://modland.com/pub/modules/",
               "ftp://ftp.modland.com/pub/modules/",
-              "http://modland.antarctica.no/pub/modules/",
-              "http://modland.ziphoid.com/pub/modules/",
-              "http://files.exotica.org.uk/modland/?file=pub/modules/")[mirror]
+              "https://modland.antarctica.no/pub/modules/",
+              "https://modland.ziphoid.com/pub/modules/",
+              "https://files.exotica.org.uk/modland/?file=pub/modules/")[mirror]
   url.suffix <- paste(utils::URLencode(format),
                       utils::URLencode(author),
                       utils::URLencode(title),

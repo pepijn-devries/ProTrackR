@@ -4,11 +4,13 @@
 \name{paula_clock}
 \alias{paula_clock}
 \title{Paula clock table}
-\format{a \code{data.frame} with two columns:
+\format{
+a \code{data.frame} with two columns:
 \itemize{
   \item{`frequency' A \code{numeric} value representing Paula's output rate in Hz.}
   \item{`video' A \code{character} string representing the two video modes.}
-}}
+}
+}
 \description{
 Table that provides audio output frequencies for the Commodore Amiga
 original chipset.

@@ -8,7 +8,7 @@
 #' leading and trailing \code{0x00} data will be omitted from the result.
 #'
 #' @param raw_dat A vector of class \code{raw} to be converted into a \code{character}.
-#' @return A \code{character} string based on the \code{raw} data
+#' @returns A \code{character} string based on the \code{raw} data
 #' @examples
 #' ## generate some raw data with an embedded 0x00:
 #' some.raw.data <- as.raw(c(0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x00,
@@ -55,7 +55,7 @@ rawToCharNull <- function(raw_dat) {
 #' see \code{\link{unsignedIntToRaw}}.
 #'
 #' @param raw_dat A vector of class \code{raw} to be converted into an unsigned integer
-#' @return A single unsigned integer value based on the provided \code{raw} data
+#' @returns A single unsigned integer value based on the provided \code{raw} data
 #' @examples
 #' ## generate some raw data:
 #' some.raw.data <- as.raw(c(0x01, 0x1e, 0x3f))
@@ -92,7 +92,7 @@ rawToUnsignedInt <-
 #' @param length.out Required length of the vector that will hold the resulting.
 #' \code{raw} data. Defaults to 1. If the value of \code{int_dat} is to large to convert into
 #' \code{raw} data of length \code{length.out}, data will be clipped.
-#' @return A vector of length \code{length.out}, holding \code{raw} data.
+#' @returns A vector of length \code{length.out}, holding \code{raw} data.
 #' @examples
 #' ## generate some unsigned integer:
 #' some.integer <- 43251
@@ -144,7 +144,7 @@ unsignedIntToRaw <-
 #' For the inverse of this function see \code{\link{rawToSignedInt}(raw_dat)}.
 #'
 #' @param int_dat A vector of integer values, ranging from -128 up to 127.
-#' @return A vector of the same length as \code{int_dat}, holding \code{raw} data.
+#' @returns A vector of the same length as \code{int_dat}, holding \code{raw} data.
 #' @examples
 #' ## generate some signed integers:
 #' some.integers <- c(-100, 40, 0, 30, -123)
@@ -177,7 +177,7 @@ signedIntToRaw <-
 #' For the inverse of this function see \code{\link{signedIntToRaw}(int_dat)}.
 #'
 #' @param raw_dat A vector of \code{raw} data.
-#' @return A vector of the same length as \code{raw_dat}, holding signed integer values.
+#' @returns A vector of the same length as \code{raw_dat}, holding signed integer values.
 #' @examples
 #' ## generate some raw data:
 #' some.raw.data <- as.raw(c(0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x90))
@@ -219,7 +219,7 @@ rawToSignedInt <-
 #' @rdname periodToChar
 #' @name periodToChar
 #' @param period \code{integer} value of a period value.
-#' @return \code{periodToChar} returns a \code{character} representing the combination
+#' @returns \code{periodToChar} returns a \code{character} representing the combination
 #' of octave and note that is closest to
 #' \code{period} in the ProTracker period table.
 #' @examples
@@ -257,7 +257,7 @@ periodToChar <-
 #' ProTracker period value needs to be determined
 #' @param finetune \code{integer} value ranging from -8 up to 7. A value used to
 #' tune an audio sample.
-#' @return Returns the \code{numeric} ProTracker period value for a corresponding
+#' @returns Returns the \code{numeric} ProTracker period value for a corresponding
 #' note, octave and \code{\link{fineTune}}. Returns 0 if a note could not be found in the
 #' table.
 #' @examples
@@ -331,7 +331,7 @@ noteToPeriod <-
 #' @param video The video mode used to calculate the sample rate. A \code{character}
 #' string that can have either the value `\href{https://en.wikipedia.org/wiki/PAL}{PAL}'
 #' or `\href{https://en.wikipedia.org/wiki/NTSC}{NTSC}'. PAL is used by default.
-#' @return Returns the sample rate in samples per seconds.
+#' @returns Returns the sample rate in samples per seconds.
 #' @examples
 #' ## calculate the sample rate for a ProTracker period value of 200
 #' periodToSampleRate(200)
@@ -390,7 +390,7 @@ periodToSampleRate <-
 #' needs to be extracted.
 #' @param which A character string indicating whether the high or low nybble should
 #' be returnd. It should either be "\code{low}" (default) or "\code{high}".
-#' @return A vector of the same length as \code{raw_dat} holding integer values.
+#' @returns A vector of the same length as \code{raw_dat} holding integer values.
 #' @examples
 #' ## this will return 0x0f:
 #' hiNybble(as.raw(0xf3))
@@ -451,7 +451,7 @@ hiNybble <-
 #' @param which A \code{character} string indicating whether the "\code{low}" (default)
 #' or "\code{high}" nybble of \code{raw_dat} needs to be converted into a signed
 #' \code{integer}.
-#' @return Returns \code{integer} values of the same length as \code{raw_dat},
+#' @returns Returns \code{integer} values of the same length as \code{raw_dat},
 #' ranging from -8 up to 7.
 #' @examples
 #' ## generate some raw data:
@@ -495,7 +495,7 @@ nybbleToSignedInt <- function(raw_dat, which = c("low", "high"))
 #' @param which A character string indicating whether the nybble should
 #' be set to the "\code{low}" (default) or "\code{high}" position of the
 #' raw data that is returned.
-#' @return Returns \code{raw} data of the same length as \code{int_dat}.
+#' @returns Returns \code{raw} data of the same length as \code{int_dat}.
 #' The returned raw data holds either low or high nybbles (as specified
 #' by \code{which}) based on the provided signed \code{integer}s.
 #' @examples
@@ -541,7 +541,7 @@ signedIntToNybble <- function(int_dat, which = c("low", "high"))
 #' @param x \code{integer} representing the table index ranging from 0
 #' up to 31. Values outside this range can be used, but will produce
 #' results that are not valid in the context of ProTracker.
-#' @return Returns an \code{integer} sine value ranging from 0 up to 255
+#' @returns Returns an \code{integer} sine value ranging from 0 up to 255
 #' when a valid table index (\code{x}) is provided. It will otherwise return
 #' a sine value ranging from -255 up to 255.
 #' @examples

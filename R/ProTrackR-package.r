@@ -50,7 +50,7 @@
 #' attempt to implement these bounds in the current version of the
 #' package after consulting with Olav
 #' S\ifelse{latex}{\out{{\o}}}{\ifelse{html}{\out{&oslash;}}{o}}rensen (who created
-#' a ProTracker clone for modern machines: \url{http://16-bits.org/pt.php}).
+#' a ProTracker clone for modern machines: \url{https://16-bits.org/pt.php}).
 #' I'm really greatful for his input and doing some checks on an actual
 #' Amiga.
 #'
@@ -131,31 +131,28 @@
 #'
 #' The current version already implements most effect commands and common quirks
 #' when it comes to their interpretation. My subjective estimate is that it will
-#' correctly play roughly 95\% of the ProTracker modules on \href{http://www.modarchive.org}{ModArchive}. Some
-#' Less common unexpected behaviour is documented by the team behind \href{http://wiki.openmpt.org/Main_Page}{OpenMPT}, for which they developed
+#' correctly play roughly 95\% of the ProTracker modules on \href{https://modarchive.org}{ModArchive}. Some
+#' Less common unexpected behaviour is documented by the team behind \href{https://wiki.openmpt.org/Main_Page}{OpenMPT}, for which they developed
 #' several test cases. The table below shows which test cases this package passes
 #' and which it does not. It is the intention to pass more of the tests in future
 #' versions.
 #' \tabular{ll}{
 #'  Test module \tab Status\cr
-#'  \href{http://wiki.openmpt.org/Development:_Test_Cases/MOD\%23AmigaLimitsFinetune.mod}{AmigaLimitsFinetune.mod} \tab Fail\cr
-#'  \href{http://wiki.openmpt.org/Development:_Test_Cases/MOD\%23ArpWraparound.mod}{ArpWraparound.mod} \tab Fail\cr
-#'  \href{http://wiki.openmpt.org/Development:_Test_Cases/MOD\%23DelayBreak.mod}{DelayBreak.mod} \tab Pass\cr
-#'  \href{http://wiki.openmpt.org/Development:_Test_Cases/MOD\%23finetune.mod}{finetune.mod} \tab Fail\cr
-#'  \href{http://wiki.openmpt.org/Development:_Test_Cases/MOD\%23PatLoop-Break.mod}{PatLoop-Break.mod} \tab Pass\cr
-#'  \href{http://wiki.openmpt.org/Development:_Test_Cases/MOD\%23PatternJump.mod}{PatternJump.mod} \tab Pass\cr
-#'  \href{http://wiki.openmpt.org/Development:_Test_Cases/MOD\%23PortaSmpChange.mod}{PortaSmpChange.mod} \tab Fail\cr
-#'  \href{http://wiki.openmpt.org/Development:_Test_Cases/MOD\%23PortaTarget.mod}{PortaTarget.mod} \tab Pass\cr
-#'  \href{http://wiki.openmpt.org/Development:_Test_Cases/MOD\%23PTInstrSwap.mod}{PTInstrSwap.mod} \tab Fail\cr
-#'  \href{http://wiki.openmpt.org/Development:_Test_Cases/MOD\%23ptoffset.mod}{ptoffset.mod} \tab Pass\cr
-#'  \href{http://wiki.openmpt.org/Development:_Test_Cases/MOD\%23PTSwapEmpty.mod}{PTSwapEmpty.mod} \tab Fail\cr
-#'  \href{http://wiki.openmpt.org/Development:_Test_Cases/MOD\%23VibratoReset.mod}{VibratoReset.mod} \tab Pass
+#'  \href{https://wiki.openmpt.org/Development:_Test_Cases/MOD#AmigaLimitsFinetune.mod}{AmigaLimitsFinetune.mod} \tab Fail\cr
+#'  \href{https://wiki.openmpt.org/Development:_Test_Cases/MOD#ArpWraparound.mod}{ArpWraparound.mod} \tab Fail\cr
+#'  \href{https://wiki.openmpt.org/Development:_Test_Cases/MOD#DelayBreak.mod}{DelayBreak.mod} \tab Pass\cr
+#'  \href{https://wiki.openmpt.org/Development:_Test_Cases/MOD#finetune.mod}{finetune.mod} \tab Fail\cr
+#'  \href{https://wiki.openmpt.org/Development:_Test_Cases/MOD#PatLoop-Break.mod}{PatLoop-Break.mod} \tab Pass\cr
+#'  \href{https://wiki.openmpt.org/Development:_Test_Cases/MOD#PatternJump.mod}{PatternJump.mod} \tab Pass\cr
+#'  \href{https://wiki.openmpt.org/Development:_Test_Cases/MOD#PortaSmpChange.mod}{PortaSmpChange.mod} \tab Fail\cr
+#'  \href{https://wiki.openmpt.org/Development:_Test_Cases/MOD#PortaTarget.mod}{PortaTarget.mod} \tab Pass\cr
+#'  \href{https://wiki.openmpt.org/Development:_Test_Cases/MOD#PTInstrSwap.mod}{PTInstrSwap.mod} \tab Fail\cr
+#'  \href{https://wiki.openmpt.org/Development:_Test_Cases/MOD#ptoffset.mod}{ptoffset.mod} \tab Pass\cr
+#'  \href{https://wiki.openmpt.org/Development:_Test_Cases/MOD#PTSwapEmpty.mod}{PTSwapEmpty.mod} \tab Fail\cr
+#'  \href{https://wiki.openmpt.org/Development:_Test_Cases/MOD#VibratoReset.mod}{VibratoReset.mod} \tab Pass
 #' }
 #'
-#' @docType package
-#' @name ProTrackR
 #' @aliases EffectCommands
-#' @author Pepijn de Vries
 #' @references
 #' Some basic information on ProTracker:
 #' \url{https://en.wikipedia.org/wiki/Protracker}
@@ -168,7 +165,6 @@
 #'
 #' Some informal but extensive technical documentation on ProTracker:
 #' \url{ftp://ftp.modland.com/pub/documents/format_documentation/Protracker\%20effects\%20(FireLight)\%20(.mod).txt}
-#' \url{http://www.chemie.fu-berlin.de/chemnet/doc/tracker-4.31/technotes}
 #' @importFrom audio play wait
 #' @importFrom graphics plot
 #' @importFrom lattice xyplot
@@ -177,4 +173,6 @@
 #' @importFrom stats aggregate approx
 #' @importFrom tuneR MCnames mono readMP3 readWave Wave WaveMC writeWave
 #' @importFrom utils installed.packages URLencode
+#' @keywords internal
+"_PACKAGE"
 NULL

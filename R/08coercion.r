@@ -70,7 +70,7 @@ setGeneric("PTCell<-", function(x, row, track, pattern, value) standardGeneric("
 #' object (e.g., \code{x$pattern.order})
 #' @param value An object of \code{\link{PTCell}} with which the \code{\link{PTCell}}
 #' object at the specified indices in object \code{x} needs to be replaced.
-#' @return When \code{PTCell} is used, a \code{PTCell} object
+#' @returns When \code{PTCell} is used, a \code{PTCell} object
 #' based on \code{x} is returned.
 #'
 #' When \code{PTCell<-} is used, object \code{x} is returned in which
@@ -226,7 +226,7 @@ setGeneric("PTTrack<-", function(x, track, pattern, value) standardGeneric("PTTr
 #' object (e.g., \code{x$pattern.order})
 #' @param value An object of \code{\link{PTTrack}} with which the \code{\link{PTTrack}}
 #' object at the specified indices in object \code{x} needs to be replaced.
-#' @return When \code{PTTrack} is used, a \code{PTTrack} object
+#' @returns When \code{PTTrack} is used, a \code{PTTrack} object
 #' based on \code{x} is returned.
 #'
 #' When \code{PTTrack<-} is used, object \code{x} is returned in which
@@ -350,7 +350,7 @@ setGeneric("PTPattern<-", function(x, pattern, value) standardGeneric("PTPattern
 #' object (e.g., \code{x$pattern.order}).
 #' @param value An object of \code{\link{PTPattern}} with which the \code{\link{PTPattern}}
 #' object at the specified \code{index} in object \code{x} needs to be replaced.
-#' @return When \code{PTPattern} is used, a \code{PTPattern} object
+#' @returns When \code{PTPattern} is used, a \code{PTPattern} object
 #' based on \code{x} is returned.
 #'
 #' When \code{PTPattern<-} is used, object \code{x} is returned in which
@@ -456,7 +456,7 @@ setGeneric("PTSample<-", function(x, index, value) standardGeneric("PTSample<-")
 #' \code{x} that needs to be returned or replaced.
 #' @param value An object of \code{\link{PTSample}} with which the \code{\link{PTSample}}
 #' object at the specified \code{index} in object \code{x} needs to be replaced.
-#' @return When \code{PTSample} is used, a \code{PTSample} object
+#' @returns When \code{PTSample} is used, a \code{PTSample} object
 #' based on \code{x} is returned.
 #'
 #' When \code{PTSample<-} is used, object \code{x} is returned in which

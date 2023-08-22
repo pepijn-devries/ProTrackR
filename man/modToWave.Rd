@@ -48,7 +48,7 @@ filters should be applied when generating wave data. The Commodore Amiga
 had hardware audio filters. One (low pass 6 db/Oct tuned at
 4.9 kHz) that filters all audio and one (low pass 12 db/Oct tuned at
 approximately 3.3 kHz) that can be turned on and off at will with effect
-command E00/E01 (see also \link{ProTrackR} documentation,
+command E00/E01 (see also \link[=ProTrackR-package]{ProTrackR} documentation,
 section on effect commands). These filters are only applied when the
 \code{low.pass.filter} argument is set to \code{TRUE} and the
 \code{target.rate} is set to values > 4.9 kHz. If you don't want to simulate

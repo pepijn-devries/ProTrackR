@@ -4,7 +4,7 @@
 #' MODPlug tracker and convert it into a \code{PTPattern} or \code{PTBlock}
 #' object.
 #'
-#' The Open MODPlug Tracker (\url{https://www.openmpt.org}) is a modern
+#' The Open MODPlug Tracker (\url{https://openmpt.org}) is a modern
 #' music tracker that is for free. It too can handle ProTracker modules.
 #' This function assists in moving pattern data from Open MPT to R.
 #'
@@ -17,7 +17,7 @@
 #' from the system's clipboard.
 #' @param what A \code{character} string that indicates what type of object
 #' should be returned. Can be "PTPattern" or "PTBlock".
-#' @return Depending on the value of the argument \code{what}, it will
+#' @returns Depending on the value of the argument \code{what}, it will
 #' return either a \code{\link{PTPattern}} or \code{\link{PTBlock}} object.
 #'
 #' @name MODPlugToPTPattern
@@ -159,7 +159,7 @@ MODPlugToPTPattern <- function(text = NULL, what = c("PTPattern", "PTBlock")) {
 #' Use a \code{\link{PTPattern}} or \code{\link{PTBlock}} to create
 #' a pattern table with a MODPlug flavour.
 #'
-#' The Open MODPlug Tracker (\url{https://www.openmpt.org}) is a modern
+#' The Open MODPlug Tracker (\url{https://openmpt.org}) is a modern
 #' music tracker that is for free. It too can handle ProTracker modules.
 #' This function assists in moving pattern data from R to Open MPT.
 #'
@@ -170,7 +170,7 @@ MODPlugToPTPattern <- function(text = NULL, what = c("PTPattern", "PTBlock")) {
 #' result should be copied to the system's clipboard (\code{TRUE}) or
 #' should be returned as a \code{vector} of \code{character}s
 #' (\code{FALSE}).
-#' @return Returns an invisible \code{NULL} when
+#' @returns Returns an invisible \code{NULL} when
 #' argument \code{to.clipboard} is set to \code{TRUE}.
 #' Returns an Open MODPlug Tracker flavoured pattern table as
 #' a \code{vector} of \code{character}s when it is set to \code{FALSE}.

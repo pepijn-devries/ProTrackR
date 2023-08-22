@@ -47,7 +47,7 @@ on all modules I've composed with ProTracker version 2.3A (which I believe
 was one of the more popular versions of ProTracker back in the days).
 
 It should also be able to read most of the .mod files in
-\href{http://modarchive.org/}{The Mod Archive}.
+\href{https://modarchive.org/}{The Mod Archive}.
 }
 \examples{
 \dontrun{
@@ -70,7 +70,7 @@ close(con)
 }
 }
 \references{
-\url{http://wiki.multimedia.cx/index.php?title=Protracker_Module}
+\url{https://wiki.multimedia.cx/index.php?title=Protracker_Module}
 
 \url{http://coppershade.org/articles/More!/Topics/Protracker_File_Format/}
 }

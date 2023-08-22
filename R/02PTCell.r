@@ -40,7 +40,7 @@ validity.PTCell <- function(object)
 #' @slot data A \code{vector} of class "\code{raw}" of length 4. The \code{raw}
 #' data is stored identical to the way it is stored in a ProTracker module
 #' file. The \code{character} representation is easier to understand, and
-#' with the \link{ProTrackR} package it shouldn't be necessary to manipulate
+#' with the \link[=ProTrackR-package]{ProTrackR} package it shouldn't be necessary to manipulate
 #' the \code{raw} data directly.
 #'
 #' The structure is illustrated with an example. Let's start with a
@@ -142,7 +142,7 @@ setClass("PTCell",
 #' If \code{x} is a \code{PTPattern} object, \code{value}
 #' should be a 64 by 16 \code{matrix} holding \code{raw} values (conform specifications
 #' provided at the documentation of the \code{\link{PTPattern-class}}).
-#' @return For \code{as.raw}, a length 4 vector, 64 by 4 matrix or a 64 by 16
+#' @returns For \code{as.raw}, a length 4 vector, 64 by 4 matrix or a 64 by 16
 #' matrix of \code{raw} data is returned, when x is of class \code{PTCell},
 #' \code{PTTrack} or \code{PTPattern}, respectively.
 #'
@@ -220,7 +220,7 @@ setReplaceMethod("as.raw", c("PTCell", "raw"), function(x, value){
 #' @aliases as.character,PTPattern-method
 #' @param x An object of any of the following classes: \code{\link{PTCell}},
 #' \code{\link{PTTrack}} or \code{\link{PTPattern}}.
-#' @return Returns a single character string when \code{x} is of class
+#' @returns Returns a single character string when \code{x} is of class
 #' \code{\link{PTCell}}.
 #'
 #' Returns a \code{vector} of length 64 of the type \code{character} when \code{x} is of class
@@ -248,7 +248,7 @@ setMethod("as.character", "PTCell", function(x){
 
 #' Print ProTrackR objects
 #'
-#' A method to print \code{\link{ProTrackR}} S4 class objects.
+#' A method to print \code{\link[=ProTrackR-package]{ProTrackR}} S4 class objects.
 #'
 #' @docType methods
 #' @rdname print
@@ -259,7 +259,7 @@ setMethod("as.character", "PTCell", function(x){
 #' \code{\link{PTTrack}}, \code{\link{PTCell}} or
 #' \code{\link{PTSample}} object.
 #' @param ... further arguments passed to or from other methods
-#' @return Depending on the class of \code{x}, returns either nothing
+#' @returns Depending on the class of \code{x}, returns either nothing
 #' (\code{NULL}) or a \code{character} representation
 #' of object \code{x}.
 #'
@@ -315,7 +315,7 @@ setGeneric("effect<-", function(x, value) standardGeneric("effect<-"))
 #' @param value A \code{character} string containing a three hexadecimal digit
 #' effect code. All hexadecimal codes are accepted, not all will produce
 #' meaningful effects.
-#' @return For \code{effect}, a \code{character} string with the three hexadecimal
+#' @returns For \code{effect}, a \code{character} string with the three hexadecimal
 #' digit effect code will be returned.
 #'
 #' For \code{effect<-}, a copy of object \code{x} with effect code \code{value}
@@ -378,7 +378,7 @@ setGeneric("sampleNumber<-", function(x, value) standardGeneric("sampleNumber<-"
 #' @param value A \code{numeric} replacement value for the index. Valid indices
 #' range from 1 up to 31. A value of 0 can also be assigned, but will not play
 #' any sample.
-#' @return For \code{sampleNumber}, a \code{numeric} value representing the
+#' @returns For \code{sampleNumber}, a \code{numeric} value representing the
 #' sample index number of object \code{x} is returned.
 #'
 #' For \code{sampleNumber<-}, an copy of object \code{x} is returned in which
@@ -445,7 +445,7 @@ setGeneric("octave<-", function(x, value) standardGeneric("octave<-"))
 #'
 #' Note that the octave can only be set for \code{\link{PTCell}}s for which
 #' a note is already defined.
-#' @return For \code{octave}, a \code{numeric} value representing the octave number
+#' @returns For \code{octave}, a \code{numeric} value representing the octave number
 #' is returned.
 #'
 #' For \code{octave<-}, a copy of \code{PTCell} object \code{x} in which the
@@ -550,7 +550,7 @@ setGeneric("note<-", function(x, value = c("C-", "C#", "D-",
 #'
 #' Assigning a value of "\code{--}" will remove both the note and octave from
 #' object \code{x}.
-#' @return For \code{note}, a \code{character} string representing the note
+#' @returns For \code{note}, a \code{character} string representing the note
 #' is returned.
 #'
 #' For \code{note<-}, a copy of \code{PTCell} object \code{x} in which the
@@ -638,7 +638,7 @@ setGeneric("noteUp", function(x, sample.nr = "all") standardGeneric("noteUp"))
 #' need to be lowered or raised. A \code{character} string equal to "\code{all}"
 #' is also allowed (this is in fact the default), in which case notes of all
 #' sample indices are raised or lowered.
-#' @return Returns an object of the same class as object \code{x}, in which
+#' @returns Returns an object of the same class as object \code{x}, in which
 #' the notes for samples selected with \code{sample.nr} are raised or lowered.
 #'
 #' In case raised or lowered notes would lead to notes that are out of

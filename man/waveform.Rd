@@ -62,7 +62,7 @@ Sample waveforms are stored as 8 bit signed short integer values ranging
 from -128 up to +127 in original ProTracker files. However, as the
 \code{\link{PTSample}} class extends the \code{\link[tuneR]{Wave}} class,
 the waveforms are represented by integer values ranging from 0 up to 255
-in the \link{ProTrackR} package. As per ProTracker specifications,
+in the \link[=ProTrackR-package]{ProTrackR} package. As per ProTracker specifications,
 samples are of 8 bit mono quality and can only have an even length with
 a maximum of \code{2*0xffff} = \code{131070}. This method can be used to
 extract a waveform or replace it.
