@@ -1,4 +1,4 @@
-ProTrackR v0.4.0 (Release date: 2023-02-14)
+ProTrackR v0.4.1 (Release date: 2023-02-14)
 =============
 
  * Added `pkgdown` website and README

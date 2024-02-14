@@ -71,7 +71,7 @@ package. This new package will:
 
 - have the same or similar features as the current package.
 - will implement modern R features and try to adhere to
-  [tidyverse](https::/www.tidyverse.org) principles.
+  [tidyverse](https://www.tidyverse.org) principles.
 - implement rendering procedures in C++ giving the package a speed
   boost.
 
