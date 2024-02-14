@@ -86,7 +86,6 @@ validity.PTModule <- function(object)
 #'
 #' <https://wiki.multimedia.cx/index.php?title=Protracker_Module>
 #'
-#' <http://coppershade.org/articles/More!/Topics/Protracker_File_Format/>
 #' @examples
 #' ## create an empty PTModule class object:
 #' mod.empty <- new("PTModule")
@@ -308,8 +307,6 @@ setGeneric("read.module", function(file, ignore.validity = F) standardGeneric("r
 #' close(con)
 #' }
 #' @references <https://wiki.multimedia.cx/index.php?title=Protracker_Module>
-#'
-#' <http://coppershade.org/articles/More!/Topics/Protracker_File_Format/>
 #' @family io.operations
 #' @family module.operations
 #' @author Pepijn de Vries
@@ -464,8 +461,6 @@ setGeneric("write.module", def = function(mod, file){
 #' close(con)
 #' }
 #' @references <https://wiki.multimedia.cx/index.php?title=Protracker_Module>
-#'
-#' <http://coppershade.org/articles/More!/Topics/Protracker_File_Format/>
 #' @family io.operations
 #' @family module.operations
 #' @author Pepijn de Vries

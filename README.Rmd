@@ -29,7 +29,7 @@ This R package is designed to read, process and play ProTracker module audio fil
 ```{r eval=FALSE}
 install.packages("ProTrackR")
 ```
-> Get development version on github
+> Get development version from R-Universe
 ``` r
 install.packages("ProTrackR", repos = c('https://pepijn-devries.r-universe.dev', 'https://cloud.r-project.org'))
 ```

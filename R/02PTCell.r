@@ -306,7 +306,7 @@ setGeneric("effect<-", function(x, value) standardGeneric("effect<-"))
 #' When replacing this code, all three digit hexadecimal `character`
 #' strings are accepted, although not all codes will represent a valid
 #' effect or trigger. See
-#' <http://coppershade.org/articles/More!/Topics/Protracker_Effect_Commands/>
+#' <https://wiki.openmpt.org/Manual:_Effect_Reference#MOD_Effect_Commands>
 #' for a valid list of effect codes.
 #' @rdname effect
 #' @name effect

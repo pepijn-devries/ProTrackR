@@ -71,8 +71,6 @@ close(con)
 }
 \references{
 \url{https://wiki.multimedia.cx/index.php?title=Protracker_Module}
-
-\url{http://coppershade.org/articles/More!/Topics/Protracker_File_Format/}
 }
 \seealso{
 Other io.operations: 
