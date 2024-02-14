@@ -18,8 +18,8 @@ rate is to be calculated.}
 tune an audio sample.}
 
 \item{video}{The video mode used to calculate the sample rate. A \code{character}
-string that can have either the value `\href{https://en.wikipedia.org/wiki/PAL}{PAL}'
-or `\href{https://en.wikipedia.org/wiki/NTSC}{NTSC}'. PAL is used by default.}
+string that can have either the value '\href{https://en.wikipedia.org/wiki/PAL}{PAL}'
+or '\href{https://en.wikipedia.org/wiki/NTSC}{NTSC}'. PAL is used by default.}
 
 \item{period}{A ProTracker \code{integer} value of a period value for which the sample rate
 is to be calculated.}
@@ -32,8 +32,8 @@ Calculate the sample rate for a note or a ProTracker period value.
 }
 \details{
 The timing on a Commodore Amiga depends on the video mode, which could be
-either `\href{https://en.wikipedia.org/wiki/PAL}{PAL}'
-or `\href{https://en.wikipedia.org/wiki/NTSC}{NTSC}'. Therefore sample
+either '\href{https://en.wikipedia.org/wiki/PAL}{PAL}'
+or '\href{https://en.wikipedia.org/wiki/NTSC}{NTSC}'. Therefore sample
 rates also depend on these modes. As the PAL is mostly used in Europe, and
 the Amiga was most popular in Europe, PAL is used by default.
 }

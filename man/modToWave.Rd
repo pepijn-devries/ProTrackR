@@ -23,8 +23,8 @@
 \item{video}{The video mode of a Commodore Amiga affects timing routines and
 the playback sample rate. This mode can be specified with this argument and
 is represented by a \code{character} string that can have either the value
-`\href{https://en.wikipedia.org/wiki/PAL}{PAL}'
-or `\href{https://en.wikipedia.org/wiki/NTSC}{NTSC}'. PAL is used by default.}
+'\href{https://en.wikipedia.org/wiki/PAL}{PAL}'
+or '\href{https://en.wikipedia.org/wiki/NTSC}{NTSC}'. PAL is used by default.}
 
 \item{target.rate}{A positive \code{integer} sample rate for the target \code{Wave}.
 Should be at least 2000.
@@ -60,24 +60,24 @@ all 4 tracks are selected.}
 
 \item{mix}{A logical value indicating whether the 4 Amiga channels should
 be mixed to the 2 (stereo) output channels. When set to \code{TRUE} (default) a stereo
-\code{\link[tuneR]{Wave}} object is returned. When set to \code{FALSE} a
-multi-channel \code{\link[tuneR]{WaveMC}} object is returned. The
+\code{\link[tuneR:Wave]{tuneR::Wave}} object is returned. When set to \code{FALSE} a
+multi-channel \code{\link[tuneR:WaveMC]{tuneR::WaveMC}} object is returned. The
 \code{stereo.separation} argument is ignored in the latter case.}
 
 \item{...}{Additional arguments that are passed to \code{\link{playingtable}}.}
 }
 \value{
-A \code{\link[tuneR]{Wave}} object, generated from the
-\code{mod} object is returned. A \code{\link[tuneR]{WaveMC}} object is returned when
+A \code{\link[tuneR:Wave]{tuneR::Wave}} object, generated from the
+\code{mod} object is returned. A \code{\link[tuneR:WaveMC]{tuneR::WaveMC}} object is returned when
 the \code{mix} argument is set to \code{FALSE}.
 }
 \description{
-Converts a \code{\link{PTModule}} object into a \code{\link[tuneR]{Wave}}
+Converts a \code{\link{PTModule}} object into a \code{\link[tuneR:Wave]{tuneR::Wave}}
 object, which can be played, further analysed, modified and saved.
 }
 \details{
 Before the \code{\link{PTModule}} object can be converted into a
-\code{\link[tuneR]{Wave}} object, the rows of the
+\code{\link[tuneR:Wave]{tuneR::Wave}} object, the rows of the
 \code{\link{PTPattern}} objects in the module need to be put
 in the right order. This method does that by calling
 \code{\link{playingtable}}.
@@ -88,7 +88,7 @@ and the routines described below are applied to each track.
 
 On the Commodore Amiga the chip responsible for audio output (Paula),
 the audio playback of samples can be controlled by the user in two ways:
-the playback rate of the sample can be changed by specifying `period'
+the playback rate of the sample can be changed by specifying 'period'
 values (see e.g. \code{\link{periodToSampleRate}}) and specifying a
 volume which is linearly scaled between 0 (silent) and 64 (maximum).
 
@@ -110,8 +110,8 @@ reduce the target sample rate or turn off the low pass filter.
 On modern machines, the time required for conversion should generally
 be less than the playback time of the module.
 
-You can save the resulting \code{\link[tuneR]{Wave}} object by calling
-\code{\link[tuneR]{writeWave}}.
+You can save the resulting \code{\link[tuneR:Wave]{tuneR::Wave}} object by calling
+\code{\link[tuneR:writeWave]{tuneR::writeWave}}.
 }
 \note{
 As audio can be mixed with this package at frequencies much greater than the

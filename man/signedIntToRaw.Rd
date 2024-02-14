@@ -19,8 +19,8 @@ This function converts signed integer values into a vector of \code{raw} data.
 This function converts signed integer values [-128,127] into a vector of
 \code{raw} data. The function
 will fail on values that are out of range (< -128 or > 127). To convert
-raw data into a vector of unsigned integers use \code{\link{as.integer}(x)}.
-For the inverse of this function see \code{\link{rawToSignedInt}(raw_dat)}.
+raw data into a vector of unsigned integers use \code{as.integer()}.
+For the inverse of this function see \code{rawToSignedInt()}.
 }
 \examples{
 ## generate some signed integers:

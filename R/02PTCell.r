@@ -22,42 +22,42 @@ validity.PTCell <- function(object)
 
 #' The PTCell class
 #'
-#' The \code{PTCell} class is the smallest possible element of a \code{\link{PTPattern}}
+#' The `PTCell` class is the smallest possible element of a [`PTPattern`]
 #' table. It holds all information on which note to play, at which frequency,
 #' with which effect and what kind of triggers or jumps should be applied.
 #'
-#' The \code{PTCell} class consists of a \code{vector} of four \code{raw} values,
-#' as specified in the `Slots' section. A cell will tell which \code{\link{PTSample}}
+#' The `PTCell` class consists of a `vector` of four `raw` values,
+#' as specified in the 'Slots' section. A cell will tell which [`PTSample`]
 #' is to be played at which frequency (corresponding to a note and octave). If
 #' no octave or note is specified, nothing will be played, or if a sample was
-#' started to play on the same \code{\link{PTTrack}}, this sample will continue
-#' playing. The \code{PTCell} can also hold \code{\link{effect}} codes which
+#' started to play on the same [`PTTrack`], this sample will continue
+#' playing. The `PTCell` can also hold `effect()` codes which
 #' can be used to add audio effects to the sample being played, change the
 #' speed/tempo at which patterns are played, or trigger jumps to other positions
-#' within a \code{\link{PTPattern}} or to other positions in the
-#' \code{\link{patternOrder}} table.
+#' within a [`PTPattern`] or to other positions in the
+#' [`patternOrder`] table.
 #'
-#' @slot data A \code{vector} of class "\code{raw}" of length 4. The \code{raw}
+#' @slot data A `vector` of class `raw` of length 4. The `raw`
 #' data is stored identical to the way it is stored in a ProTracker module
-#' file. The \code{character} representation is easier to understand, and
-#' with the \link[=ProTrackR-package]{ProTrackR} package it shouldn't be necessary to manipulate
-#' the \code{raw} data directly.
+#' file. The `character` representation is easier to understand, and
+#' with the [ProTrackR][ProTrackR-package] package it shouldn't be necessary to manipulate
+#' the `raw` data directly.
 #'
 #' The structure is illustrated with an example. Let's start with a
-#' \code{character} representation of a \code{PTCell} as an example: "\code{C-3 1B A08}".
+#' `character` representation of a `PTCell` as an example: `"C-3 1B A08"`.
 #' The left-hand part of this string shows that this cell will play note "C" in
-#' octave 3. The middle part shows that \code{\link{PTSample}} number \code{0x1B} = \code{27}
+#' octave 3. The middle part shows that [`PTSample`] number `0x1B = 27`
 #' will be played. The right-hand part of the string shows that effect "A08"
 #' will be applied (which is a volume slide down).
 #'
-#' The \code{raw} representation of this example would be "\code{10 d6 ba 08}",
-#' or when I replace the actual values with symbols: "\code{sp pp se ee}". Where
-#' "\code{ss}" represents the sample number, "\code{eee}" represents the \code{\link{effect}}
-#' code and "\code{ppp}" represents the period value. The correct note and octave
-#' can be derived by looking up the period value in the \code{\link{period_table}}
-#' (which is also implemented in the following methods: \code{\link{note}},
-#' \code{\link{octave}} and \code{\link{periodToChar}}).
-#' The period value \code{0x0d6} =  \code{214} corresponds with note "C"
+#' The `raw` representation of this example would be `"10 d6 ba 08"`,
+#' or when I replace the actual values with symbols: `"sp pp se ee"`. Where
+#' `"ss"` represents the sample number, `"eee"` represents the [`effect()`]
+#' code and `"ppp"` represents the period value. The correct note and octave
+#' can be derived by looking up the period value in the [`period_table`]
+#' (which is also implemented in the following methods: [`note()`],
+#' [`octave()`] and [`periodToChar()`]).
+#' The period value `0x0d6 = 214` corresponds with note "C"
 #' in octave 3.
 #' @name PTCell-class
 #' @rdname PTCell-class
@@ -97,24 +97,24 @@ setClass("PTCell",
 
 #' Extract and replace raw data
 #'
-#' Information of \code{\link{PTCell}}, \code{\link{PTTrack}} and
-#' \code{\link{PTPattern}} objects are stored as \code{raw} values. This
-#' method can be used to extract and replace this raw data. \code{\link{PTModule}}
+#' Information of [`PTCell`], [`PTTrack`] and
+#' [`PTPattern`] objects are stored as `raw` values. This
+#' method can be used to extract and replace this raw data. [`PTModule`]
 #' objects can also be converted to raw data but not replaced by it.
 #'
-#' A \code{\link{PTCell}} is an element of a \code{\link{PTTrack}} which
-#' in turn is an element of a \code{\link{PTPattern}}. A \code{\link{PTPattern}}
+#' A [`PTCell`] is an element of a [`PTTrack`] which
+#' in turn is an element of a [`PTPattern`]. A [`PTPattern`]
 #' tells a tracker which sample to play at which frequency on which of the
-#' four audio channels and with which effects. A \code{\link{PTCell}} in essence
+#' four audio channels and with which effects. A [`PTCell`] in essence
 #' holds all this information as described at the documentation of
-#' the \code{\link{PTCell-class}}.
+#' the [`PTCell-class`].
 #'
-#' Data in these objects are stored in these objects in a \code{raw} form,
+#' Data in these objects are stored in these objects in a `raw` form,
 #' to save working memory and to comply to the ProTracker file specifications
 #' (see documentation of each of these classes for more details). This method
 #' can be used to extract and replace raw data.
 #'
-#' The \code{PTModule} object has a more complex structure but can also be converted
+#' The `PTModule` object has a more complex structure but can also be converted
 #' into raw data (the way it would be stored in a ProTracker module file). However,
 #' this object cannot be replaced by raw data.
 #'
@@ -124,33 +124,33 @@ setClass("PTCell",
 #' @aliases as.raw,PTCell-method
 #' @aliases as.raw,PTTrack-method
 #' @aliases as.raw,PTPattern-method
-#' @param x A \code{\link{PTCell}}, \code{\link{PTTrack}} or
-#' \code{\link{PTPattern}} object, for which the raw data needs to extracted
-#' or replaced. A \code{\link{PTModule}} object is also allowed, but this
+#' @param x A [`PTCell`], [`PTTrack`] or
+#' [`PTPattern`] object, for which the raw data needs to extracted
+#' or replaced. A [`PTModule`] object is also allowed, but this
 #' object cannot be replaced.
-#' @param value \code{raw} data with which the \code{raw} data in object
-#' \code{x} needs to be replaced.
+#' @param value `raw` data with which the `raw` data in object
+#' `x` needs to be replaced.
 #'
-#' If \code{x} is a \code{PTCell} object, \code{value}
-#' should be a \code{vector} of four \code{raw} values (conform specifications
-#' provided at the documentation of the \code{\link{PTCell-class}}).
+#' If `x` is a `PTCell` object, `value`
+#' should be a `vector` of four `raw` values (conform specifications
+#' provided at the documentation of the [`PTCell-class`]).
 #'
-#' If \code{x} is a \code{PTTrack} object, \code{value}
-#' should be a 64 by 4 \code{matrix} holding \code{raw} values (conform specifications
-#' provided at the documentation of the \code{\link{PTTrack-class}}).
+#' If `x` is a `PTTrack` object, `value`
+#' should be a 64 by 4 `matrix` holding `raw` values (conform specifications
+#' provided at the documentation of the [`PTTrack-class`]).
 #'
-#' If \code{x} is a \code{PTPattern} object, \code{value}
-#' should be a 64 by 16 \code{matrix} holding \code{raw} values (conform specifications
-#' provided at the documentation of the \code{\link{PTPattern-class}}).
-#' @returns For \code{as.raw}, a length 4 vector, 64 by 4 matrix or a 64 by 16
-#' matrix of \code{raw} data is returned, when x is of class \code{PTCell},
-#' \code{PTTrack} or \code{PTPattern}, respectively.
+#' If `x` is a `PTPattern` object, `value`
+#' should be a 64 by 16 `matrix` holding `raw` values (conform specifications
+#' provided at the documentation of the [`PTPattern-class`]).
+#' @returns For `as.raw`, a length 4 vector, 64 by 4 matrix or a 64 by 16
+#' matrix of `raw` data is returned, when x is of class `PTCell`,
+#' `PTTrack` or `PTPattern`, respectively.
 #'
-#' If \code{x} is a \code{PTModule} object, the \code{raw} data returned will
+#' If `x` is a `PTModule` object, the `raw` data returned will
 #' have the same format as the ProTracker file format.
 #'
-#' For \code{as.raw<-}, a copy of object \code{x} is returned in which the
-#' \code{raw} data is replaced by \code{value}.
+#' For `as.raw<-`, a copy of object `x` is returned in which the
+#' `raw` data is replaced by `value`.
 #'
 #' @examples
 #' data("mod.intro")
@@ -192,25 +192,25 @@ setReplaceMethod("as.raw", c("PTCell", "raw"), function(x, value){
 
 #' Character representation of ProTrackR objects
 #'
-#' Create a \code{character} representation of \code{\link{PTCell}},
-#' \code{\link{PTTrack}} or \code{\link{PTPattern}} objects.
+#' Create a `character` representation of [`PTCell`],
+#' [`PTTrack`] or [`PTPattern`] objects.
 #'
-#' A \code{\link{PTCell}} is an element of a \code{\link{PTTrack}} which
-#' in turn is an element of a \code{\link{PTPattern}}. A \code{\link{PTPattern}}
+#' A [`PTCell`] is an element of a [`PTTrack`] which
+#' in turn is an element of a [`PTPattern`]. A [`PTPattern`]
 #' tells a tracker which sample to play at which frequency on which of the
-#' four audio channels and with which effects. A \code{\link{PTCell}} in essence
+#' four audio channels and with which effects. A [`PTCell`] in essence
 #' holds all this information as described at the documentation of
-#' the \code{\link{PTCell-class}}.
+#' the [`PTCell-class`].
 #'
-#' Data in these objects are stored in these objects in a \code{raw} form,
+#' Data in these objects are stored in these objects in a `raw` form,
 #' to save working memory and to comply to the ProTracker file specifications.
 #' As the raw data is not easy to interpret, this method is provided to
 #' make your life (and the interpretation of the objects) easier.
 #'
 #' This method generates a character representation of each of the three objects.
 #' These character representations can be coerced back to their original classes
-#' with the following methods: \code{\link{PTCell-method}},
-#' \code{\link{PTTrack-method}} and \code{\link{PTPattern-method}}.
+#' with the following methods: [`PTCell-method`],
+#' [`PTTrack-method`] and [`PTPattern-method`].
 #'
 #' @docType methods
 #' @rdname as.character
@@ -218,16 +218,16 @@ setReplaceMethod("as.raw", c("PTCell", "raw"), function(x, value){
 #' @aliases as.character,PTCell-method
 #' @aliases as.character,PTTrack-method
 #' @aliases as.character,PTPattern-method
-#' @param x An object of any of the following classes: \code{\link{PTCell}},
-#' \code{\link{PTTrack}} or \code{\link{PTPattern}}.
-#' @returns Returns a single character string when \code{x} is of class
-#' \code{\link{PTCell}}.
+#' @param x An object of any of the following classes: [`PTCell`],
+#' [`PTTrack`] or [`PTPattern`].
+#' @returns Returns a single character string when `x` is of class
+#' [`PTCell`].
 #'
-#' Returns a \code{vector} of length 64 of the type \code{character} when \code{x} is of class
-#' \code{\link{PTTrack}}.
+#' Returns a `vector` of length 64 of the type `character` when `x` is of class
+#' [`PTTrack`].
 #'
-#' Returns a 64 by 4 \code{matrix} of the type \code{character} when \code{x} is of class
-#' \code{\link{PTPattern}}.
+#' Returns a 64 by 4 `matrix` of the type `character` when `x` is of class
+#' [`PTPattern`].
 #' @examples
 #' data("mod.intro")
 #'
@@ -248,20 +248,20 @@ setMethod("as.character", "PTCell", function(x){
 
 #' Print ProTrackR objects
 #'
-#' A method to print \code{\link[=ProTrackR-package]{ProTrackR}} S4 class objects.
+#' A method to print [ProTrackR][ProTrackR-package] S4 class objects.
 #'
 #' @docType methods
 #' @rdname print
 #' @name print
 #' @aliases print,PTCell-method
 #'
-#' @param x Either a \code{\link{PTModule}}, \code{\link{PTPattern}},
-#' \code{\link{PTTrack}}, \code{\link{PTCell}} or
-#' \code{\link{PTSample}} object.
+#' @param x Either a [`PTModule`], [`PTPattern`],
+#' [`PTTrack`], [`PTCell`] or
+#' [`PTSample`] object.
 #' @param ... further arguments passed to or from other methods
-#' @returns Depending on the class of \code{x}, returns either nothing
-#' (\code{NULL}) or a \code{character} representation
-#' of object \code{x}.
+#' @returns Depending on the class of `x`, returns either nothing
+#' (`NULL`) or a `character` representation
+#' of object `x`.
 #'
 #' @examples
 #' data("mod.intro")
@@ -290,11 +290,11 @@ setGeneric("effect<-", function(x, value) standardGeneric("effect<-"))
 
 #' Extract or replace effect/trigger codes
 #'
-#' The 3 right-hand symbols of a \code{character} representation of a
-#' \code{\link{PTCell}} represent an effect or trigger code. This method
+#' The 3 right-hand symbols of a `character` representation of a
+#' [`PTCell`] represent an effect or trigger code. This method
 #' can be used to extract or replace this code.
 #'
-#' When a \code{\link{PTCell}} is represented by a \code{character} string,
+#' When a [`PTCell`] is represented by a `character` string,
 #' the last three symbols represent a hexadecimal effect or trigger code.
 #' In general the first of the three symbols indicates a type of effect or
 #' trigger, whereas the latter two generally indicate a magnitude or a
@@ -303,22 +303,22 @@ setGeneric("effect<-", function(x, value) standardGeneric("effect<-"))
 #' Effects can for instance be volume or frequency slides. The codes can
 #' also affect the module tempo or cause position jumps.
 #'
-#' When replacing this code, all three digit hexadecimal \code{character}
+#' When replacing this code, all three digit hexadecimal `character`
 #' strings are accepted, although not all codes will represent a valid
 #' effect or trigger. See
-#' \url{http://coppershade.org/articles/More!/Topics/Protracker_Effect_Commands/}
+#' <http://coppershade.org/articles/More!/Topics/Protracker_Effect_Commands/>
 #' for a valid list of effect codes.
 #' @rdname effect
 #' @name effect
 #' @aliases effect,PTCell-method
-#' @param x A \code{PTCell} from which the effect code needs to be extracted.
-#' @param value A \code{character} string containing a three hexadecimal digit
+#' @param x A `PTCell` from which the effect code needs to be extracted.
+#' @param value A `character` string containing a three hexadecimal digit
 #' effect code. All hexadecimal codes are accepted, not all will produce
 #' meaningful effects.
-#' @returns For \code{effect}, a \code{character} string with the three hexadecimal
+#' @returns For `effect`, a `character` string with the three hexadecimal
 #' digit effect code will be returned.
 #'
-#' For \code{effect<-}, a copy of object \code{x} with effect code \code{value}
+#' For `effect<-`, a copy of object `x` with effect code `value`
 #' will be returned.
 #' @examples
 #' data("mod.intro")
@@ -363,26 +363,26 @@ setGeneric("sampleNumber<-", function(x, value) standardGeneric("sampleNumber<-"
 
 #' Extract or replace a sample number
 #'
-#' Extract or replace a \code{\link{PTSample}} index number from a
-#' \code{\link{PTCell}} object.
+#' Extract or replace a [`PTSample`] index number from a
+#' [`PTCell`] object.
 #'
-#' The \code{\link{PTSample}} index number in a \code{\link{PTCell}} object,
-#' indicates which sample from a \code{\link{PTModule}} object needs to be played.
+#' The [`PTSample`] index number in a [`PTCell`] object,
+#' indicates which sample from a [`PTModule`] object needs to be played.
 #' This method can be used to extract or replace this index from a
-#' \code{\link{PTCell}} object.
+#' [`PTCell`] object.
 #' @rdname sampleNumber
 #' @name sampleNumber
 #' @aliases sampleNumber,PTCell-method
-#' @param x A \code{PTCell} object from which the \code{\link{PTSample}} index
+#' @param x A `PTCell` object from which the [`PTSample`] index
 #' number needs to be be extracted or replaced.
-#' @param value A \code{numeric} replacement value for the index. Valid indices
+#' @param value A `numeric` replacement value for the index. Valid indices
 #' range from 1 up to 31. A value of 0 can also be assigned, but will not play
 #' any sample.
-#' @returns For \code{sampleNumber}, a \code{numeric} value representing the
-#' sample index number of object \code{x} is returned.
+#' @returns For `sampleNumber`, a `numeric` value representing the
+#' sample index number of object `x` is returned.
 #'
-#' For \code{sampleNumber<-}, an copy of object \code{x} is returned in which
-#' the sample index number is replaced with \code{value}.
+#' For `sampleNumber<-`, an copy of object `x` is returned in which
+#' the sample index number is replaced with `value`.
 #' @examples
 #' data("mod.intro")
 #'
@@ -422,34 +422,34 @@ setGeneric("octave<-", function(x, value) standardGeneric("octave<-"))
 #' Extract or replace an octave
 #'
 #' Obtain an octave number from a period value or extract or replace a
-#' note of a \code{\link{PTCell}} object.
+#' note of a [`PTCell`] object.
 #'
 #' Period values are used by ProTracker to set a playback sample rate
 #' and in essence determine the key and octave in which a sound is played.
 #' This method can be used to obtain the octave number associated with a
-#' period value (according to the ProTracker \code{\link{period_table}},
-#' assuming zero \code{\link{fineTune}}). If the period value is not in the
-#' \code{\link{period_table}}, the octave number associated with the
+#' period value (according to the ProTracker [`period_table`],
+#' assuming zero [`fineTune`]). If the period value is not in the
+#' [`period_table`], the octave number associated with the
 #' period closest to this value in the table is returned.
 #'
 #' The octave number can also be obtained or replaced for a
-#' \code{\link{PTCell}} object.
+#' [`PTCell`] object.
 #' @rdname octave
 #' @name octave
 #' @aliases octave,numeric-method
-#' @param x Either a (\code{vector} of) numeric value(s), representing a period
-#' value. It can also be a \code{\link{PTCell}} object.
-#' @param value A \code{numeric} value representing the octave number with which
-#' that of object \code{x} needs to be replaced. 0, 1 and 3 are valid octave
-#' numbers. Use zero to disable both the note and octave for object \code{x}.
+#' @param x Either a (`vector` of) numeric value(s), representing a period
+#' value. It can also be a [`PTCell`] object.
+#' @param value A `numeric` value representing the octave number with which
+#' that of object `x` needs to be replaced. 0, 1 and 3 are valid octave
+#' numbers. Use zero to disable both the note and octave for object `x`.
 #'
-#' Note that the octave can only be set for \code{\link{PTCell}}s for which
+#' Note that the octave can only be set for [`PTCell`]s for which
 #' a note is already defined.
-#' @returns For \code{octave}, a \code{numeric} value representing the octave number
+#' @returns For `octave`, a `numeric` value representing the octave number
 #' is returned.
 #'
-#' For \code{octave<-}, a copy of \code{PTCell} object \code{x} in which the
-#' octave number is replaced by \code{value} is returned.
+#' For `octave<-`, a copy of `PTCell` object `x` in which the
+#' octave number is replaced by `value` is returned.
 #' @examples
 #' data("mod.intro")
 #'
@@ -522,39 +522,39 @@ setGeneric("note<-", function(x, value = c("C-", "C#", "D-",
 #' Extract or replace a note
 #'
 #' Obtain a note from a period value or extract or replace a note of a
-#' \code{\link{PTCell}} object.
+#' [`PTCell`] object.
 #'
 #' Period values are used by ProTracker to set a playback sample rate and in
 #' essence determine the key in which a sound is played. This method can be used
 #' to obtain the note (key) associated with a period value (according to the
-#' ProTracker \code{\link{period_table}}, assuming zero \code{\link{fineTune}}).
-#' If the period value is not in the \code{\link{period_table}}, the note associated
+#' ProTracker [`period_table`], assuming zero [`fineTune`]).
+#' If the period value is not in the [`period_table`], the note associated
 #' with the period closest to this value in the table is returned.
 #'
-#' The note can also be obtained or replaced for a \code{\link{PTCell}} object.
+#' The note can also be obtained or replaced for a [`PTCell`] object.
 #' @rdname note
 #' @name note
 #' @aliases note,numeric-method
-#' @param x Either a (\code{vector} of) numeric value(s), representing a period
-#' value. It can also be a \code{\link{PTCell}} object.
-#' @param value A \code{character} string representing the chromatic scale note
+#' @param x Either a (`vector` of) numeric value(s), representing a period
+#' value. It can also be a [`PTCell`] object.
+#' @param value A `character` string representing the chromatic scale note
 #' with wich the current note needs to be replaced. Should have any of the folling values:
-#' "\code{C-}", "\code{C#}", "\code{D-}", "\code{D#}", "\code{E-}", "\code{F-}",
-#' "\code{F#}", "\code{G-}", "\code{G#}", "\code{A-}", "\code{A#}", "\code{B-}",
-#' or "\code{--}".
+#' `"C-"`, `"C#"`, `"D-"`, `"D#"`, `"E-"`, `"F-"`,
+#' `"F#"`, `"G-"`, `"G#"`, `"A-"`, `"A#"`, `"B-"`,
+#' or `"--"`.
 #' Right-hand dashes can be omitted from these strings. Both upper and lower case are
 #' accepted.
 #'
-#' If an \code{\link{octave}} is not yet specified for \code{PTCell} \code{x},
+#' If an [`octave`] is not yet specified for `PTCell` `x`,
 #' it will be set to 1.
 #'
-#' Assigning a value of "\code{--}" will remove both the note and octave from
-#' object \code{x}.
-#' @returns For \code{note}, a \code{character} string representing the note
+#' Assigning a value of `"--"` will remove both the note and octave from
+#' object `x`.
+#' @returns For `note`, a `character` string representing the note
 #' is returned.
 #'
-#' For \code{note<-}, a copy of \code{PTCell} object \code{x} in which the
-#' note is replaced by \code{value} is returned.
+#' For `note<-`, a copy of `PTCell` object `x` in which the
+#' note is replaced by `value` is returned.
 #' @examples
 #' data("mod.intro")
 #'
@@ -624,22 +624,22 @@ setGeneric("noteUp", function(x, sample.nr = "all") standardGeneric("noteUp"))
 
 #' Raise or lower notes and octaves
 #'
-#' Methods to raise or lower notes in \code{\link{PTCell}},
-#' \code{\link{PTTrack}} and \code{\link{PTPattern}} objects.
+#' Methods to raise or lower notes in [`PTCell`],
+#' [`PTTrack`] and [`PTPattern`] objects.
 #'
 #' @rdname noteManipulation
 #' @name noteUp
 #' @aliases noteUp,PTCell-method
-#' @param x A \code{\link{PTCell}}, \code{\link{PTTrack}} or
-#' \code{\link{PTPattern}} object for which the notes need to be lowered
+#' @param x A [`PTCell`], [`PTTrack`] or
+#' [`PTPattern`] object for which the notes need to be lowered
 #' or raised.
-#' @param sample.nr A single positive \code{integer} value, or a \code{vector} of
-#' positive \code{integer}s, listing the indices of samples, for which the notes
-#' need to be lowered or raised. A \code{character} string equal to "\code{all}"
+#' @param sample.nr A single positive `integer` value, or a `vector` of
+#' positive `integer`s, listing the indices of samples, for which the notes
+#' need to be lowered or raised. A `character` string equal to `"all`"
 #' is also allowed (this is in fact the default), in which case notes of all
 #' sample indices are raised or lowered.
-#' @returns Returns an object of the same class as object \code{x}, in which
-#' the notes for samples selected with \code{sample.nr} are raised or lowered.
+#' @returns Returns an object of the same class as object `x`, in which
+#' the notes for samples selected with `sample.nr` are raised or lowered.
 #'
 #' In case raised or lowered notes would lead to notes that are out of
 #' ProTracker's range, the returned notes remain unchanged.

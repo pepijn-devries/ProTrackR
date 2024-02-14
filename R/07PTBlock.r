@@ -10,40 +10,40 @@
 setGeneric("PTBlock", function(pattern, row, track) standardGeneric("PTBlock"))
 #' Select and copy a range of PTCells into a PTBlock
 #'
-#' Select and copy a range of \code{\link{PTCell}}s from a
-#' \code{\link{PTPattern}} into a \code{PTBlock}. This
+#' Select and copy a range of [`PTCell`]s from a
+#' [`PTPattern`] into a `PTBlock`. This
 #' allows a more flexible approach to select and modify
-#' \code{\link{PTCell}}s and paste the modified cells back into
-#' a \code{\link{PTPattern}}.
+#' [`PTCell`]s and paste the modified cells back into
+#' a [`PTPattern`].
 #'
-#' Most objects in this \link[=ProTrackR-package]{ProTrackR} package are very strict in the operations
+#' Most objects in this [ProTrackR][ProTrackR-package] package are very strict in the operations
 #' that are allowed, in order to guarantee validity and compatibility with
 #' the original ProTracker. This makes those objects not very flexible.
 #'
-#' This \code{\link{PTBlock}} is not a formal S4 object, in fact you
-#' can hardly call it an object at all. It is just a \code{matrix}, where each
-#' element holds a \code{list} with a single \code{\link{PTCell}}.
+#' This [`PTBlock`] is not a formal S4 object, in fact you
+#' can hardly call it an object at all. It is just a `matrix`, where each
+#' element holds a `list` with a single [`PTCell`].
 #'
-#' This \code{matrix} is very flexible and makes it easier to select and modify
+#' This `matrix` is very flexible and makes it easier to select and modify
 #' the cells. This flexibility comes at a cost as validity is only checked
-#' at the level of the \code{\link{PTCell}}s. The \code{PTBlock}
-#' can be pasted back into a \code{\link{PTPattern}} with the
-#' \code{\link{pasteBlock}} method. At which point validity will be checked again. If your modifications
+#' at the level of the [`PTCell`]s. The `PTBlock`
+#' can be pasted back into a [`PTPattern`] with the
+#' [`pasteBlock`] method. At which point validity will be checked again. If your modifications
 #' resulted in violation of ProTracker standards, you should not be able to
 #' paste the block into a pattern.
 #'
 #' @rdname PTBlock
 #' @name PTBlock
 #' @aliases PTBlock,PTPattern,numeric,numeric-method
-#' @param pattern A \code{\link{PTPattern}} object from which the
-#' \code{PTBlock} needs to be selected.
-#' @param row A \code{numeric} index or indices of rows that needs to be
-#' copied from the \code{pattern} into the PTBlock.
-#' @param track A \code{numeric} index or indices of tracks that needs to be
-#' copied from the \code{pattern} into the PTBlock.
-#' @returns Returns a \code{matrix} from the selected \code{row}s and \code{track}s
-#' from the \code{pattern}. Each element in the \code{matrix} is a \code{list} holding
-#' a single \code{\link{PTCell}}.
+#' @param pattern A [`PTPattern`] object from which the
+#' `PTBlock` needs to be selected.
+#' @param row A `numeric` index or indices of rows that needs to be
+#' copied from the `pattern` into the PTBlock.
+#' @param track A `numeric` index or indices of tracks that needs to be
+#' copied from the `pattern` into the PTBlock.
+#' @returns Returns a `matrix` from the selected `row`s and `track`s
+#' from the `pattern`. Each element in the `matrix` is a `list` holding
+#' a single [`PTCell`].
 #' @examples
 #' data("mod.intro")
 #'
@@ -77,35 +77,35 @@ setGeneric("pasteBlock", function(pattern, block, row.start, track.start) standa
 
 #' Paste a block of PTCell data into a PTPattern
 #'
-#' Paste a block of \code{\link{PTCell}} data into a \code{\link{PTPattern}} at
+#' Paste a block of [`PTCell`] data into a [`PTPattern`] at
 #' a specified location.
 #'
-#' A \code{\link{PTBlock}} is not a formal S4 class. It is a \code{matrix} where
-#' each element holds a \code{list} of a single \code{\link{PTCell}} object. As
-#' explained at the \code{\link{PTBlock}} method documentation, this allows for
-#' a flexible approach of manipulating \code{\link{PTCell}} objects. The
-#' \code{pasteBlock} method allows you to paste a \code{\link{PTBlock}} back into
-#' a \code{\link{PTPattern}}.
+#' A [`PTBlock`] is not a formal S4 class. It is a `matrix` where
+#' each element holds a `list` of a single [`PTCell`] object. As
+#' explained at the [`PTBlock`] method documentation, this allows for
+#' a flexible approach of manipulating [`PTCell`] objects. The
+#' `pasteBlock` method allows you to paste a [`PTBlock`] back into
+#' a [`PTPattern`].
 #'
-#' The \code{\link{PTBlock}} will be pasted at the specified location and will
-#' span the number of tracks and rows that are included in the \code{\link{PTBlock}}.
-#' The \code{\link{PTCell}}s in the \code{pattern} will be replaced by those
-#' of the \code{block}. Elements of the \code{bock} that are out of the range
-#' of the \code{pattern} are not included in the \code{pattern}.
+#' The [`PTBlock`] will be pasted at the specified location and will
+#' span the number of tracks and rows that are included in the [`PTBlock`].
+#' The [`PTCell`]s in the `pattern` will be replaced by those
+#' of the `block`. Elements of the `bock` that are out of the range
+#' of the `pattern` are not included in the `pattern`.
 #' @rdname pasteBlock
 #' @name pasteBlock
 #' @aliases pasteBlock,PTPattern,matrix,numeric,numeric-method
-#' @param pattern A \code{\link{PTPattern}} object into which the \code{block}
+#' @param pattern A [`PTPattern`] object into which the `block`
 #' needs to be pasted.
-#' @param block A \code{\link{PTBlock}} holding the \code{\link{PTCell}} data
-#' that needs to be pasted into the \code{pattern}.
-#' @param row.start A positive \code{integer} value (ranging from 1 up to 64)
-#' indicating the starting position (row) in the \code{pattern} to paste the
-#' \code{block} into.
-#' @param track.start A positive \code{integer} value (ranging from 1 up to 4)
-#' indicating the starting position (track) in the \code{pattern} to paste the
-#' \code{block} into.
-#' @returns Returns a copy of \code{pattern} into which \code{block} is pasted.
+#' @param block A [`PTBlock`] holding the [`PTCell`] data
+#' that needs to be pasted into the `pattern`.
+#' @param row.start A positive `integer` value (ranging from 1 up to 64)
+#' indicating the starting position (row) in the `pattern` to paste the
+#' `block` into.
+#' @param track.start A positive `integer` value (ranging from 1 up to 4)
+#' indicating the starting position (track) in the `pattern` to paste the
+#' `block` into.
+#' @returns Returns a copy of `pattern` into which `block` is pasted.
 #' @examples
 #' data("mod.intro")
 #'

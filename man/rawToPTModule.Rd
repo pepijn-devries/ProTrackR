@@ -16,20 +16,20 @@ When set to \code{FALSE} (default) validity is checked and an error is
 thrown when invalidity occurs.}
 }
 \value{
-returns a \code{\link{PTModule-class}} object.
+returns a \code{\linkS4class{PTModule}} object.
 }
 \description{
 This method treats a vector of \code{raw} data as if it where a
-file, and converts it into a \code{\link{PTModule-class}} object.
+file, and converts it into a \code{\linkS4class{PTModule}} object.
 }
 \details{
 Data is read from a vector of \code{raw} data as if it where a file
-and converted into a \code{\link{PTModule-class}} object. This
+and converted into a \code{\linkS4class{PTModule}} object. This
 method can be useful for module files stored on virtual Amiga Disk Files
 (adf), which can be read as raw data, using the \code{AmigaFFH}
 package.
 
-Use \code{\link[ProTrackR]{as.raw}} to achieve the inverse.
+Use \code{\link{as.raw}} to achieve the inverse.
 }
 \examples{
 \dontrun{

@@ -1,14 +1,14 @@
 #' Convert raw vectors into a character string
 #'
-#' A function that converts \code{raw} data into a \code{character} string.
+#' A function that converts `raw` data into a `character` string.
 #'
-#' The function \code{\link{rawToChar}} will fail on vectors of \code{raw} data
-#' with embedded \code{0x00} data. This function will not fail on embedded \code{0x00} values.
-#' Instead, it will replace embedded \code{0x00} data with white spaces. Note that
-#' leading and trailing \code{0x00} data will be omitted from the result.
+#' The function `rawToChar()` will fail on vectors of `raw` data
+#' with embedded `0x00` data. This function will not fail on embedded `0x00` values.
+#' Instead, it will replace embedded `0x00` data with white spaces. Note that
+#' leading and trailing `0x00` data will be omitted from the result.
 #'
-#' @param raw_dat A vector of class \code{raw} to be converted into a \code{character}.
-#' @returns A \code{character} string based on the \code{raw} data
+#' @param raw_dat A vector of class `raw` to be converted into a `character`.
+#' @returns A `character` string based on the `raw` data
 #' @examples
 #' ## generate some raw data with an embedded 0x00:
 #' some.raw.data <- as.raw(c(0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x00,
@@ -47,15 +47,15 @@ rawToCharNull <- function(raw_dat) {
 
 #' Convert raw vector into a single unsigned integer value
 #'
-#' This function converts \code{raw} data into an unsigned integer
+#' This function converts `raw` data into an unsigned integer
 #'
 #' This function converts a vector of raw data into a single unsigned integer.
-#' for conversion of raw data into a vector of unsigned integers [0,255] use
-#' `\code{\link{as.integer}(x)}'. For an inverse of this function
-#' see \code{\link{unsignedIntToRaw}}.
+#' for conversion of raw data into a vector of unsigned integers `\[0,255\`] use
+#' `as.integer()`. For an inverse of this function
+#' see `unsignedIntToRaw()`.
 #'
-#' @param raw_dat A vector of class \code{raw} to be converted into an unsigned integer
-#' @returns A single unsigned integer value based on the provided \code{raw} data
+#' @param raw_dat A vector of class `raw` to be converted into an unsigned integer
+#' @returns A single unsigned integer value based on the provided `raw` data
 #' @examples
 #' ## generate some raw data:
 #' some.raw.data <- as.raw(c(0x01, 0x1e, 0x3f))
@@ -80,19 +80,19 @@ rawToUnsignedInt <-
 
 #' Convert unsigned integer into a raw vector
 #'
-#' This function converts an unsigned integer into a vector of \code{raw} data.
+#' This function converts an unsigned integer into a vector of `raw` data.
 #'
 #' This function converts an unsigned integer value into a vector (with
-#' a specified length, namely \code{length.out}) of \code{raw} data. For the
-#' inverse of this function use \code{\link{rawToUnsignedInt}(raw_dat)}
+#' a specified length, namely `length.out`) of `raw` data. For the
+#' inverse of this function use `rawToUnsignedInt()`.
 #'
 #' @param int_dat A single integer value. If a list or vector of values.
 #' is provided, only the first element is evaluated. Input data are converted
 #' to absolute integer values.
 #' @param length.out Required length of the vector that will hold the resulting.
-#' \code{raw} data. Defaults to 1. If the value of \code{int_dat} is to large to convert into
-#' \code{raw} data of length \code{length.out}, data will be clipped.
-#' @returns A vector of length \code{length.out}, holding \code{raw} data.
+#' `raw` data. Defaults to 1. If the value of `int_dat` is to large to convert into
+#' `raw` data of length `length.out`, data will be clipped.
+#' @returns A vector of length `length.out`, holding `raw` data.
 #' @examples
 #' ## generate some unsigned integer:
 #' some.integer <- 43251
@@ -135,16 +135,16 @@ unsignedIntToRaw <-
 
 #' Convert signed integers (short) into a raw vector
 #'
-#' This function converts signed integer values into a vector of \code{raw} data.
+#' This function converts signed integer values into a vector of `raw` data.
 #'
-#' This function converts signed integer values [-128,127] into a vector of
-#' \code{raw} data. The function
+#' This function converts signed integer values \[-128,127\] into a vector of
+#' `raw` data. The function
 #' will fail on values that are out of range (< -128 or > 127). To convert
-#' raw data into a vector of unsigned integers use \code{\link{as.integer}(x)}.
-#' For the inverse of this function see \code{\link{rawToSignedInt}(raw_dat)}.
+#' raw data into a vector of unsigned integers use `as.integer()`.
+#' For the inverse of this function see `rawToSignedInt()`.
 #'
 #' @param int_dat A vector of integer values, ranging from -128 up to 127.
-#' @returns A vector of the same length as \code{int_dat}, holding \code{raw} data.
+#' @returns A vector of the same length as `int_dat`, holding `raw` data.
 #' @examples
 #' ## generate some signed integers:
 #' some.integers <- c(-100, 40, 0, 30, -123)
@@ -170,14 +170,14 @@ signedIntToRaw <-
 
 #' Convert a raw vector into signed integers (short)
 #'
-#' This function converts a vector of \code{raw} data into signed integer values.
+#' This function converts a vector of `raw` data into signed integer values.
 #'
-#' This function converts a vector of \code{raw} data into signed integer values
-#' [-128,127]. To convert unsigned integers into raw data use \code{\link{as.raw}(x)}.
-#' For the inverse of this function see \code{\link{signedIntToRaw}(int_dat)}.
+#' This function converts a vector of `raw` data into signed integer values
+#' \[-128,127\]. To convert unsigned integers into raw data use `as.raw()`.
+#' For the inverse of this function see `signedIntToRaw()`.
 #'
-#' @param raw_dat A vector of \code{raw} data.
-#' @returns A vector of the same length as \code{raw_dat}, holding signed integer values.
+#' @param raw_dat A vector of `raw` data.
+#' @returns A vector of the same length as `raw_dat`, holding signed integer values.
 #' @examples
 #' ## generate some raw data:
 #' some.raw.data <- as.raw(c(0x68, 0x65, 0x6c, 0x6c, 0x6f, 0x90))
@@ -212,16 +212,16 @@ rawToSignedInt <-
 #'
 #' These functions return the note and octave that is closest to the provided period value.
 #'
-#' ProTracker uses a \link{period_table} to link period values to certain
+#' ProTracker uses a [period_table] to link period values to certain
 #' octaves and notes. This function serves to look up corresponding
 #' notes and octaves for specific period values.
 #'
 #' @rdname periodToChar
 #' @name periodToChar
-#' @param period \code{integer} value of a period value.
-#' @returns \code{periodToChar} returns a \code{character} representing the combination
+#' @param period `integer` value of a period value.
+#' @returns `periodToChar` returns a `character` representing the combination
 #' of octave and note that is closest to
-#' \code{period} in the ProTracker period table.
+#' `period` in the ProTracker period table.
 #' @examples
 #' ## Note C# in octave 3 is closest to a period of 200 in the table:
 #' periodToChar(200)
@@ -247,18 +247,18 @@ periodToChar <-
 #'
 #' Extracts the ProTracker period value for a specific note.
 #'
-#' ProTracker uses a \link{period_table} to link period values to certain
+#' ProTracker uses a [period_table] to link period values to certain
 #' octaves and notes. This function serves to look up corresponding
 #' period values for specific notes and octaves.
 #'
 #' @rdname noteToPeriod
 #' @name noteToPeriod
-#' @param note \code{character} string representing a note and octave for which the
+#' @param note `character` string representing a note and octave for which the
 #' ProTracker period value needs to be determined
-#' @param finetune \code{integer} value ranging from -8 up to 7. A value used to
+#' @param finetune `integer` value ranging from -8 up to 7. A value used to
 #' tune an audio sample.
-#' @returns Returns the \code{numeric} ProTracker period value for a corresponding
-#' note, octave and \code{\link{fineTune}}. Returns 0 if a note could not be found in the
+#' @returns Returns the `numeric` ProTracker period value for a corresponding
+#' note, octave and `fineTune()`. Returns 0 if a note could not be found in the
 #' table.
 #' @examples
 #' ## Determine the period value corresponding with note 'A-3':
@@ -313,8 +313,8 @@ noteToPeriod <-
 #' Calculate the sample rate for a note or a ProTracker period value.
 #'
 #' The timing on a Commodore Amiga depends on the video mode, which could be
-#' either `\href{https://en.wikipedia.org/wiki/PAL}{PAL}'
-#' or `\href{https://en.wikipedia.org/wiki/NTSC}{NTSC}'. Therefore sample
+#' either '[PAL](https://en.wikipedia.org/wiki/PAL)'
+#' or '[NTSC](https://en.wikipedia.org/wiki/NTSC)'. Therefore sample
 #' rates also depend on these modes. As the PAL is mostly used in Europe, and
 #' the Amiga was most popular in Europe, PAL is used by default.
 #'
@@ -322,15 +322,15 @@ noteToPeriod <-
 #' @name sampleRate
 #' @aliases periodToSampleRate
 #' @aliases noteToSampleRate
-#' @param period A ProTracker \code{integer} value of a period value for which the sample rate
+#' @param period A ProTracker `integer` value of a period value for which the sample rate
 #' is to be calculated.
-#' @param note A \code{character} string representing a note for which the sample
+#' @param note A `character` string representing a note for which the sample
 #' rate is to be calculated.
-#' @param finetune An \code{integer} value ranging from -8 up to 7. A value used to
+#' @param finetune An `integer` value ranging from -8 up to 7. A value used to
 #' tune an audio sample.
-#' @param video The video mode used to calculate the sample rate. A \code{character}
-#' string that can have either the value `\href{https://en.wikipedia.org/wiki/PAL}{PAL}'
-#' or `\href{https://en.wikipedia.org/wiki/NTSC}{NTSC}'. PAL is used by default.
+#' @param video The video mode used to calculate the sample rate. A `character`
+#' string that can have either the value '[PAL](https://en.wikipedia.org/wiki/PAL)'
+#' or '[NTSC](https://en.wikipedia.org/wiki/NTSC)'. PAL is used by default.
 #' @returns Returns the sample rate in samples per seconds.
 #' @examples
 #' ## calculate the sample rate for a ProTracker period value of 200
@@ -373,24 +373,24 @@ periodToSampleRate <-
 
 #' Get the high or low nybble of a raw value
 #'
-#' Get the high or low nybble of a raw value and return as integer value [0,15].
+#' Get the high or low nybble of a raw value and return as integer value \[0,15\].
 #'
-#' A \code{raw} is basically a byte, composed of 8 bits (zeros and ones).
+#' A `raw` is basically a byte, composed of 8 bits (zeros and ones).
 #' A nybble is a 4 bit value. Hence, a raw value (or byte) is composed of
 #' two nybbles. The leftmost nybble of a raw value is refered to as the
 #' high nybble, the rightmost nybble is referred to as the low nybble.
 #' These functions return either the high or low nybbles of raw data as integer
-#' values [0,15].
+#' values \[0,15\].
 #' As ProTracker stores some information as nybbles this function can be
 #' used to retrieve this info.
 #'
 #' @rdname nybble
 #' @name nybble
-#' @param raw_dat A vector of class \code{raw} from which the high or low nybble value
+#' @param raw_dat A vector of class `raw` from which the high or low nybble value
 #' needs to be extracted.
 #' @param which A character string indicating whether the high or low nybble should
-#' be returnd. It should either be "\code{low}" (default) or "\code{high}".
-#' @returns A vector of the same length as \code{raw_dat} holding integer values.
+#' be returnd. It should either be `"low"` (default) or `"high"`.
+#' @returns A vector of the same length as `raw_dat` holding integer values.
 #' @examples
 #' ## this will return 0x0f:
 #' hiNybble(as.raw(0xf3))
@@ -442,16 +442,16 @@ hiNybble <-
 #'
 #' Nybbles are 4 bit values, where each byte (8 bits) holds two nybbles.
 #' A high nybble (left-hand side of a byte) and a low nybble (right-hand
-#' side of a byte). This function extracts a nybble from \code{raw} data
-#' and converts it into a signed \code{integer} value ranging from -8 up to 7.
+#' side of a byte). This function extracts a nybble from `raw` data
+#' and converts it into a signed `integer` value ranging from -8 up to 7.
 #' @rdname nybbleToSignedInt
 #' @name nybbleToSignedInt
-#' @param raw_dat \code{raw} data (either a single value or a \code{vector}),
+#' @param raw_dat `raw` data (either a single value or a `vector`),
 #' from which a nybble will be extracted and converted.
-#' @param which A \code{character} string indicating whether the "\code{low}" (default)
-#' or "\code{high}" nybble of \code{raw_dat} needs to be converted into a signed
-#' \code{integer}.
-#' @returns Returns \code{integer} values of the same length as \code{raw_dat},
+#' @param which A `character` string indicating whether the `"low"` (default)
+#' or `"high"` nybble of `raw_dat` needs to be converted into a signed
+#' `integer`.
+#' @returns Returns `integer` values of the same length as `raw_dat`,
 #' ranging from -8 up to 7.
 #' @examples
 #' ## generate some raw data:
@@ -481,23 +481,23 @@ nybbleToSignedInt <- function(raw_dat, which = c("low", "high"))
 #' Convert a signed integer to a nybble in raw data.
 #'
 #' This function converts a signed integer ranging from -8 up to 7 into
-#' either the high or low nybble of a byte, represented by \code{raw} data.
+#' either the high or low nybble of a byte, represented by `raw` data.
 #'
 #' Nybbles are 4 bit values, where each byte (8 bits) holds two nybbles.
 #' A high nybble (left-hand side of a byte) and a low nybble (right-hand
-#' side of a byte). This function converts a signed \code{integer} value
+#' side of a byte). This function converts a signed `integer` value
 #' ranging from -8 up to 7 to a nybble and sets it as either a high or a low
-#' nybble in \code{raw} data.
+#' nybble in `raw` data.
 #' @rdname signedIntToNybble
 #' @name signedIntToNybble
-#' @param int_dat A single\code{intger} value or a \code{vector} of
-#' \code{integer} data ranging from -8 up to 7.
+#' @param int_dat A single `integer` value or a `vector` of
+#' `integer` data ranging from -8 up to 7.
 #' @param which A character string indicating whether the nybble should
-#' be set to the "\code{low}" (default) or "\code{high}" position of the
+#' be set to the `"low"` (default) or `"high"` position of the
 #' raw data that is returned.
-#' @returns Returns \code{raw} data of the same length as \code{int_dat}.
+#' @returns Returns `raw` data of the same length as `int_dat`.
 #' The returned raw data holds either low or high nybbles (as specified
-#' by \code{which}) based on the provided signed \code{integer}s.
+#' by `which`) based on the provided signed `integer`s.
 #' @examples
 #' ## generate some integers in the right range:
 #'
@@ -533,16 +533,16 @@ signedIntToNybble <- function(int_dat, which = c("low", "high"))
 #' for vibrato effects for which a sine function was used. As there was no sine
 #' function that could be called, sine values were stored in a table.
 #'
-#' This function returns the \code{integer} sine values (ranging from 0 up
+#' This function returns the `integer` sine values (ranging from 0 up
 #' to 255) as a function of the table index (ranging from 0 up to 31).
 #'
 #' @rdname proTrackerVibrato
 #' @name proTrackerVibrato
-#' @param x \code{integer} representing the table index ranging from 0
+#' @param x `integer` representing the table index ranging from 0
 #' up to 31. Values outside this range can be used, but will produce
 #' results that are not valid in the context of ProTracker.
-#' @returns Returns an \code{integer} sine value ranging from 0 up to 255
-#' when a valid table index (\code{x}) is provided. It will otherwise return
+#' @returns Returns an `integer` sine value ranging from 0 up to 255
+#' when a valid table index (`x`) is provided. It will otherwise return
 #' a sine value ranging from -255 up to 255.
 #' @examples
 #' ## this will return the table as used in ProTracker

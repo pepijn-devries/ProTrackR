@@ -46,47 +46,47 @@ validity.PTModule <- function(object)
 #' This class is designed to hold all relevant information of a ProTracker
 #' module (MOD) for which ProTracker 2.3a documentation was used. The ProTrackR
 #' package may be compatible with earlier or later versions, but this was not
-#' tested. Use \code{\link{read.module}} and \code{\link{write.module}} to import
-#' and export objects of class \code{PTModule}.
+#' tested. Use [`read.module`] and [`write.module`] to import
+#' and export objects of class `PTModule`.
 #'
-#' @slot name A \code{vector} of length 20 of class "\code{raw}", representing
-#' the name of the \code{PTModule}. The name
-#' of a module can be extracted or replaced with the \code{\link{name}} method.
-#' @slot pattern.order A \code{vector} of length 128 of class "\code{raw}". The
-#' \code{raw} values represent the indices of \code{PTPattern} tables and indicate
-#' in which order these patterns need to be played. Note that the \code{raw} values
+#' @slot name A `vector` of length 20 of class `raw`, representing
+#' the name of the `PTModule`. The name
+#' of a module can be extracted or replaced with the [`name`] method.
+#' @slot pattern.order A `vector` of length 128 of class `raw`. The
+#' `raw` values represent the indices of `PTPattern` tables and indicate
+#' in which order these patterns need to be played. Note that the `raw` values
 #' are conform the indices used in ProTracker, starting at zero. In R, indices of
 #' objects start at one. Users need to compensate for this discrepancy theirselves.
 #'
 #' The pattern order table can be extracted or replaced with the
-#' \code{\link{patternOrder}} method.
-#' @slot pattern.order.length A single value of class "\code{raw}". Indicates
+#' [`patternOrder`] method.
+#' @slot pattern.order.length A single value of class `raw`. Indicates
 #' the length of the visible (and playable) part of the pattern order table.
 #'
-#' Use the \code{\link{patternOrderLength}} method to extract or replace the length
+#' Use the [`patternOrderLength`] method to extract or replace the length
 #' of a pattern order table of a module.
-#' @slot tracker.byte A single "\code{raw}" value. Gives an indication of which
+#' @slot tracker.byte A single `raw` value. Gives an indication of which
 #' Tracker was used to produce a module file. In ProTracker modules, this byte
-#' is set to 0x7f, which is also used in \code{PTModule} objects. This value
+#' is set to 0x7f, which is also used in `PTModule` objects. This value
 #' should not be changed.
-#' @slot tracker.flag A \code{vector} of length 4 of class "\code{raw}", indicates
+#' @slot tracker.flag A `vector` of length 4 of class `raw`, indicates
 #' the version of a module, which basically reflects how many patterns the module
 #' can hold. For details, and extracting and replacing this flag see the
-#' \code{\link{trackerFlag}} method.
-#' @slot samples List of length 31 of class "\code{\link{PTSample}}".
-#' @slot patterns List of class "\code{\link{PTPattern}}" (the pattern tables).
+#' [`trackerFlag`] method.
+#' @slot samples List of length 31 of class "[`PTSample`]".
+#' @slot patterns List of class "[`PTPattern`]" (the pattern tables).
 #' The list should have at least 1 element, and can have a maximum of 64 or
-#' 100 elements (depending on the state of the \code{\link{trackerFlag}}).
+#' 100 elements (depending on the state of the [`trackerFlag`]).
 #'
 #' @name PTModule-class
 #' @rdname PTModule-class
 #' @aliases PTModule
 #' @references
-#' \url{https://en.wikipedia.org/wiki/MOD_(file_format)}
+#' <https://en.wikipedia.org/wiki/MOD_(file_format)>
 #'
-#' \url{https://wiki.multimedia.cx/index.php?title=Protracker_Module}
+#' <https://wiki.multimedia.cx/index.php?title=Protracker_Module>
 #'
-#' \url{http://coppershade.org/articles/More!/Topics/Protracker_File_Format/}
+#' <http://coppershade.org/articles/More!/Topics/Protracker_File_Format/>
 #' @examples
 #' ## create an empty PTModule class object:
 #' mod.empty <- new("PTModule")
@@ -118,25 +118,25 @@ setClass("PTModule",
 
 #' Plot a PTModule object
 #'
-#' Plots the waveforms of the (non-empty) \code{\link{PTSample}}s in a
-#' \code{\link{PTModule}} object.
+#' Plots the waveforms of the (non-empty) [`PTSample`]s in a
+#' [`PTModule`] object.
 #'
-#' A plotting routine based on the \code{\link[lattice]{xyplot}} from the
+#' A plotting routine based on the [`lattice::xyplot`] from the
 #' lattice-package. Plots each (non-empty) waveform in a separate panel. Use arguments
-#' of the \code{\link[lattice]{xyplot}} function to customise the plot.
+#' of the [`lattice::xyplot`] function to customise the plot.
 #' @docType methods
 #' @rdname plot
 #' @name plot
 #' @aliases plot,PTModule,missing-method
-#' @param x A \code{\link{PTModule}} object for which the
-#' waveforms of the \code{\link{PTSample}}s need to be plotted.
-#' @param y \code{missing}. Argument from the generic plotting method, don't use.
-#' @param plot.loop.positions A \code{logical} value indicating whether
+#' @param x A [`PTModule`] object for which the
+#' waveforms of the [`PTSample`]s need to be plotted.
+#' @param y `missing`. Argument from the generic plotting method, don't use.
+#' @param plot.loop.positions A `logical` value indicating whether
 #' loop positions need to be visualised. For looped samples, the starting
 #' and ending positions are marked by a vertical green and red line, respectively.
-#' @param ... Arguments that are passed on to \code{\link[lattice]{xyplot}}.
-#' @returns Returns an object of class \code{trellis}. See documentation of
-#' \code{\link[lattice]{xyplot}} for more details.
+#' @param ... Arguments that are passed on to [`lattice::xyplot`].
+#' @returns Returns an object of class `trellis`. See documentation of
+#' [`lattice::xyplot`] for more details.
 #'
 #' @examples
 #' ## get the example PTModule provided with the ProTrackR package
@@ -258,7 +258,7 @@ setGeneric("read.module", function(file, ignore.validity = F) standardGeneric("r
 
 #' Read a ProTracker module file
 #'
-#' Reads a ProTracker module file and coerces it to a \code{\link{PTModule}}
+#' Reads a ProTracker module file and coerces it to a [`PTModule`]
 #' object.
 #'
 #' The routine to read ProTracker modules is based on the referenced version
@@ -269,24 +269,24 @@ setGeneric("read.module", function(file, ignore.validity = F) standardGeneric("r
 #' was one of the more popular versions of ProTracker back in the days).
 #'
 #' It should also be able to read most of the .mod files in
-#' \href{https://modarchive.org/}{The Mod Archive}.
+#' [The Mod Archive](https://modarchive.org/).
 #'
 #' @docType methods
 #' @name  read.module
 #' @rdname read.module
 #' @aliases read.module,character,logical-method
 #' @param file either a filename or a file connection, that
-#' allows reading binary data (see e.g., \code{\link[base]{file}} or \code{\link[base]{url}}).
-#' @param ignore.validity A \code{logical} value indicating whether the
-#' validity of the \code{PTModule} should be ignored. When set to
-#' \code{FALSE} (default), the validity of the read object is checked; an
+#' allows reading binary data (see e.g., [`base::file`] or [`base::url`]).
+#' @param ignore.validity A `logical` value indicating whether the
+#' validity of the `PTModule` should be ignored. When set to
+#' `FALSE` (default), the validity of the read object is checked; an
 #' error is thrown when the object is not valid. When this argument is set to
-#' \code{TRUE}, the validity of the object will not be checked and a potentially
-#' invalid object is returned. As the validity check of \code{PTModule}
+#' `TRUE`, the validity of the object will not be checked and a potentially
+#' invalid object is returned. As the validity check of `PTModule`
 #' objects is very strict, it can be useful to ignore this check. This way
 #' you can try to read a broken module file, try to fix it such that it becomes valid and
-#' save (with \code{\link{write.module}}) it again.
-#' @returns Returns a \code{PTModule} object read from the provided ProTracker file
+#' save (with [`write.module`]) it again.
+#' @returns Returns a `PTModule` object read from the provided ProTracker file
 #'
 #' @examples
 #' \dontrun{
@@ -307,9 +307,9 @@ setGeneric("read.module", function(file, ignore.validity = F) standardGeneric("r
 #' ## don't forget to close the file:
 #' close(con)
 #' }
-#' @references \url{https://wiki.multimedia.cx/index.php?title=Protracker_Module}
+#' @references <https://wiki.multimedia.cx/index.php?title=Protracker_Module>
 #'
-#' \url{http://coppershade.org/articles/More!/Topics/Protracker_File_Format/}
+#' <http://coppershade.org/articles/More!/Topics/Protracker_File_Format/>
 #' @family io.operations
 #' @family module.operations
 #' @author Pepijn de Vries
@@ -432,7 +432,7 @@ setGeneric("write.module", def = function(mod, file){
 
 #' Export an PTModule object as a ProTracker module file
 #'
-#' Export an \code{\link{PTModule}} object as a ProTracker module file,
+#' Export an [`PTModule`] object as a ProTracker module file,
 #' conform ProTracker 2.3A specifications.
 #'
 #' The routine to write ProTracker modules is based on the referenced version
@@ -445,7 +445,7 @@ setGeneric("write.module", def = function(mod, file){
 #' @aliases write.module,PTModule,ANY-method
 #' @param mod A valid PTModule object to be saved as a ProTracker *.mod file
 #' @param file either a filename to write to, or a file connection, that
-#' allows to write binary data (see \code{\link[base]{file}}).
+#' allows to write binary data (see [`base::file`]).
 #' @returns Writes to a module file but returns nothing.
 #'
 #' @examples
@@ -463,9 +463,9 @@ setGeneric("write.module", def = function(mod, file){
 #' ## don't forget to close the connection after you're done:
 #' close(con)
 #' }
-#' @references \url{https://wiki.multimedia.cx/index.php?title=Protracker_Module}
+#' @references <https://wiki.multimedia.cx/index.php?title=Protracker_Module>
 #'
-#' \url{http://coppershade.org/articles/More!/Topics/Protracker_File_Format/}
+#' <http://coppershade.org/articles/More!/Topics/Protracker_File_Format/>
 #' @family io.operations
 #' @family module.operations
 #' @author Pepijn de Vries
@@ -573,51 +573,51 @@ setGeneric("patternOrder", function(x, full = FALSE) standardGeneric("patternOrd
 
 #' Get the pattern order table
 #'
-#' The pattern order table is a \code{vector} of \code{numeric} indices of
-#' \code{\link{PTPattern}} tables, which determines in which order the patterns
-#' need to be played. This method returns this \code{vector}.
+#' The pattern order table is a `vector` of `numeric` indices of
+#' [`PTPattern`] tables, which determines in which order the patterns
+#' need to be played. This method returns this `vector`.
 #'
-#' The actual length of the \code{vector} containing the pattern order is 128
-#' as per ProTracker standards. Only part of this \code{vector} is `visible'
+#' The actual length of the `vector` containing the pattern order is 128
+#' as per ProTracker standards. Only part of this `vector` is `visible'
 #' and will be used to determine in which order pattern tables are to be played.
 #' This method can be used to return either the visible or full (all 128) part
 #' of the table. It can also be used to assign a new patter order table.
 #'
-#' Note that \code{\link{PTPattern}} indices start at 0, as per ProTracker
+#' Note that [`PTPattern`] indices start at 0, as per ProTracker
 #' standards, whereas R start indices at 1. Hence, add 1 to the indices obtained
-#' with \code{patternOrder}, in order to extract the correct
-#' \code{\link{PTPattern}} from a \code{\link{PTModule}}.
+#' with `patternOrder`, in order to extract the correct
+#' [`PTPattern`] from a [`PTModule`].
 #'
 #' The maximum index plus 1 in the full pattern order table should equal
-#' the number of pattern tables (see \code{\link{patternLength}}) in the
-#' \code{\link{PTModule}}. Is you assign a new pattern order, with a lower
-#' maximum, \code{\link{PTPattern}} objects will get lost (see also examples)!
+#' the number of pattern tables (see [`patternLength`]) in the
+#' [`PTModule`]. Is you assign a new pattern order, with a lower
+#' maximum, [`PTPattern`] objects will get lost (see also examples)!
 #'
 #' @rdname patternOrder
 #' @name patternOrder
 #' @aliases patternOrder,PTModule-method
-#' @param x A \code{\link{PTModule}} object for which the pattern order table
+#' @param x A [`PTModule`] object for which the pattern order table
 #' needs to be returned or modified.
-#' @param full A \code{logical} value indicating whether the full (\code{TRUE},
-#' default), or only the visible (\code{FALSE}) part of the pattern order table
+#' @param full A `logical` value indicating whether the full (`TRUE`,
+#' default), or only the visible (`FALSE`) part of the pattern order table
 #' should be returned. This argument will also affect how new pattern order
-#' tables are assigned (see \code{value}).
-#' @param value A \code{numeric} \code{vector} (maximum length: 128) holding
-#' \code{\link{PTPattern}} indices minus 1 for the new pattern order table.
+#' tables are assigned (see `value`).
+#' @param value A `numeric` `vector` (maximum length: 128) holding
+#' [`PTPattern`] indices minus 1 for the new pattern order table.
 #'
-#' When \code{full = TRUE}, the \code{vector} will be padded with zeros to a
-#' length of 128, and the \code{\link{patternOrderLength}} will be set to the
-#' length of \code{value}. When \code{full = FALSE}, \code{value} will only
-#' repplace the part of the order table up to the length of \code{value}. The
-#' remainder of the table is not changed. The \code{\link{patternOrderLength}}
+#' When `full = TRUE`, the `vector` will be padded with zeros to a
+#' length of 128, and the [`patternOrderLength`] will be set to the
+#' length of `value`. When `full = FALSE`, `value` will only
+#' repplace the part of the order table up to the length of `value`. The
+#' remainder of the table is not changed. The [`patternOrderLength`]
 #' is also not modified in this case.
-#' @returns For \code{patternOrder}, a \code{vector} of \code{numeric}
-#' \code{\link{PTPattern}} indices is returned.
+#' @returns For `patternOrder`, a `vector` of `numeric`
+#' [`PTPattern`] indices is returned.
 #'
-#' For \code{patternOrder<-}, an updated version of object \code{x} is returned,
-#' in which the pattern order table is modified based on \code{value}.
-#' @note The maximum number of \code{\link{PTPattern}}s cannot exceed either 64 or
-#' 100 (depending on the \code{\link{trackerFlag}}). This means that values in
+#' For `patternOrder<-`, an updated version of object `x` is returned,
+#' in which the pattern order table is modified based on `value`.
+#' @note The maximum number of [`PTPattern`]s cannot exceed either 64 or
+#' 100 (depending on the [`trackerFlag`]). This means that values in
 #' the order table should also not exceed these values minus 1.
 #' @examples
 #' data("mod.intro")
@@ -722,19 +722,19 @@ setGeneric("patternLength", function(x) standardGeneric("patternLength"))
 
 #' Get the number of PTPattern tables in a PTModule
 #'
-#' Get the number of \code{\link{PTPattern}} tables in a \code{\link{PTModule}}
+#' Get the number of [`PTPattern`] tables in a [`PTModule`]
 #' object.
 #'
-#' The number of \code{\link{PTPattern}} tables in a \code{\link{PTModule}}
+#' The number of [`PTPattern`] tables in a [`PTModule`]
 #' object should range from 1 up to either 64 or 100. The maximum depends on the
-#' \code{\link{trackerFlag}} of the \code{\link{PTModule}} object.
+#' [`trackerFlag`] of the [`PTModule`] object.
 #' @rdname patternLength
 #' @name patternLength
 #' @aliases patternLength,PTModule-method
-#' @param x A \code{\link{PTModule}} object for which the number of
-#' \code{\link{PTPattern}} tables need to be returned.
-#' @returns Returns a \code{numeric} value representing the number of
-#' \code{\link{PTPattern}} tables in object \code{x}.
+#' @param x A [`PTModule`] object for which the number of
+#' [`PTPattern`] tables need to be returned.
+#' @returns Returns a `numeric` value representing the number of
+#' [`PTPattern`] tables in object `x`.
 #' @examples
 #' data("mod.intro")
 #'
@@ -754,13 +754,13 @@ setGeneric("patternOrderLength<-", function(x, value) standardGeneric("patternOr
 
 #' Get the length of the pattern order table
 #'
-#' The pattern order table is a \code{vector} of \code{numeric} indices of
-#' \code{PTPattern} tables, which determines in which order the patterns
+#' The pattern order table is a `vector` of `numeric` indices of
+#' `PTPattern` tables, which determines in which order the patterns
 #' need to be played. This method returns the visible length of this
-#' \code{vector}.
+#' `vector`.
 #'
-#' The actual length of the \code{vector} containing the pattern order is 128
-#' as per ProTracker standards. Only part of this \code{vector} is `visible'
+#' The actual length of the `vector` containing the pattern order is 128
+#' as per ProTracker standards. Only part of this `vector` is `visible'
 #' and will be used to determine in which order pattern tables are to be played.
 #' The length returned by this method is the length of this visible part of the
 #' pattern order table. The length of this visible part can also be set with this
@@ -769,17 +769,17 @@ setGeneric("patternOrderLength<-", function(x, value) standardGeneric("patternOr
 #' @rdname patternOrderLength
 #' @name patternOrderLength
 #' @aliases patternOrderLength,PTModule-method
-#' @param x A \code{\link{PTModule}} object for which the length of the
+#' @param x A [`PTModule`] object for which the length of the
 #' visible part of the pattern order table is to be returned.
-#' @param value A \code{numeric} value which is to be used to set the visible
+#' @param value A `numeric` value which is to be used to set the visible
 #' length of the pattern order table.
-#' @returns For \code{patternOrderLength} the visible length of the pattern
-#' order table of \code{\link{PTModule}} \code{x} is returned as a \code{numeric}
+#' @returns For `patternOrderLength` the visible length of the pattern
+#' order table of [`PTModule`] `x` is returned as a `numeric`
 #' value, ranging from 1 up to 128.
 #'
-#' For \code{patternOrderLength<-} an updated version of object \code{x} is
+#' For `patternOrderLength<-` an updated version of object `x` is
 #' returned, in which the visible length of the pattern order table is set
-#' to \code{value}. Note that this does not change the pattern order table
+#' to `value`. Note that this does not change the pattern order table
 #' itself, only which part is `visible'.
 #' @examples
 #' data("mod.intro")
@@ -823,27 +823,27 @@ setGeneric("trackerFlag<-", function(x, value = c("M.K.", "M!K!")) standardGener
 #' Tracker flag indicating version compatibility
 #'
 #' Method to obtain a tracker flag, which indicates the version compatibility
-#' of a ProTracker module (\code{\link{PTModule}} object).
+#' of a ProTracker module ([`PTModule`] object).
 #'
-#' ProTrackR supports two tracker flags: "\code{M.K.}" and "\code{M!K!}". M.K.
+#' ProTrackR supports two tracker flags: `"M.K."` and `"M!K!`". M.K.
 #' are presumably the initials of programmers Mahony and Kaktus, unfortunately
 #' documentation on this matter is ambiguous. In any case, modules with the
-#' flag "\code{M.K.}" can hold up to 64 patterns, whereas modules with the flag
-#' "\code{M!K!}" can hold up to 100 patterns. Use this method to obtain or
-#' replace the tracker flag of a \code{\link{PTModule}}.
+#' flag `"M.K."` can hold up to 64 patterns, whereas modules with the flag
+#' `"M!K!"` can hold up to 100 patterns. Use this method to obtain or
+#' replace the tracker flag of a [`PTModule`].
 #' @rdname trackerFlag
 #' @name trackerFlag
 #' @aliases trackerFlag,PTModule-method
-#' @param x A \code{\link{PTModule}} object for which the flag needs to
+#' @param x A [`PTModule`] object for which the flag needs to
 #' returned or replaced.
-#' @param value A \code{character} string representing the tracker flag with which
-#' that of object \code{x} needs to be replaced with. Should either be "\code{M.K.}"
-#' or "\code{M!K!}". Note that if a current flag "\code{M!K!}" is
-#' replaced by "\code{M.K.}", \code{\link{PTPattern}}s may get lost as the
+#' @param value A `character` string representing the tracker flag with which
+#' that of object `x` needs to be replaced with. Should either be `"M.K."`
+#' or `"M!K!"`. Note that if a current flag `"M!K!"` is
+#' replaced by `"M.K."`, [`PTPattern`]s may get lost as the
 #' latter supports less patterns.
-#' @returns For \code{trackerFlag}, the tracker flag of object \code{x} is returned.
+#' @returns For `trackerFlag`, the tracker flag of object `x` is returned.
 #'
-#' For \code{trackerFlag<-}, a copy of object \code{x} with an updated tracker
+#' For `trackerFlag<-`, a copy of object `x` with an updated tracker
 #' flag is returned.
 #' @examples
 #' data("mod.intro")
@@ -904,34 +904,34 @@ setGeneric("deletePattern", function(x, index){
 
 #' Remove a PTPattern table from a PTModule object
 #'
-#' This method removes a \code{\link{PTPattern}} from a
-#' \code{\link{PTModule}} object and updates the
-#' \code{\link{patternOrder}} table accordingly.
+#' This method removes a [`PTPattern`] from a
+#' [`PTModule`] object and updates the
+#' [`patternOrder`] table accordingly.
 #'
-#' This method safely removes a \code{\link{PTPattern}} from a
-#' \code{\link{PTModule}} object, guarding the validity of the
-#' \code{\link{PTModule}} object. It therefore also updates
-#' the \code{\link{patternOrder}} table, by renumbering the indices
+#' This method safely removes a [`PTPattern`] from a
+#' [`PTModule`] object, guarding the validity of the
+#' [`PTModule`] object. It therefore also updates
+#' the [`patternOrder`] table, by renumbering the indices
 #' listed there. The index of the removed object is replaced with a zero
-#' in the \code{\link{patternOrder}} table.
+#' in the [`patternOrder`] table.
 #'
 #' @note As per ProTracker specification, the pattern indices
-#' stored in the \code{\link{PTModule}} and obtained with
-#' \code{\link{patternOrder}} start at 0. Whereas R starts indexing at 1.
+#' stored in the [`PTModule`] and obtained with
+#' [`patternOrder`] start at 0. Whereas R starts indexing at 1.
 #' Beware of this discrepancy.
 #' @rdname deletePattern
 #' @name deletePattern
 #' @aliases deletePattern,PTModule,numeric-method
-#' @param x A \code{\link{PTModule}} from which a
-#' \code{\link{PTPattern}} needs to be removed.
-#' @param index A \code{numeric} index of the \code{\link{PTPattern}}
+#' @param x A [`PTModule`] from which a
+#' [`PTPattern`] needs to be removed.
+#' @param index A `numeric` index of the [`PTPattern`]
 #' table that needs to be removed. The index should be between 1 and
-#' \code{\link{patternLength}}. It's not possible to delete multiple
-#' patterns simultaneously with this method. A \code{\link{PTModule}}
+#' [`patternLength`]. It's not possible to delete multiple
+#' patterns simultaneously with this method. A [`PTModule`]
 #' should always hold at least 1 pattern table, therefore, the last
-#' \code{\link{PTPattern}} table cannot be deleted.
-#' @returns Returns a \code{\link{PTModule}} from which the selected
-#' \code{\link{PTPattern}} is deleted.
+#' [`PTPattern`] table cannot be deleted.
+#' @returns Returns a [`PTModule`] from which the selected
+#' [`PTPattern`] is deleted.
 #' @examples
 #' data("mod.intro")
 #' print(mod.intro)
@@ -965,36 +965,36 @@ setGeneric("appendPattern", function(x, pattern){
 
 #' Append a PTPattern to a PTModule
 #'
-#' Appends a specified \code{\link{PTPattern}} to a
-#' \code{\link{PTModule}}.
+#' Appends a specified [`PTPattern`] to a
+#' [`PTModule`].
 #'
-#' Depending on the \code{\link{trackerFlag}}, a ProTracker module can hold
+#' Depending on the [`trackerFlag`], a ProTracker module can hold
 #' either 64 or 100 pattern tables. As long as the number of pattern tables
 #' is below this maximum, new pattern tables can be added to the module with
 #' this function.
 #'
-#' The \code{\link{patternOrder}} table should hold the maximum index of the
+#' The [`patternOrder`] table should hold the maximum index of the
 #' available pattern tables in a module, otherwise, the module is not valid.
 #' As the maximum index increases, by appending a pattern table, the
-#' \code{\link{patternOrder}} table should be updated. The
-#' \code{\link{appendPattern}} method does this automatically, by replacing the first
+#' [`patternOrder`] table should be updated. The
+#' [`appendPattern`] method does this automatically, by replacing the first
 #' non-unique index in the order table, outside the current order table's length,
 #' with the new maximum index. If this is not possible, the highest element
 #' in the order table is set to hold the maximum index.
 #'
 #' @note As per ProTracker specification, the pattern indices
-#' stored in the \code{\link{PTModule}} and obtained with
-#' \code{\link{patternOrder}} start at 0. Whereas R starts indexing at 1.
+#' stored in the [`PTModule`] and obtained with
+#' [`patternOrder`] start at 0. Whereas R starts indexing at 1.
 #' Beware of this discrepancy.
 #' @rdname appendPattern
 #' @name appendPattern
 #' @aliases appendPattern,PTModule,PTPattern-method
-#' @param x A \code{\link{PTModule}} object to which a
-#' \code{\link{PTPattern}} is to be appended.
-#' @param pattern A \code{\link{PTPattern}} object which is
-#' to be appended to the \code{\link{PTModule}} \code{x}.
-#' @returns Returns a \code{\link{PTModule}}, to which the
-#' \code{\link{PTPattern}} is appended.
+#' @param x A [`PTModule`] object to which a
+#' [`PTPattern`] is to be appended.
+#' @param pattern A [`PTPattern`] object which is
+#' to be appended to the [`PTModule`] `x`.
+#' @returns Returns a [`PTModule`], to which the
+#' [`PTPattern`] is appended.
 #' @examples
 #' data("mod.intro")
 #'
@@ -1036,22 +1036,22 @@ setGeneric("moduleSize", function(x) standardGeneric("moduleSize"))
 
 #' Get module file size
 #'
-#' Get the file size in bytes of a \code{\link{PTModule}} object, when it is to be saved
-#' as an original module file with \code{\link{write.module}}.
+#' Get the file size in bytes of a [`PTModule`] object, when it is to be saved
+#' as an original module file with [`write.module`].
 #'
 #' The ProTracker module has a 1084 byte sized header containing all (meta)
 #' information on the patterns, their order and the audio samples. Each pattern
 #' holds exactly 1 Kb of information and the length of the audio samples corresponds
 #' with the size in bytes, as they are of 8 bit quality in mono. This function
-#' calculates the file size of the \code{\link{PTModule}} object when it is to
-#' be saved with \code{\link{write.module}}.
+#' calculates the file size of the [`PTModule`] object when it is to
+#' be saved with [`write.module`].
 #' @rdname moduleSize
 #' @name moduleSize
 #' @aliases moduleSize,PTModule-method
-#' @param x A \code{\link{PTModule}} object for which the file size is
+#' @param x A [`PTModule`] object for which the file size is
 #' to be calculated.
 #' @returns Returns potential uncompressed module file size in bytes represented
-#' by a number of class \code{object_size}.
+#' by a number of class `object_size`.
 #' @examples
 #' ## Calculate the file size for the example module 'mod.intro':
 #'
@@ -1089,19 +1089,19 @@ setGeneric("clearSong", function(mod) standardGeneric("clearSong"))
 
 #' Clear all pattern info from module
 #'
-#' Remove all patterns (\code{\link{PTPattern}}) and \code{\link{patternOrder}}
-#' info from a \code{\link{PTModule}} object.
+#' Remove all patterns ([`PTPattern`]) and [`patternOrder`]
+#' info from a [`PTModule`] object.
 #'
 #' Conform the original ProTracker, this method removes all patterns
-#' (\code{\link{PTPattern}}) and \code{\link{patternOrder}}
-#' info from a module. You keep the audio \code{\link{PTSample}}s.
+#' ([`PTPattern`]) and [`patternOrder`]
+#' info from a module. You keep the audio [`PTSample`]s.
 #'
 #' @rdname clearSong
 #' @name clearSong
 #' @aliases clearSong,PTModule-method
-#' @param mod A \code{\link{PTModule}} object from which all pattern (order)
+#' @param mod A [`PTModule`] object from which all pattern (order)
 #' info needs to be removed.
-#' @returns Returns a copy of object \code{mod} in which all pattern (order)
+#' @returns Returns a copy of object `mod` in which all pattern (order)
 #' info is removed.
 #' @examples
 #' data(mod.intro)
@@ -1122,18 +1122,18 @@ setGeneric("clearSamples", function(mod) standardGeneric("clearSamples"))
 
 #' Clear all samples from module
 #'
-#' Remove all \code{\link{PTSample}}s from a \code{\link{PTModule}} object.
+#' Remove all [`PTSample`]s from a [`PTModule`] object.
 #'
 #' Conform the original ProTracker, this method removes all patterns
-#' \code{\link{PTSample}}s from a module. You keep all patterns
-#' (\code{\link{PTPattern}}) and \code{\link{patternOrder}} info.
+#' [`PTSample`]s from a module. You keep all patterns
+#' ([`PTPattern`]) and [`patternOrder`] info.
 #'
 #' @rdname clearSamples
 #' @name clearSamples
 #' @aliases clearSamples,PTModule-method
-#' @param mod A \code{\link{PTModule}} object from which all samples needs
+#' @param mod A [`PTModule`] object from which all samples needs
 #' to be removed.
-#' @returns Returns a copy of object \code{mod} in which all samples are removed.
+#' @returns Returns a copy of object `mod` in which all samples are removed.
 #' @examples
 #' data(mod.intro)
 #'
@@ -1153,11 +1153,11 @@ setGeneric("fix.PTModule", function(mod, verbose) standardGeneric("fix.PTModule"
 
 #' Attempt to fix PTModule to ProTracker specs
 #'
-#' Try to fix non-valid \code{\link{PTModule}} objects in order to meet with
+#' Try to fix non-valid [`PTModule`] objects in order to meet with
 #' ProTracker specs such that they pass validity tests.
 #'
-#' Almost any file can be read as a \code{\link{PTModule}} object (using
-#' \code{\link{read.module}}) when validity is ignored and no unexpected end
+#' Almost any file can be read as a [`PTModule`] object (using
+#' [`read.module`]) when validity is ignored and no unexpected end
 #' of file is reached. This package's object validity are very strickly testing
 #' for compliance with ProTracker specifications. As many modules could have
 #' been created with other trackers (which often will play just as well in
@@ -1169,11 +1169,11 @@ setGeneric("fix.PTModule", function(mod, verbose) standardGeneric("fix.PTModule"
 #' @rdname fix.PTModule
 #' @name fix.PTModule
 #' @aliases fix.PTModule,PTModule,logical-method
-#' @param mod A \code{\link{PTModule}} object which needs fixing.
-#' @param verbose With the default value of \code{TRUE}, the method
-#' prints a progress report to the \code{\link{sink}}. When set
-#' to \code{FALSE}, the progress report is suppressed.
-#' @returns Returns a copy of object \code{mod} in which all non-conformaties are
+#' @param mod A [`PTModule`] object which needs fixing.
+#' @param verbose With the default value of `TRUE`, the method
+#' prints a progress report to the [`sink`]. When set
+#' to `FALSE`, the progress report is suppressed.
+#' @returns Returns a copy of object `mod` in which all non-conformaties are
 #' attempted to be fixed. (Attempted) fixes are listed printed
 #' in the progress report.
 #' @note In the current version, pattern data itself is not checked for
@@ -1304,26 +1304,26 @@ setGeneric("rawToPTModule", function(x, ignore.validity = F) standardGeneric("ra
 
 #' Convert a vector of raw data into a PTModule object
 #'
-#' This method treats a vector of \code{raw} data as if it where a
-#' file, and converts it into a \code{\link{PTModule-class}} object.
+#' This method treats a vector of `raw` data as if it where a
+#' file, and converts it into a [`PTModule-class`] object.
 #'
-#' Data is read from a vector of \code{raw} data as if it where a file
-#' and converted into a \code{\link{PTModule-class}} object. This
+#' Data is read from a vector of `raw` data as if it where a file
+#' and converted into a [`PTModule-class`] object. This
 #' method can be useful for module files stored on virtual Amiga Disk Files
-#' (adf), which can be read as raw data, using the \code{AmigaFFH}
+#' (adf), which can be read as raw data, using the `AmigaFFH`
 #' package.
 #'
-#' Use \code{\link[ProTrackR]{as.raw}} to achieve the inverse.
+#' Use [`ProTrackR::as.raw`] to achieve the inverse.
 #'
 #' @rdname rawToPTModule
 #' @name rawToPTModule
 #' @aliases rawToPTModule,raw-method
-#' @param x A vector of \code{raw} data, conform ProTracker file specs.
-#' @param ignore.validity A \code{logical} value. When set as \code{TRUE}
-#' this method will attempt to decode the raw data (\code{x}), even when it is invalid.
-#' When set to \code{FALSE} (default) validity is checked and an error is
+#' @param x A vector of `raw` data, conform ProTracker file specs.
+#' @param ignore.validity A `logical` value. When set as `TRUE`
+#' this method will attempt to decode the raw data (`x`), even when it is invalid.
+#' When set to `FALSE` (default) validity is checked and an error is
 #' thrown when invalidity occurs.
-#' @returns returns a \code{\link{PTModule-class}} object.
+#' @returns returns a [`PTModule-class`] object.
 #' @examples
 #' \dontrun{
 #' ## convert the example mod into raw data

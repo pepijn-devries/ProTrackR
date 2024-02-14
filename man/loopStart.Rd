@@ -20,15 +20,15 @@ needs to be extracted or replace.}
 samples ranging from 0 up to 131070. The sum of the \code{\link{loopStart}} and
 \code{\link{loopLength}} should not exceed the \code{\link{sampleLength}}.
 
-Use a \code{value} of either \code{character} "\code{off}" or \code{logical}
-"\code{FALSE}", in order to turn off the loop all together.}
+Use a \code{value} of either \code{character} \code{"off"} or \code{logical}
+\code{FALSE}, in order to turn off the loop all together.}
 }
 \value{
 For \code{loopStart} the loop start position (in samples), represented by
 an even \code{integer} value ranging from 0 up to 131070, is returned.
 
-For \code{loopStart<-} A \code{\link{PTSample}} \code{sample}, updated
-with the loop start position `\code{value}', is returned.
+For \verb{loopStart<-} A \code{\link{PTSample}} \code{sample}, updated
+with the loop start position ``value`', is returned.
 }
 \description{
 Extract or replace the loop start position of a \code{\link{PTSample}}.
@@ -36,7 +36,7 @@ Extract or replace the loop start position of a \code{\link{PTSample}}.
 \details{
 \code{\link{PTSample}}s can have loops, marked by a starting position
 and length of the loop (in samples), for more details see the
-\code{\link{PTSample-class}}. This method can be used to extract
+\code{\linkS4class{PTSample}}. This method can be used to extract
 the loop starting position or safely replace its value.
 }
 \examples{

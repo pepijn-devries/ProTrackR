@@ -23,7 +23,7 @@ any sample.}
 For \code{sampleNumber}, a \code{numeric} value representing the
 sample index number of object \code{x} is returned.
 
-For \code{sampleNumber<-}, an copy of object \code{x} is returned in which
+For \verb{sampleNumber<-}, an copy of object \code{x} is returned in which
 the sample index number is replaced with \code{value}.
 }
 \description{

@@ -38,7 +38,7 @@ in turn is an element of a \code{\link{PTPattern}}. A \code{\link{PTPattern}}
 tells a tracker which sample to play at which frequency on which of the
 four audio channels and with which effects. A \code{\link{PTCell}} in essence
 holds all this information as described at the documentation of
-the \code{\link{PTCell-class}}.
+the \code{\linkS4class{PTCell}}.
 
 Data in these objects are stored in these objects in a \code{raw} form,
 to save working memory and to comply to the ProTracker file specifications.

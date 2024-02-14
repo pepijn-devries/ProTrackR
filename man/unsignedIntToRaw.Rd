@@ -24,7 +24,7 @@ This function converts an unsigned integer into a vector of \code{raw} data.
 \details{
 This function converts an unsigned integer value into a vector (with
 a specified length, namely \code{length.out}) of \code{raw} data. For the
-inverse of this function use \code{\link{rawToUnsignedInt}(raw_dat)}
+inverse of this function use \code{rawToUnsignedInt()}.
 }
 \examples{
 ## generate some unsigned integer:

@@ -50,7 +50,7 @@ or raised.}
 
 \item{sample.nr}{A single positive \code{integer} value, or a \code{vector} of
 positive \code{integer}s, listing the indices of samples, for which the notes
-need to be lowered or raised. A \code{character} string equal to "\code{all}"
+need to be lowered or raised. A \code{character} string equal to \verb{"all}"
 is also allowed (this is in fact the default), in which case notes of all
 sample indices are raised or lowered.}
 }

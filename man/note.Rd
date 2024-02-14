@@ -20,23 +20,23 @@ value. It can also be a \code{\link{PTCell}} object.}
 
 \item{value}{A \code{character} string representing the chromatic scale note
 with wich the current note needs to be replaced. Should have any of the folling values:
-"\code{C-}", "\code{C#}", "\code{D-}", "\code{D#}", "\code{E-}", "\code{F-}",
-"\code{F#}", "\code{G-}", "\code{G#}", "\code{A-}", "\code{A#}", "\code{B-}",
-or "\code{--}".
+\code{"C-"}, \code{"C#"}, \code{"D-"}, \code{"D#"}, \code{"E-"}, \code{"F-"},
+\code{"F#"}, \code{"G-"}, \code{"G#"}, \code{"A-"}, \code{"A#"}, \code{"B-"},
+or \code{"--"}.
 Right-hand dashes can be omitted from these strings. Both upper and lower case are
 accepted.
 
 If an \code{\link{octave}} is not yet specified for \code{PTCell} \code{x},
 it will be set to 1.
 
-Assigning a value of "\code{--}" will remove both the note and octave from
+Assigning a value of \code{"--"} will remove both the note and octave from
 object \code{x}.}
 }
 \value{
 For \code{note}, a \code{character} string representing the note
 is returned.
 
-For \code{note<-}, a copy of \code{PTCell} object \code{x} in which the
+For \verb{note<-}, a copy of \code{PTCell} object \code{x} in which the
 note is replaced by \code{value} is returned.
 }
 \description{

@@ -10,8 +10,8 @@ nybbleToSignedInt(raw_dat, which = c("low", "high"))
 \item{raw_dat}{\code{raw} data (either a single value or a \code{vector}),
 from which a nybble will be extracted and converted.}
 
-\item{which}{A \code{character} string indicating whether the "\code{low}" (default)
-or "\code{high}" nybble of \code{raw_dat} needs to be converted into a signed
+\item{which}{A \code{character} string indicating whether the \code{"low"} (default)
+or \code{"high"} nybble of \code{raw_dat} needs to be converted into a signed
 \code{integer}.}
 }
 \value{

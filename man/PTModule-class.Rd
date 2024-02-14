@@ -29,11 +29,11 @@ and export objects of class \code{PTModule}.
 \section{Slots}{
 
 \describe{
-\item{\code{name}}{A \code{vector} of length 20 of class "\code{raw}", representing
+\item{\code{name}}{A \code{vector} of length 20 of class \code{raw}, representing
 the name of the \code{PTModule}. The name
 of a module can be extracted or replaced with the \code{\link{name}} method.}
 
-\item{\code{pattern.order}}{A \code{vector} of length 128 of class "\code{raw}". The
+\item{\code{pattern.order}}{A \code{vector} of length 128 of class \code{raw}. The
 \code{raw} values represent the indices of \code{PTPattern} tables and indicate
 in which order these patterns need to be played. Note that the \code{raw} values
 are conform the indices used in ProTracker, starting at zero. In R, indices of
@@ -42,18 +42,18 @@ objects start at one. Users need to compensate for this discrepancy theirselves.
 The pattern order table can be extracted or replaced with the
 \code{\link{patternOrder}} method.}
 
-\item{\code{pattern.order.length}}{A single value of class "\code{raw}". Indicates
+\item{\code{pattern.order.length}}{A single value of class \code{raw}. Indicates
 the length of the visible (and playable) part of the pattern order table.
 
 Use the \code{\link{patternOrderLength}} method to extract or replace the length
 of a pattern order table of a module.}
 
-\item{\code{tracker.byte}}{A single "\code{raw}" value. Gives an indication of which
+\item{\code{tracker.byte}}{A single \code{raw} value. Gives an indication of which
 Tracker was used to produce a module file. In ProTracker modules, this byte
 is set to 0x7f, which is also used in \code{PTModule} objects. This value
 should not be changed.}
 
-\item{\code{tracker.flag}}{A \code{vector} of length 4 of class "\code{raw}", indicates
+\item{\code{tracker.flag}}{A \code{vector} of length 4 of class \code{raw}, indicates
 the version of a module, which basically reflects how many patterns the module
 can hold. For details, and extracting and replacing this flag see the
 \code{\link{trackerFlag}} method.}

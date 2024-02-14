@@ -18,20 +18,20 @@ waveforms of the \code{\link{PTSample}}s need to be plotted.}
 loop positions need to be visualised. For looped samples, the starting
 and ending positions are marked by a vertical green and red line, respectively.}
 
-\item{...}{Arguments that are passed on to \code{\link[lattice]{xyplot}}.}
+\item{...}{Arguments that are passed on to \code{\link[lattice:xyplot]{lattice::xyplot}}.}
 }
 \value{
 Returns an object of class \code{trellis}. See documentation of
-\code{\link[lattice]{xyplot}} for more details.
+\code{\link[lattice:xyplot]{lattice::xyplot}} for more details.
 }
 \description{
 Plots the waveforms of the (non-empty) \code{\link{PTSample}}s in a
 \code{\link{PTModule}} object.
 }
 \details{
-A plotting routine based on the \code{\link[lattice]{xyplot}} from the
+A plotting routine based on the \code{\link[lattice:xyplot]{lattice::xyplot}} from the
 lattice-package. Plots each (non-empty) waveform in a separate panel. Use arguments
-of the \code{\link[lattice]{xyplot}} function to customise the plot.
+of the \code{\link[lattice:xyplot]{lattice::xyplot}} function to customise the plot.
 }
 \examples{
 ## get the example PTModule provided with the ProTrackR package

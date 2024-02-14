@@ -16,7 +16,7 @@ A \code{character} string based on the \code{raw} data
 A function that converts \code{raw} data into a \code{character} string.
 }
 \details{
-The function \code{\link{rawToChar}} will fail on vectors of \code{raw} data
+The function \code{rawToChar()} will fail on vectors of \code{raw} data
 with embedded \code{0x00} data. This function will not fail on embedded \code{0x00} values.
 Instead, it will replace embedded \code{0x00} data with white spaces. Note that
 leading and trailing \code{0x00} data will be omitted from the result.

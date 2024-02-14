@@ -42,14 +42,14 @@ Use \code{NA} to generate an empty/blank \code{\link{PTSample}} object.}
 \value{
 For \code{waveform}, the waveform of \code{sample} is returned
 as a \code{vector} of \code{numeric} values ranging from 0 up to 255.
-If '\code{loop}' is set to \code{FALSE}
+If \code{loop} is set to \code{FALSE}
 and the starting position is beyond the sample length, \code{NA} values
-are returned. If '\code{loop}' is set to \code{TRUE} and the starting
+are returned. If \code{loop} is set to \code{TRUE} and the starting
 position is beyond the sample loop (if present, see
 \code{\link{loopState}}), the waveform is modulated between the loop
 positions.
 
-For \code{waveform<-}, a copy of object \code{sample} is returned in which
+For \verb{waveform<-}, a copy of object \code{sample} is returned in which
 the waveform has been replaced with \code{value}.
 }
 \description{
@@ -60,7 +60,7 @@ waveform is represented by a \code{vector} of numeric values ranging from
 \details{
 Sample waveforms are stored as 8 bit signed short integer values ranging
 from -128 up to +127 in original ProTracker files. However, as the
-\code{\link{PTSample}} class extends the \code{\link[tuneR]{Wave}} class,
+\code{\link{PTSample}} class extends the \code{\link[tuneR:Wave]{tuneR::Wave}} class,
 the waveforms are represented by integer values ranging from 0 up to 255
 in the \link[=ProTrackR-package]{ProTrackR} package. As per ProTracker specifications,
 samples are of 8 bit mono quality and can only have an even length with

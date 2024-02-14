@@ -13,7 +13,7 @@ Small list of numbers used by an obscure audio effect in ProTracker
 }
 \details{
 This dataset is included for completeness sake. It is not yet used by any
-class, method or function in the \code{\link[=ProTrackR-package]{ProTrackR}} package. It may
+class, method or function in the \link[=ProTrackR-package]{ProTrackR} package. It may
 very well be obsolete for recent ProTracker versions.
 }
 \examples{

@@ -17,9 +17,9 @@ This function converts \code{raw} data into an unsigned integer
 }
 \details{
 This function converts a vector of raw data into a single unsigned integer.
-for conversion of raw data into a vector of unsigned integers [0,255] use
-`\code{\link{as.integer}(x)}'. For an inverse of this function
-see \code{\link{unsignedIntToRaw}}.
+for conversion of raw data into a vector of unsigned integers \verb{\[0,255\\}] use
+\code{as.integer()}. For an inverse of this function
+see \code{unsignedIntToRaw()}.
 }
 \examples{
 ## generate some raw data:

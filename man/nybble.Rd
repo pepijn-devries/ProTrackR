@@ -17,7 +17,7 @@ hiNybble(raw_dat)
 needs to be extracted.}
 
 \item{which}{A character string indicating whether the high or low nybble should
-be returnd. It should either be "\code{low}" (default) or "\code{high}".}
+be returnd. It should either be \code{"low"} (default) or \code{"high"}.}
 }
 \value{
 A vector of the same length as \code{raw_dat} holding integer values.

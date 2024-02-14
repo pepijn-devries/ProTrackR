@@ -28,11 +28,11 @@ validity.PTPattern <- function(object)
 
 #' The PTPattern class
 #'
-#' The \code{PTPattern} (or simply pattern) is a table that determines which
+#' The `PTPattern` (or simply pattern) is a table that determines which
 #' samples are played at which notes in which octave, in which order and with
 #' which effects.
 #'
-#' When a \code{PTPattern} table (or simply pattern) is played, each of the 64
+#' When a `PTPattern` table (or simply pattern) is played, each of the 64
 #' rows (see the green mark in the illustration below for an example of a row)
 #' are played subsequently at a specified speed/tempo.
 #'
@@ -43,25 +43,25 @@ validity.PTPattern <- function(object)
 #' \if{latex}{\figure{patterntable.pdf}{options: width=6in}}
 #'
 #' The table has four columns (see the purple outline in the illustration
-#' above as an example of a column), representing the four audio channels (\code{\link{PTTrack}})
+#' above as an example of a column), representing the four audio channels ([`PTTrack`])
 #' of the Commodore Amiga. Samples listed in the same row at different
 #' tracks will be played simultaneously.
 #'
-#' An element at a specific row and track will be referred to as a \code{\link{PTCell}}
+#' An element at a specific row and track will be referred to as a [`PTCell`]
 #' (or simply cell). The cell determines which sample needs to be played at
-#' which note and octave and what kind of \code{\link{effect}} or trigger should
+#' which note and octave and what kind of [`effect`] or trigger should
 #' be applied.
 #'
-#' With the \code{\link{PTPattern-method}}, objects can be coerced to a pattern
+#' With the [`PTPattern-method`], objects can be coerced to a pattern
 #' table. This method can also be used to extract or replace patterns in
-#' \code{\link{PTModule}} objects.
+#' [`PTModule`] objects.
 #'
-#' @slot data A \code{matrix} (64 rows, 16 columns) of class "\code{raw}".
-#' Each row contains the \code{raw} concatenated data of 4 \code{\link{PTCell}} objects,
-#' representing each of the 4 audio channels/tracks (as each \code{\link{PTCell}} object holds
-#' 4 \code{raw} values, each row holds 4 x 4 = 16 \code{raw}
-#' values). The \code{raw} data is formatted conform the specifications given
-#' in the \code{\link{PTCell}} documentation.
+#' @slot data A `matrix` (64 rows, 16 columns) of class `raw`.
+#' Each row contains the `raw` concatenated data of 4 [`PTCell`] objects,
+#' representing each of the 4 audio channels/tracks (as each [`PTCell`] object holds
+#' 4 `raw` values, each row holds 4 x 4 = 16 `raw`
+#' values). The `raw` data is formatted conform the specifications given
+#' in the [`PTCell`] documentation.
 #' @name PTPattern-class
 #' @rdname PTPattern-class
 #' @aliases PTPattern

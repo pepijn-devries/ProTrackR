@@ -26,9 +26,9 @@ Use the \code{\link{PTTrack-method}} to construct or coerce objects to a
 \section{Slots}{
 
 \describe{
-\item{\code{data}}{A \code{matrix} (64 rows, 4 columns) of class "\code{raw}".
+\item{\code{data}}{A \code{matrix} (64 rows, 4 columns) of class \code{raw}.
 Each row implicetely represents a \code{\link{PTCell}} object, where
-the raw data is formatted as specified at the \code{\link{PTCell-class}}
+the raw data is formatted as specified at the \code{\linkS4class{PTCell}}
 documentation. Use the \code{\link{PTCell-method}} to make an element of
 a \code{PTTrack} object explictly of class \code{\link{PTCell}}.
 Row numbers correspond with the row numbers of \code{\link{PTPattern}}

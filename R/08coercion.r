@@ -21,60 +21,60 @@ setGeneric("PTCell<-", function(x, row, track, pattern, value) standardGeneric("
 
 #' Coerce to or replace PTCell
 #'
-#' This method will coerce a set of objects to a \code{PTCell} object. It can also
-#' be used to select specific cells from \code{PTModule},
-#' \code{PTPattern} and \code{PTTrack} objects and replace
-#' the selected \code{PTCell}.
+#' This method will coerce a set of objects to a `PTCell` object. It can also
+#' be used to select specific cells from `PTModule`,
+#' `PTPattern` and `PTTrack` objects and replace
+#' the selected `PTCell`.
 #'
-#' Method to coerce \code{x} to class \code{\link{PTCell}}.
+#' Method to coerce `x` to class [`PTCell`].
 #'
-#' When \code{x} is \code{raw} data, it should consist of a \code{vector} of
-#' 4 elements, formatted as specified in the \link{PTCell-class}.
+#' When `x` is `raw` data, it should consist of a `vector` of
+#' 4 elements, formatted as specified in the [`PTCell-class`].
 #'
-#' When \code{x} is a \code{character} string, it should be formatted as follows:
-#' "\code{NNO SS EEE}", where \code{NN} is the note (for instance
+#' When `x` is a `character` string, it should be formatted as follows:
+#' "`NNO SS EEE`", where `NN` is the note (for instance
 #' "C-" or "A#", where the dash has no particular meaning and may be omitted,
 #' the hash sign indicates a sharp note). Use a dash if the cell holds no note.
-#' \code{O} is the octave (with a value of 0, or a dash, if a note
-#' is missing, otherwise any of 1, 2 or 3). \code{SS} is the sample index
-#' number, formatted as two hexadecimal digits (for example `1A'). \code{EEE} is
-#' a three hexadecimal digit \code{\link{effect}} or trigger code (for more details see the
-#' \code{\link{PTCell-class}}). The method is not case sensitive, so
+#' `O` is the octave (with a value of 0, or a dash, if a note
+#' is missing, otherwise any of 1, 2 or 3). `SS` is the sample index
+#' number, formatted as two hexadecimal digits (for example `1A`). `EEE` is
+#' a three hexadecimal digit [`effect`] or trigger code (for more details see the
+#' [`PTCell-class`]). The method is not case sensitive, so
 #' you can use both upper and lower case. White spaces are ignored, you can use
-#' as many as you would like. A correct \code{character} input for \code{x}
-#' would be for example: "\code{A#2 01 A0F}". An `blank' \code{character}
-#' representation would look like this: "\code{--- 00 000}".
+#' as many as you would like. A correct `character` input for `x`
+#' would be for example: `"A#2 01 A0F"`. A `blank` `character`
+#' representation would look like this: `"--- 00 000"`.
 #'
-#' When \code{x} is of class \code{\link{PTTrack}}, \code{\link{PTPattern}}, or
-#' \code{\link{PTModule}}, the \code{PTCell} at the specified indices (\code{row},
-#' \code{track} and \code{pattern}) is returned, or can be replaced.
+#' When `x` is of class [`PTTrack`], [`PTPattern`], or
+#' [`PTModule`], the `PTCell` at the specified indices (`row`,
+#' `track` and `pattern`) is returned, or can be replaced.
 #'
 #' @docType methods
 #' @name PTCell-method
 #' @rdname PTCell-method
 #' @aliases PTCell,raw,missing,missing,missing-method
-#' @param x Object (any of \code{raw} data, a \code{character} string, a \code{PTTrack},
-#' a \code{PTPattern} or a \code{PTModule})
-#' to coerce to a \code{\link{PTCell}}. See details below for the
-#' required format of \code{x}.
-#' @param row When \code{x} is a \code{PTTrack}, a \code{PTPattern},
-#' or a \code{PTModule}, provide an index [1,64] of the row that needs
-#' to be coerced to a \code{PTCell}.
-#' @param track When \code{x} is a \code{PTPattern},
-#' or a \code{PTModule}, provide an index [1,4] of the track that needs
-#' to be coerced to a \code{PTCell}.
-#' @param pattern When \code{x} is a \code{PTModule}, provide an index
-#' of the pattern that needs to be coerced to a \code{PTCell}. Note that
+#' @param x Object (any of `raw` data, a `character` string, a `PTTrack`,
+#' a `PTPattern` or a `PTModule`)
+#' to coerce to a [`PTCell`]. See details below for the
+#' required format of `x`.
+#' @param row When `x` is a `PTTrack`, a `PTPattern`,
+#' or a `PTModule`, provide an index \[1,64\] of the row that needs
+#' to be coerced to a `PTCell`.
+#' @param track When `x` is a `PTPattern`,
+#' or a `PTModule`, provide an index \[1,4\] of the track that needs
+#' to be coerced to a `PTCell`.
+#' @param pattern When `x` is a `PTModule`, provide an index
+#' of the pattern that needs to be coerced to a `PTCell`. Note that
 #' ProTracker uses indices for patterns that start at zero, whereas R uses indices
-#' that start at one. Hence add one to an index obtained from a \code{PTModule}
-#' object (e.g., \code{x$pattern.order})
-#' @param value An object of \code{\link{PTCell}} with which the \code{\link{PTCell}}
-#' object at the specified indices in object \code{x} needs to be replaced.
-#' @returns When \code{PTCell} is used, a \code{PTCell} object
-#' based on \code{x} is returned.
+#' that start at one. Hence add one to an index obtained from a `PTModule`
+#' object (e.g., `x$pattern.order`)
+#' @param value An object of [`PTCell`] with which the [`PTCell`]
+#' object at the specified indices in object `x` needs to be replaced.
+#' @returns When `PTCell` is used, a `PTCell` object
+#' based on `x` is returned.
 #'
-#' When \code{PTCell<-} is used, object \code{x} is returned in which
-#' the selected \code{PTCell} is replaced with \code{value}.
+#' When `PTCell<-` is used, object `x` is returned in which
+#' the selected `PTCell` is replaced with `value`.
 #' @examples
 #' ## This will create an empty PTCell (equivalent
 #' ## to new("PTCell"):
@@ -188,49 +188,49 @@ setGeneric("PTTrack<-", function(x, track, pattern, value) standardGeneric("PTTr
 
 #' Coerce to or replace PTTrack
 #'
-#' This method will coerce a set of objects to a \code{PTTrack} object. It can also
-#' be used to select specific tracks from \code{PTModule} and
-#' \code{PTPattern} objects and replace the selected \code{PTTrack}.
+#' This method will coerce a set of objects to a `PTTrack` object. It can also
+#' be used to select specific tracks from `PTModule` and
+#' `PTPattern` objects and replace the selected `PTTrack`.
 #'
-#' Method to coerce \code{x} to class \code{\link{PTTrack}}.
+#' Method to coerce `x` to class [`PTTrack`].
 #'
-#' When \code{x} is a 64 by 4 \code{matrix} of \code{raw} data, each row
-#' implicitly represents a \code{\link{PTCell}} object and should
-#' be formatted accordingly. See \code{\link{PTCell-class}} documentation for
+#' When `x` is a 64 by 4 `matrix` of `raw` data, each row
+#' implicitly represents a [`PTCell`] object and should
+#' be formatted accordingly. See [`PTCell-class`] documentation for
 #' more details.
 #'
-#' When \code{x} is a 64 element \code{vector} of \code{character} representation
-#' of \code{\link{PTCell}} objects, the \code{character} representation must be
-#' conform the specifications as documented at the \code{\link{PTCell-class}}.
+#' When `x` is a 64 element `vector` of `character` representation
+#' of [`PTCell`] objects, the `character` representation must be
+#' conform the specifications as documented at the [`PTCell-class`].
 #'
-#' When \code{x} is of class \code{\link{PTPattern}}, or
-#' \code{\link{PTModule}}, the \code{PTTrack} at the specified indices
-#' (\code{track} and \code{pattern}) is returned, or can be replaced.
+#' When `x` is of class [`PTPattern`], or
+#' [`PTModule`], the `PTTrack` at the specified indices
+#' (`track` and `pattern`) is returned, or can be replaced.
 #'
 #' @docType methods
 #' @name PTTrack-method
 #' @rdname PTTrack-method
 #' @aliases PTTrack,raw,missing,missing-method
-#' @param x Object (any of \code{raw} data, a 64 by 4 \code{matrix} of \code{raw}
-#' data, a vector of \code{character} strings,
-#' a \code{PTPattern} or a \code{PTModule})
-#' to coerce to a \code{\link{PTTrack}}. See details below for the
-#' required format of \code{x}
-#' @param track When \code{x} is a \code{PTPattern},
-#' or a \code{PTModule}, provide an index [1,4] of the track that needs
-#' to be coerced to a \code{PTTrack}.
-#' @param pattern When \code{x} is a \code{PTModule}, provide an index
-#' of the pattern that needs to be coerced to a \code{PTTrack}. Note that
+#' @param x Object (any of `raw` data, a 64 by 4 `matrix` of `raw`
+#' data, a vector of `character` strings,
+#' a `PTPattern` or a `PTModule`)
+#' to coerce to a [`PTTrack`]. See details below for the
+#' required format of `x`
+#' @param track When `x` is a `PTPattern`,
+#' or a `PTModule`, provide an index \[1,4\] of the track that needs
+#' to be coerced to a `PTTrack`.
+#' @param pattern When `x` is a `PTModule`, provide an index
+#' of the pattern that needs to be coerced to a `PTTrack`. Note that
 #' ProTracker uses indices for patterns that start at zero, whereas R uses indices
-#' that start at one. Hence add one to an index obtained from a \code{PTModule}
-#' object (e.g., \code{x$pattern.order})
-#' @param value An object of \code{\link{PTTrack}} with which the \code{\link{PTTrack}}
-#' object at the specified indices in object \code{x} needs to be replaced.
-#' @returns When \code{PTTrack} is used, a \code{PTTrack} object
-#' based on \code{x} is returned.
+#' that start at one. Hence add one to an index obtained from a `PTModule`
+#' object (e.g., `x$pattern.order`)
+#' @param value An object of [`PTTrack`] with which the [`PTTrack`]
+#' object at the specified indices in object `x` needs to be replaced.
+#' @returns When `PTTrack` is used, a `PTTrack` object
+#' based on `x` is returned.
 #'
-#' When \code{PTTrack<-} is used, object \code{x} is returned in which
-#' the selected \code{PTTrack} is replaced with \code{value}.
+#' When `PTTrack<-` is used, object `x` is returned in which
+#' the selected `PTTrack` is replaced with `value`.
 #' @examples
 #' ## This will create an 'empty' PTTrack with all nul
 #' ## values, which is equivalent to new("PTTrack"):
@@ -315,46 +315,46 @@ setGeneric("PTPattern<-", function(x, pattern, value) standardGeneric("PTPattern
 
 #' Coerce to or replace PTPattern
 #'
-#' This method will coerce a set of objects to a \code{PTPattern} object. It can also
-#' be used to select specific patterns from \code{PTModule} objects and replace
-#' the selected \code{PTPattern}.
+#' This method will coerce a set of objects to a `PTPattern` object. It can also
+#' be used to select specific patterns from `PTModule` objects and replace
+#' the selected `PTPattern`.
 #'
-#' Method to coerce \code{x} to class \code{\link{PTPattern}}.
+#' Method to coerce `x` to class [`PTPattern`].
 #'
-#' When \code{x} is a 64 by 16 \code{matrix} of \code{raw} data, each row
-#' implicitly represents the \code{\link{PTCell}} objects of each of the
-#' four tracks. Each \code{\link{PTCell}} consists of four \code{raw}
+#' When `x` is a 64 by 16 `matrix` of `raw` data, each row
+#' implicitly represents the [`PTCell`] objects of each of the
+#' four tracks. Each [`PTCell`] consists of four `raw`
 #' values. The values in each row are formatted accordingly, where the values of the
-#' cells of each track are concatenated. See \code{\link{PTCell-class}} documentation for
-#' more details on the \code{raw} format of a \code{\link{PTCell}} object.
+#' cells of each track are concatenated. See [`PTCell-class`] documentation for
+#' more details on the `raw` format of a [`PTCell`] object.
 #'
-#' When \code{x} is a 64 by 16 \code{matrix} of \code{character} representations
-#' of \code{\link{PTCell}} objects, the \code{character} representation must be
-#' conform the specifications as documented at the \code{\link{PTCell-class}}.
+#' When `x` is a 64 by 16 `matrix` of `character` representations
+#' of [`PTCell`] objects, the `character` representation must be
+#' conform the specifications as documented at the [`PTCell-class`].
 #'
-#' When \code{x} is of class \code{\link{PTModule}}, the \code{PTPattern} at the
-#' specified index (\code{pattern}) is returned, or can be replaced.
+#' When `x` is of class [`PTModule`], the `PTPattern` at the
+#' specified index (`pattern`) is returned, or can be replaced.
 #'
 #' @docType methods
 #' @name PTPattern-method
 #' @rdname PTPattern-method
 #' @aliases PTPattern,raw,missing-method
-#' @param x Object (any of \code{raw} data, a 64 by 16 \code{matrix} of \code{raw} data, a 64 by 4 \code{matrix} of \code{character} strings,
-#' or a \code{PTModule})
-#' to coerce to a \code{\link{PTPattern}}. See details below for the
-#' required format of \code{x}.
-#' @param pattern When \code{x} is a \code{PTModule}, provide an index
-#' of the pattern that needs to be coerced to a \code{PTPattern}. Note that
+#' @param x Object (any of `raw` data, a 64 by 16 `matrix` of `raw` data, a 64 by 4 `matrix` of `character` strings,
+#' or a `PTModule`)
+#' to coerce to a [`PTPattern`]. See details below for the
+#' required format of `x`.
+#' @param pattern When `x` is a `PTModule`, provide an index
+#' of the pattern that needs to be coerced to a `PTPattern`. Note that
 #' ProTracker uses indices for patterns that start at zero, whereas R uses indices
-#' that start at one. Hence add one to an index obtained from a \code{PTModule}
-#' object (e.g., \code{x$pattern.order}).
-#' @param value An object of \code{\link{PTPattern}} with which the \code{\link{PTPattern}}
-#' object at the specified \code{index} in object \code{x} needs to be replaced.
-#' @returns When \code{PTPattern} is used, a \code{PTPattern} object
-#' based on \code{x} is returned.
+#' that start at one. Hence add one to an index obtained from a `PTModule`
+#' object (e.g., `x$pattern.order`).
+#' @param value An object of [`PTPattern`] with which the [`PTPattern`]
+#' object at the specified `index` in object `x` needs to be replaced.
+#' @returns When `PTPattern` is used, a `PTPattern` object
+#' based on `x` is returned.
 #'
-#' When \code{PTPattern<-} is used, object \code{x} is returned in which
-#' the selected \code{PTPattern} is replaced with \code{value}.
+#' When `PTPattern<-` is used, object `x` is returned in which
+#' the selected `PTPattern` is replaced with `value`.
 #' @examples
 #' ## This will create an 'empty' PTPattern with
 #' ## all 0x00 values, which is equivalent to
@@ -422,45 +422,45 @@ setGeneric("PTSample<-", function(x, index, value) standardGeneric("PTSample<-")
 
 #' Coerce to or replace PTSample
 #'
-#' This method will coerce a set of objects to a \code{PTSample} object. It can also
-#' be used to select specific samples from \code{PTModule} objects and replace
-#' the selected \code{PTSample}.
+#' This method will coerce a set of objects to a `PTSample` object. It can also
+#' be used to select specific samples from `PTModule` objects and replace
+#' the selected `PTSample`.
 #'
-#' Method to coerce \code{x} to class \code{\link{PTSample}}.
+#' Method to coerce `x` to class [`PTSample`].
 #'
-#' When \code{x} is a \code{\link[tuneR]{Wave}} object, this method will not
+#' When `x` is a [`tuneR::Wave`] object, this method will not
 #' resample it. However, the sample rate will be adjusted and samples exeeding
-#' the maximum length of \code{2*0xffff} = \code{131070} will be clipped to this
-#' maximum length. When \code{x} is a stereo sample, it will be converted to
+#' the maximum length of `2*0xffff` = `131070` will be clipped to this
+#' maximum length. When `x` is a stereo sample, it will be converted to
 #' mono, by averaging the left and right channel.
 #'
-#' When \code{x} is a \code{vector} of \code{raw} data, it will be truncated
-#' if the maximum length of \code{2*0xffff} = \code{131070} is exceeded.
-#' The raw will be converted with \code{\link{rawToSignedInt}} in order
-#' to represent an 8 bit mono \code{\link{waveform}}.
+#' When `x` is a `vector` of `raw` data, it will be truncated
+#' if the maximum length of `2*0xffff` = `131070` is exceeded.
+#' The raw will be converted with [`rawToSignedInt`] in order
+#' to represent an 8 bit mono [`waveform`].
 #'
 #' As samples must have an even length (as per ProTracker specifications),
 #' a 0x00 value is appended if the length is odd.
 #'
-#' When \code{x} is of class \code{\link{PTModule}}, the \code{PTSample} at the
-#' specified \code{index} is returned, or will be replaced.
+#' When `x` is of class [`PTModule`], the `PTSample` at the
+#' specified `index` is returned, or will be replaced.
 #' @docType methods
 #' @rdname PTSample-method
 #' @name PTSample-method
 #' @aliases PTSample,Wave,missing-method
-#' @param x Object (any of class \code{\link[tuneR]{Wave}}, a \code{vector}
-#' of \code{raw} data, or of class \code{\link{PTModule}}) that needs to
-#' be coerced to a \code{\link{PTSample}} object. In the latter case, the
+#' @param x Object (any of class [`tuneR::Wave`], a `vector`
+#' of `raw` data, or of class [`PTModule`]) that needs to
+#' be coerced to a [`PTSample`] object. In the latter case, the
 #' object can also be replaced.
-#' @param index A positive \code{integer} index of the sample in \code{\link{PTModule}}
-#' \code{x} that needs to be returned or replaced.
-#' @param value An object of \code{\link{PTSample}} with which the \code{\link{PTSample}}
-#' object at the specified \code{index} in object \code{x} needs to be replaced.
-#' @returns When \code{PTSample} is used, a \code{PTSample} object
-#' based on \code{x} is returned.
+#' @param index A positive `integer` index of the sample in [`PTModule`]
+#' `x` that needs to be returned or replaced.
+#' @param value An object of [`PTSample`] with which the [`PTSample`]
+#' object at the specified `index` in object `x` needs to be replaced.
+#' @returns When `PTSample` is used, a `PTSample` object
+#' based on `x` is returned.
 #'
-#' When \code{PTSample<-} is used, object \code{x} is returned in which
-#' the selected \code{PTSample} is replaced with \code{value}.
+#' When `PTSample<-` is used, object `x` is returned in which
+#' the selected `PTSample` is replaced with `value`.
 #' @examples
 #' ## Create a raw data sine wave:
 #' raw_sine <- signedIntToRaw(round(sin(2*pi*(0:275)/276)*127))

@@ -34,7 +34,7 @@ Depending on the class of \code{x}, returns either nothing
 of object \code{x}.
 }
 \description{
-A method to print \code{\link[=ProTrackR-package]{ProTrackR}} S4 class objects.
+A method to print \link[=ProTrackR-package]{ProTrackR} S4 class objects.
 }
 \examples{
 data("mod.intro")

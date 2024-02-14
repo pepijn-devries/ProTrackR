@@ -19,7 +19,7 @@
 \S4method{PTSample}{PTModule,numeric,PTSample}(x, index) <- value
 }
 \arguments{
-\item{x}{Object (any of class \code{\link[tuneR]{Wave}}, a \code{vector}
+\item{x}{Object (any of class \code{\link[tuneR:Wave]{tuneR::Wave}}, a \code{vector}
 of \code{raw} data, or of class \code{\link{PTModule}}) that needs to
 be coerced to a \code{\link{PTSample}} object. In the latter case, the
 object can also be replaced.}
@@ -34,7 +34,7 @@ object at the specified \code{index} in object \code{x} needs to be replaced.}
 When \code{PTSample} is used, a \code{PTSample} object
 based on \code{x} is returned.
 
-When \code{PTSample<-} is used, object \code{x} is returned in which
+When \verb{PTSample<-} is used, object \code{x} is returned in which
 the selected \code{PTSample} is replaced with \code{value}.
 }
 \description{
@@ -45,7 +45,7 @@ the selected \code{PTSample}.
 \details{
 Method to coerce \code{x} to class \code{\link{PTSample}}.
 
-When \code{x} is a \code{\link[tuneR]{Wave}} object, this method will not
+When \code{x} is a \code{\link[tuneR:Wave]{tuneR::Wave}} object, this method will not
 resample it. However, the sample rate will be adjusted and samples exeeding
 the maximum length of \code{2*0xffff} = \code{131070} will be clipped to this
 maximum length. When \code{x} is a stereo sample, it will be converted to

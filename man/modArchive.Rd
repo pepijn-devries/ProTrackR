@@ -146,21 +146,21 @@ version 0.3.4, other functions will still accept this argument.}
 \item{page}{Many of the ModArchive returns paginated tables. When this argument
 is omitted, the first page is returned. Use an integer value to return a specific
 page. The total number of pages of a search or view is returned as an attribute
-to the returned \code{\link[base]{data.frame}}.}
+to the returned \link[base:data.frame]{base::data.frame}.}
 
 \item{view.query}{A query to be used in combination with the \code{view.by}
 argument. Use the queries in combination with \code{view.by} as follows:
 \itemize{
-  \item{\code{view_by_list}: Use a single capital starting letter to browse
-  modules by name}
-  \item{\code{view_by_rating_comments}: Provide a (user) rating by which you
-  wish to browse the modules}
-  \item{\code{view_by_rating_reviews}: Provide a (reviewer) rating by which you
-  wish to browse the modules}
-  \item{\code{view_modules_by_artistid}: Provide an artist id number
-  for whom you wish to browse his/her modules}
-  \item{\code{view_modules_by_guessed_artist}: Provide an artist guessed
-  name for whom you wish to browser his/her modules}
+\item \code{view_by_list}: Use a single capital starting letter to browse
+modules by name
+\item \code{view_by_rating_comments}: Provide a (user) rating by which you
+wish to browse the modules
+\item \code{view_by_rating_reviews}: Provide a (reviewer) rating by which you
+wish to browse the modules
+\item \code{view_modules_by_artistid}: Provide an artist id number
+for whom you wish to browse his/her modules
+\item \code{view_modules_by_guessed_artist}: Provide an artist guessed
+name for whom you wish to browser his/her modules
 }}
 
 \item{view.by}{Indicate how the \code{modArchive.view.by} function should sort
@@ -175,7 +175,7 @@ for. See \url{https://modarchive.org/?xml-api-usage-level3} for details.}
 \value{
 \code{modArchive.info}, \code{modArchive.search.genre},
 \code{modArchive.search.hash}, \code{modArchive.random.pick} and
-\code{modArchive.view.by} will return a \code{\link{data.frame}}
+\code{modArchive.view.by} will return a \link{data.frame}
 containing information on modules in the ModArchive. Note that this
 data.frame is formatted differently since ProTrackR 0.3.4, which
 may cause backward compatibility issues.
@@ -213,10 +213,7 @@ The \code{modArchive.download} function will download a module from the archive.
 Use \code{modArchive.search.artist} to find artist details in the archive.
 
 Use \code{modArchive.request.count} to determine how many request you have
-made in the current month with the specified key (see `ModArchive API key'
-section for details).
-Use \code{modArchive.max.requests} to determine how many request you are
-allowed to make each month with the provided key (see `ModArchive API key'
+made in the current month with the specified key (see \verb{ModArchive API key' section for details). Use }modArchive.max.requests\verb{to determine how many request you are allowed to make each month with the provided key (see}ModArchive API key'
 section for details).
 }
 \section{ModArchive API key}{
@@ -241,8 +238,8 @@ ModArchive helper functions described here.
 So how do you get your personal API key? First, you need to register at the
 \href{https://modarchive.org/forums/}{ModArchive Forums}. Then follow the
 instructions provided in this \href{https://modarchive.org/forums/index.php?topic=1950.0}{topic}
-on the forum. For more info, see also the \href{https://modarchive.org/?xml-api}{API
-page} on ModArchive.
+on the forum. For more info, see also the \href{https://modarchive.org/?xml-api}{API page}
+on ModArchive.
 
 If you want to search for module files without an API key, one could make use of
 to the \link{modLand} collection instead.

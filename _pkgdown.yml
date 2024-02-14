@@ -1,0 +1,11 @@
+url: https://pepijn-devries.github.io/ProTrackR/
+template:
+  bootstrap: 5
+navbar:
+  components:
+    articles:
+      text: Articles
+      menu:
+      - text: Package documentation
+        href: reference/ProTrackR-package.html
+    

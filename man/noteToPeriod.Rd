@@ -15,7 +15,7 @@ tune an audio sample.}
 }
 \value{
 Returns the \code{numeric} ProTracker period value for a corresponding
-note, octave and \code{\link{fineTune}}. Returns 0 if a note could not be found in the
+note, octave and \code{fineTune()}. Returns 0 if a note could not be found in the
 table.
 }
 \description{

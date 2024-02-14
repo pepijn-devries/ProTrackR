@@ -15,7 +15,7 @@
 \item{mod}{A valid PTModule object to be saved as a ProTracker *.mod file}
 
 \item{file}{either a filename to write to, or a file connection, that
-allows to write binary data (see \code{\link[base]{file}}).}
+allows to write binary data (see \code{\link[base:connections]{base::file}}).}
 }
 \value{
 Writes to a module file but returns nothing.
