@@ -17,7 +17,7 @@ ProTracker module audio files.
 install.packages("ProTrackR")
 ```
 
-> Get development version on github
+> Get development version from R-Universe
 
 ``` r
 install.packages("ProTrackR", repos = c('https://pepijn-devries.r-universe.dev', 'https://cloud.r-project.org'))
