@@ -11,30 +11,30 @@
 \item{filename}{A \code{character} string representing the filename to be read.}
 
 \item{what}{A \code{character} string indicating what type of file is to be
-read. Can be one of the following: "\code{wav}" (default), "\code{mp3}",
-"\code{8svx}" or "\code{raw}". The \code{AmigaFFH} package needs to be
+read. Can be one of the following: \code{"wav"} (default), \code{"mp3"},
+\code{"8svx"} or \code{"raw"}. The \code{AmigaFFH} package needs to be
 installed in order to read 8svx files.}
 }
 \value{
 Returns a \code{PTSample} object based on the file read.
 }
 \description{
-Reads audio files from "wav" and "mp3" files, using \code{\link[tuneR]{tuneR}}
+Reads audio files from "wav" and "mp3" files, using \code{\link[tuneR:tuneR]{tuneR::tuneR}}
 methods. Commodore Amiga native formats "8svx" and "raw" can also be read.
 }
 \details{
-This method provides a wrapper for the \code{\link[tuneR]{readWave}} and
-\code{\link[tuneR]{readMP3}} methods from \code{\link[tuneR]{tuneR}}. It also
+This method provides a wrapper for the \code{\link[tuneR:readWave]{tuneR::readWave}} and
+\code{\link[tuneR:readMP3]{tuneR::readMP3}} methods from \code{\link[tuneR:tuneR]{tuneR::tuneR}}. It also
 provides the means to import audio from file formats native to the Commodore
 Amiga. Simple \href{https://en.wikipedia.org/wiki/8SVX}{8svx} files (also known
-as "iff" files) can be read. This uses the \code{\link[AmigaFFH]{read.iff}} method
-from the \code{\link[AmigaFFH]{AmigaFFH}} package.
+as "iff" files) can be read. This uses the \code{\link[AmigaFFH:read.iff]{AmigaFFH::read.iff}} method
+from the \code{\link[AmigaFFH:AmigaFFH-package]{AmigaFFH::AmigaFFH}} package.
 It was also common practice to store audio samples as raw data on the
 Commodore Amiga, where each byte simply represented a signed integer value
 of the waveform.
 
 All audio will be coerced to 8 bit mono with a maximum length of
-\code{2*0xffff} = {131070} bytes (= samples) as per ProTracker standards.
+\code{2*0xffff} = \code{131070} bytes (= samples) as per ProTracker standards.
 }
 \note{
 As per ProTracker standards, a sample should have an even length

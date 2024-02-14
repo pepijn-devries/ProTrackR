@@ -11,14 +11,14 @@
 #'
 #' @docType data
 #' @name period_table
-#' @format a \code{data.frame} with fourteen columns:
-#' \itemize{
-#'   \item{The column named `octave': \code{integer} value [1,3]}
-#'   \item{The column named `finetune': \code{integer} value [-8, 7] used to tune a sample}
-#'   \item{The columns named `C-' to `B-': represent the twelve (semi)tones.
-#'   The values in these columns are the period values for the corresponding
-#'   tone, octave and finetune.}
-#' }
+#' @format a `data.frame` with fourteen columns:
+#' 
+#'   * The column named 'octave': `integer` value \[1,3\]
+#'   * The column named 'finetune': `integer` value \[-8, 7\] used to tune a sample
+#'   * The columns named 'C-' to `B-': represent the twelve (semi)tones.
+#'     The values in these columns are the period values for the corresponding
+#'     tone, octave and finetune.
+#'
 #' @family period.operations
 #' @examples
 #' data("period_table")
@@ -32,18 +32,18 @@ NULL
 #' Paula was one of the custom chips on the original Commodore Amiga. This chip
 #' was dedicated (amongst other tasks) to controlling audio playback. The
 #' chip's output rate depended on the video mode used:
-#' either `\href{https://en.wikipedia.org/wiki/PAL}{PAL}'
-#' or `\href{https://en.wikipedia.org/wiki/NTSC}{NTSC}'. This table provides the
+#' either '[PAL](https://en.wikipedia.org/wiki/PAL)'
+#' or '[NTSC](https://en.wikipedia.org/wiki/NTSC)'. This table provides the
 #' output rate for both video modes that can be used in calculating sample rates.
 #'
 #' @docType data
 #' @name paula_clock
-#' @format a \code{data.frame} with two columns:
-#' \itemize{
-#'   \item{`frequency' A \code{numeric} value representing Paula's output rate in Hz.}
-#'   \item{`video' A \code{character} string representing the two video modes.}
-#' }
-#' @references \url{https://en.wikipedia.org/wiki/Original_Chip_Set#Paula}
+#' @format a `data.frame` with two columns:
+#' 
+#'   * 'frequency' A `numeric` value representing Paula's output rate in Hz.
+#'   * 'video' A `character` string representing the two video modes.
+#'
+#' @references <https://en.wikipedia.org/wiki/Original_Chip_Set#Paula>
 #' @examples
 #' data("paula_clock")
 NULL
@@ -53,31 +53,31 @@ NULL
 #' Small list of numbers used by an obscure audio effect in ProTracker
 #'
 #' This dataset is included for completeness sake. It is not yet used by any
-#' class, method or function in the \code{\link[=ProTrackR-package]{ProTrackR}} package. It may
+#' class, method or function in the [ProTrackR][ProTrackR-package] package. It may
 #' very well be obsolete for recent ProTracker versions.
 #' @docType data
 #' @name funk_table
-#' @format A \code{numeric} \code{vector} of length 16 holding values to be
+#' @format A `numeric` `vector` of length 16 holding values to be
 #' used in ProTracker funk repeat effects.
-#' @references \url{https://fossies.org/linux/uade/amigasrc/players/tracker/eagleplayers/mod32_protracker/PTK_versions.txt}
+#' @references <https://fossies.org/linux/uade/amigasrc/players/tracker/eagleplayers/mod32_protracker/PTK_versions.txt>
 #' @examples data("funk_table")
 NULL
 
 #' Example of a PTModule object
 #'
-#' A \code{\link{PTModule}} object included in the package as example.
+#' A [`PTModule`] object included in the package as example.
 #'
 #' This PTModule object is based on an original ProTracker module file
 #' I've composed in the late nineteen nineties. It is used as example for many
-#' of the \code{\link[=ProTrackR-package]{ProTrackR}} methods and you can use it to test your own
+#' of the [ProTrackR][ProTrackR-package] methods and you can use it to test your own
 #' code. It can also be exported back to the original ProTracker module file
-#' by using \code{\link{write.module}}.
+#' by using [`write.module`].
 #' @docType data
 #' @name mod.intro
-#' @format A \code{\link{PTModule}} object containing 4
-#' \code{\link{PTSample}} objects (and 27 empty \code{PTSample}
-#' objects, adding up to the 31 samples a \code{PTModule} should hold) and 4
-#' \code{\link{PTPattern}} objects.
+#' @format A [`PTModule`] object containing 4
+#' [`PTSample`] objects (and 27 empty `PTSample`
+#' objects, adding up to the 31 samples a `PTModule` should hold) and 4
+#' [`PTPattern`] objects.
 #' @examples
 #' data("mod.intro")
 #' print(mod.intro)

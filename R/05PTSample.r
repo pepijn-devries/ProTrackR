@@ -26,83 +26,83 @@ validity.PTSample <- function(object)
 #' The PTSample class
 #'
 #' This class holds audio fragments with meta-information, to be used in
-#' \code{\link{PTModule}} objects.
+#' [`PTModule`] objects.
 #'
 #' This class holds audio fragments with meta-information (so-called samples),
-#' to be used in \code{\link{PTModule}} objects. This class extends
-#' the \code{\link[tuneR]{Wave}} class from \code{\link[tuneR]{tuneR}}. It therewith inherits
-#' all properties and cool methods available from the \code{\link[tuneR]{tuneR}} package.
-#' This allows you, for instance, to generate power spectra (\code{\link[tuneR]{powspec}})
-#' of them. You can also plot the waveform with the \code{\link[tuneR]{plot-Wave}} method.
-#' See \code{\link[tuneR]{tuneR}} for all possibilities with \code{\link[tuneR]{Wave}}
+#' to be used in [`PTModule`] objects. This class extends
+#' the [`tuneR::Wave`] class from [`tuneR::tuneR`]. It therewith inherits
+#' all properties and cool methods available from the [`tuneR::tuneR`] package.
+#' This allows you, for instance, to generate power spectra ([`tuneR::powspec`])
+#' of them. You can also plot the waveform with the [`plot-Wave`][tuneR::plot_Wave_channel] method.
+#' See [`tuneR::tuneR`] for all possibilities with [`tuneR::Wave`]
 #' objects.
-#' If you want you can also explicitly coerce \code{\link{PTSample}} to
-#' \code{\link[tuneR]{Wave}} objects like this: \code{as(new("PTSample"), "Wave")}.
+#' If you want you can also explicitly coerce [`PTSample`] to
+#' [`tuneR::Wave`] objects like this: `as(new("PTSample"), "Wave")`.
 #'
-#' The \code{\link{PTSample}} class has some slots that are additional to the
-#' \code{\link[tuneR]{Wave}} class, as ProTracker requires additional information on
+#' The [`PTSample`] class has some slots that are additional to the
+#' [`tuneR::Wave`] class, as ProTracker requires additional information on
 #' the sample with respect to its name, fine tune, volume and loop positions.
-#' The \code{\link{PTSample}} class restricts the enherited \code{\link[tuneR]{Wave}}
+#' The [`PTSample`] class restricts the enherited [`tuneR::Wave`]
 #' class such that it will only hold 8 bit, mono, pcm waves with a maximum of
-#' \code{2*0xffff = 131070} samples, as per ProTracker standards. The length should
+#' `2*0xffff = 131070` samples, as per ProTracker standards. The length should
 #' always be even.
 #'
-#' \code{PTSample}s can be imported and exported using the
-#' \code{\link{read.sample}} ans \code{\link{write.sample}} methods respectively.
-#' \code{\link[tuneR]{Wave}} objects and \code{raw} data can be coerced to
-#' \code{PTSample}s with the \code{\link{PTSample-method}}.
+#' `PTSample`s can be imported and exported using the
+#' [`read.sample`] and [`write.sample`] methods respectively.
+#' [`tuneR::Wave`] objects and `raw` data can be coerced to
+#' `PTSample`s with the [`PTSample-method`].
 #'
-#' @slot name A \code{vector} of length 22 of class "\code{raw}", representing
-#' the name of the \code{PTSample}. It is often used to include
-#' descriptive information in a \code{\link{PTModule}}. The name
-#' of a sample can be extracted or replaced with the \code{\link{name}} method.
-#' @slot finetune Single value of class "\code{raw}". The \code{\link{loNybble}}
-#' of the \code{raw} value, represents the sample fine tune value ranging from -8 up to
+#' @slot name A `vector` of length 22 of class `raw`, representing
+#' the name of the `PTSample`. It is often used to include
+#' descriptive information in a [`PTModule`]. The name
+#' of a sample can be extracted or replaced with the [`name`] method.
+#' @slot finetune Single value of class `raw`. The [`loNybble`]
+#' of the `raw` value, represents the sample fine tune value ranging from -8 up to
 #' 7. This value is used to tweak the playback sample rate, in order to tune it.
 #' Negative values will lower the sample rate of notes, positive values will
 #' increase the sample rate of notes. Period values corresponding to specific
-#' notes and fine tune values are stored in the \code{\link{period_table}}.
-#' The fine tune value can be extracted or replace with the \code{\link{fineTune}}
+#' notes and fine tune values are stored in the [`period_table`].
+#' The fine tune value can be extracted or replace with the [`fineTune`]
 #' method.
-#' @slot volume Single value of class "\code{raw}". The raw data corresponds with
+#' @slot volume Single value of class `raw`. The raw data corresponds with
 #' the default playback volume of the sample. It ranges from 0 (silent) up to
 #' 64 (maximum volume). The volume value can be extracted or replaced with the
-#' \code{\link{volume}} method.
-#' @slot wloopstart A \code{vector} of length 2 of class "\code{raw}". The \code{raw}
+#' [`volume`] method.
+#' @slot wloopstart A `vector` of length 2 of class `raw`. The `raw`
 #' data represent a single unsigned number representing the starting position of
-#' a loop in the sample. It should have a value of \code{0} when there is no loop.
-#' Its value could range from \code{0} up to \code{0xffff}. To get the actual position
+#' a loop in the sample. It should have a value of `0` when there is no loop.
+#' Its value could range from `0` up to `0xffff`. To get the actual position
 #' in bytes the value needs to be multiplied with 2 and can therefore only be
 #' can only be even. The sum of the loop start position and the loop length should
-#' not exceed the \code{\link{sampleLength}}. Its value can be extracted or
-#' replaced with the \code{\link{loopStart}} method.
-#' @slot wlooplen A \code{vector} of length 2 of class "\code{raw}". The \code{raw}
+#' not exceed the [`sampleLength`]. Its value can be extracted or
+#' replaced with the [`loopStart`] method.
+#' @slot wlooplen A `vector` of length 2 of class `raw`. The `raw`
 #' data represent a single unsigned number representing the length of
 #' a loop in the sample. To get the actual length in bytes, this value needs to
 #' be multiplied by 2 and can therefore only be even. It should have a value of
-#' \code{2} when there is no loop.
-#' Its value could range from \code{2} up to \code{2*0xffff} (= \code{131070}) and
-#' can only be even (it can be \code{0} when the sample is empty). The sum of the
+#' `2` when there is no loop.
+#' Its value could range from `2` up to `2*0xffff` (= `131070`) and
+#' can only be even (it can be `0` when the sample is empty). The sum of the
 #' loop start position and the loop length should
-#' not exceed the \code{\link{sampleLength}}. Its value can be extracted or
-#' replaced with the \code{\link{loopLength}} method.
-#' @slot left Object of class "\code{numeric}" representing the waveform of the
-#' left channel. Should be \code{integer} values ranging from 0 up to 255.
-#' It can be extracted or replaced with the \code{\link{waveform}} method.
-#' @slot right Object of class "\code{numeric}" representing the right channel.
-#' This slot is inherited from the \code{\link[tuneR]{Wave}} class and should be
-#' \code{numeric(0)} for all \code{PTSample}s, as they are all mono.
-#' @slot stereo Object of class "\code{logical}" whether this is a stereo representation.
-#' This slot is inherited from the \code{\link[tuneR]{Wave}} class. As
-#' \code{PTSample}s are always mono, this slot should have the value \code{FALSE}.
-#' @slot samp.rate Object of class "\code{numeric}" representing the sampling rate.
-#' @slot bit Object of class "\code{numeric}" representing the bit-wise quality.
-#' This slot is inherited from the \code{\link[tuneR]{Wave}} class. As
-#' \code{PTSample}s are always of 8 bit quality, the value of this slot
+#' not exceed the [`sampleLength`]. Its value can be extracted or
+#' replaced with the [`loopLength`] method.
+#' @slot left Object of class `numeric` representing the waveform of the
+#' left channel. Should be `integer` values ranging from 0 up to 255.
+#' It can be extracted or replaced with the [`waveform`] method.
+#' @slot right Object of class `numeric` representing the right channel.
+#' This slot is inherited from the [`tuneR::Wave`] class and should be
+#' `numeric(0)` for all `PTSample`s, as they are all mono.
+#' @slot stereo Object of class `logical` whether this is a stereo representation.
+#' This slot is inherited from the [`tuneR::Wave`] class. As
+#' `PTSample`s are always mono, this slot should have the value `FALSE`.
+#' @slot samp.rate Object of class `numeric` representing the sampling rate.
+#' @slot bit Object of class `numeric` representing the bit-wise quality.
+#' This slot is inherited from the [`tuneR::Wave`] class. As
+#' `PTSample`s are always of 8 bit quality, the value of this slot
 #' should always be 8.
-#' @slot pcm Object of class "\code{logical}" indicating whether wave format is PCM.
-#' This slot is inherited from the \code{\link[tuneR]{Wave}} class, for
-#' \code{PTSample}s its value should always be \code{TRUE}.
+#' @slot pcm Object of class `logical` indicating whether wave format is PCM.
+#' This slot is inherited from the [`tuneR::Wave`] class, for
+#' `PTSample`s its value should always be `TRUE`.
 #'
 #' @name PTSample-class
 #' @rdname PTSample-class
@@ -129,23 +129,23 @@ setClass("PTSample",
 
 #' Resample data
 #'
-#' Resample \code{numeric} data to a different rate.
+#' Resample `numeric` data to a different rate.
 #'
-#' This function resamples \code{numeric} data (i.e., audio data) from a
+#' This function resamples `numeric` data (i.e., audio data) from a
 #' source sample rate to a target sample rate. At the core it uses
-#' the \code{\link[stats]{approx}} function.
+#' the [`stats::approx`] function.
 #' @rdname resample
 #' @name resample
-#' @param x A \code{numeric} \code{vector} that needs to be resampled.
-#' @param source.rate The rate at which \code{x} was sampled in Hz (or
-#' another unit, as long as it is in the same unit as \code{target.rate}).
+#' @param x A `numeric` `vector` that needs to be resampled.
+#' @param source.rate The rate at which `x` was sampled in Hz (or
+#' another unit, as long as it is in the same unit as `target.rate`).
 #' @param target.rate The desired target sampling rate in Hz (or
-#' another unit, as long as it is in the same unit as \code{source.rate}).
-#' @param ... Arguments passed on to \code{\link[stats]{approx}}.
+#' another unit, as long as it is in the same unit as `source.rate`).
+#' @param ... Arguments passed on to [`stats::approx`].
 #' To simulate the Commodore Amiga hardware, it's best to
-#' use '\code{method = "constant"} for resampling 8 bit samples.
-#' @returns Returns a resampled \code{numeric} \code{vector} of length
-#' \code{round(length(x) * target.rate / source.rate)} based on \code{x}.
+#' use '`method = "constant"` for resampling 8 bit samples.
+#' @returns Returns a resampled `numeric` `vector` of length
+#' `round(length(x) * target.rate / source.rate)` based on `x`.
 #' @examples
 #' some.data <- 1:100
 #'
@@ -171,26 +171,26 @@ setGeneric("fineTune<-", def = function(sample, value) standardGeneric("fineTune
 
 #' Fine tune a PTSample
 #'
-#' Extract or replace the fine tune value of a \code{\link{PTSample}}.
+#' Extract or replace the fine tune value of a [`PTSample`].
 #'
-#' \code{\link{PTSample}}s can be tuned with their fine tune values.
+#' [`PTSample`]s can be tuned with their fine tune values.
 #' The values range from -8 up to 7 and affect the playback sample rate of
-#' specific notes (see \code{\link{period_table}}). This method can be used
+#' specific notes (see [`period_table`]). This method can be used
 #' to extract this value, or to safely replace it.
 #'
 #' @docType methods
 #' @rdname fineTune
 #' @name fineTune
 #' @aliases fineTune,PTSample-method
-#' @param sample A \code{\link{PTSample}} for which the fine tune value
+#' @param sample A [`PTSample`] for which the fine tune value
 #' needs to be extracted or replace.
-#' @param value A \code{numeric} value ranging from -8 up to 7, representing
+#' @param value A `numeric` value ranging from -8 up to 7, representing
 #' the fine tune.
-#' @returns For \code{fineTune} the fine tune value, represented by an
-#' \code{integer} value ranging from -8 up to 7, is returned.
+#' @returns For `fineTune` the fine tune value, represented by an
+#' `integer` value ranging from -8 up to 7, is returned.
 #'
-#' For \code{fineTune<-} A \code{\link{PTSample}} \code{sample}, updated
-#' with the fine tune \code{value}, is returned.
+#' For `fineTune<-` A [`PTSample`] `sample`, updated
+#' with the fine tune `value`, is returned.
 #' @examples
 #' data("mod.intro")
 #'
@@ -224,25 +224,25 @@ setGeneric("volume<-", function(sample, value) standardGeneric("volume<-"))
 
 #' Default playback volume of PTSample
 #'
-#' Extract or replace the default volume of a \code{\link{PTSample}}.
+#' Extract or replace the default volume of a [`PTSample`].
 #'
-#' \code{\link{PTSample}}s have a default playback volume, ranging from
-#' \code{0} (silent) up to 64 (maximum volume). This method can be used
+#' [`PTSample`]s have a default playback volume, ranging from
+#' `0` (silent) up to 64 (maximum volume). This method can be used
 #' to extract this value, or to safely replace it.
 #'
 #' @docType methods
 #' @rdname volume
 #' @name volume
 #' @aliases volume,PTSample-method
-#' @param sample A \code{\link{PTSample}} for which the default volume
+#' @param sample A [`PTSample`] for which the default volume
 #' needs to be extracted or replace.
-#' @param value A \code{numeric} value ranging from 0 up to 64, representing
+#' @param value A `numeric` value ranging from 0 up to 64, representing
 #' the volume level.
-#' @returns For \code{volume} the volume value, represented by an
-#' \code{integer} value ranging from 0 up to 64, is returned.
+#' @returns For `volume` the volume value, represented by an
+#' `integer` value ranging from 0 up to 64, is returned.
 #'
-#' For \code{volume<-} A \code{\link{PTSample}} \code{sample}, updated
-#' with the volume \code{value}, is returned.
+#' For `volume<-` A [`PTSample`] `sample`, updated
+#' with the volume `value`, is returned.
 #' @examples
 #' data("mod.intro")
 #'
@@ -278,30 +278,30 @@ setGeneric("loopStart<-", function(sample, value) standardGeneric("loopStart<-")
 
 #' The loop start position of a PTSample
 #'
-#' Extract or replace the loop start position of a \code{\link{PTSample}}.
+#' Extract or replace the loop start position of a [`PTSample`].
 #'
-#' \code{\link{PTSample}}s can have loops, marked by a starting position
+#' [`PTSample`]s can have loops, marked by a starting position
 #' and length of the loop (in samples), for more details see the
-#' \code{\link{PTSample-class}}. This method can be used to extract
+#' [`PTSample-class`]. This method can be used to extract
 #' the loop starting position or safely replace its value.
 #'
 #' @docType methods
 #' @rdname loopStart
 #' @name loopStart
 #' @aliases loopStart,PTSample-method
-#' @param sample A \code{\link{PTSample}} for which the loop start position
+#' @param sample A [`PTSample`] for which the loop start position
 #' needs to be extracted or replace.
-#' @param value An even \code{numeric} value giving the loop starting position in
-#' samples ranging from 0 up to 131070. The sum of the \code{\link{loopStart}} and
-#' \code{\link{loopLength}} should not exceed the \code{\link{sampleLength}}.
+#' @param value An even `numeric` value giving the loop starting position in
+#' samples ranging from 0 up to 131070. The sum of the [`loopStart`] and
+#' [`loopLength`] should not exceed the [`sampleLength`].
 #'
-#' Use a \code{value} of either \code{character} "\code{off}" or \code{logical}
-#' "\code{FALSE}", in order to turn off the loop all together.
-#' @returns For \code{loopStart} the loop start position (in samples), represented by
-#' an even \code{integer} value ranging from 0 up to 131070, is returned.
+#' Use a `value` of either `character` `"off"` or `logical`
+#' `FALSE`, in order to turn off the loop all together.
+#' @returns For `loopStart` the loop start position (in samples), represented by
+#' an even `integer` value ranging from 0 up to 131070, is returned.
 #'
-#' For \code{loopStart<-} A \code{\link{PTSample}} \code{sample}, updated
-#' with the loop start position `\code{value}', is returned.
+#' For `loopStart<-` A [`PTSample`] `sample`, updated
+#' with the loop start position ``value`', is returned.
 #' @examples
 #' data("mod.intro")
 #'
@@ -352,31 +352,31 @@ setGeneric("loopLength<-", function(sample, value) standardGeneric("loopLength<-
 
 #' The loop length of a PTSample
 #'
-#' Extract or replace the loop length of a \code{\link{PTSample}}.
+#' Extract or replace the loop length of a [`PTSample`].
 #'
-#' \code{\link{PTSample}}s can have loops, marked by a starting position
+#' [`PTSample`]s can have loops, marked by a starting position
 #' and length of the loop (in samples), for more details see the
-#' \code{\link{PTSample-class}}. This method can be used to extract
+#' [`PTSample-class`]. This method can be used to extract
 #' the loop length or safely replace its value.
 #'
 #' @docType methods
 #' @rdname loopLength
 #' @name loopLength
 #' @aliases loopLength,PTSample-method
-#' @param sample A \code{\link{PTSample}} for which the loop length
+#' @param sample A [`PTSample`] for which the loop length
 #' needs to be extracted or replace.
-#' @param value An even \code{numeric} value giving the loop length in
+#' @param value An even `numeric` value giving the loop length in
 #' samples ranging from 2 up to 131070 (It can be 0 when the sample is
-#' empty). The sum of the \code{\link{loopStart}} and
-#' \code{\link{loopLength}} should not exceed the \code{\link{sampleLength}}.
+#' empty). The sum of the [`loopStart`] and
+#' [`loopLength`] should not exceed the [`sampleLength`].
 #'
-#' Use a \code{value} of either \code{character} "\code{off}" or \code{logical}
-#' "\code{FALSE}", in order to turn off the loop all together.
-#' @returns For \code{loopLength} the loop length (in samples), represented by
-#' an even \code{integer} value ranging from 0 up to 131070, is returned.
+#' Use a `value` of either `character` `"off"` or `logical`
+#' `FALSE`, in order to turn off the loop all together.
+#' @returns For `loopLength` the loop length (in samples), represented by
+#' an even `integer` value ranging from 0 up to 131070, is returned.
 #'
-#' For \code{loopLength<-} A \code{\link{PTSample}} \code{sample}, updated
-#' with the loop length `\code{value}', is returned.
+#' For `loopLength<-` A [`PTSample`] `sample`, updated
+#' with the loop length `value`, is returned.
 #' @examples
 #' data("mod.intro")
 #'
@@ -453,44 +453,44 @@ setGeneric("playSample", function(x, silence = 0, wait = T,
 
 #' Play audio samples
 #'
-#' Method to play \code{\link{PTSample}}s or all such samples from
-#' \code{\link{PTModule}} objects as audio.
+#' Method to play [`PTSample`]s or all such samples from
+#' [`PTModule`] objects as audio.
 #'
-#' This method plays \code{\link{PTSample}}s and such samples from
-#' \code{\link{PTModule}} objects, using the \code{\link[audio]{play}} method
-#' from the audio package. Default \code{\link{fineTune}} and \code{\link{volume}}
-#' as specified for the \code{\link{PTSample}} will be applied when playing
+#' This method plays [`PTSample`]s and such samples from
+#' [`PTModule`] objects, using the [`audio::play`] method
+#' from the audio package. Default [`fineTune`] and [`volume`]
+#' as specified for the [`PTSample`] will be applied when playing
 #' the sample.
 #' @rdname playSample
 #' @name playSample
 #' @aliases playSample,PTSample-method
-#' @param x Either a \code{\link{PTSample}} or a \code{\link{PTModule}} object.
+#' @param x Either a [`PTSample`] or a [`PTModule`] object.
 #' In the latter case, all samples in the module will be played in order.
-#' @param silence Especially for short samples, the \code{\link[audio]{play}} routine
+#' @param silence Especially for short samples, the [`audio::play`] routine
 #' can be a bit buggy: playing audible noise, ticks or parts from other samples at the end of the sample.
 #' By adding silence after the sample, this problem is evaded. Use this argument
-#' to specify the duration of this silence in seconds. When, \code{x} is a
-#' \code{\link{PTModule}} object, the silence will also be inserted in
+#' to specify the duration of this silence in seconds. When, `x` is a
+#' [`PTModule`] object, the silence will also be inserted in
 #' between samples.
-#' @param wait A \code{logical} value. When set to \code{TRUE} the playing
+#' @param wait A `logical` value. When set to `TRUE` the playing
 #' routine will wait with executing any code until the playing is finished.
-#' When set to \code{FALSE}, subsequent R code will be executed while playing.
-#' @param note A \code{character} string specifying the note to be used for
-#' calculating the playback sample rate (using \code{\link{noteToSampleRate}}).
+#' When set to `FALSE`, subsequent R code will be executed while playing.
+#' @param note A `character` string specifying the note to be used for
+#' calculating the playback sample rate (using [`noteToSampleRate`]).
 #' It should start with the note (ranging from `A' up to `G') optionally followed
 #' by a hash sign (`#') if a note is sharp (or a dash (`-') if it's not) and finally
 #' the octave number (ranging from 1 up to 3). A valid notation would for instance
-#' be `F#3'.
-#' The \code{\link{fineTune}} as specified for the sample will also be used as
-#' an argument for calculating the playback rate. A custom \code{finetune}
-#' can also be passed as an argument to \code{\link{noteToSampleRate}}.
-#' @param loop A positive \code{numeric} indicating the duration of a looped
+#' be 'F#3'.
+#' The [`fineTune`] as specified for the sample will also be used as
+#' an argument for calculating the playback rate. A custom `finetune`
+#' can also be passed as an argument to [`noteToSampleRate`].
+#' @param loop A positive `numeric` indicating the duration of a looped
 #' sample in seconds. A looped sample will be played at least once, even if
-#' the specified duration is less than the sum of \code{\link{loopStart}}
-#' position and the \code{\link{loopLength}}.
-#' See \code{\link{loopStart}} and \code{\link{loopLength}} for details on how
+#' the specified duration is less than the sum of [`loopStart`]
+#' position and the [`loopLength`].
+#' See [`loopStart`] and [`loopLength`] for details on how
 #' to set (or disable) a loop.
-#' @param ... Further arguments passed on to \code{\link{noteToSampleRate}}.
+#' @param ... Further arguments passed on to [`noteToSampleRate`].
 #' Can be used to change the video mode, or finetune argument for the call to that method.
 #' @returns Returns nothing but plays the sample(s) as audio.
 #' @examples
@@ -560,30 +560,30 @@ setGeneric("read.sample", function(filename, what = c("wav", "mp3", "8svx", "raw
 
 #' Read an audio file and coerce to a PTSample object
 #'
-#' Reads audio files from "wav" and "mp3" files, using \code{\link[tuneR]{tuneR}}
+#' Reads audio files from "wav" and "mp3" files, using [`tuneR::tuneR`]
 #' methods. Commodore Amiga native formats "8svx" and "raw" can also be read.
 #'
-#' This method provides a wrapper for the \code{\link[tuneR]{readWave}} and
-#' \code{\link[tuneR]{readMP3}} methods from \code{\link[tuneR]{tuneR}}. It also
+#' This method provides a wrapper for the [`tuneR::readWave`] and
+#' [`tuneR::readMP3`] methods from [`tuneR::tuneR`]. It also
 #' provides the means to import audio from file formats native to the Commodore
-#' Amiga. Simple \href{https://en.wikipedia.org/wiki/8SVX}{8svx} files (also known
-#' as "iff" files) can be read. This uses the \code{\link[AmigaFFH]{read.iff}} method
-#' from the \code{\link[AmigaFFH]{AmigaFFH}} package.
+#' Amiga. Simple [8svx](https://en.wikipedia.org/wiki/8SVX) files (also known
+#' as "iff" files) can be read. This uses the [`AmigaFFH::read.iff`] method
+#' from the [`AmigaFFH::AmigaFFH`] package.
 #' It was also common practice to store audio samples as raw data on the
 #' Commodore Amiga, where each byte simply represented a signed integer value
 #' of the waveform.
 #'
 #' All audio will be coerced to 8 bit mono with a maximum length of
-#' \code{2*0xffff} = {131070} bytes (= samples) as per ProTracker standards.
+#' `2*0xffff` = `131070` bytes (= samples) as per ProTracker standards.
 #' @rdname read.sample
 #' @name read.sample
 #' @aliases read.sample,character-method
-#' @param filename A \code{character} string representing the filename to be read.
-#' @param what A \code{character} string indicating what type of file is to be
-#' read. Can be one of the following: "\code{wav}" (default), "\code{mp3}",
-#' "\code{8svx}" or "\code{raw}". The \code{AmigaFFH} package needs to be
+#' @param filename A `character` string representing the filename to be read.
+#' @param what A `character` string indicating what type of file is to be
+#' read. Can be one of the following: `"wav"` (default), `"mp3"`,
+#' `"8svx"` or `"raw"`. The `AmigaFFH` package needs to be
 #' installed in order to read 8svx files.
-#' @returns Returns a \code{PTSample} object based on the file read.
+#' @returns Returns a `PTSample` object based on the file read.
 #' @examples
 #' \dontrun{
 #' data("mod.intro")
@@ -597,7 +597,7 @@ setGeneric("read.sample", function(filename, what = c("wav", "mp3", "8svx", "raw
 #' }
 #'
 #' @note As per ProTracker standards, a sample should have an even length
-#' (in bytes). If a sample file has an odd length, a \code{raw} \code{0x00} value
+#' (in bytes). If a sample file has an odd length, a `raw` `0x00` value
 #' is added to the end.
 #' @family sample.operations
 #' @author Pepijn de Vries
@@ -675,25 +675,25 @@ setGeneric("write.sample", function(sample, filename, what = c("wav", "8svx", "r
 
 #' Write a PTSample object to an audio file
 #'
-#' Write a \code{PTSample} as a "wav", "8svx" or "raw" audio file.
+#' Write a `PTSample` as a "wav", "8svx" or "raw" audio file.
 #'
-#' This method provides a wrapper for the \code{\link[tuneR]{writeWave}} method
-#' from \code{\link[tuneR]{tuneR}}. It also provides the means to export audio
-#' to file formats native to the Commodore Amiga. \code{PTSample}s can be
-#' exported as simple (uncompressed) \href{https://en.wikipedia.org/wiki/8SVX}{8svx}
+#' This method provides a wrapper for the [`tuneR::writeWave`] method
+#' from [`tuneR::tuneR`]. It also provides the means to export audio
+#' to file formats native to the Commodore Amiga. `PTSample`s can be
+#' exported as simple (uncompressed) [8svx](https://en.wikipedia.org/wiki/8SVX)
 #' files also known as "iff" files). In addition they can be exported as raw data,
 #' where each byte simply represents a signed integer value of the waveform.
 #'
 #' @rdname write.sample
 #' @name write.sample
 #' @aliases write.sample,PTSample,character-method
-#' @param sample A \code{PTSample} object that needs to be exported to an audio
+#' @param sample A `PTSample` object that needs to be exported to an audio
 #' file.
-#' @param filename A \code{character} string representing the filename to which
+#' @param filename A `character` string representing the filename to which
 #' the audio needs to be saved.
-#' @param what A \code{character} string indicating what type of file is to be
-#' exported. Can be one of the following: "\code{wav}" (default),
-#' "\code{8svx}" or "\code{raw}". The \code{AmigaFFH} package needs to be
+#' @param what A `character` string indicating what type of file is to be
+#' exported. Can be one of the following: `"wav"` (default),
+#' `"8svx"` or `"raw"`. The `AmigaFFH` package needs to be
 #' installed in order to write 8svx files.
 #' @returns Saves the audio to a file, but returns nothing.
 #' @examples
@@ -745,33 +745,33 @@ setGeneric("name<-", function(x, value) standardGeneric("name<-"))
 
 #' Obtain or replace the name of a PTModule or PTSample
 #'
-#' The name of both a \code{\link{PTModule}} and
-#' \code{\link{PTSample}} are stored as \code{raw} data.
-#' This method returns the name as a \code{character} string, or it can
-#' be used to assign a new name to a \code{\link{PTModule}} or
-#' \code{\link{PTSample}}.
+#' The name of both a [`PTModule`] and
+#' [`PTSample`] are stored as `raw` data.
+#' This method returns the name as a `character` string, or it can
+#' be used to assign a new name to a [`PTModule`] or
+#' [`PTSample`].
 #'
-#' The name of a \code{\link{PTModule}} and
-#' \code{\link{PTSample}} is stored as a \code{vector} of
-#' \code{raw} data with a length of 20 or 22 respectively. This method
-#' provides the means for getting the name as a \code{character} string
-#' or to safely redefine the name of a \code{\link{PTModule}} or
-#' \code{\link{PTSample}} object. To do so,
-#' the provided name (\code{value}) is converted to a \code{raw} \code{vector}
+#' The name of a [`PTModule`] and
+#' [`PTSample`] is stored as a `vector` of
+#' `raw` data with a length of 20 or 22 respectively. This method
+#' provides the means for getting the name as a `character` string
+#' or to safely redefine the name of a [`PTModule`] or
+#' [`PTSample`] object. To do so,
+#' the provided name (`value`) is converted to a `raw` `vector`
 #' of length 20 or 22 respectively. Long names may therefore get clipped.
 #'
 #' @docType methods
 #' @rdname name
 #' @name name
 #' @aliases name,PTSample-method
-#' @param x A \code{\link{PTModule}} or a \code{\link{PTSample}}
+#' @param x A [`PTModule`] or a [`PTSample`]
 #' object for which to obtain or replace the name.
-#' @param value A \code{character} string which should be used to replace the
-#' name of \code{\link{PTModule}} or \code{\link{PTSample}} \code{x}.
-#' @returns For \code{name}, the name of the \code{\link{PTModule}} or
-#' \code{\link{PTSample}} object as a \code{character} string is returned.
+#' @param value A `character` string which should be used to replace the
+#' name of [`PTModule`] or [`PTSample`] `x`.
+#' @returns For `name`, the name of the [`PTModule`] or
+#' [`PTSample`] object as a `character` string is returned.
 #'
-#' For \code{name<-}, object \code{x} with an updated name is returned.
+#' For `name<-`, object `x` with an updated name is returned.
 #' @examples
 #' data("mod.intro")
 #'
@@ -819,17 +819,17 @@ setGeneric("sampleLength", function(sample) standardGeneric("sampleLength"))
 #' Get the length of a PTSample
 #'
 #' Gets the length (in samples = bytes) of an audio fragment stored as a
-#' \code{\link{PTSample}}.
+#' [`PTSample`].
 #'
-#' \code{\link{PTSample}}s are 8 bit mono audio fragments. This method
+#' [`PTSample`]s are 8 bit mono audio fragments. This method
 #' returns the length of this fragment expressed as number of samples (which
 #' also equals the number of bytes).
 #' @rdname sampleLength
 #' @name sampleLength
 #' @aliases sampleLength,PTSample-method
-#' @param sample A \code{PTSample} object for which the length needs to be returned.
-#' @returns Returns a \code{numeric} value representing the number of samples
-#' (bytes) the \code{PTSample} object \code{sample} is composed of.
+#' @param sample A `PTSample` object for which the length needs to be returned.
+#' @returns Returns a `numeric` value representing the number of samples
+#' (bytes) the `PTSample` object `sample` is composed of.
 #' @examples
 #' data("mod.intro")
 #'
@@ -848,54 +848,54 @@ setGeneric("waveform<-", function(sample, value) standardGeneric("waveform<-"))
 
 #' Extract or replace a PTSample waveform
 #'
-#' Extract or replace the waveform of a \code{\link{PTSample}} object. The
-#' waveform is represented by a \code{vector} of numeric values ranging from
+#' Extract or replace the waveform of a [`PTSample`] object. The
+#' waveform is represented by a `vector` of numeric values ranging from
 #' 0 up to 255.
 #'
 #' Sample waveforms are stored as 8 bit signed short integer values ranging
 #' from -128 up to +127 in original ProTracker files. However, as the
-#' \code{\link{PTSample}} class extends the \code{\link[tuneR]{Wave}} class,
+#' [`PTSample`] class extends the [`tuneR::Wave`] class,
 #' the waveforms are represented by integer values ranging from 0 up to 255
-#' in the \link[=ProTrackR-package]{ProTrackR} package. As per ProTracker specifications,
+#' in the [ProTrackR][ProTrackR-package] package. As per ProTracker specifications,
 #' samples are of 8 bit mono quality and can only have an even length with
-#' a maximum of \code{2*0xffff} = \code{131070}. This method can be used to
+#' a maximum of `2*0xffff` = `131070`. This method can be used to
 #' extract a waveform or replace it.
 #' @rdname waveform
 #' @name waveform
 #' @aliases waveform,PTSample-method
-#' @param sample A \code{\link{PTSample}} object from which the waveform needs to
+#' @param sample A [`PTSample`] object from which the waveform needs to
 #' be extracted or replaced.
-#' @param start.pos A \code{numeric} starting index, giving the starting
-#' position for the waveform to be returned. Default value is \code{1}. This
+#' @param start.pos A `numeric` starting index, giving the starting
+#' position for the waveform to be returned. Default value is `1`. This
 #' index should be greater than zero.
-#' @param stop.pos A \code{numeric} stopping index, giving the stopping
+#' @param stop.pos A `numeric` stopping index, giving the stopping
 #' position for the waveform to be returned. Default value is
-#' \code{sampleLength(sample)} This index should be greater than
-#' \code{start.pos}.
-#' @param loop A \code{logical} value indicating whether the waveform
+#' `sampleLength(sample)` This index should be greater than
+#' `start.pos`.
+#' @param loop A `logical` value indicating whether the waveform
 #' should be modulated between the specified loop positions
-#' (see \code{\link{loopStart}} and \code{\link{loopLength}}),
-#' or the waveform should stop at the end of the sample (padded with \code{NA}
+#' (see [`loopStart`] and [`loopLength`]),
+#' or the waveform should stop at the end of the sample (padded with `NA`
 #' values beyond the sample length). Will do the first
-#' when set to \code{TRUE} and the latter when set to \code{FALSE}.
-#' @param value A \code{vector} of numeric values ranging from 0 up to 255,
+#' when set to `TRUE` and the latter when set to `FALSE`.
+#' @param value A `vector` of numeric values ranging from 0 up to 255,
 #' representing the waveform that should be used to replace that of object
-#' \code{sample}. The length should be even and not exceed \code{2*0xffff} =
-#' \code{131070}. \code{\link{loopStart}} and \code{\link{loopLength}} will
+#' `sample`. The length should be even and not exceed `2*0xffff` =
+#' `131070`. [`loopStart`] and [`loopLength`] will
 #' be adjusted automatically when they are out of range for the new waveform.
 #'
-#' Use \code{NA} to generate an empty/blank \code{\link{PTSample}} object.
-#' @returns For \code{waveform}, the waveform of \code{sample} is returned
-#' as a \code{vector} of \code{numeric} values ranging from 0 up to 255.
-#' If '\code{loop}' is set to \code{FALSE}
-#' and the starting position is beyond the sample length, \code{NA} values
-#' are returned. If '\code{loop}' is set to \code{TRUE} and the starting
+#' Use `NA` to generate an empty/blank [`PTSample`] object.
+#' @returns For `waveform`, the waveform of `sample` is returned
+#' as a `vector` of `numeric` values ranging from 0 up to 255.
+#' If `loop` is set to `FALSE`
+#' and the starting position is beyond the sample length, `NA` values
+#' are returned. If `loop` is set to `TRUE` and the starting
 #' position is beyond the sample loop (if present, see
-#' \code{\link{loopState}}), the waveform is modulated between the loop
+#' [`loopState`]), the waveform is modulated between the loop
 #' positions.
 #'
-#' For \code{waveform<-}, a copy of object \code{sample} is returned in which
-#' the waveform has been replaced with \code{value}.
+#' For `waveform<-`, a copy of object `sample` is returned in which
+#' the waveform has been replaced with `value`.
 #' @examples
 #' data("mod.intro")
 #'
@@ -993,24 +993,24 @@ setGeneric("loopSample", function(sample, times, n_samples) standardGeneric("loo
 
 #' Looped waveform of a sample
 #'
-#' Generate a looped \code{\link{waveform}} of a \code{\link{PTSample}} object.
+#' Generate a looped [`waveform`] of a [`PTSample`] object.
 #'
 #' For playing routines, it can be useful to generate repeats of a sample loop.
-#' This method returns the waveform of a \code{\link{PTSample}} where the
-#' loop is repeated `\code{times}' times or has a length of `\code{n_samples}'.
+#' This method returns the waveform of a [`PTSample`] where the
+#' loop is repeated ``times`' times or has a length of ``n_samples`'.
 #' @rdname loopSample
 #' @name loopSample
 #' @aliases loopSample,PTSample-method
-#' @param sample A \code{\link{PTSample}} object that needs to be looped.
-#' @param times A positive \code{integer} value indicating the number of
+#' @param sample A [`PTSample`] object that needs to be looped.
+#' @param times A positive `integer` value indicating the number of
 #' times a sample loop should be repeated. This argument is ignored if
-#' \code{n_samples} is specified.
-#' @param n_samples A positive \code{integer} value indicating the desired length
+#' `n_samples` is specified.
+#' @param n_samples A positive `integer` value indicating the desired length
 #' of the looped waveform in number of samples. This argument overrules the
-#' \code{times} argument.
-#' @returns Returns a \code{\link{waveform}} represented by a \code{numeric}
-#' \code{vector} of values ranging from 0 up to 255. Has a length of
-#' \code{n_samples} when that argument is specified.
+#' `times` argument.
+#' @returns Returns a [`waveform`] represented by a `numeric`
+#' `vector` of values ranging from 0 up to 255. Has a length of
+#' `n_samples` when that argument is specified.
 #' @examples
 #' data("mod.intro")
 #'
@@ -1043,20 +1043,20 @@ setGeneric("loopState", function(sample) standardGeneric("loopState"))
 
 #' Get PTSample loop state
 #'
-#' Determines whether a loop is specified for a \code{\link{PTSample}} object.
+#' Determines whether a loop is specified for a [`PTSample`] object.
 #'
-#' The loop state is not explicitly stored in a \code{\link{PTSample}} object.
-#' It can be derived from the \code{\link{loopStart}} position and
-#' \code{\link{loopLength}}. This method is provided as a convenient method
-#' to get the state. Use either \code{\link{loopStart}} or \code{\link{loopLength}}
+#' The loop state is not explicitly stored in a [`PTSample`] object.
+#' It can be derived from the [`loopStart`] position and
+#' [`loopLength`]. This method is provided as a convenient method
+#' to get the state. Use either [`loopStart`] or [`loopLength`]
 #' to change the state.
 #' @rdname loopState
 #' @name loopState
 #' @aliases loopState,PTSample-method
-#' @param sample A \code{\link{PTSample}} object for which the loop state needs
+#' @param sample A [`PTSample`] object for which the loop state needs
 #' to be determined.
-#' @returns Returns a \code{logical} value indicating whether a loop is (\code{TRUE})
-#' or isn't (\code{FALSE}) specified for the \code{sample}.
+#' @returns Returns a `logical` value indicating whether a loop is (`TRUE`)
+#' or isn't (`FALSE`) specified for the `sample`.
 #' @examples
 #' data("mod.intro")
 #'

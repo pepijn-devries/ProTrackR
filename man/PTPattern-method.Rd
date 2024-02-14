@@ -37,7 +37,7 @@ object at the specified \code{index} in object \code{x} needs to be replaced.}
 When \code{PTPattern} is used, a \code{PTPattern} object
 based on \code{x} is returned.
 
-When \code{PTPattern<-} is used, object \code{x} is returned in which
+When \verb{PTPattern<-} is used, object \code{x} is returned in which
 the selected \code{PTPattern} is replaced with \code{value}.
 }
 \description{
@@ -52,12 +52,12 @@ When \code{x} is a 64 by 16 \code{matrix} of \code{raw} data, each row
 implicitly represents the \code{\link{PTCell}} objects of each of the
 four tracks. Each \code{\link{PTCell}} consists of four \code{raw}
 values. The values in each row are formatted accordingly, where the values of the
-cells of each track are concatenated. See \code{\link{PTCell-class}} documentation for
+cells of each track are concatenated. See \code{\linkS4class{PTCell}} documentation for
 more details on the \code{raw} format of a \code{\link{PTCell}} object.
 
 When \code{x} is a 64 by 16 \code{matrix} of \code{character} representations
 of \code{\link{PTCell}} objects, the \code{character} representation must be
-conform the specifications as documented at the \code{\link{PTCell-class}}.
+conform the specifications as documented at the \code{\linkS4class{PTCell}}.
 
 When \code{x} is of class \code{\link{PTModule}}, the \code{PTPattern} at the
 specified index (\code{pattern}) is returned, or can be replaced.

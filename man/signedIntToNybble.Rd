@@ -7,11 +7,11 @@
 signedIntToNybble(int_dat, which = c("low", "high"))
 }
 \arguments{
-\item{int_dat}{A single\code{intger} value or a \code{vector} of
+\item{int_dat}{A single \code{integer} value or a \code{vector} of
 \code{integer} data ranging from -8 up to 7.}
 
 \item{which}{A character string indicating whether the nybble should
-be set to the "\code{low}" (default) or "\code{high}" position of the
+be set to the \code{"low"} (default) or \code{"high"} position of the
 raw data that is returned.}
 }
 \value{

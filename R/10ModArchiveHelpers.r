@@ -200,28 +200,28 @@ htmlcodes <- rbind(htmlcodes, data.frame(
 
 #' ModArchive helper functions
 #'
-#' \url{https://ModArchive.org} is on of the largest online archive of module files. These functions
+#' <https://ModArchive.org> is on of the largest online archive of module files. These functions
 #' will assist in accessing this archive.
 #'
-#' The \code{modArchive.info} function will retrieve info on a specific module from the
-#' ModArchive. The \code{modArchive.search.mod}, \code{modArchive.search.genre} and
-#' \code{modArchive.search.hash} functions can be used to find specific modules
-#' in the archive. Use \code{modArchive.random.pick} to get module info on a random
+#' The `modArchive.info` function will retrieve info on a specific module from the
+#' ModArchive. The `modArchive.search.mod`, `modArchive.search.genre` and
+#' `modArchive.search.hash` functions can be used to find specific modules
+#' in the archive. Use `modArchive.random.pick` to get module info on a random
 #' module in the archive.
 #'
-#' Use the \code{modArchive.view.by}
+#' Use the `modArchive.view.by`
 #' function to browse the archive by specific aspects.
 #' Note that the ModArchive also contains file formats other than ProTracker's MOD format.
 #' This package can only handle the MOD format.
 #'
-#' The \code{modArchive.download} function will download a module from the archive.
+#' The `modArchive.download` function will download a module from the archive.
 #'
-#' Use \code{modArchive.search.artist} to find artist details in the archive.
+#' Use `modArchive.search.artist` to find artist details in the archive.
 #'
-#' Use \code{modArchive.request.count} to determine how many request you have
+#' Use `modArchive.request.count` to determine how many request you have
 #' made in the current month with the specified key (see `ModArchive API key'
 #' section for details).
-#' Use \code{modArchive.max.requests} to determine how many request you are
+#' Use `modArchive.max.requests` to determine how many request you are
 #' allowed to make each month with the provided key (see `ModArchive API key'
 #' section for details).
 #'
@@ -244,27 +244,27 @@ htmlcodes <- rbind(htmlcodes, data.frame(
 #' ModArchive helper functions described here.
 #'
 #' So how do you get your personal API key? First, you need to register at the
-#' \href{https://modarchive.org/forums/}{ModArchive Forums}. Then follow the
-#' instructions provided in this \href{https://modarchive.org/forums/index.php?topic=1950.0}{topic}
-#' on the forum. For more info, see also the \href{https://modarchive.org/?xml-api}{API
-#' page} on ModArchive.
+#' [ModArchive Forums](https://modarchive.org/forums/). Then follow the
+#' instructions provided in this [topic](https://modarchive.org/forums/index.php?topic=1950.0)
+#' on the forum. For more info, see also the [API page](https://modarchive.org/?xml-api)
+#' on ModArchive.
 #'
 #' If you want to search for module files without an API key, one could make use of
-#' to the \link{modLand} collection instead.
-#' @param mod.id An \code{integer} code used as module identifier in the ModArchive database.
-#' A \code{mod.id} can be obtained by performing a search with \code{modArchive.search.mod}.
+#' to the [modLand] collection instead.
+#' @param mod.id An `integer` code used as module identifier in the ModArchive database.
+#' A `mod.id` can be obtained by performing a search with `modArchive.search.mod`.
 #' When downloading a module, make sure that the identifier represents a MOD file, as
 #' other types will result in an error.
-#' @param search.text A \code{character} string to be used as terms to search
+#' @param search.text A `character` string to be used as terms to search
 #' in the ModArchive.
-#' @param search.where A \code{character} string indicating where in the module files
-#' to search for the \code{search.text}. See usage section for the available options.
+#' @param search.where A `character` string indicating where in the module files
+#' to search for the `search.text`. See usage section for the available options.
 #' @param format.filter File format filter to be used in a search in the ModArchive.
 #' See the usage section for all possible options. Default is "unset" (meaning that
 #' it will search for any file format). Note that only the `MOD' format
 #' is supported by this package.
 #' @param size.filter File size filter to be used in a search in the ModArchive.
-#' Needs to be a \code{character} string representation of a file size
+#' Needs to be a `character` string representation of a file size
 #' category as specified on ModArchive.org.
 #' See the usage section for all possible options. Default is "unset" (meaning that
 #' it will search for any file size). Note that the maximum file size of a
@@ -272,56 +272,54 @@ htmlcodes <- rbind(htmlcodes, data.frame(
 #' category is irrelevant for `MOD' files. Also note that the category names are
 #' inconsistant, these are the literal catagories used by ModArchive
 #' @param genre.filter Genre filter to be used in some of the overviews from the ModArchive.
-#' Needs to be a \code{character} string representation of a genre
+#' Needs to be a `character` string representation of a genre
 #' as specified on ModArchive.org.
 #' See the usage section for all possible options.
-#' This argument is deprecated in the function \code{modArchive.search} since ProTrackR
+#' This argument is deprecated in the function `modArchive.search` since ProTrackR
 #' version 0.3.4, other functions will still accept this argument.
 #' @param search.artist A character string representing the (guessed) artist name
 #' or id number that you ar looking for in the archive.
 #' @param search.hash The MD5 hash code of the specific module you are looking
-#' for. See \url{https://modarchive.org/?xml-api-usage-level3} for details.
-#' @param view.query A query to be used in combination with the \code{view.by}
-#' argument. Use the queries in combination with \code{view.by} as follows:
-#' \itemize{
-#'   \item{\code{view_by_list}: Use a single capital starting letter to browse
-#'   modules by name}
-#'   \item{\code{view_by_rating_comments}: Provide a (user) rating by which you
-#'   wish to browse the modules}
-#'   \item{\code{view_by_rating_reviews}: Provide a (reviewer) rating by which you
-#'   wish to browse the modules}
-#'   \item{\code{view_modules_by_artistid}: Provide an artist id number
-#'   for whom you wish to browse his/her modules}
-#'   \item{\code{view_modules_by_guessed_artist}: Provide an artist guessed
-#'   name for whom you wish to browser his/her modules}
-#' }
+#' for. See <https://modarchive.org/?xml-api-usage-level3> for details.
+#' @param view.query A query to be used in combination with the `view.by`
+#' argument. Use the queries in combination with `view.by` as follows:
+#'   * `view_by_list`: Use a single capital starting letter to browse
+#'     modules by name
+#'   * `view_by_rating_comments`: Provide a (user) rating by which you
+#'     wish to browse the modules
+#'   * `view_by_rating_reviews`: Provide a (reviewer) rating by which you
+#'     wish to browse the modules
+#'   * `view_modules_by_artistid`: Provide an artist id number
+#'      for whom you wish to browse his/her modules
+#'   * `view_modules_by_guessed_artist`: Provide an artist guessed
+#'     name for whom you wish to browser his/her modules
 #' @param api.key Most ModArchive functions require a personal secret API key. This key can
 #' be obtained from the ModArchive forum. See `ModArchive API Key' section below for instructions
 #' on how to obtain such a key.
 #' @param page Many of the ModArchive returns paginated tables. When this argument
 #' is omitted, the first page is returned. Use an integer value to return a specific
 #' page. The total number of pages of a search or view is returned as an attribute
-#' to the returned \code{\link[base]{data.frame}}.
-#' @param view.by Indicate how the \code{modArchive.view.by} function should sort
+#' to the returned [base::data.frame].
+#' @param view.by Indicate how the `modArchive.view.by` function should sort
 #' the overview tables of modules. See `usage' section for the possible options.
-#' @param ... arguments that are passed on to \code{\link{read.module}}.
-#' @returns \code{modArchive.info}, \code{modArchive.search.genre},
-#' \code{modArchive.search.hash}, \code{modArchive.random.pick} and
-#' \code{modArchive.view.by} will return a \code{\link{data.frame}}
+#' @param ... arguments that are passed on to [`read.module`].
+#' @returns `modArchive.info`, `modArchive.search.genre`,
+#' `modArchive.search.hash`, `modArchive.random.pick` and
+#' `modArchive.view.by` will return a [data.frame]
 #' containing information on modules in the ModArchive. Note that this
 #' data.frame is formatted differently since ProTrackR 0.3.4, which
 #' may cause backward compatibility issues.
 #'
-#' \code{modArchive.download} will download a module and return it as a
-#' \code{\link{PTModule}} object.
+#' `modArchive.download` will download a module and return it as a
+#' [`PTModule`] object.
 #'
-#' \code{modArchive.search.artist}  will return a \code{\link{data.frame}}
+#' `modArchive.search.artist`  will return a [`data.frame`]
 #' containing information on artists on the ModArchive.
 #'
-#' \code{modArchive.request.count} returns the number of ModArchive API request
+#' `modArchive.request.count` returns the number of ModArchive API request
 #' that are left for this month, for the provided key.
 #'
-#' \code{modArchive.max.requests} returns the maximum monthly requests for the
+#' `modArchive.max.requests` returns the maximum monthly requests for the
 #' provided key.
 #' @name modArchive
 #' @aliases modArchive.info

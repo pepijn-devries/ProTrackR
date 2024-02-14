@@ -23,7 +23,7 @@ For \code{patternOrderLength} the visible length of the pattern
 order table of \code{\link{PTModule}} \code{x} is returned as a \code{numeric}
 value, ranging from 1 up to 128.
 
-For \code{patternOrderLength<-} an updated version of object \code{x} is
+For \verb{patternOrderLength<-} an updated version of object \code{x} is
 returned, in which the visible length of the pattern order table is set
 to \code{value}. Note that this does not change the pattern order table
 itself, only which part is `visible'.

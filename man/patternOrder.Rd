@@ -34,7 +34,7 @@ is also not modified in this case.}
 For \code{patternOrder}, a \code{vector} of \code{numeric}
 \code{\link{PTPattern}} indices is returned.
 
-For \code{patternOrder<-}, an updated version of object \code{x} is returned,
+For \verb{patternOrder<-}, an updated version of object \code{x} is returned,
 in which the pattern order table is modified based on \code{value}.
 }
 \description{

@@ -39,15 +39,15 @@ object cannot be replaced.}
 
 If \code{x} is a \code{PTCell} object, \code{value}
 should be a \code{vector} of four \code{raw} values (conform specifications
-provided at the documentation of the \code{\link{PTCell-class}}).
+provided at the documentation of the \code{\linkS4class{PTCell}}).
 
 If \code{x} is a \code{PTTrack} object, \code{value}
 should be a 64 by 4 \code{matrix} holding \code{raw} values (conform specifications
-provided at the documentation of the \code{\link{PTTrack-class}}).
+provided at the documentation of the \code{\linkS4class{PTTrack}}).
 
 If \code{x} is a \code{PTPattern} object, \code{value}
 should be a 64 by 16 \code{matrix} holding \code{raw} values (conform specifications
-provided at the documentation of the \code{\link{PTPattern-class}}).}
+provided at the documentation of the \code{\linkS4class{PTPattern}}).}
 }
 \value{
 For \code{as.raw}, a length 4 vector, 64 by 4 matrix or a 64 by 16
@@ -57,7 +57,7 @@ matrix of \code{raw} data is returned, when x is of class \code{PTCell},
 If \code{x} is a \code{PTModule} object, the \code{raw} data returned will
 have the same format as the ProTracker file format.
 
-For \code{as.raw<-}, a copy of object \code{x} is returned in which the
+For \verb{as.raw<-}, a copy of object \code{x} is returned in which the
 \code{raw} data is replaced by \code{value}.
 }
 \description{
@@ -72,7 +72,7 @@ in turn is an element of a \code{\link{PTPattern}}. A \code{\link{PTPattern}}
 tells a tracker which sample to play at which frequency on which of the
 four audio channels and with which effects. A \code{\link{PTCell}} in essence
 holds all this information as described at the documentation of
-the \code{\link{PTCell-class}}.
+the \code{\linkS4class{PTCell}}.
 
 Data in these objects are stored in these objects in a \code{raw} form,
 to save working memory and to comply to the ProTracker file specifications

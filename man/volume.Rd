@@ -23,7 +23,7 @@ the volume level.}
 For \code{volume} the volume value, represented by an
 \code{integer} value ranging from 0 up to 64, is returned.
 
-For \code{volume<-} A \code{\link{PTSample}} \code{sample}, updated
+For \verb{volume<-} A \code{\link{PTSample}} \code{sample}, updated
 with the volume \code{value}, is returned.
 }
 \description{

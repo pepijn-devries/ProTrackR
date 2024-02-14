@@ -53,7 +53,7 @@ object at the specified indices in object \code{x} needs to be replaced.}
 When \code{PTTrack} is used, a \code{PTTrack} object
 based on \code{x} is returned.
 
-When \code{PTTrack<-} is used, object \code{x} is returned in which
+When \verb{PTTrack<-} is used, object \code{x} is returned in which
 the selected \code{PTTrack} is replaced with \code{value}.
 }
 \description{
@@ -66,12 +66,12 @@ Method to coerce \code{x} to class \code{\link{PTTrack}}.
 
 When \code{x} is a 64 by 4 \code{matrix} of \code{raw} data, each row
 implicitly represents a \code{\link{PTCell}} object and should
-be formatted accordingly. See \code{\link{PTCell-class}} documentation for
+be formatted accordingly. See \code{\linkS4class{PTCell}} documentation for
 more details.
 
 When \code{x} is a 64 element \code{vector} of \code{character} representation
 of \code{\link{PTCell}} objects, the \code{character} representation must be
-conform the specifications as documented at the \code{\link{PTCell-class}}.
+conform the specifications as documented at the \code{\linkS4class{PTCell}}.
 
 When \code{x} is of class \code{\link{PTPattern}}, or
 \code{\link{PTModule}}, the \code{PTTrack} at the specified indices

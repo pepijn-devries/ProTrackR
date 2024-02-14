@@ -58,7 +58,7 @@ object at the specified indices in object \code{x} needs to be replaced.}
 When \code{PTCell} is used, a \code{PTCell} object
 based on \code{x} is returned.
 
-When \code{PTCell<-} is used, object \code{x} is returned in which
+When \verb{PTCell<-} is used, object \code{x} is returned in which
 the selected \code{PTCell} is replaced with \code{value}.
 }
 \description{
@@ -71,21 +71,21 @@ the selected \code{PTCell}.
 Method to coerce \code{x} to class \code{\link{PTCell}}.
 
 When \code{x} is \code{raw} data, it should consist of a \code{vector} of
-4 elements, formatted as specified in the \link{PTCell-class}.
+4 elements, formatted as specified in the \code{\linkS4class{PTCell}}.
 
 When \code{x} is a \code{character} string, it should be formatted as follows:
-"\code{NNO SS EEE}", where \code{NN} is the note (for instance
+"\verb{NNO SS EEE}", where \code{NN} is the note (for instance
 "C-" or "A#", where the dash has no particular meaning and may be omitted,
 the hash sign indicates a sharp note). Use a dash if the cell holds no note.
 \code{O} is the octave (with a value of 0, or a dash, if a note
 is missing, otherwise any of 1, 2 or 3). \code{SS} is the sample index
-number, formatted as two hexadecimal digits (for example `1A'). \code{EEE} is
+number, formatted as two hexadecimal digits (for example \verb{1A}). \code{EEE} is
 a three hexadecimal digit \code{\link{effect}} or trigger code (for more details see the
-\code{\link{PTCell-class}}). The method is not case sensitive, so
+\code{\linkS4class{PTCell}}). The method is not case sensitive, so
 you can use both upper and lower case. White spaces are ignored, you can use
 as many as you would like. A correct \code{character} input for \code{x}
-would be for example: "\code{A#2 01 A0F}". An `blank' \code{character}
-representation would look like this: "\code{--- 00 000}".
+would be for example: \code{"A#2 01 A0F"}. A \code{blank} \code{character}
+representation would look like this: \code{"--- 00 000"}.
 
 When \code{x} is of class \code{\link{PTTrack}}, \code{\link{PTPattern}}, or
 \code{\link{PTModule}}, the \code{PTCell} at the specified indices (\code{row},

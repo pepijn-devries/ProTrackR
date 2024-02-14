@@ -29,7 +29,7 @@ a note is already defined.}
 For \code{octave}, a \code{numeric} value representing the octave number
 is returned.
 
-For \code{octave<-}, a copy of \code{PTCell} object \code{x} in which the
+For \verb{octave<-}, a copy of \code{PTCell} object \code{x} in which the
 octave number is replaced by \code{value} is returned.
 }
 \description{

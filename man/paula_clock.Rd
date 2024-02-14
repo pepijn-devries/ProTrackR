@@ -7,8 +7,8 @@
 \format{
 a \code{data.frame} with two columns:
 \itemize{
-  \item{`frequency' A \code{numeric} value representing Paula's output rate in Hz.}
-  \item{`video' A \code{character} string representing the two video modes.}
+\item 'frequency' A \code{numeric} value representing Paula's output rate in Hz.
+\item 'video' A \code{character} string representing the two video modes.
 }
 }
 \description{
@@ -19,8 +19,8 @@ original chipset.
 Paula was one of the custom chips on the original Commodore Amiga. This chip
 was dedicated (amongst other tasks) to controlling audio playback. The
 chip's output rate depended on the video mode used:
-either `\href{https://en.wikipedia.org/wiki/PAL}{PAL}'
-or `\href{https://en.wikipedia.org/wiki/NTSC}{NTSC}'. This table provides the
+either '\href{https://en.wikipedia.org/wiki/PAL}{PAL}'
+or '\href{https://en.wikipedia.org/wiki/NTSC}{NTSC}'. This table provides the
 output rate for both video modes that can be used in calculating sample rates.
 }
 \examples{

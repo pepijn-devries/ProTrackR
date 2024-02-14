@@ -27,27 +27,27 @@ validity.PTTrack <- function(object)
 #' The PTTrack class
 #'
 #' The four audio channels of the Commodore Amiga are represented as tracks
-#' (the \code{PTTrack} class) in a \code{\link{PTPattern}}.
+#' (the `PTTrack` class) in a [`PTPattern`].
 #'
 #' The Commodore Amiga original chipset supported four audio channels. Meaning
 #' that audio could be played simultaneously and independently on each of these
 #' channels. Two channels (2 and 3) were hardware-mixed fully to the right stereo
 #' outputs and the other two (1 and 4) fully to the left stereo outputs.
 #'
-#' This class represents such a single channel, reffered to as a track. A \code{\link{PTPattern}} is
+#' This class represents such a single channel, reffered to as a track. A [`PTPattern`] is
 #' composed of four such channels. As a ProTracker pattern consists of 64 rows,
-#' a \code{PTTrack} object is also (implicitly) composed of 64
-#' \code{\link{PTCell}} objects.
+#' a `PTTrack` object is also (implicitly) composed of 64
+#' [`PTCell`] objects.
 #'
-#' Use the \code{\link{PTTrack-method}} to construct or coerce objects to a
-#' \code{PTTrack-class} object, or to replace such an object.
+#' Use the [`PTTrack-method`] to construct or coerce objects to a
+#' `PTTrack-class` object, or to replace such an object.
 #'
-#' @slot data A \code{matrix} (64 rows, 4 columns) of class "\code{raw}".
-#' Each row implicetely represents a \code{\link{PTCell}} object, where
-#' the raw data is formatted as specified at the \code{\link{PTCell-class}}
-#' documentation. Use the \code{\link{PTCell-method}} to make an element of
-#' a \code{PTTrack} object explictly of class \code{\link{PTCell}}.
-#' Row numbers correspond with the row numbers of \code{\link{PTPattern}}
+#' @slot data A `matrix` (64 rows, 4 columns) of class `raw`.
+#' Each row implicetely represents a [`PTCell`] object, where
+#' the raw data is formatted as specified at the [`PTCell-class`]
+#' documentation. Use the [`PTCell-method`] to make an element of
+#' a `PTTrack` object explictly of class [`PTCell`].
+#' Row numbers correspond with the row numbers of [`PTPattern`]
 #' objects.
 #' @name PTTrack-class
 #' @rdname PTTrack-class

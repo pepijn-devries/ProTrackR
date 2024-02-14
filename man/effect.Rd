@@ -22,7 +22,7 @@ meaningful effects.}
 For \code{effect}, a \code{character} string with the three hexadecimal
 digit effect code will be returned.
 
-For \code{effect<-}, a copy of object \code{x} with effect code \code{value}
+For \verb{effect<-}, a copy of object \code{x} with effect code \code{value}
 will be returned.
 }
 \description{

@@ -7,11 +7,11 @@
 \format{
 a \code{data.frame} with fourteen columns:
 \itemize{
-  \item{The column named `octave': \code{integer} value [1,3]}
-  \item{The column named `finetune': \code{integer} value [-8, 7] used to tune a sample}
-  \item{The columns named `C-' to `B-': represent the twelve (semi)tones.
-  The values in these columns are the period values for the corresponding
-  tone, octave and finetune.}
+\item The column named 'octave': \code{integer} value [1,3]
+\item The column named 'finetune': \code{integer} value [-8, 7] used to tune a sample
+\item The columns named 'C-' to `B-': represent the twelve (semi)tones.
+The values in these columns are the period values for the corresponding
+tone, octave and finetune.
 }
 }
 \description{

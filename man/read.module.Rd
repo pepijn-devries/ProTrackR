@@ -19,7 +19,7 @@
 }
 \arguments{
 \item{file}{either a filename or a file connection, that
-allows reading binary data (see e.g., \code{\link[base]{file}} or \code{\link[base]{url}}).}
+allows reading binary data (see e.g., \code{\link[base:connections]{base::file}} or \code{\link[base:connections]{base::url}}).}
 
 \item{ignore.validity}{A \code{logical} value indicating whether the
 validity of the \code{PTModule} should be ignored. When set to

@@ -21,27 +21,27 @@ setGeneric("playMod", function(mod, wait = T, ...) standardGeneric("playMod"))
 
 #' Play PTModule objects
 #'
-#' Converts \code{\link{PTModule}} objects into audio
-#' \code{\link[tuneR]{Wave}}s, and plays them.
+#' Converts [`PTModule`] objects into audio
+#' [`tuneR::Wave`]s, and plays them.
 #'
 #' Unfortunately, it was not feasible to create a routine that can directly
-#' interpret \code{\link{PTModule}} objects and play them simultaneously.
+#' interpret [`PTModule`] objects and play them simultaneously.
 #' Instead, the audio first needs to be rendered after which it can be played.
-#' This method therefore first calls \code{\link{modToWave}} and then
-#' \code{\link{playWave}}. Rendering may take some time and requires some
+#' This method therefore first calls [`modToWave`] and then
+#' [`playWave`]. Rendering may take some time and requires some
 #' balance between speed, quality and accuracy. See the documentation of the
-#' \code{\link{modToWave}} method for the control you have on these aspects.
+#' [`modToWave`] method for the control you have on these aspects.
 #' @rdname playMod
 #' @name  playMod
 #' @aliases playMod,PTModule-method
-#' @param mod A \code{\link{PTModule}} object to be played.
-#' @param wait A \code{logical} value. When set to \code{TRUE} the playing
+#' @param mod A [`PTModule`] object to be played.
+#' @param wait A `logical` value. When set to `TRUE` the playing
 #' routine will wait with executing any code until the playing is
-#' finished. When set to \code{FALSE}, subsequent R code will be
+#' finished. When set to `FALSE`, subsequent R code will be
 #' executed while playing.
-#' @param ... Arguments that are passed on to \code{\link{modToWave}}.
-#' @returns A \code{\link[tuneR]{Wave}} object, generated from the
-#' \code{mod} object, is returned.
+#' @param ... Arguments that are passed on to [`modToWave`].
+#' @returns A [`tuneR::Wave`] object, generated from the
+#' `mod` object, is returned.
 #' @examples
 #' \dontrun{
 #' data("mod.intro")
@@ -64,27 +64,27 @@ setGeneric("playWave", function(wave, wait = T) standardGeneric("playWave"))
 
 #' Play Wave objects
 #'
-#' Use the command line \code{\link[audio]{play}} function from the
-#' \code{audio} package to play \code{\link[tuneR]{Wave}} objects.
+#' Use the command line [`audio::play`] function from the
+#' `audio` package to play [`tuneR::Wave`] objects.
 #'
-#' As the \code{\link{tuneR}} package play-function relies on external
+#' As the [`tuneR`] package play-function relies on external
 #' players, this method is provided as a convenient approach to play
-#' samples in the R console, using the \code{audio} package. Wave
+#' samples in the R console, using the `audio` package. Wave
 #' objects are played at the rate as specified in the object. Of course
-#' you can also play the \code{Wave} objects with the \code{tuneR} implementation
-#' of \code{\link{tuneR}{play}}, by calling \code{tuneR::play(wave)}.
+#' you can also play the `Wave` objects with the `tuneR` implementation
+#' of [`tuneR::play`], by calling `tuneR::play(wave)`.
 #' @rdname playWave
 #' @name playWave
 #' @aliases playWave,Wave-method
-#' @param wave An object of class \code{\link[tuneR]{Wave}} or
-#' \code{\link[tuneR]{WaveMC}}. Note that the playing routine implemented
+#' @param wave An object of class [`tuneR::Wave`] or
+#' [`tuneR::WaveMC`]. Note that the playing routine implemented
 #' here can only play stereo waves. Multi-channel waves are therefore
 #' converted to stereo before playing.
-#' @param wait A \code{logical} value. When set to \code{TRUE} the playing
+#' @param wait A `logical` value. When set to `TRUE` the playing
 #' routine will wait with executing any code until the playing is
-#' finished. When set to \code{FALSE}, subsequent R code will be
+#' finished. When set to `FALSE`, subsequent R code will be
 #' executed while playing.
-#' @returns Returns an \code{\link[audio]{$.audioInstance}}.
+#' @returns Returns an [`audio::$.audioInstance`].
 #' @examples
 #' \dontrun{
 #' data(mod.intro)
@@ -149,29 +149,29 @@ setGeneric("modToWave",
 
 #' Convert a PTModule object into an audio Wave object
 #'
-#' Converts a \code{\link{PTModule}} object into a \code{\link[tuneR]{Wave}}
+#' Converts a [`PTModule`] object into a [`tuneR::Wave`]
 #' object, which can be played, further analysed, modified and saved.
 #'
-#' Before the \code{\link{PTModule}} object can be converted into a
-#' \code{\link[tuneR]{Wave}} object, the rows of the
-#' \code{\link{PTPattern}} objects in the module need to be put
+#' Before the [`PTModule`] object can be converted into a
+#' [`tuneR::Wave`] object, the rows of the
+#' [`PTPattern`] objects in the module need to be put
 #' in the right order. This method does that by calling
-#' \code{\link{playingtable}}.
+#' [`playingtable`].
 #'
 #' Once the rows of the pattern tables are in the right order, all selected
-#' \code{\link{PTTrack}} objects of the module are looped by this function
+#' [`PTTrack`] objects of the module are looped by this function
 #' and the routines described below are applied to each track.
 #'
 #' On the Commodore Amiga the chip responsible for audio output (Paula),
 #' the audio playback of samples can be controlled by the user in two ways:
-#' the playback rate of the sample can be changed by specifying `period'
-#' values (see e.g. \code{\link{periodToSampleRate}}) and specifying a
+#' the playback rate of the sample can be changed by specifying 'period'
+#' values (see e.g. [`periodToSampleRate`]) and specifying a
 #' volume which is linearly scaled between 0 (silent) and 64 (maximum).
 #'
 #' So, for each track, the correct period and volume values are determined
 #' based on the note, effect command and sample information in the module.
 #'
-#' Then, the \code{\link{PTSample}} objects are resampled, using the
+#' Then, the [`PTSample`] objects are resampled, using the
 #' period values and volume values as determined in the previous step.
 #'
 #' Next audio filters are applied to mimic original Commodore Amiga
@@ -186,8 +186,8 @@ setGeneric("modToWave",
 #' On modern machines, the time required for conversion should generally
 #' be less than the playback time of the module.
 #'
-#' You can save the resulting \code{\link[tuneR]{Wave}} object by calling
-#' \code{\link[tuneR]{writeWave}}.
+#' You can save the resulting [`tuneR::Wave`] object by calling
+#' [`tuneR::writeWave`].
 #' @note As audio can be mixed with this package at frequencies much greater than the
 #' Commodore Amiga's audio output rate, some aliasing of the sound could occur.
 #' This results in high frequency audio, that would not be produced on an Amiga.
@@ -197,48 +197,48 @@ setGeneric("modToWave",
 #' @rdname modToWave
 #' @name modToWave
 #' @aliases modToWave,PTModule-method
-#' @param mod An object of class \code{\link{PTModule}}
+#' @param mod An object of class [`PTModule`]
 #' @param video The video mode of a Commodore Amiga affects timing routines and
 #' the playback sample rate. This mode can be specified with this argument and
-#' is represented by a \code{character} string that can have either the value
-#' `\href{https://en.wikipedia.org/wiki/PAL}{PAL}'
-#' or `\href{https://en.wikipedia.org/wiki/NTSC}{NTSC}'. PAL is used by default.
-#' @param target.rate A positive \code{integer} sample rate for the target \code{Wave}.
+#' is represented by a `character` string that can have either the value
+#' '[PAL](https://en.wikipedia.org/wiki/PAL)'
+#' or '[NTSC](https://en.wikipedia.org/wiki/NTSC)'. PAL is used by default.
+#' @param target.rate A positive `integer` sample rate for the target `Wave`.
 #' Should be at least 2000.
 #' Default value is 44100 Hz, which is conform CD quality. 22050 Hz will also
 #' produce a decent sound quality and saves you some working memory.
-#' @param target.bit Number of bits for the target \code{Wave}. Should be a \code{numeric}
+#' @param target.bit Number of bits for the target `Wave`. Should be a `numeric`
 #' value of either 8, 16, 24 or 32. Default is 16, which is conform CD quality
 #' (the quality doesn't really improve at higher bit values, as the original
 #' samples are of 8 bit quality).
-#' @param stereo.separation A \code{numeric} value between 0 and 1.
+#' @param stereo.separation A `numeric` value between 0 and 1.
 #' When set to 1 (default), stereo channels (Amiga channels 1 and 4 on left,
 #' and channels 2 and 3 on right) are completely separated. When set to
 #' less than 1, stereo channels are mixed, where the number gives the
 #' fraction of separation of the channels. When set to 0, both channels
-#' are completely mixed and a mono \code{Wave} is returned.
-#' @param low.pass.filter A \code{logical} value indicating whether low pass
+#' are completely mixed and a mono `Wave` is returned.
+#' @param low.pass.filter A `logical` value indicating whether low pass
 #' filters should be applied when generating wave data. The Commodore Amiga
 #' had hardware audio filters. One (low pass 6 db/Oct tuned at
 #' 4.9 kHz) that filters all audio and one (low pass 12 db/Oct tuned at
 #' approximately 3.3 kHz) that can be turned on and off at will with effect
-#' command E00/E01 (see also \link[=ProTrackR-package]{ProTrackR} documentation,
+#' command E00/E01 (see also [ProTrackR][ProTrackR-package] documentation,
 #' section on effect commands). These filters are only applied when the
-#' \code{low.pass.filter} argument is set to \code{TRUE} and the
-#' \code{target.rate} is set to values > 4.9 kHz. If you don't want to simulate
+#' `low.pass.filter` argument is set to `TRUE` and the
+#' `target.rate` is set to values > 4.9 kHz. If you don't want to simulate
 #' this typical Amiga sound, turn the filters off to save processing time.
-#' @param tracks Either \code{logical} or \code{numeric} values indicating
-#' which of the 4 \code{\link{PTTrack}}s are to be converted. By default
+#' @param tracks Either `logical` or `numeric` values indicating
+#' which of the 4 [`PTTrack`]s are to be converted. By default
 #' all 4 tracks are selected.
 #' @param mix A logical value indicating whether the 4 Amiga channels should
-#' be mixed to the 2 (stereo) output channels. When set to \code{TRUE} (default) a stereo
-#' \code{\link[tuneR]{Wave}} object is returned. When set to \code{FALSE} a
-#' multi-channel \code{\link[tuneR]{WaveMC}} object is returned. The
-#' \code{stereo.separation} argument is ignored in the latter case.
-#' @param ... Additional arguments that are passed to \code{\link{playingtable}}.
-#' @returns A \code{\link[tuneR]{Wave}} object, generated from the
-#' \code{mod} object is returned. A \code{\link[tuneR]{WaveMC}} object is returned when
-#' the \code{mix} argument is set to \code{FALSE}.
+#' be mixed to the 2 (stereo) output channels. When set to `TRUE` (default) a stereo
+#' [`tuneR::Wave`] object is returned. When set to `FALSE` a
+#' multi-channel [`tuneR::WaveMC`] object is returned. The
+#' `stereo.separation` argument is ignored in the latter case.
+#' @param ... Additional arguments that are passed to [`playingtable`].
+#' @returns A [`tuneR::Wave`] object, generated from the
+#' `mod` object is returned. A [`tuneR::WaveMC`] object is returned when
+#' the `mix` argument is set to `FALSE`.
 #' @examples
 #' \dontrun{
 #' data(mod.intro)
@@ -329,74 +329,74 @@ setGeneric("playingtable",
 
 #' Generate a table for playing a PTModule object
 #'
-#' This method generates a table (\code{data.frame}) in which information
+#' This method generates a table (`data.frame`) in which information
 #' from the pattern tables are put in the right order and in a comprehensive
 #' format.
 #'
-#' This method generates a table (\code{data.frame}) in which information
-#' from the pattern tables (\code{\link{PTPattern}}) are put in the right
+#' This method generates a table (`data.frame`) in which information
+#' from the pattern tables ([`PTPattern`]) are put in the right
 #' order, taking into account pattern breaks, position jumps and pattern
-#' loops (see also \link[=ProTrackR-package]{ProTrackR} documentation,
+#' loops (see also [ProTrackR][ProTrackR-package] documentation,
 #' section on effect commands). The information is put in
-#' a comprehensive format in a \code{data.frame}, with the following columns:
+#' a comprehensive format in a `data.frame`, with the following columns:
 #' \describe{
 #' \item{row}{Row number index of the original
-#' \code{\link{PTPattern}} object.}
-#' \item{filter}{A \code{logical} value indicating whether the
+#' [`PTPattern`] object.}
+#' \item{filter}{A `logical` value indicating whether the
 #' Amiga hardware audio filter was either turned on or off using
-#' effect command E00/E01 (see also \link[=ProTrackR-package]{ProTrackR} documentation,
+#' effect command E00/E01 (see also [ProTrackR][ProTrackR-package] documentation,
 #' section on effect commands).}
-#' \item{speed}{Number of `ticks' per row as set with the Fxy
+#' \item{speed}{Number of 'ticks' per row as set with the Fxy
 #' effect commands in the module.}
 #' \item{tempo}{The tempo as specified by the Fxy commands in the module.}
 #' \item{delay}{The delay that should be applied to the row as
 #' specified with the EEx effect command in the module.}
-#' \item{effect.track1..4}{The effect code (\code{raw}) as specified in each of the
+#' \item{effect.track1..4}{The effect code (`raw`) as specified in each of the
 #' 4 tracks in the module.}
-#' \item{effect.mag.track1..4}{The effect magnitude (\code{raw}) as specified
+#' \item{effect.mag.track1..4}{The effect magnitude (`raw`) as specified
 #' for each of the 4 tracks in the module.}
-#' \item{sample.nr.track1..4}{The sample index number (\code{numeric}) as specified for
+#' \item{sample.nr.track1..4}{The sample index number (`numeric`) as specified for
 #' each of the 4 tracks in the module.}
-#' \item{note.track1..4}{The note (\code{factor}) as specified for each of
+#' \item{note.track1..4}{The note (`factor`) as specified for each of
 #' the four tracks in the module.}
-#' \item{position}{The positions index number (\code{numeric}) from the
-#' \code{\link{patternOrder}} table in the module.}
+#' \item{position}{The positions index number (`numeric`) from the
+#' [`patternOrder`] table in the module.}
 #' \item{duration}{Playback duration of the corresponding row in seconds.}
 #' \item{cum_duration}{Cumulative playback duration of the corresponding row in seconds.}
 #' }
 #' @rdname playingtable
 #' @name playingtable
 #' @aliases playingtable,PTModule-method
-#' @param mod An object of class \code{\link{PTModule}}.
-#' @param starting.position A \code{numeric} starting position index.
-#' Determines where in the \code{\link{patternOrder}} table of the module to
+#' @param mod An object of class [`PTModule`].
+#' @param starting.position A `numeric` starting position index.
+#' Determines where in the [`patternOrder`] table of the module to
 #' start generating the playingtable.
-#' @param max.duration A \code{numeric} value indicating the maximum
+#' @param max.duration A `numeric` value indicating the maximum
 #' length in seconds of the pattern information returned. By default set
 #' to 120 seconds (2 minutes). As some modules can be very long,
 #' or contain infinite loops or position jumps, the maximum duration
 #' is required to break out of the routine for generating the table.
 #' @param speed Default speed to use when it is not specified in the
-#' pattern data. See \link[=ProTrackR-package]{ProTrackR} documentation for more info on
+#' pattern data. See [ProTrackR][ProTrackR-package] documentation for more info on
 #' `speed' and `tempo'.
 #' @param tempo Default tempo to use when it is not specified in the
-#' pattern data.  See \link[=ProTrackR-package]{ProTrackR} documentation for more info on
+#' pattern data.  See [ProTrackR][ProTrackR-package] documentation for more info on
 #' `speed' and `tempo'.
 #' @param video The video mode of a Commodore Amiga affects timing routines.
 #' This mode can be specified with this argument and
-#' is represented by a \code{character} string that can have either the value
-#' `\href{https://en.wikipedia.org/wiki/PAL}{PAL}'
-#' or `\href{https://en.wikipedia.org/wiki/NTSC}{NTSC}'. PAL is used by default.
-#' @param play.once A \code{logical} value. When set to \code{TRUE},
+#' is represented by a `character` string that can have either the value
+#' '[PAL](https://en.wikipedia.org/wiki/PAL)'
+#' or '[NTSC](https://en.wikipedia.org/wiki/NTSC)'. PAL is used by default.
+#' @param play.once A `logical` value. When set to `TRUE`,
 #' the routine will stop adding data to the table when the starting
-#' position (\code{starting.position}) is reach once again. Warning:
+#' position (`starting.position`) is reach once again. Warning:
 #' may not work correctly when the last pattern contains a pattern
-#' break. Will be overruled when the \code{maximum.duration} is reached
+#' break. Will be overruled when the `maximum.duration` is reached
 #' before the end of the song.
-#' @param verbose A \code{logical} value. Suppresses a progress report
-#' from being printed to the \code{\link[base]{sink}} when set to \code{FALSE}.
-#' The default value is \code{TRUE}.
-#' @returns Returns a \code{data.frame} with pattern rows put in the right
+#' @param verbose A `logical` value. Suppresses a progress report
+#' from being printed to the [`base::sink`] when set to `FALSE`.
+#' The default value is `TRUE`.
+#' @returns Returns a `data.frame` with pattern rows put in the right
 #' order. Information contained in the returned table is described in the
 #' 'Details' section
 #' @examples

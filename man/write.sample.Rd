@@ -15,8 +15,8 @@ file.}
 the audio needs to be saved.}
 
 \item{what}{A \code{character} string indicating what type of file is to be
-exported. Can be one of the following: "\code{wav}" (default),
-"\code{8svx}" or "\code{raw}". The \code{AmigaFFH} package needs to be
+exported. Can be one of the following: \code{"wav"} (default),
+\code{"8svx"} or \code{"raw"}. The \code{AmigaFFH} package needs to be
 installed in order to write 8svx files.}
 }
 \value{
@@ -26,8 +26,8 @@ Saves the audio to a file, but returns nothing.
 Write a \code{PTSample} as a "wav", "8svx" or "raw" audio file.
 }
 \details{
-This method provides a wrapper for the \code{\link[tuneR]{writeWave}} method
-from \code{\link[tuneR]{tuneR}}. It also provides the means to export audio
+This method provides a wrapper for the \code{\link[tuneR:writeWave]{tuneR::writeWave}} method
+from \code{\link[tuneR:tuneR]{tuneR::tuneR}}. It also provides the means to export audio
 to file formats native to the Commodore Amiga. \code{PTSample}s can be
 exported as simple (uncompressed) \href{https://en.wikipedia.org/wiki/8SVX}{8svx}
 files also known as "iff" files). In addition they can be exported as raw data,

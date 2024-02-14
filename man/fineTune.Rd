@@ -23,7 +23,7 @@ the fine tune.}
 For \code{fineTune} the fine tune value, represented by an
 \code{integer} value ranging from -8 up to 7, is returned.
 
-For \code{fineTune<-} A \code{\link{PTSample}} \code{sample}, updated
+For \verb{fineTune<-} A \code{\link{PTSample}} \code{sample}, updated
 with the fine tune \code{value}, is returned.
 }
 \description{

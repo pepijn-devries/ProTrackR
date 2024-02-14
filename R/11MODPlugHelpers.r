@@ -1,24 +1,24 @@
 #' Convert MODPlug pattern into a PTPattern object
 #'
 #' Convert pattern data from text or clipboard, originating from the modern
-#' MODPlug tracker and convert it into a \code{PTPattern} or \code{PTBlock}
+#' MODPlug tracker and convert it into a `PTPattern` or `PTBlock`
 #' object.
 #'
-#' The Open MODPlug Tracker (\url{https://openmpt.org}) is a modern
+#' The Open MODPlug Tracker (<https://openmpt.org>) is a modern
 #' music tracker that is for free. It too can handle ProTracker modules.
 #' This function assists in moving pattern data from Open MPT to R.
 #'
 #' Simply select and copy the pattern data to the system's clipboard
-#' and use this function to import it to R as a \code{\link{PTPattern}} or
-#' \code{\link{PTBlock}} object.
+#' and use this function to import it to R as a [`PTPattern`] or
+#' [`PTBlock`] object.
 #'
-#' @param text A \code{vector} of \code{character}s, representing MOD pattern data
-#' obtained from OpenMPT. If set to \code{NULL} (default), the text will be read
+#' @param text A `vector` of `character`s, representing MOD pattern data
+#' obtained from OpenMPT. If set to `NULL` (default), the text will be read
 #' from the system's clipboard.
-#' @param what A \code{character} string that indicates what type of object
+#' @param what A `character` string that indicates what type of object
 #' should be returned. Can be "PTPattern" or "PTBlock".
-#' @returns Depending on the value of the argument \code{what}, it will
-#' return either a \code{\link{PTPattern}} or \code{\link{PTBlock}} object.
+#' @returns Depending on the value of the argument `what`, it will
+#' return either a [`PTPattern`] or [`PTBlock`] object.
 #'
 #' @name MODPlugToPTPattern
 #' @rdname MODPlugToPTPattern
@@ -156,24 +156,24 @@ MODPlugToPTPattern <- function(text = NULL, what = c("PTPattern", "PTBlock")) {
 
 #' Convert PTPattern data into a MODPlug pattern
 #'
-#' Use a \code{\link{PTPattern}} or \code{\link{PTBlock}} to create
+#' Use a [`PTPattern`] or [`PTBlock`] to create
 #' a pattern table with a MODPlug flavour.
 #'
-#' The Open MODPlug Tracker (\url{https://openmpt.org}) is a modern
+#' The Open MODPlug Tracker (<https://openmpt.org>) is a modern
 #' music tracker that is for free. It too can handle ProTracker modules.
 #' This function assists in moving pattern data from R to Open MPT.
 #'
-#' @param x Either a \code{\link{PTPattern}} object or a
-#' \code{\link{PTBlock}} object from which an Open
+#' @param x Either a [`PTPattern`] object or a
+#' [`PTBlock`] object from which an Open
 #' MODPlug Tracker pattern should be created.
-#' @param to.clipboard A \code{logical} value, indicating whether the
-#' result should be copied to the system's clipboard (\code{TRUE}) or
-#' should be returned as a \code{vector} of \code{character}s
-#' (\code{FALSE}).
-#' @returns Returns an invisible \code{NULL} when
-#' argument \code{to.clipboard} is set to \code{TRUE}.
+#' @param to.clipboard A `logical` value, indicating whether the
+#' result should be copied to the system's clipboard (`TRUE`) or
+#' should be returned as a `vector` of `character`s
+#' (`FALSE`).
+#' @returns Returns an invisible `NULL` when
+#' argument `to.clipboard` is set to `TRUE`.
 #' Returns an Open MODPlug Tracker flavoured pattern table as
-#' a \code{vector} of \code{character}s when it is set to \code{FALSE}.
+#' a `vector` of `character`s when it is set to `FALSE`.
 #'
 #' @name PTPatternToMODPlug
 #' @rdname PTPatternToMODPlug

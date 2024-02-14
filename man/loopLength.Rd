@@ -21,15 +21,15 @@ samples ranging from 2 up to 131070 (It can be 0 when the sample is
 empty). The sum of the \code{\link{loopStart}} and
 \code{\link{loopLength}} should not exceed the \code{\link{sampleLength}}.
 
-Use a \code{value} of either \code{character} "\code{off}" or \code{logical}
-"\code{FALSE}", in order to turn off the loop all together.}
+Use a \code{value} of either \code{character} \code{"off"} or \code{logical}
+\code{FALSE}, in order to turn off the loop all together.}
 }
 \value{
 For \code{loopLength} the loop length (in samples), represented by
 an even \code{integer} value ranging from 0 up to 131070, is returned.
 
-For \code{loopLength<-} A \code{\link{PTSample}} \code{sample}, updated
-with the loop length `\code{value}', is returned.
+For \verb{loopLength<-} A \code{\link{PTSample}} \code{sample}, updated
+with the loop length \code{value}, is returned.
 }
 \description{
 Extract or replace the loop length of a \code{\link{PTSample}}.
@@ -37,7 +37,7 @@ Extract or replace the loop length of a \code{\link{PTSample}}.
 \details{
 \code{\link{PTSample}}s can have loops, marked by a starting position
 and length of the loop (in samples), for more details see the
-\code{\link{PTSample-class}}. This method can be used to extract
+\code{\linkS4class{PTSample}}. This method can be used to extract
 the loop length or safely replace its value.
 }
 \examples{

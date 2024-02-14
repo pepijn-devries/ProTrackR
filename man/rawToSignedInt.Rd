@@ -17,8 +17,8 @@ This function converts a vector of \code{raw} data into signed integer values.
 }
 \details{
 This function converts a vector of \code{raw} data into signed integer values
-[-128,127]. To convert unsigned integers into raw data use \code{\link{as.raw}(x)}.
-For the inverse of this function see \code{\link{signedIntToRaw}(int_dat)}.
+[-128,127]. To convert unsigned integers into raw data use \code{as.raw()}.
+For the inverse of this function see \code{signedIntToRaw()}.
 }
 \examples{
 ## generate some raw data:

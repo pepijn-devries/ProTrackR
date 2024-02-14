@@ -11,8 +11,8 @@
 \S4method{playWave}{WaveMC}(wave, wait = T)
 }
 \arguments{
-\item{wave}{An object of class \code{\link[tuneR]{Wave}} or
-\code{\link[tuneR]{WaveMC}}. Note that the playing routine implemented
+\item{wave}{An object of class \code{\link[tuneR:Wave]{tuneR::Wave}} or
+\code{\link[tuneR:WaveMC]{tuneR::WaveMC}}. Note that the playing routine implemented
 here can only play stereo waves. Multi-channel waves are therefore
 converted to stereo before playing.}
 
@@ -22,11 +22,11 @@ finished. When set to \code{FALSE}, subsequent R code will be
 executed while playing.}
 }
 \value{
-Returns an \code{\link[audio]{$.audioInstance}}.
+Returns an \code{\link[audio:audioInstance-methods]{audio::$.audioInstance}}.
 }
 \description{
-Use the command line \code{\link[audio]{play}} function from the
-\code{audio} package to play \code{\link[tuneR]{Wave}} objects.
+Use the command line \code{\link[audio:play]{audio::play}} function from the
+\code{audio} package to play \code{\link[tuneR:Wave]{tuneR::Wave}} objects.
 }
 \details{
 As the \code{\link{tuneR}} package play-function relies on external
@@ -34,7 +34,7 @@ players, this method is provided as a convenient approach to play
 samples in the R console, using the \code{audio} package. Wave
 objects are played at the rate as specified in the object. Of course
 you can also play the \code{Wave} objects with the \code{tuneR} implementation
-of \code{\link{tuneR}{play}}, by calling \code{tuneR::play(wave)}.
+of \code{\link[tuneR:play]{tuneR::play}}, by calling \code{tuneR::play(wave)}.
 }
 \examples{
 \dontrun{

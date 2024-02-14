@@ -29,7 +29,7 @@ name of \code{\link{PTModule}} or \code{\link{PTSample}} \code{x}.}
 For \code{name}, the name of the \code{\link{PTModule}} or
 \code{\link{PTSample}} object as a \code{character} string is returned.
 
-For \code{name<-}, object \code{x} with an updated name is returned.
+For \verb{name<-}, object \code{x} with an updated name is returned.
 }
 \description{
 The name of both a \code{\link{PTModule}} and

@@ -16,15 +16,15 @@
 returned or replaced.}
 
 \item{value}{A \code{character} string representing the tracker flag with which
-that of object \code{x} needs to be replaced with. Should either be "\code{M.K.}"
-or "\code{M!K!}". Note that if a current flag "\code{M!K!}" is
-replaced by "\code{M.K.}", \code{\link{PTPattern}}s may get lost as the
+that of object \code{x} needs to be replaced with. Should either be \code{"M.K."}
+or \code{"M!K!"}. Note that if a current flag \code{"M!K!"} is
+replaced by \code{"M.K."}, \code{\link{PTPattern}}s may get lost as the
 latter supports less patterns.}
 }
 \value{
 For \code{trackerFlag}, the tracker flag of object \code{x} is returned.
 
-For \code{trackerFlag<-}, a copy of object \code{x} with an updated tracker
+For \verb{trackerFlag<-}, a copy of object \code{x} with an updated tracker
 flag is returned.
 }
 \description{
@@ -32,11 +32,11 @@ Method to obtain a tracker flag, which indicates the version compatibility
 of a ProTracker module (\code{\link{PTModule}} object).
 }
 \details{
-ProTrackR supports two tracker flags: "\code{M.K.}" and "\code{M!K!}". M.K.
+ProTrackR supports two tracker flags: \code{"M.K."} and \verb{"M!K!}". M.K.
 are presumably the initials of programmers Mahony and Kaktus, unfortunately
 documentation on this matter is ambiguous. In any case, modules with the
-flag "\code{M.K.}" can hold up to 64 patterns, whereas modules with the flag
-"\code{M!K!}" can hold up to 100 patterns. Use this method to obtain or
+flag \code{"M.K."} can hold up to 64 patterns, whereas modules with the flag
+\code{"M!K!"} can hold up to 100 patterns. Use this method to obtain or
 replace the tracker flag of a \code{\link{PTModule}}.
 }
 \examples{

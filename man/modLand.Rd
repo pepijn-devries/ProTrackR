@@ -27,7 +27,7 @@ are supported by the \code{ProTrackR} package. It is therefore advisable to add 
 keyword `mod' to the search string.}
 
 \item{format}{A single length \code{character} vector, indicating the
-tracker file format. `\code{Protracker}' is the option that is most likely to work in this package.}
+tracker file format. ``Protracker`' is the option that is most likely to work in this package.}
 
 \item{author}{A single length \code{character} vector, indicating the
 module author name. Can be obtained from a \code{modLand.search.mod}.}
@@ -45,14 +45,9 @@ the module file needs to be downloaded.}
 \code{modLand.search.mod} returns a \code{data.frame}.
 The \code{data.frame} contains a search result in each row.
 The data.frame contains a number of columns, each containing
-\code{character} strings. The column `title' contains the mod file name;
-The column named `author' contains the author name; the column named
-`format' contains the tracker file format (only `\code{Protracker}'
-is supported by this package); The collumn `collect' contains
-modLand collections in which the mod is included; the column named
-`url' contains a download link for the `ogg'-file generated on the
-modLand server from the mod file. Note that ogg-files are not supported
-by the ProTrackR package. Use \code{modLand.download.mod} to download
+\code{character} strings. The column \verb{title' contains the mod file name; The column named }author' contains the author name; the column named
+\verb{format' contains the tracker file format (only ``Protracker}'
+is supported by this package); The collumn \verb{collect' contains modLand collections in which the mod is included; the column named }url' contains a download link for the \verb{ogg'-file generated on the modLand server from the mod file. Note that ogg-files are not supported by the ProTrackR package. Use }modLand.download.mod` to download
 the mod file.
 
 \code{modLand.download.mod} attempts to download the specified mod

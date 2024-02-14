@@ -31,17 +31,17 @@ is required to break out of the routine for generating the table.}
 
 \item{speed}{Default speed to use when it is not specified in the
 pattern data. See \link[=ProTrackR-package]{ProTrackR} documentation for more info on
-`speed' and `tempo'.}
+\verb{speed' and }tempo'.}
 
 \item{tempo}{Default tempo to use when it is not specified in the
 pattern data.  See \link[=ProTrackR-package]{ProTrackR} documentation for more info on
-`speed' and `tempo'.}
+\verb{speed' and }tempo'.}
 
 \item{video}{The video mode of a Commodore Amiga affects timing routines.
 This mode can be specified with this argument and
 is represented by a \code{character} string that can have either the value
-`\href{https://en.wikipedia.org/wiki/PAL}{PAL}'
-or `\href{https://en.wikipedia.org/wiki/NTSC}{NTSC}'. PAL is used by default.}
+'\href{https://en.wikipedia.org/wiki/PAL}{PAL}'
+or '\href{https://en.wikipedia.org/wiki/NTSC}{NTSC}'. PAL is used by default.}
 
 \item{play.once}{A \code{logical} value. When set to \code{TRUE},
 the routine will stop adding data to the table when the starting
@@ -51,7 +51,7 @@ break. Will be overruled when the \code{maximum.duration} is reached
 before the end of the song.}
 
 \item{verbose}{A \code{logical} value. Suppresses a progress report
-from being printed to the \code{\link[base]{sink}} when set to \code{FALSE}.
+from being printed to the \code{\link[base:sink]{base::sink}} when set to \code{FALSE}.
 The default value is \code{TRUE}.}
 }
 \value{
@@ -78,7 +78,7 @@ a comprehensive format in a \code{data.frame}, with the following columns:
 Amiga hardware audio filter was either turned on or off using
 effect command E00/E01 (see also \link[=ProTrackR-package]{ProTrackR} documentation,
 section on effect commands).}
-\item{speed}{Number of `ticks' per row as set with the Fxy
+\item{speed}{Number of 'ticks' per row as set with the Fxy
 effect commands in the module.}
 \item{tempo}{The tempo as specified by the Fxy commands in the module.}
 \item{delay}{The delay that should be applied to the row as

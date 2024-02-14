@@ -15,7 +15,7 @@ another unit, as long as it is in the same unit as \code{target.rate}).}
 \item{target.rate}{The desired target sampling rate in Hz (or
 another unit, as long as it is in the same unit as \code{source.rate}).}
 
-\item{...}{Arguments passed on to \code{\link[stats]{approx}}.
+\item{...}{Arguments passed on to \code{\link[stats:approxfun]{stats::approx}}.
 To simulate the Commodore Amiga hardware, it's best to
 use '\code{method = "constant"} for resampling 8 bit samples.}
 }
@@ -29,7 +29,7 @@ Resample \code{numeric} data to a different rate.
 \details{
 This function resamples \code{numeric} data (i.e., audio data) from a
 source sample rate to a target sample rate. At the core it uses
-the \code{\link[stats]{approx}} function.
+the \code{\link[stats:approxfun]{stats::approx}} function.
 }
 \examples{
 some.data <- 1:100

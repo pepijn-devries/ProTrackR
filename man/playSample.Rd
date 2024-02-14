@@ -14,7 +14,7 @@
 \item{x}{Either a \code{\link{PTSample}} or a \code{\link{PTModule}} object.
 In the latter case, all samples in the module will be played in order.}
 
-\item{silence}{Especially for short samples, the \code{\link[audio]{play}} routine
+\item{silence}{Especially for short samples, the \code{\link[audio:play]{audio::play}} routine
 can be a bit buggy: playing audible noise, ticks or parts from other samples at the end of the sample.
 By adding silence after the sample, this problem is evaded. Use this argument
 to specify the duration of this silence in seconds. When, \code{x} is a
@@ -27,10 +27,10 @@ When set to \code{FALSE}, subsequent R code will be executed while playing.}
 
 \item{note}{A \code{character} string specifying the note to be used for
 calculating the playback sample rate (using \code{\link{noteToSampleRate}}).
-It should start with the note (ranging from `A' up to `G') optionally followed
-by a hash sign (`#') if a note is sharp (or a dash (`-') if it's not) and finally
+It should start with the note (ranging from \verb{A' up to }G') optionally followed
+by a hash sign (\verb{#') if a note is sharp (or a dash (}-') if it's not) and finally
 the octave number (ranging from 1 up to 3). A valid notation would for instance
-be `F#3'.
+be 'F#3'.
 The \code{\link{fineTune}} as specified for the sample will also be used as
 an argument for calculating the playback rate. A custom \code{finetune}
 can also be passed as an argument to \code{\link{noteToSampleRate}}.}
@@ -54,7 +54,7 @@ Method to play \code{\link{PTSample}}s or all such samples from
 }
 \details{
 This method plays \code{\link{PTSample}}s and such samples from
-\code{\link{PTModule}} objects, using the \code{\link[audio]{play}} method
+\code{\link{PTModule}} objects, using the \code{\link[audio:play]{audio::play}} method
 from the audio package. Default \code{\link{fineTune}} and \code{\link{volume}}
 as specified for the \code{\link{PTSample}} will be applied when playing
 the sample.

@@ -38,7 +38,7 @@ table. This method can also be used to extract or replace patterns in
 \section{Slots}{
 
 \describe{
-\item{\code{data}}{A \code{matrix} (64 rows, 16 columns) of class "\code{raw}".
+\item{\code{data}}{A \code{matrix} (64 rows, 16 columns) of class \code{raw}.
 Each row contains the \code{raw} concatenated data of 4 \code{\link{PTCell}} objects,
 representing each of the 4 audio channels/tracks (as each \code{\link{PTCell}} object holds
 4 \code{raw} values, each row holds 4 x 4 = 16 \code{raw}

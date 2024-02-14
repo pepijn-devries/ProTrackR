@@ -18,12 +18,12 @@ executed while playing.}
 \item{...}{Arguments that are passed on to \code{\link{modToWave}}.}
 }
 \value{
-A \code{\link[tuneR]{Wave}} object, generated from the
+A \code{\link[tuneR:Wave]{tuneR::Wave}} object, generated from the
 \code{mod} object, is returned.
 }
 \description{
 Converts \code{\link{PTModule}} objects into audio
-\code{\link[tuneR]{Wave}}s, and plays them.
+\code{\link[tuneR:Wave]{tuneR::Wave}}s, and plays them.
 }
 \details{
 Unfortunately, it was not feasible to create a routine that can directly

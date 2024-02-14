@@ -1,51 +1,51 @@
 #' ModLand helper functions
 #'
-#' \url{https://modland.com} is on of the largest online archive of module files. These functions
+#' <https://modland.com> is on of the largest online archive of module files. These functions
 #' will assist in accessing this archive.
 #'
-#' Like the \url{https://modarchive.org}, modland provides access to a large collection of module files.
-#' Compared to the \link{modArchive}, modLand provides limited searching features. However, it
+#' Like the <https://modarchive.org>, modland provides access to a large collection of module files.
+#' Compared to the [modArchive], modLand provides limited searching features. However, it
 #' does not require an API key.
 #'
 #' The functions documented here are provided as a convenience and depend
 #' on third party services. Note that continuity of these services cannot
 #' be guaranteed.
 #'
-#' Use \code{modLand.search.mod} to search through the modLand collection.
+#' Use `modLand.search.mod` to search through the modLand collection.
 #'
-#' Use \code{modLand.download.mod} to download a specific mod file as an S4 object.
-#' @param search.text A single length \code{character} vector, containing
+#' Use `modLand.download.mod` to download a specific mod file as an S4 object.
+#' @param search.text A single length `character` vector, containing
 #' search text. Provided search pattern is searched in all fields (mod format,
 #' author and title). Prefixes can be added to keywords for inclusive or exclusive
-#' searches. For details see \url{https://www.exotica.org.uk/wiki/Modland#Searching}.
+#' searches. For details see <https://www.exotica.org.uk/wiki/Modland#Searching>.
 #' Note that modLand contains a wide range of tracker files, only mod-files
-#' are supported by the \code{ProTrackR} package. It is therefore advisable to add the
+#' are supported by the `ProTrackR` package. It is therefore advisable to add the
 #' keyword `mod' to the search string.
-#' @param format A single length \code{character} vector, indicating the
-#' tracker file format. `\code{Protracker}' is the option that is most likely to work in this package.
-#' @param author A single length \code{character} vector, indicating the
-#' module author name. Can be obtained from a \code{modLand.search.mod}.
-#' @param title A single length \code{character} vector, indicating the
-#' module title. Can be obtained from a \code{modLand.search.mod}.
-#' @param mirror A single length \code{character} vector. Should contain one of the
+#' @param format A single length `character` vector, indicating the
+#' tracker file format. ``Protracker`' is the option that is most likely to work in this package.
+#' @param author A single length `character` vector, indicating the
+#' module author name. Can be obtained from a `modLand.search.mod`.
+#' @param title A single length `character` vector, indicating the
+#' module title. Can be obtained from a `modLand.search.mod`.
+#' @param mirror A single length `character` vector. Should contain one of the
 #' mirrors listed in the `usage' section. Select a mirror site from which
 #' the module file needs to be downloaded.
-#' @param ... Argument that are passed on to \code{\link{read.module}}.
-#' @returns \code{modLand.search.mod} returns a \code{data.frame}.
-#' The \code{data.frame} contains a search result in each row.
+#' @param ... Argument that are passed on to [`read.module`].
+#' @returns `modLand.search.mod` returns a `data.frame`.
+#' The `data.frame` contains a search result in each row.
 #' The data.frame contains a number of columns, each containing
-#' \code{character} strings. The column `title' contains the mod file name;
+#' `character` strings. The column `title' contains the mod file name;
 #' The column named `author' contains the author name; the column named
-#' `format' contains the tracker file format (only `\code{Protracker}'
+#' `format' contains the tracker file format (only ``Protracker`'
 #' is supported by this package); The collumn `collect' contains
 #' modLand collections in which the mod is included; the column named
 #' `url' contains a download link for the `ogg'-file generated on the
 #' modLand server from the mod file. Note that ogg-files are not supported
-#' by the ProTrackR package. Use \code{modLand.download.mod} to download
+#' by the ProTrackR package. Use `modLand.download.mod` to download
 #' the mod file.
 #'
-#' \code{modLand.download.mod} attempts to download the specified mod
-#' file and return it as a \code{\link{PTModule}} object. It will throw
+#' `modLand.download.mod` attempts to download the specified mod
+#' file and return it as a [`PTModule`] object. It will throw
 #' errors when the mod file is not available or when there are network
 #' problems...
 #' @name modLand

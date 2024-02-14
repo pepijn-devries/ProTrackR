@@ -12,11 +12,11 @@ with which effect and what kind of triggers or jumps should be applied.
 }
 \details{
 The \code{PTCell} class consists of a \code{vector} of four \code{raw} values,
-as specified in the `Slots' section. A cell will tell which \code{\link{PTSample}}
+as specified in the 'Slots' section. A cell will tell which \code{\link{PTSample}}
 is to be played at which frequency (corresponding to a note and octave). If
 no octave or note is specified, nothing will be played, or if a sample was
 started to play on the same \code{\link{PTTrack}}, this sample will continue
-playing. The \code{PTCell} can also hold \code{\link{effect}} codes which
+playing. The \code{PTCell} can also hold \code{effect()} codes which
 can be used to add audio effects to the sample being played, change the
 speed/tempo at which patterns are played, or trigger jumps to other positions
 within a \code{\link{PTPattern}} or to other positions in the
@@ -25,27 +25,27 @@ within a \code{\link{PTPattern}} or to other positions in the
 \section{Slots}{
 
 \describe{
-\item{\code{data}}{A \code{vector} of class "\code{raw}" of length 4. The \code{raw}
+\item{\code{data}}{A \code{vector} of class \code{raw} of length 4. The \code{raw}
 data is stored identical to the way it is stored in a ProTracker module
 file. The \code{character} representation is easier to understand, and
 with the \link[=ProTrackR-package]{ProTrackR} package it shouldn't be necessary to manipulate
 the \code{raw} data directly.
 
 The structure is illustrated with an example. Let's start with a
-\code{character} representation of a \code{PTCell} as an example: "\code{C-3 1B A08}".
+\code{character} representation of a \code{PTCell} as an example: \code{"C-3 1B A08"}.
 The left-hand part of this string shows that this cell will play note "C" in
-octave 3. The middle part shows that \code{\link{PTSample}} number \code{0x1B} = \code{27}
+octave 3. The middle part shows that \code{\link{PTSample}} number \code{0x1B = 27}
 will be played. The right-hand part of the string shows that effect "A08"
 will be applied (which is a volume slide down).
 
-The \code{raw} representation of this example would be "\code{10 d6 ba 08}",
-or when I replace the actual values with symbols: "\code{sp pp se ee}". Where
-"\code{ss}" represents the sample number, "\code{eee}" represents the \code{\link{effect}}
-code and "\code{ppp}" represents the period value. The correct note and octave
+The \code{raw} representation of this example would be \code{"10 d6 ba 08"},
+or when I replace the actual values with symbols: \code{"sp pp se ee"}. Where
+\code{"ss"} represents the sample number, \code{"eee"} represents the \code{\link[=effect]{effect()}}
+code and \code{"ppp"} represents the period value. The correct note and octave
 can be derived by looking up the period value in the \code{\link{period_table}}
-(which is also implemented in the following methods: \code{\link{note}},
-\code{\link{octave}} and \code{\link{periodToChar}}).
-The period value \code{0x0d6} =  \code{214} corresponds with note "C"
+(which is also implemented in the following methods: \code{\link[=note]{note()}},
+\code{\link[=octave]{octave()}} and \code{\link[=periodToChar]{periodToChar()}}).
+The period value \code{0x0d6 = 214} corresponds with note "C"
 in octave 3.}
 }}
 

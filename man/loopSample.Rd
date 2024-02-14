@@ -29,7 +29,7 @@ Generate a looped \code{\link{waveform}} of a \code{\link{PTSample}} object.
 \details{
 For playing routines, it can be useful to generate repeats of a sample loop.
 This method returns the waveform of a \code{\link{PTSample}} where the
-loop is repeated `\code{times}' times or has a length of `\code{n_samples}'.
+loop is repeated \verb{times`' times or has a length of }n_samples`'.
 }
 \examples{
 data("mod.intro")

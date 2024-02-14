@@ -16,7 +16,7 @@ A \code{\link{PTModule}} object included in the package as example.
 \details{
 This PTModule object is based on an original ProTracker module file
 I've composed in the late nineteen nineties. It is used as example for many
-of the \code{\link[=ProTrackR-package]{ProTrackR}} methods and you can use it to test your own
+of the \link[=ProTrackR-package]{ProTrackR} methods and you can use it to test your own
 code. It can also be exported back to the original ProTracker module file
 by using \code{\link{write.module}}.
 }
