@@ -35,7 +35,7 @@ of the \code{\link{PTPattern}}, \code{\link{PTTrack}}, \code{\link{PTCell}} and
 \section{Current issues and future developments}{
 
 For the development state of this package, please check the
-\href{https://pepijn.devries.github.com/ProTrackR/}{README section on GitHub}.
+\href{https://pepijn-devries.github.com/ProTrackR/}{README section on GitHub}.
 
 Currently, not all effect commands are implemented, although most common
 ones are. I will work on implementing the remaining effect commands (see
