@@ -25,7 +25,7 @@
 #' [`PTModule`].
 #' @section Current issues and future developments:
 #' For the development state of this package, please check the
-#' [README section on GitHub](https://pepijn.devries.github.com/ProTrackR/).
+#' [README section on GitHub](https://pepijn-devries.github.com/ProTrackR/).
 #'
 #' Currently, not all effect commands are implemented, although most common
 #' ones are. I will work on implementing the remaining effect commands (see
