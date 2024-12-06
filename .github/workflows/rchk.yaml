@@ -2,11 +2,10 @@ name: rchk
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
-steps:
-rchk:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - uses: randy3k/github-action-rchk@master
-      with:
-        package: ProTrackR2
+    rchk:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v1
+        - uses: randy3k/github-action-rchk@master
+          with:
+            package: ProTrackR2
