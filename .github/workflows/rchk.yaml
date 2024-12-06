@@ -1,4 +1,8 @@
-  rchk:
+name: rchk
+run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+on: [push]
+jobs:
+rchk:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
