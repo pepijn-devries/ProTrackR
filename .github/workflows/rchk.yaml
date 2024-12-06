@@ -2,6 +2,7 @@ name: rchk
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
+steps:
 rchk:
     runs-on: ubuntu-latest
     steps:
