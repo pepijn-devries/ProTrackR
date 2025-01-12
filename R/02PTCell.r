@@ -538,7 +538,7 @@ setGeneric("note<-", function(x, value = c("C-", "C#", "D-",
 #' @param x Either a (`vector` of) numeric value(s), representing a period
 #' value. It can also be a [`PTCell`] object.
 #' @param value A `character` string representing the chromatic scale note
-#' with wich the current note needs to be replaced. Should have any of the folling values:
+#' with which the current note needs to be replaced. Should have any of the following values:
 #' `"C-"`, `"C#"`, `"D-"`, `"D#"`, `"E-"`, `"F-"`,
 #' `"F#"`, `"G-"`, `"G#"`, `"A-"`, `"A#"`, `"B-"`,
 #' or `"--"`.

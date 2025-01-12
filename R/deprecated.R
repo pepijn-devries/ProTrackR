@@ -4,87 +4,87 @@
 #' [openmpt](https://pepijn-devries.github.io/openmpt/articles/modarchive.html) package.
 #' @param ... Ignored
 #' @returns Returns `NULL`.
-#' @rdname deprecated
+#' @rdname openmpt-deprecated
 #' @export
 modArchive.info <- function(...) {
-  .Deprecated("modarchive_info", package = "openmpt")
+  .Deprecated("openmpt::modarchive_info")
   NULL
 }
 
-#' @rdname deprecated
+#' @rdname openmpt-deprecated
 #' @export
 modArchive.download <- function(...) {
-  .Deprecated("modarchive_download", package = "openmpt")
+  .Deprecated("openmpt::modarchive_download")
   NULL
 }
 
-#' @rdname deprecated
+#' @rdname openmpt-deprecated
 #' @export
 modArchive.search.mod <- function(...) {
-  .Deprecated("modarchive_search_mod", package = "openmpt")
+  .Deprecated("openmpt::modarchive_search_mod")
   NULL
 }
 
-#' @rdname deprecated
+#' @rdname openmpt-deprecated
 #' @export
 modArchive.request.count <- function(...) {
-  .Deprecated("modarchive_requests", package = "openmpt")
+  .Deprecated("openmpt::modarchive_requests")
   NULL
 }
 
-#' @rdname deprecated
+#' @rdname openmpt-deprecated
 #' @export
 modArchive.max.requests <- function(...) {
-  .Deprecated("modarchive_requests", package = "openmpt")
+  .Deprecated("openmpt::modarchive_requests")
   NULL
 }
 
 
-#' @rdname deprecated
+#' @rdname openmpt-deprecated
 #' @export
 modArchive.view.by <- function(...) {
-  .Deprecated("modarchive_view_by", package = "openmpt")
+  .Deprecated("openmpt::modarchive_view_by")
   NULL
 }
 
-#' @rdname deprecated
+#' @rdname openmpt-deprecated
 #' @export
 modArchive.search.genre <- function(...) {
-  .Deprecated("modarchive_search_genre", package = "openmpt")
+  .Deprecated("openmpt::modarchive_search_genre")
   NULL
 }
 
-#' @rdname deprecated
+#' @rdname openmpt-deprecated
 #' @export
 modArchive.search.artist <- function(...) {
-  .Deprecated("modarchive_search_artist", package = "openmpt")
+  .Deprecated("openmpt::modarchive_search_artist")
   NULL
 }
 
-#' @rdname deprecated
+#' @rdname openmpt-deprecated
 #' @export
 modArchive.search.hash <- function(...) {
-  .Deprecated("modarchive_search_hash", package = "openmpt")
+  .Deprecated("openmpt::modarchive_search_hash")
   NULL
 }
 
-#' @rdname deprecated
+#' @rdname openmpt-deprecated
 #' @export
 modArchive.random.pick <- function(...) {
-  .Deprecated("modarchive_random", package = "openmpt")
+  .Deprecated("openmpt::modarchive_random")
   NULL
 }
 
-#' @rdname deprecated
+#' @rdname openmpt-deprecated
 #' @export
 modLand.search.mod <- function(...) {
-  .Deprecated("modland_search", package = "openmpt")
+  .Deprecated("openmpt::modland_search")
   NULL
 }
 
-#' @rdname deprecated
+#' @rdname openmpt-deprecated
 #' @export
 modLand.download.mod <- function(...) {
-  .Deprecated("modland_download", package = "openmpt")
+  .Deprecated("openmpt::modland_download")
   NULL
 }

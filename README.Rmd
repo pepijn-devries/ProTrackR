@@ -74,20 +74,21 @@ While we are at it, why not play it:
 playMod(elekfunk, verbose = FALSE)
 ```
 
-## Developmental status
+## Package status and alternatives
 
-It has been a decade since the initial release of this package. Since it's release
-a lot has changed in R and in my skill set. I still have plans for this package,
-but this requires drastic changes. Therefore, I will only apply minimal maintenance
-to this package. Meanwhile I will work on a complete overhaul which will be released
-in due time as a new package. This new package will:
+This package is no longer actively developed. It will receive minimal attention and
+only required updates for the latest CRAN policies. It is surpassed by the alternatives
+listed below.
 
- * have the same or similar features as the current package.
- * will implement modern R features and try to adhere to
-   [tidyverse](https://www.tidyverse.org) principles.
- * implement rendering procedures in C++ giving the package a speed boost.
-
-But until then, please enjoy the current package as is.
+ * [ProTrackR2](https://pepijn-devries.github.io/ProTrackR2/):
+     A complete rewrite in C and
+     C++ of the current package using the
+     [ProTracker clone](https://github.com/8bitbubsy/pt2-clone)
+     by Olav Sørensen. It has similar features as the current package but has
+     a better implementation of the tracker interpretation and is a lot faster.
+ * [openmpt](https://pepijn-devries.github.io/openmpt/):
+     An R port of [libopenmpt](https://lib.openmpt.org/libopenmpt/). It plays
+     and renders a wide range of tracker music files, but they cannot be edited.
 
 ## Further reading
 

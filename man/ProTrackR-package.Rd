@@ -23,7 +23,7 @@ Commodore Amiga alive.
 
 Some experience with ProTracker (or any other
 music tracker) will promote the ease of use of this package. However,
-the provided documentation and exernal links should help you,
+the provided documentation and external links should help you,
 when you're starting from scratch. A good place to start reading
 this manual would be the documentation of the \code{\linkS4class{PTModule}},
 which describes the structure of a ProTracker module and how it is
@@ -47,7 +47,7 @@ to another, without specifying a new note) is also something that is implemented
 differently by varying module players. This package currently does not implement
 such switches conform ProTracker specs.
 
-Period values, which dictate at which fequency samples should be played, are
+Period values, which dictate at which frequency samples should be played, are
 censored both by Amiga hardware and software coded limits in the original
 ProTracker. Documentation on these limits are ambiguous. I've made a first
 attempt to implement these bounds in the current version of the
@@ -112,7 +112,7 @@ And now, without further ado, the overview of effect commands:\tabular{llll}{
    E1x \tab Porta up (fine) \tab The period value is decreased with x, at the first tick. \tab Implemented \cr
    E2x \tab Porta down (fine) \tab The period value is increased with x, at the first tick. \tab Implemented \cr
    E3x \tab Glissando Control \tab This effect causes a change in the effect 3xy (porta to note).  It toggles whether to do a smooth slide or whether to slide in jumps of semitones. When x is 0 it uses a smooth slide, non-zero values will result in jumps. \tab Not yet implemented \cr
-   E4x \tab Vibrato Waveform \tab This effect sets the waveform for the vibrato command to follow. With x modulo 4 equals 0, a sine wave is used, with 1 ramp down, with 2 or 3 a square wave. Values greater than 4 causes the ossicating waveform not to retrigger it when a new note is played. \tab Implemented \cr
+   E4x \tab Vibrato Waveform \tab This effect sets the waveform for the vibrato command to follow. With x modulo 4 equals 0, a sine wave is used, with 1 ramp down, with 2 or 3 a square wave. Values greater than 4 causes the oscillating waveform not to retrigger it when a new note is played. \tab Implemented \cr
    E5x \tab Set finetune \tab Set the finetune with x, where x is interpreted as a signed nybble. \tab Partly implemented \cr
    E6x \tab Pattern loop \tab Set pattern loop start with E60, and loop x times when x is non-zero. \tab Implemented \cr
    E7x \tab Tremolo waveform \tab Same as E4x, but this controls the wave form for the tremolo effect (7xy) rather then the vibrato effect. \tab Implemented \cr
@@ -124,7 +124,7 @@ And now, without further ado, the overview of effect commands:\tabular{llll}{
    EDx \tab Delay note \tab The note is triggered with a delay of x ticks. \tab Implemented \cr
    EEx \tab Pattern delay \tab The duration of the row in ticks is multiplied by (x + 1). \tab Implemented \cr
    EFx \tab Not implemented \tab According to official documentation this command is not implemented in ProTracker, but it is. It flips sample data in a looped sample, therewith destroying the original sample data. \tab Not implemented \cr
-   Fxy \tab Set speed or tempo \tab When xy is smaller then 32, it sets the speed in ticks per row. When xy is greater then 31, it will set the tempo, wich is inversely related to the duration of each tick. Speed and tempo can be defined in combination. \tab Implemented \cr
+   Fxy \tab Set speed or tempo \tab When xy is smaller then 32, it sets the speed in ticks per row. When xy is greater then 31, it will set the tempo, which is inversely related to the duration of each tick. Speed and tempo can be defined in combination. \tab Implemented \cr
 }
 }
 

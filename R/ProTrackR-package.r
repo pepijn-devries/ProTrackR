@@ -15,7 +15,7 @@
 #'
 #' Some experience with ProTracker (or any other
 #' music tracker) will promote the ease of use of this package. However,
-#' the provided documentation and exernal links should help you,
+#' the provided documentation and external links should help you,
 #' when you're starting from scratch. A good place to start reading
 #' this manual would be the documentation of the [`PTModule-class`],
 #' which describes the structure of a ProTracker module and how it is
@@ -37,7 +37,7 @@
 #' differently by varying module players. This package currently does not implement
 #' such switches conform ProTracker specs.
 #'
-#' Period values, which dictate at which fequency samples should be played, are
+#' Period values, which dictate at which frequency samples should be played, are
 #' censored both by Amiga hardware and software coded limits in the original
 #' ProTracker. Documentation on these limits are ambiguous. I've made a first
 #' attempt to implement these bounds in the current version of the
@@ -100,7 +100,7 @@
 #' | E1x | Porta up (fine) | The period value is decreased with x, at the first tick. | Implemented |
 #' | E2x | Porta down (fine) | The period value is increased with x, at the first tick. | Implemented |
 #' | E3x | Glissando Control | This effect causes a change in the effect 3xy (porta to note).  It toggles whether to do a smooth slide or whether to slide in jumps of semitones. When x is 0 it uses a smooth slide, non-zero values will result in jumps. | Not yet implemented |
-#' | E4x | Vibrato Waveform | This effect sets the waveform for the vibrato command to follow. With x modulo 4 equals 0, a sine wave is used, with 1 ramp down, with 2 or 3 a square wave. Values greater than 4 causes the ossicating waveform not to retrigger it when a new note is played. | Implemented |
+#' | E4x | Vibrato Waveform | This effect sets the waveform for the vibrato command to follow. With x modulo 4 equals 0, a sine wave is used, with 1 ramp down, with 2 or 3 a square wave. Values greater than 4 causes the oscillating waveform not to retrigger it when a new note is played. | Implemented |
 #' | E5x | Set finetune | Set the finetune with x, where x is interpreted as a signed nybble. | Partly implemented |
 #' | E6x | Pattern loop | Set pattern loop start with E60, and loop x times when x is non-zero. | Implemented |
 #' | E7x | Tremolo waveform | Same as E4x, but this controls the wave form for the tremolo effect (7xy) rather then the vibrato effect. | Implemented |
@@ -112,7 +112,7 @@
 #' | EDx | Delay note | The note is triggered with a delay of x ticks. | Implemented |
 #' | EEx | Pattern delay | The duration of the row in ticks is multiplied by (x + 1). | Implemented |
 #' | EFx | Not implemented | According to official documentation this command is not implemented in ProTracker, but it is. It flips sample data in a looped sample, therewith destroying the original sample data. | Not implemented |
-#' | Fxy | Set speed or tempo | When xy is smaller then 32, it sets the speed in ticks per row. When xy is greater then 31, it will set the tempo, wich is inversely related to the duration of each tick. Speed and tempo can be defined in combination. | Implemented |
+#' | Fxy | Set speed or tempo | When xy is smaller then 32, it sets the speed in ticks per row. When xy is greater then 31, it will set the tempo, which is inversely related to the duration of each tick. Speed and tempo can be defined in combination. | Implemented |
 #' @section Test cases:
 #' The interpretation of the effect commands can be tedious. They often vary
 #' between module players. Even ProTracker can have a quirky (and unexpected) ways

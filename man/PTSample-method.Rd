@@ -46,7 +46,7 @@ the selected \code{PTSample}.
 Method to coerce \code{x} to class \code{\link{PTSample}}.
 
 When \code{x} is a \code{\link[tuneR:Wave]{tuneR::Wave}} object, this method will not
-resample it. However, the sample rate will be adjusted and samples exeeding
+resample it. However, the sample rate will be adjusted and samples exceeding
 the maximum length of \code{2*0xffff} = \code{131070} will be clipped to this
 maximum length. When \code{x} is a stereo sample, it will be converted to
 mono, by averaging the left and right channel.

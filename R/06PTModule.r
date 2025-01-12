@@ -56,7 +56,7 @@ validity.PTModule <- function(object)
 #' `raw` values represent the indices of `PTPattern` tables and indicate
 #' in which order these patterns need to be played. Note that the `raw` values
 #' are conform the indices used in ProTracker, starting at zero. In R, indices of
-#' objects start at one. Users need to compensate for this discrepancy theirselves.
+#' objects start at one. Users need to compensate for this discrepancy themselves.
 #'
 #' The pattern order table can be extracted or replaced with the
 #' [`patternOrder`] method.
@@ -601,7 +601,7 @@ setGeneric("patternOrder", function(x, full = FALSE) standardGeneric("patternOrd
 #' When `full = TRUE`, the `vector` will be padded with zeros to a
 #' length of 128, and the [`patternOrderLength`] will be set to the
 #' length of `value`. When `full = FALSE`, `value` will only
-#' repplace the part of the order table up to the length of `value`. The
+#' replace the part of the order table up to the length of `value`. The
 #' remainder of the table is not changed. The [`patternOrderLength`]
 #' is also not modified in this case.
 #' @returns For `patternOrder`, a `vector` of `numeric`
@@ -1151,7 +1151,7 @@ setGeneric("fix.PTModule", function(mod, verbose) standardGeneric("fix.PTModule"
 #'
 #' Almost any file can be read as a [`PTModule`] object (using
 #' [`read.module`]) when validity is ignored and no unexpected end
-#' of file is reached. This package's object validity are very strickly testing
+#' of file is reached. This package's object validity are very strictly testing
 #' for compliance with ProTracker specifications. As many modules could have
 #' been created with other trackers (which often will play just as well in
 #' ProTracker) it is desirable to convert such object to ProTracker specs.
@@ -1166,11 +1166,11 @@ setGeneric("fix.PTModule", function(mod, verbose) standardGeneric("fix.PTModule"
 #' @param verbose With the default value of `TRUE`, the method
 #' prints a progress report to the [`sink`]. When set
 #' to `FALSE`, the progress report is suppressed.
-#' @returns Returns a copy of object `mod` in which all non-conformaties are
+#' @returns Returns a copy of object `mod` in which all non-conformities are
 #' attempted to be fixed. (Attempted) fixes are listed printed
 #' in the progress report.
 #' @note In the current version, pattern data itself is not checked for
-#' non-conformaties nor is it fixed.
+#' non-conformities nor is it fixed.
 #' @examples
 #' data("mod.intro")
 #'

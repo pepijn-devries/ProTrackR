@@ -19,7 +19,7 @@
 value. It can also be a \code{\link{PTCell}} object.}
 
 \item{value}{A \code{character} string representing the chromatic scale note
-with wich the current note needs to be replaced. Should have any of the folling values:
+with which the current note needs to be replaced. Should have any of the following values:
 \code{"C-"}, \code{"C#"}, \code{"D-"}, \code{"D#"}, \code{"E-"}, \code{"F-"},
 \code{"F#"}, \code{"G-"}, \code{"G#"}, \code{"A-"}, \code{"A#"}, \code{"B-"},
 or \code{"--"}.

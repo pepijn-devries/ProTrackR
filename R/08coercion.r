@@ -429,7 +429,7 @@ setGeneric("PTSample<-", function(x, index, value) standardGeneric("PTSample<-")
 #' Method to coerce `x` to class [`PTSample`].
 #'
 #' When `x` is a [`tuneR::Wave`] object, this method will not
-#' resample it. However, the sample rate will be adjusted and samples exeeding
+#' resample it. However, the sample rate will be adjusted and samples exceeding
 #' the maximum length of `2*0xffff` = `131070` will be clipped to this
 #' maximum length. When `x` is a stereo sample, it will be converted to
 #' mono, by averaging the left and right channel.

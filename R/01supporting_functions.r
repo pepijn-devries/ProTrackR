@@ -389,7 +389,7 @@ periodToSampleRate <-
 #' @param raw_dat A vector of class `raw` from which the high or low nybble value
 #' needs to be extracted.
 #' @param which A character string indicating whether the high or low nybble should
-#' be returnd. It should either be `"low"` (default) or `"high"`.
+#' be returned. It should either be `"low"` (default) or `"high"`.
 #' @returns A vector of the same length as `raw_dat` holding integer values.
 #' @examples
 #' ## this will return 0x0f:
