@@ -14,7 +14,7 @@ MODPlug Tracker pattern should be created.}
 \item{to.clipboard}{A \code{logical} value, indicating whether the
 result should be copied to the system's clipboard (\code{TRUE}) or
 should be returned as a \code{vector} of \code{character}s
-(\code{FALSE}).}
+(\code{FALSE}). Note that copying to clipboard only works on Windows machines}
 }
 \value{
 Returns an invisible \code{NULL} when
@@ -41,7 +41,9 @@ pattern <- PTPattern(mod.intro, 1)
 ## You can check by pasting it into a text
 ## editor, or better yet, the MODPlug Tracker.
 
-PTPatternToMODPlug(pattern)
+if (.Platform$OS.type == "windows") {
+  PTPatternToMODPlug(pattern)
+}
 
 ## If you want to handle the pattern data
 ## in R:
@@ -51,7 +53,7 @@ patModPlug <- PTPatternToMODPlug(pattern, FALSE)
 ## We can do the same with a block:
 
 block <- PTBlock(pattern, 1:10, 2:3)
-PTPatternToMODPlug(block)
+PTPatternToMODPlug(block, FALSE)
 }
 \seealso{
 Other MODPlug.operations: 

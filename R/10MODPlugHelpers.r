@@ -167,7 +167,7 @@ MODPlugToPTPattern <- function(text = NULL, what = c("PTPattern", "PTBlock")) {
 #' @param to.clipboard A `logical` value, indicating whether the
 #' result should be copied to the system's clipboard (`TRUE`) or
 #' should be returned as a `vector` of `character`s
-#' (`FALSE`).
+#' (`FALSE`). Note that copying to clipboard only works on Windows machines
 #' @returns Returns an invisible `NULL` when
 #' argument `to.clipboard` is set to `TRUE`.
 #' Returns an Open MODPlug Tracker flavoured pattern table as
@@ -184,8 +184,10 @@ MODPlugToPTPattern <- function(text = NULL, what = c("PTPattern", "PTBlock")) {
 #' ## The result is placed on the system clipboard.
 #' ## You can check by pasting it into a text
 #' ## editor, or better yet, the MODPlug Tracker.
-#'
-#' PTPatternToMODPlug(pattern)
+#' 
+#' if (.Platform$OS.type == "windows") {
+#'   PTPatternToMODPlug(pattern)
+#' }
 #'
 #' ## If you want to handle the pattern data
 #' ## in R:
@@ -195,7 +197,7 @@ MODPlugToPTPattern <- function(text = NULL, what = c("PTPattern", "PTBlock")) {
 #' ## We can do the same with a block:
 #'
 #' block <- PTBlock(pattern, 1:10, 2:3)
-#' PTPatternToMODPlug(block)
+#' PTPatternToMODPlug(block, FALSE)
 #' @author Pepijn de Vries
 #' @family MODPlug.operations
 #' @family pattern.operations
