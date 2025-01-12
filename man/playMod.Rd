@@ -5,7 +5,7 @@
 \alias{playMod,PTModule-method}
 \title{Play PTModule objects}
 \usage{
-\S4method{playMod}{PTModule}(mod, wait = T, ...)
+\S4method{playMod}{PTModule}(mod, wait = TRUE, ...)
 }
 \arguments{
 \item{mod}{A \code{\link{PTModule}} object to be played.}
@@ -35,11 +35,11 @@ balance between speed, quality and accuracy. See the documentation of the
 \code{\link{modToWave}} method for the control you have on these aspects.
 }
 \examples{
-\dontrun{
-data("mod.intro")
+if (interactive()) {
+  data("mod.intro")
 
-## play the module and capture the audio Wave
-wav <- playMod(mod.intro)
+  ## play the module and capture the audio Wave
+  wav <- playMod(mod.intro)
 }
 }
 \seealso{

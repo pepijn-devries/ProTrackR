@@ -1,23 +1,23 @@
 validity.PTCell <- function(object)
 {
-  if (length(object@data) != 4) return (F)
+  if (length(object@data) != 4) return (FALSE)
   # Data in vector should be of type raw
-  if (typeof(object@data) != "raw") return (F)
+  if (typeof(object@data) != "raw") return (FALSE)
 
   # max. 32 samples (including number 0) allowed:
-  if (sampleNumber(object) > 0x1F) return (F)
+  if (sampleNumber(object) > 0x1F) return (FALSE)
 
   period.value = .periodFromCell(object)
   if (period.value != 0)
   {
     # only octave 1 up to 3 allowed
-    if (!(octave(period.value) %in% as.character(1:3))) return (F)
+    if (!(octave(period.value) %in% as.character(1:3))) return (FALSE)
     # period value should be in ProTracker period table
     if (!(period.value %in%
           unlist(ProTrackR::period_table[ProTrackR::period_table$tuning == 0,
-                       !(names(ProTrackR::period_table) %in% c("octave", "tuning"))]))) return (F)
+                       !(names(ProTrackR::period_table) %in% c("octave", "tuning"))]))) return (FALSE)
   }
-  return (T)
+  return (TRUE)
 }
 
 #' The PTCell class

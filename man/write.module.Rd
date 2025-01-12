@@ -30,20 +30,19 @@ of ProTracker 2.3A. This means that the routine may not be able to
 write files that ar compatible with later or earlier ProTracker versions.
 }
 \examples{
-\dontrun{
 ## get the PTModule object provided with the ProTrackR package
 data("mod.intro")
 
+f <- tempfile(fileext = ".mod")
 ## save the object as a valid ProTracker module file:
-write.module(mod.intro, "intro.mod")
+write.module(mod.intro, f)
 
 ## or create the connection yourself:
-con <- file("intro2.mod", "wb")
+con <- file(f, "wb")
 write.module(mod.intro, con)
 
 ## don't forget to close the connection after you're done:
 close(con)
-}
 }
 \references{
 \url{https://wiki.multimedia.cx/index.php?title=Protracker_Module}

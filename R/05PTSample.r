@@ -1,26 +1,26 @@
 validity.PTSample <- function(object)
 {
-  if (length(object@name)       != 22)                 return(F)
-  if (length(object@finetune)   != 1)                  return(F)
-  if (length(object@volume)     != 1)                  return(F)
-  if (length(object@wloopstart) != 2)                  return(F)
-  if (length(object@wlooplen)   != 2)                  return(F)
-  if (2*rawToUnsignedInt(object@wloopstart) > length(object@left))   return(F)
+  if (length(object@name)       != 22)                 return(FALSE)
+  if (length(object@finetune)   != 1)                  return(FALSE)
+  if (length(object@volume)     != 1)                  return(FALSE)
+  if (length(object@wloopstart) != 2)                  return(FALSE)
+  if (length(object@wlooplen)   != 2)                  return(FALSE)
+  if (2*rawToUnsignedInt(object@wloopstart) > length(object@left))   return(FALSE)
   if ((2*(rawToUnsignedInt(object@wlooplen) +
           rawToUnsignedInt(object@wloopstart)) > length(object@left)) &&
-      rawToUnsignedInt(object@wlooplen) != 1)       return(F)
+      rawToUnsignedInt(object@wlooplen) != 1)       return(FALSE)
   # loop length can only be zero when the sample is empty
   if (rawToUnsignedInt(object@wlooplen) == 0 &&
-      length(object@left) > 0)                         return(F)
-  if (object@bit != 8)                                 return(F)
-  if (!object@pcm)                                     return(F)
-  if (as.integer(object@volume)   > 0x40)              return(F)
-  if (as.integer(object@finetune) > 0x0F)              return(F)
-  if (length(object@right) > 0)                        return(F)
-  if (length(object@left)  > 2*0xFFFF)                 return(F)
+      length(object@left) > 0)                         return(FALSE)
+  if (object@bit != 8)                                 return(FALSE)
+  if (!object@pcm)                                     return(FALSE)
+  if (as.integer(object@volume)   > 0x40)              return(FALSE)
+  if (as.integer(object@finetune) > 0x0F)              return(FALSE)
+  if (length(object@right) > 0)                        return(FALSE)
+  if (length(object@left)  > 2*0xFFFF)                 return(FALSE)
   # sample length should be even!
-  if ((length(object@left)%%2) == 1)                   return(F)
-  return (T)
+  if ((length(object@left)%%2) == 1)                   return(FALSE)
+  return (TRUE)
 }
 
 #' The PTSample class
@@ -123,7 +123,7 @@ setClass("PTSample",
                    wlooplen   = raw(2),
                    samp.rate  = 16574.28, #can't seem to be able to call a function (noteToSampleRate) from the constructor
                    bit        = 8,
-                   stereo     = F),
+                   stereo     = FALSE),
          contains = "Wave",
          validity = validity.PTSample)
 
@@ -333,7 +333,7 @@ setMethod("loopStart", "PTSample", function(sample){
 #' @export
 setReplaceMethod("loopStart", c("PTSample", "ANY"), function(sample, value){
   value <- value[[1]]
-  if (is.na(value) || value == "off" || (is.logical(value) && value == F))
+  if (is.na(value) || value == "off" || (is.logical(value) && value == FALSE))
   {
     sample@wloopstart <- unsignedIntToRaw(0, 2)
     sample@wlooplen <- unsignedIntToRaw(1, 2)
@@ -409,7 +409,7 @@ setMethod("loopLength", "PTSample", function(sample){
 setReplaceMethod("loopLength", c("PTSample", "ANY"), function(sample, value){
   value <- value[[1]]
   value <- as.integer(round(value/2))
-  if (is.na(value) || value == "off" || value == F)
+  if (is.na(value) || value == "off" || value == FALSE)
   {
     sample@wloopstart <- unsignedIntToRaw(0, 2)
     sample@wlooplen <- unsignedIntToRaw(1, 2)
@@ -446,7 +446,7 @@ setMethod("print", "PTSample", function(x, ...){
   cat(paste("\tFinetune:", fineTune(x), "\n", sep = "\t\t\t"))
 })
 
-setGeneric("playSample", function(x, silence = 0, wait = T,
+setGeneric("playSample", function(x, silence = 0, wait = TRUE,
                                   note = "C-3", loop = 1, ...){
   standardGeneric("playSample")
 })
@@ -494,25 +494,24 @@ setGeneric("playSample", function(x, silence = 0, wait = T,
 #' Can be used to change the video mode, or finetune argument for the call to that method.
 #' @returns Returns nothing but plays the sample(s) as audio.
 #' @examples
-#' \dontrun{
-#' data("mod.intro")
+#' if (interactive()) {
+#'   data("mod.intro")
 #'
-#' ## play all samples in mod.intro:
-#' playSample(mod.intro, 0.2, loop = 0.5)
+#'   ## play all samples in mod.intro:
+#'   playSample(mod.intro, 0.2, loop = 0.5)
 #'
-#' ## play a chromatic scale using sample number 3:
-#' for (note in c("A-2", "A#2", "B-2", "C-3", "C#3",
-#'                "D-3", "D#3", "E-3", "F-3", "F#3",
-#'                "G-3", "G#3"))
-#' {
-#'   playSample(PTSample(mod.intro, 3), note = note, silence = 0.05, loop = 0.4)
+#'   ## play a chromatic scale using sample number 3:
+#'   for (note in c("A-2", "A#2", "B-2", "C-3", "C#3",
+#'                  "D-3", "D#3", "E-3", "F-3", "F#3",
+#'                  "G-3", "G#3"))
+#'   {
+#'     playSample(PTSample(mod.intro, 3), note = note, silence = 0.05, loop = 0.4)
+#'   }
+#'
+#'   ## play the sample at a rate based on a specific
+#'   ## video mode and finetune:
+#'   playSample(PTSample(mod.intro, 3), video = "NTSC", finetune = -5)
 #' }
-#'
-#' ## play the sample at a rate based on a specific
-#' ## video mode and finetune:
-#' playSample(PTSample(mod.intro, 3), video = "NTSC", finetune = -5)
-#' }
-#'
 #' @author Pepijn de Vries
 #' @family sample.operations
 #' @family sample.rate.operations
@@ -543,7 +542,7 @@ setMethod("playSample", "PTSample", function(x, silence, wait, note, loop, ...){
   x@samp.rate <- sr
   if(silence > 0) x <- tuneR::bind(x,
                                    silence(silence, samp.rate = sr,
-                                           bit = 8, pcm = T, xunit = "time"))
+                                           bit = 8, pcm = TRUE, xunit = "time"))
   if (wait)
   {
     audio::wait(audio::play(vl*(x@left - 128)/128,
@@ -585,16 +584,15 @@ setGeneric("read.sample", function(filename, what = c("wav", "mp3", "8svx", "raw
 #' installed in order to read 8svx files.
 #' @returns Returns a `PTSample` object based on the file read.
 #' @examples
-#' \dontrun{
 #' data("mod.intro")
 #'
+#' f <- tempfile(fileext = ".iff")
 #' ## create an audio file which we can then read:
-#' write.sample(PTSample(mod.intro, 2), "snaredrum.iff", "8svx")
+#' write.sample(PTSample(mod.intro, 2), f, "8svx")
 #'
 #' ## read the created sample:
-#' snare <- read.sample("snaredrum.iff", "8svx")
+#' snare <- read.sample(f, "8svx")
 #' print(snare)
-#' }
 #'
 #' @note As per ProTracker standards, a sample should have an even length
 #' (in bytes). If a sample file has an odd length, a `raw` `0x00` value
@@ -646,7 +644,7 @@ setMethod("read.sample", c("character", "ANY"), function(filename, what = c("wav
     if (!("AmigaFFH" %in% utils::installed.packages())) stop("You need to install package 'AmigaFFH' in order to load 8svx files.")
     result <- AmigaFFH::read.iff(filename)
     samp.name <- raw(22)
-    try(samp.name <- AmigaFFH::getIFFChunk(result, c("8SVX", "NAME"))@chunk.data[[1]], silent = T)
+    try(samp.name <- AmigaFFH::getIFFChunk(result, c("8SVX", "NAME"))@chunk.data[[1]], silent = TRUE)
     samp.name <- samp.name[1:22]
     samp.name[is.na(samp.name)] <- raw(1)
     result <- AmigaFFH::interpretIFFChunk(result)[[1]]
@@ -697,19 +695,16 @@ setGeneric("write.sample", function(sample, filename, what = c("wav", "8svx", "r
 #' installed in order to write 8svx files.
 #' @returns Saves the audio to a file, but returns nothing.
 #' @examples
-#' \dontrun{
 #' data("mod.intro")
-#'
+#' 
 #' ## Export the second sample of mod.intro as a wav file:
-#' write.sample(PTSample(mod.intro, 2), "snaredrum.wav", "wav")
+#' write.sample(PTSample(mod.intro, 2), tempfile(fileext = ".wav"), "wav")
 #'
 #' ## Export the second sample of mod.intro as an 8svx file:
-#' write.sample(PTSample(mod.intro, 2), "snaredrum.iff", "8svx")
+#' write.sample(PTSample(mod.intro, 2), tempfile(fileext = ".iff"), "8svx")
 #'
 #' ## Export the second sample of mod.intro as a raw file:
-#' write.sample(PTSample(mod.intro, 2), "snaredrum.raw", "raw")
-#' }
-#'
+#' write.sample(PTSample(mod.intro, 2), tempfile(fileext = ".raw"), "raw")
 #' @family sample.operations
 #' @author Pepijn de Vries
 #' @family io.operations

@@ -6,9 +6,9 @@
 \alias{playSample,PTModule-method}
 \title{Play audio samples}
 \usage{
-\S4method{playSample}{PTSample}(x, silence = 0, wait = T, note = "C-3", loop = 1, ...)
+\S4method{playSample}{PTSample}(x, silence = 0, wait = TRUE, note = "C-3", loop = 1, ...)
 
-\S4method{playSample}{PTModule}(x, silence = 0, wait = T, note = "C-3", loop = 1, ...)
+\S4method{playSample}{PTModule}(x, silence = 0, wait = TRUE, note = "C-3", loop = 1, ...)
 }
 \arguments{
 \item{x}{Either a \code{\link{PTSample}} or a \code{\link{PTModule}} object.
@@ -60,25 +60,24 @@ as specified for the \code{\link{PTSample}} will be applied when playing
 the sample.
 }
 \examples{
-\dontrun{
-data("mod.intro")
+if (interactive()) {
+  data("mod.intro")
 
-## play all samples in mod.intro:
-playSample(mod.intro, 0.2, loop = 0.5)
+  ## play all samples in mod.intro:
+  playSample(mod.intro, 0.2, loop = 0.5)
 
-## play a chromatic scale using sample number 3:
-for (note in c("A-2", "A#2", "B-2", "C-3", "C#3",
-               "D-3", "D#3", "E-3", "F-3", "F#3",
-               "G-3", "G#3"))
-{
-  playSample(PTSample(mod.intro, 3), note = note, silence = 0.05, loop = 0.4)
+  ## play a chromatic scale using sample number 3:
+  for (note in c("A-2", "A#2", "B-2", "C-3", "C#3",
+                 "D-3", "D#3", "E-3", "F-3", "F#3",
+                 "G-3", "G#3"))
+  {
+    playSample(PTSample(mod.intro, 3), note = note, silence = 0.05, loop = 0.4)
+  }
+
+  ## play the sample at a rate based on a specific
+  ## video mode and finetune:
+  playSample(PTSample(mod.intro, 3), video = "NTSC", finetune = -5)
 }
-
-## play the sample at a rate based on a specific
-## video mode and finetune:
-playSample(PTSample(mod.intro, 3), video = "NTSC", finetune = -5)
-}
-
 }
 \seealso{
 Other sample.operations: 

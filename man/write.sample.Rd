@@ -34,19 +34,16 @@ files also known as "iff" files). In addition they can be exported as raw data,
 where each byte simply represents a signed integer value of the waveform.
 }
 \examples{
-\dontrun{
 data("mod.intro")
 
 ## Export the second sample of mod.intro as a wav file:
-write.sample(PTSample(mod.intro, 2), "snaredrum.wav", "wav")
+write.sample(PTSample(mod.intro, 2), tempfile(fileext = ".wav"), "wav")
 
 ## Export the second sample of mod.intro as an 8svx file:
-write.sample(PTSample(mod.intro, 2), "snaredrum.iff", "8svx")
+write.sample(PTSample(mod.intro, 2), tempfile(fileext = ".iff"), "8svx")
 
 ## Export the second sample of mod.intro as a raw file:
-write.sample(PTSample(mod.intro, 2), "snaredrum.raw", "raw")
-}
-
+write.sample(PTSample(mod.intro, 2), tempfile(fileext = ".raw"), "raw")
 }
 \seealso{
 Other sample.operations: 

@@ -27,7 +27,7 @@
 #' @export
 rawToCharNull <- function(raw_dat) {
   result <- ""
-  if (length(raw_dat) < 3) try(result <- (rawToChar(raw_dat)), silent = T) else
+  if (length(raw_dat) < 3) try(result <- (rawToChar(raw_dat)), silent = TRUE) else
   {
     result    <- raw_dat
     runlength <- rle(result)$lengths
@@ -39,7 +39,7 @@ rawToCharNull <- function(raw_dat) {
       result[rel_range][result[rel_range] == as.raw(0x00)] <- as.raw(0x20)
       result <- result[result != raw(1)]
     }
-    try(result <- rawToChar(result), silent = T)
+    try(result <- rawToChar(result), silent = TRUE)
     if ("raw" %in% class(result)) result <- ""
   }
   return(result)

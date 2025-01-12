@@ -12,8 +12,8 @@
   speed = 6,
   tempo = 125,
   video = c("PAL", "NTSC"),
-  play.once = T,
-  verbose = T
+  play.once = TRUE,
+  verbose = TRUE
 )
 }
 \arguments{
@@ -98,10 +98,8 @@ the four tracks in the module.}
 }
 }
 \examples{
-\dontrun{
 data(mod.intro)
 pt <- playingtable(mod.intro)
-}
 }
 \seealso{
 Other module.operations: 

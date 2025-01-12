@@ -23,7 +23,6 @@
 #' @name MODPlugToPTPattern
 #' @rdname MODPlugToPTPattern
 #' @examples
-#' \dontrun{
 #' ## This is what Mod Plug Pattern data looks like on
 #' ## the system's clipboard:
 #' modPlugPattern <- c("ModPlug Tracker MOD",
@@ -103,7 +102,6 @@
 #' ## we can also only import the first 10 lines as a
 #' ## PTBlock:
 #' blk <- MODPlugToPTPattern(modPlugPattern[1:10], "PTBlock")
-#' }
 #' @author Pepijn de Vries
 #' @family MODPlug.operations
 #' @family pattern.operations
@@ -119,8 +117,8 @@ MODPlugToPTPattern <- function(text = NULL, what = c("PTPattern", "PTBlock")) {
 
   result <- utils::read.table(text = text[-1], sep = "|", comment.char = "'")[,-1]
   # replace dots and spaces by dashes:
-  result <- gsub(" ", "-", as.matrix(result), fixed = T)
-  result <- gsub(".", "-", as.matrix(result), fixed = T)
+  result <- gsub(" ", "-", as.matrix(result), fixed = TRUE)
+  result <- gsub(".", "-", as.matrix(result), fixed = TRUE)
 
   # remove information that is not used by ProTracker
   result <- apply(result, 2, function(x) paste0(substr(x, 1, 5), substr(x, 9, 11)))
@@ -129,21 +127,21 @@ MODPlugToPTPattern <- function(text = NULL, what = c("PTPattern", "PTBlock")) {
   result <- suppressWarnings(apply(result, 2, function(x) paste0(substr(x, 1, 2),
                                                                  as.integer(substr(x, 3, 3)) - 3,
                                                                  substr(x, 4, 8))))
-  result <- gsub("NA", "-", result, fixed = T)
+  result <- gsub("NA", "-", result, fixed = TRUE)
   result <- apply(result, 2, function(x) paste0(substr(x, 1, 3),
-                                                gsub("-", "0", substr(x, 4, 8), fixed = T)))
+                                                gsub("-", "0", substr(x, 4, 8), fixed = TRUE)))
 
   # MODPlug uses decimal numbers to represent sample numbers
   # ProTracker uses hexadecimals:
   result <- suppressWarnings(apply(result, 2, function(x) paste0(substr(x, 1, 3),
                                                                  sprintf("%02X", as.integer(substr(x, 4, 5))),
                                                                  substr(x, 6, 8))))
-  result <- gsub("NA", "--", result, fixed = T)
+  result <- gsub("NA", "--", result, fixed = TRUE)
 
   result <- apply(result, 1, function(x){
     lapply(1:length(x), function(y) PTCell(x[y]))
   })
-  result <- matrix(unlist(result), length(result), byrow = T)
+  result <- matrix(unlist(result), length(result), byrow = TRUE)
 
   if (what == "PTPattern") {
     pat <- new("PTPattern")
@@ -178,7 +176,6 @@ MODPlugToPTPattern <- function(text = NULL, what = c("PTPattern", "PTBlock")) {
 #' @name PTPatternToMODPlug
 #' @rdname PTPatternToMODPlug
 #' @examples
-#' \dontrun{
 #' ## get some pattern data
 #'
 #' pattern <- PTPattern(mod.intro, 1)
@@ -193,37 +190,36 @@ MODPlugToPTPattern <- function(text = NULL, what = c("PTPattern", "PTBlock")) {
 #' ## If you want to handle the pattern data
 #' ## in R:
 #'
-#' patModPlug <- PTPatternToMODPlug(pattern, F)
+#' patModPlug <- PTPatternToMODPlug(pattern, FALSE)
 #'
 #' ## We can do the same with a block:
 #'
 #' block <- PTBlock(pattern, 1:10, 2:3)
 #' PTPatternToMODPlug(block)
-#' }
 #' @author Pepijn de Vries
 #' @family MODPlug.operations
 #' @family pattern.operations
 #' @export
-PTPatternToMODPlug <- function(x, to.clipboard = T) {
+PTPatternToMODPlug <- function(x, to.clipboard = TRUE) {
   if (!("PTPattern" %in% class(x)) && !.validity.PTBlock(x)) stop ("x is neither a PTPattern nor a PTBlock object.")
   # convert the information that is provided into a matrix of characters
   # and work with that.
-  if (!("PTPattern" %in% class(x))) {
+  if (inherits(x, "PTPattern")) {
     pat <- as.character(x)
   } else {
     pat <- apply(x, 2, function(y) unlist(lapply(y, function(z) as.character(z))))
   }
-  pat <- gsub(" ", "", pat, fixed = T)
+  pat <- gsub(" ", "", pat, fixed = TRUE)
   pat <- suppressWarnings(apply(pat, 2, function(y) paste0(substr(y, 1, 2),
                                                                  as.character(as.integer(substr(y, 3, 3)) + 3),
                                                                  substr(y, 4, 8))))
-  pat <- gsub("NA", "-", pat, fixed = T)
+  pat <- gsub("NA", "-", pat, fixed = TRUE)
   pat <- suppressWarnings(apply(pat, 2, function(y) paste0(substr(y, 1, 3),
                                                            sprintf("%02i", as.integer(paste0("0x", substr(y, 4, 5)))),
                                                            substr(y, 6, 8))))
-  pat <- gsub("NA", "--", pat, fixed = T)
-  pat <- gsub("(?!\\A)\\G0|(?=0{2,})0", ".", pat, perl = T)
-  pat <- gsub("(?!\\A)\\G-|(?=-{2,})-", ".", pat, perl = T)
+  pat <- gsub("NA", "--", pat, fixed = TRUE)
+  pat <- gsub("(?!\\A)\\G0|(?=0{2,})0", ".", pat, perl = TRUE)
+  pat <- gsub("(?!\\A)\\G-|(?=-{2,})-", ".", pat, perl = TRUE)
   pat <- apply(pat, 2, function(y) paste0(substr(y, 1, 5), "...", substr(y, 6, 8)))
   pat <- apply(pat, 2, function(y) paste0("|", y))
   pat <- apply(pat, 1, paste0, collapse = "")

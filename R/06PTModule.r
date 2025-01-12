@@ -1,31 +1,31 @@
 validity.PTModule <- function(object)
 {
-  if (length(object@pattern.order.length) != 1)              return (F)
+  if (length(object@pattern.order.length) != 1)              return (FALSE)
   if (!(as.integer(object@pattern.order.length) > 0 &&
-        as.integer(object@pattern.order.length) < 129))      return (F)
-  if (length(object@name)          != 20)                    return (F)
-  if (length(object@pattern.order) != 128)                   return (F)
-  if (length(object@tracker.byte)  != 1)                     return (F)
-  if (object@tracker.byte != as.raw(0x7F))                   return (F)
+        as.integer(object@pattern.order.length) < 129))      return (FALSE)
+  if (length(object@name)          != 20)                    return (FALSE)
+  if (length(object@pattern.order) != 128)                   return (FALSE)
+  if (length(object@tracker.byte)  != 1)                     return (FALSE)
+  if (object@tracker.byte != as.raw(0x7F))                   return (FALSE)
   # We're only being compatible with ProTracker, which holds 31 samples
-  if (length(object@samples)       != 31)                    return (F)
+  if (length(object@samples)       != 31)                    return (FALSE)
   if (!all(unlist(lapply(object@samples, class)) == "PTSample"))
-    return (F)
-  if (!all(unlist(lapply(object@samples, validObject, test = T))))     return (F)
+    return (FALSE)
+  if (!all(unlist(lapply(object@samples, validObject, test = TRUE))))     return (FALSE)
   if (!all(unlist(lapply(object@patterns, class)) == "PTPattern"))
-    return (F)
-  if (!all(unlist(lapply(object@patterns, validObject, test = T))))    return (F)
-  if (length(object@tracker.flag)  != 4)                     return (F)
+    return (FALSE)
+  if (!all(unlist(lapply(object@patterns, validObject, test = TRUE))))    return (FALSE)
+  if (length(object@tracker.flag)  != 4)                     return (FALSE)
   if (!all(object@tracker.flag     == charToRaw("M.K.")) &&
-      !all(object@tracker.flag     == charToRaw("M!K!")))    return (F)
+      !all(object@tracker.flag     == charToRaw("M!K!")))    return (FALSE)
   tf <- all(object@tracker.flag    == charToRaw("M!K!"))
-  if (length(object@patterns) > 64   && !tf)                 return (F)
-  if (length(object@patterns) > 100  &&  tf)                 return (F)
-  if (length(object@patterns) < 1)                           return (F)
+  if (length(object@patterns) > 64   && !tf)                 return (FALSE)
+  if (length(object@patterns) > 100  &&  tf)                 return (FALSE)
+  if (length(object@patterns) < 1)                           return (FALSE)
   if (!all(unlist(lapply(object@patterns, class)) == "PTPattern"))
-    return (F)
-  if ((max(as.integer(object@pattern.order)) + 1) > length(object@patterns)) return (F)
-  return (T)
+    return (FALSE)
+  if ((max(as.integer(object@pattern.order)) + 1) > length(object@patterns)) return (FALSE)
+  return (TRUE)
 }
 
 #' The PTModule class
@@ -149,7 +149,7 @@ setClass("PTModule",
 #'      scales = list(x = list(relation = "free")))
 #' @author Pepijn de Vries
 #' @export
-setMethod("plot", c("PTModule", "missing"), function(x, y, plot.loop.positions = T, ...){
+setMethod("plot", c("PTModule", "missing"), function(x, y, plot.loop.positions = TRUE, ...){
   amplitude   <- NULL
   samp_name   <- NULL
   `time (s)`  <- NULL
@@ -253,7 +253,7 @@ setMethod("playSample", "PTModule", function(x, silence, wait, note, loop, ...){
   invisible()
 })
 
-setGeneric("read.module", function(file, ignore.validity = F) standardGeneric("read.module"))
+setGeneric("read.module", function(file, ignore.validity = FALSE) standardGeneric("read.module"))
 
 #' Read a ProTracker module file
 #'
@@ -288,24 +288,23 @@ setGeneric("read.module", function(file, ignore.validity = F) standardGeneric("r
 #' @returns Returns a `PTModule` object read from the provided ProTracker file
 #'
 #' @examples
-#' \dontrun{
-#'
 #' ## first create an module file from example data:
 #' data("mod.intro")
-#' write.module(mod.intro, "intro.mod")
+#' 
+#' f <- tempfile(fileext = ".mod")
+#' write.module(mod.intro, f)
 #'
 #' ## read the module:
-#' mod  <-  read.module("intro.mod")
+#' mod  <-  read.module(f)
 #'
 #' ## or create a connection yourself:
-#' con  <- file("intro.mod", "rb")
+#' con  <- file(f, "rb")
 #'
 #' ## note that you can also read from URL connections!
 #' mod2 <- read.module(con)
 #'
 #' ## don't forget to close the file:
 #' close(con)
-#' }
 #' @references <https://wiki.multimedia.cx/index.php?title=Protracker_Module>
 #' @family io.operations
 #' @family module.operations
@@ -323,14 +322,14 @@ setMethod("read.module", c("character", "logical"), function(file, ignore.validi
 #' @aliases read.module,ANY,missing-method
 #' @export
 setMethod("read.module", c("ANY", "missing"), function(file, ignore.validity) {
-  read.module(file, F)
+  read.module(file, FALSE)
 })
 
 #' @rdname read.module
 #' @aliases read.module,character,missing-method
 #' @export
 setMethod("read.module", c("ANY", "missing"), function(file, ignore.validity) {
-  read.module(file, F)
+  read.module(file, FALSE)
 })
 
 #' @rdname read.module
@@ -446,20 +445,19 @@ setGeneric("write.module", def = function(mod, file){
 #' @returns Writes to a module file but returns nothing.
 #'
 #' @examples
-#' \dontrun{
 #' ## get the PTModule object provided with the ProTrackR package
 #' data("mod.intro")
 #'
+#' f <- tempfile(fileext = ".mod")
 #' ## save the object as a valid ProTracker module file:
-#' write.module(mod.intro, "intro.mod")
+#' write.module(mod.intro, f)
 #'
 #' ## or create the connection yourself:
-#' con <- file("intro2.mod", "wb")
+#' con <- file(f, "wb")
 #' write.module(mod.intro, con)
 #'
 #' ## don't forget to close the connection after you're done:
 #' close(con)
-#' }
 #' @references <https://wiki.multimedia.cx/index.php?title=Protracker_Module>
 #' @family io.operations
 #' @family module.operations
@@ -946,7 +944,7 @@ setMethod("deletePattern", c("PTModule", "numeric"), function(x, index){
   if (index < 1) stop("Invalid index.")
   if (index > length(x@patterns)) stop("Index out of range.")
   if (length(x@patterns) < 2) stop("You can't delete the last pattern table!")
-  p.order <- patternOrder(x, T)
+  p.order <- patternOrder(x, TRUE)
   p.order[p.order == (index - 1)] <- 0
   p.order[p.order > (index - 1)] <- p.order[p.order > (index - 1)] - 1
   x@patterns[index] <- NULL
@@ -1009,7 +1007,7 @@ setGeneric("appendPattern", function(x, pattern){
 setMethod("appendPattern", c("PTModule", "PTPattern"), function(x, pattern){
   max.patterns <- ifelse(all(x@tracker.flag    == charToRaw("M!K!")), 100, 64)
   if (length(x@patterns) >= max.patterns) stop ("Can't insert pattern. Module already holds maximum number of patterns.")
-  p.order     <- patternOrder(x, full = T)
+  p.order     <- patternOrder(x, full = TRUE)
   p.order.len <- patternOrderLength(x)
   x@patterns[[length(x@patterns) + 1]] <- pattern
   if (p.order.len == 128){
@@ -1109,7 +1107,7 @@ setGeneric("clearSong", function(mod) standardGeneric("clearSong"))
 #' @export
 setMethod("clearSong", "PTModule", function(mod){
   mod@patterns <- list(new("PTPattern"))
-  suppressWarnings(patternOrder(mod, T) <- 0)
+  suppressWarnings(patternOrder(mod, TRUE) <- 0)
   return(mod)
 })
 
@@ -1174,7 +1172,6 @@ setGeneric("fix.PTModule", function(mod, verbose) standardGeneric("fix.PTModule"
 #' @note In the current version, pattern data itself is not checked for
 #' non-conformaties nor is it fixed.
 #' @examples
-#' \dontrun{
 #' data("mod.intro")
 #'
 #' ## Let's do something illegal and destroy mod.intro:
@@ -1189,12 +1186,11 @@ setGeneric("fix.PTModule", function(mod, verbose) standardGeneric("fix.PTModule"
 #' mod.intro <- fix.PTModule(mod.intro)
 #'
 #' ## See, it's all OK again:
-#' validObject(mod.intro, TRUE)
-#' }
+#' validObject(mod.intro, FALSE)
 #' @family module.operations
 #' @author Pepijn de Vries
 #' @export
-setMethod("fix.PTModule", c("PTModule", "logical"), function(mod, verbose = T){
+setMethod("fix.PTModule", c("PTModule", "logical"), function(mod, verbose = TRUE){
   if (verbose) cat("Check and fix if pattern.order.length is a raw of length 1\n")
   mod@pattern.order.length <- as.raw(mod@pattern.order.length[[1]])
   if (verbose) cat("Check and fix if pattern.order.length value is out of range (1-128)\n")
@@ -1273,7 +1269,7 @@ setMethod("fix.PTModule", c("PTModule", "logical"), function(mod, verbose = T){
   }
   ## Pattern data itself is currently not checked and fixed
 
-  if (verbose && validObject(mod, T)) cat("Module successfully fixed\n") else
+  if (verbose && validObject(mod, TRUE)) cat("Module successfully fixed\n") else
     cat("Fixing module failed\n")
   return(mod)
 })
@@ -1282,7 +1278,7 @@ setMethod("fix.PTModule", c("PTModule", "logical"), function(mod, verbose = T){
 #' @aliases fix.PTModule,PTModule,missing-method
 #' @export
 setMethod("fix.PTModule", c("PTModule", "missing"), function(mod){
-  fix.PTModule(mod, T)
+  fix.PTModule(mod, TRUE)
 })
 
 #' @rdname as.raw
@@ -1295,7 +1291,7 @@ setMethod("as.raw", "PTModule", function(x){
   return(result)
 })
 
-setGeneric("rawToPTModule", function(x, ignore.validity = F) standardGeneric("rawToPTModule"))
+setGeneric("rawToPTModule", function(x, ignore.validity = FALSE) standardGeneric("rawToPTModule"))
 
 #' Convert a vector of raw data into a PTModule object
 #'
@@ -1320,7 +1316,6 @@ setGeneric("rawToPTModule", function(x, ignore.validity = F) standardGeneric("ra
 #' thrown when invalidity occurs.
 #' @returns returns a [`PTModule-class`] object.
 #' @examples
-#' \dontrun{
 #' ## convert the example mod into raw data
 #' data("mod.intro")
 #' mod.raw <- as.raw(mod.intro)
@@ -1330,7 +1325,6 @@ setGeneric("rawToPTModule", function(x, ignore.validity = F) standardGeneric("ra
 #'
 #' ## In this case the result is identical to the original:
 #' identical(mod.restored, mod.intro)
-#' }
 #' @family module.operations
 #' @family raw.operations
 #' @author Pepijn de Vries

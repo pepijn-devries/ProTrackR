@@ -9,13 +9,13 @@
 \alias{read.module,ANY,logical-method}
 \title{Read a ProTracker module file}
 \usage{
-\S4method{read.module}{character,logical}(file, ignore.validity = F)
+\S4method{read.module}{character,logical}(file, ignore.validity = FALSE)
 
-\S4method{read.module}{ANY,missing}(file, ignore.validity = F)
+\S4method{read.module}{ANY,missing}(file, ignore.validity = FALSE)
 
-\S4method{read.module}{ANY,missing}(file, ignore.validity = F)
+\S4method{read.module}{ANY,missing}(file, ignore.validity = FALSE)
 
-\S4method{read.module}{ANY,logical}(file, ignore.validity = F)
+\S4method{read.module}{ANY,logical}(file, ignore.validity = FALSE)
 }
 \arguments{
 \item{file}{either a filename or a file connection, that
@@ -50,24 +50,23 @@ It should also be able to read most of the .mod files in
 \href{https://modarchive.org/}{The Mod Archive}.
 }
 \examples{
-\dontrun{
-
 ## first create an module file from example data:
 data("mod.intro")
-write.module(mod.intro, "intro.mod")
+
+f <- tempfile(fileext = ".mod")
+write.module(mod.intro, f)
 
 ## read the module:
-mod  <-  read.module("intro.mod")
+mod  <-  read.module(f)
 
 ## or create a connection yourself:
-con  <- file("intro.mod", "rb")
+con  <- file(f, "rb")
 
 ## note that you can also read from URL connections!
 mod2 <- read.module(con)
 
 ## don't forget to close the file:
 close(con)
-}
 }
 \references{
 \url{https://wiki.multimedia.cx/index.php?title=Protracker_Module}
