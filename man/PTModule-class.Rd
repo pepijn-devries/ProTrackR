@@ -37,7 +37,7 @@ of a module can be extracted or replaced with the \code{\link{name}} method.}
 \code{raw} values represent the indices of \code{PTPattern} tables and indicate
 in which order these patterns need to be played. Note that the \code{raw} values
 are conform the indices used in ProTracker, starting at zero. In R, indices of
-objects start at one. Users need to compensate for this discrepancy theirselves.
+objects start at one. Users need to compensate for this discrepancy themselves.
 
 The pattern order table can be extracted or replaced with the
 \code{\link{patternOrder}} method.}

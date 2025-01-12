@@ -117,13 +117,13 @@ You can save the resulting \code{\link[tuneR:Wave]{tuneR::Wave}} object by calli
 As audio can be mixed with this package at frequencies much greater than the
 Commodore Amiga's audio output rate, some aliasing of the sound could occur.
 This results in high frequency audio, that would not be produced on an Amiga.
-The current version of this package does not filter out these artefacts.
+The current version of this package does not filter out these artifacts.
 This should not be a problem if you're not concerned with producing an
 accurate Amiga timbre.
 }
 \examples{
 data(mod.intro)
-wav <- modToWave(mod.intro)
+wav <- modToWave(mod.intro, max.duration = 30)
 }
 \seealso{
 Other module.operations: 

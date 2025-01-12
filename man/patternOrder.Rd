@@ -26,7 +26,7 @@ tables are assigned (see \code{value}).}
 When \code{full = TRUE}, the \code{vector} will be padded with zeros to a
 length of 128, and the \code{\link{patternOrderLength}} will be set to the
 length of \code{value}. When \code{full = FALSE}, \code{value} will only
-repplace the part of the order table up to the length of \code{value}. The
+replace the part of the order table up to the length of \code{value}. The
 remainder of the table is not changed. The \code{\link{patternOrderLength}}
 is also not modified in this case.}
 }

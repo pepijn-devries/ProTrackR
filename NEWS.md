@@ -1,8 +1,8 @@
-ProTrackR v0.4.3.0001
+ProTrackR v0.4.4
 =============
 
  * Fixed CRAN note
- * Updated documentation
+ * Updated and corrected documentation
  * Migrated ModArchive and modLand functions to the `openmpt` package
 
 ProTrackR v0.4.3
@@ -56,7 +56,7 @@ ProTrackR v0.3.5
 
  * Added functions to exchange pattern data with
    MODPlug tracker.
- * Endianness is explicitely set to "little" when reading
+ * Endianness is explicitly set to "little" when reading
    and writing samples and modules. As all data is read and
    written as raw, this should not affect the package
    functioning.

@@ -34,7 +34,7 @@ validity.PTTrack <- function(object)
 #' channels. Two channels (2 and 3) were hardware-mixed fully to the right stereo
 #' outputs and the other two (1 and 4) fully to the left stereo outputs.
 #'
-#' This class represents such a single channel, reffered to as a track. A [`PTPattern`] is
+#' This class represents such a single channel, referred to as a track. A [`PTPattern`] is
 #' composed of four such channels. As a ProTracker pattern consists of 64 rows,
 #' a `PTTrack` object is also (implicitly) composed of 64
 #' [`PTCell`] objects.
@@ -43,10 +43,10 @@ validity.PTTrack <- function(object)
 #' `PTTrack-class` object, or to replace such an object.
 #'
 #' @slot data A `matrix` (64 rows, 4 columns) of class `raw`.
-#' Each row implicetely represents a [`PTCell`] object, where
+#' Each row implicitly represents a [`PTCell`] object, where
 #' the raw data is formatted as specified at the [`PTCell-class`]
 #' documentation. Use the [`PTCell-method`] to make an element of
-#' a `PTTrack` object explictly of class [`PTCell`].
+#' a `PTTrack` object explicitly of class [`PTCell`].
 #' Row numbers correspond with the row numbers of [`PTPattern`]
 #' objects.
 #' @name PTTrack-class

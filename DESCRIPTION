@@ -1,7 +1,7 @@
 Package: ProTrackR
 Type: Package
 Title: Manipulate and Play 'ProTracker' Modules
-Version: 0.4.3.0001
+Version: 0.4.4
 Authors@R: c(person("Pepijn", "de Vries", role = c("aut", "cre", "dtc"),
     email = "pepijn.devries@outlook.com",
     comment = c(ORCID = "0000-0002-7961-6646")))
@@ -27,3 +27,4 @@ Roxygen: list(markdown = TRUE)
 NeedsCompilation: no
 URL: https://pepijn-devries.github.io/ProTrackR/, https://github.com/pepijn-devries/ProTrackR/
 BugReports: https://github.com/pepijn-devries/ProTrackR/issues
+Language: en-US
