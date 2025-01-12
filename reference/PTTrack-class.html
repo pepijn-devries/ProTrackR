@@ -9,7 +9,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">ProTrackR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.3.0001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,7 +51,7 @@
 that audio could be played simultaneously and independently on each of these
 channels. Two channels (2 and 3) were hardware-mixed fully to the right stereo
 outputs and the other two (1 and 4) fully to the left stereo outputs.</p>
-<p>This class represents such a single channel, reffered to as a track. A <code><a href="PTPattern-class.html">PTPattern</a></code> is
+<p>This class represents such a single channel, referred to as a track. A <code><a href="PTPattern-class.html">PTPattern</a></code> is
 composed of four such channels. As a ProTracker pattern consists of 64 rows,
 a <code>PTTrack</code> object is also (implicitly) composed of 64
 <code><a href="PTCell-class.html">PTCell</a></code> objects.</p>
@@ -64,10 +64,10 @@ a <code>PTTrack</code> object is also (implicitly) composed of 64
 
 <dl><dt><code>data</code></dt>
 <dd><p>A <code>matrix</code> (64 rows, 4 columns) of class <code>raw</code>.
-Each row implicetely represents a <code><a href="PTCell-class.html">PTCell</a></code> object, where
+Each row implicitly represents a <code><a href="PTCell-class.html">PTCell</a></code> object, where
 the raw data is formatted as specified at the <code><a href="PTCell-class.html">PTCell</a></code>
 documentation. Use the <code><a href="PTCell-method.html">PTCell-method</a></code> to make an element of
-a <code>PTTrack</code> object explictly of class <code><a href="PTCell-class.html">PTCell</a></code>.
+a <code>PTTrack</code> object explicitly of class <code><a href="PTCell-class.html">PTCell</a></code>.
 Row numbers correspond with the row numbers of <code><a href="PTPattern-class.html">PTPattern</a></code>
 objects.</p></dd>
 

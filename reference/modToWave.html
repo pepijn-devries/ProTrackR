@@ -9,7 +9,7 @@ object, which can be played, further analysed, modified and saved."></head><body
 
     <a class="navbar-brand me-2" href="../index.html">ProTrackR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.3.0001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -173,7 +173,7 @@ be less than the playback time of the module.</p>
     <p>As audio can be mixed with this package at frequencies much greater than the
 Commodore Amiga's audio output rate, some aliasing of the sound could occur.
 This results in high frequency audio, that would not be produced on an Amiga.
-The current version of this package does not filter out these artefacts.
+The current version of this package does not filter out these artifacts.
 This should not be a problem if you're not concerned with producing an
 accurate Amiga timbre.</p>
     </div>
@@ -205,7 +205,7 @@ accurate Amiga timbre.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">mod.intro</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">wav</span> <span class="op">&lt;-</span> <span class="fu">modToWave</span><span class="op">(</span><span class="va">mod.intro</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">wav</span> <span class="op">&lt;-</span> <span class="fu">modToWave</span><span class="op">(</span><span class="va">mod.intro</span>, max.duration <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Processing pattern tables...		done</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Processing pattern order...		done</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> generating channel wave data:</span>

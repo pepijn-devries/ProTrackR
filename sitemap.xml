@@ -23,7 +23,6 @@
 <url><loc>https://pepijn-devries.github.io/ProTrackR/reference/clearSamples.html</loc></url>
 <url><loc>https://pepijn-devries.github.io/ProTrackR/reference/clearSong.html</loc></url>
 <url><loc>https://pepijn-devries.github.io/ProTrackR/reference/deletePattern.html</loc></url>
-<url><loc>https://pepijn-devries.github.io/ProTrackR/reference/deprecated.html</loc></url>
 <url><loc>https://pepijn-devries.github.io/ProTrackR/reference/effect.html</loc></url>
 <url><loc>https://pepijn-devries.github.io/ProTrackR/reference/fineTune.html</loc></url>
 <url><loc>https://pepijn-devries.github.io/ProTrackR/reference/fix.PTModule.html</loc></url>
@@ -43,6 +42,7 @@
 <url><loc>https://pepijn-devries.github.io/ProTrackR/reference/nybble.html</loc></url>
 <url><loc>https://pepijn-devries.github.io/ProTrackR/reference/nybbleToSignedInt.html</loc></url>
 <url><loc>https://pepijn-devries.github.io/ProTrackR/reference/octave.html</loc></url>
+<url><loc>https://pepijn-devries.github.io/ProTrackR/reference/openmpt-deprecated.html</loc></url>
 <url><loc>https://pepijn-devries.github.io/ProTrackR/reference/pasteBlock.html</loc></url>
 <url><loc>https://pepijn-devries.github.io/ProTrackR/reference/patternLength.html</loc></url>
 <url><loc>https://pepijn-devries.github.io/ProTrackR/reference/patternOrder.html</loc></url>

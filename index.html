@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">ProTrackR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.3.0001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -99,15 +99,15 @@
 <code class="sourceCode R"><span><span class="fu"><a href="reference/playMod.html">playMod</a></span><span class="op">(</span><span class="va">elekfunk</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="developmental-status">Developmental status<a class="anchor" aria-label="anchor" href="#developmental-status"></a>
+<h2 id="package-status-and-alternatives">Package status and alternatives<a class="anchor" aria-label="anchor" href="#package-status-and-alternatives"></a>
 </h2>
-<p>It has been a decade since the initial release of this package. Since it’s release a lot has changed in R and in my skill set. I still have plans for this package, but this requires drastic changes. Therefore, I will only apply minimal maintenance to this package. Meanwhile I will work on a complete overhaul which will be released in due time as a new package. This new package will:</p>
+<p>This package is no longer actively developed. It will receive minimal attention and only required updates for the latest CRAN policies. It is surpassed by the alternatives listed below.</p>
 <ul>
-<li>have the same or similar features as the current package.</li>
-<li>will implement modern R features and try to adhere to <a href="https://www.tidyverse.org" class="external-link">tidyverse</a> principles.</li>
-<li>implement rendering procedures in C++ giving the package a speed boost.</li>
+<li>
+<a href="https://pepijn-devries.github.io/ProTrackR2/">ProTrackR2</a>: A complete rewrite in C and C++ of the current package using the <a href="https://github.com/8bitbubsy/pt2-clone" class="external-link">ProTracker clone</a> by Olav Sørensen. It has similar features as the current package but has a better implementation of the tracker interpretation and is a lot faster.</li>
+<li>
+<a href="https://pepijn-devries.github.io/openmpt/" class="external-link">openmpt</a>: An R port of <a href="https://lib.openmpt.org/libopenmpt/" class="external-link">libopenmpt</a>. It plays and renders a wide range of tracker music files, but they cannot be edited.</li>
 </ul>
-<p>But until then, please enjoy the current package as is.</p>
 </div>
 <div class="section level2">
 <h2 id="further-reading">Further reading<a class="anchor" aria-label="anchor" href="#further-reading"></a>
