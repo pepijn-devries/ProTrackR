@@ -6,9 +6,9 @@
 \alias{playWave,WaveMC-method}
 \title{Play Wave objects}
 \usage{
-\S4method{playWave}{Wave}(wave, wait = T)
+\S4method{playWave}{Wave}(wave, wait = TRUE)
 
-\S4method{playWave}{WaveMC}(wave, wait = T)
+\S4method{playWave}{WaveMC}(wave, wait = TRUE)
 }
 \arguments{
 \item{wave}{An object of class \code{\link[tuneR:Wave]{tuneR::Wave}} or
@@ -29,7 +29,7 @@ Use the command line \code{\link[audio:play]{audio::play}} function from the
 \code{audio} package to play \code{\link[tuneR:Wave]{tuneR::Wave}} objects.
 }
 \details{
-As the \code{\link{tuneR}} package play-function relies on external
+As the \code{tuneR} package play-function relies on external
 players, this method is provided as a convenient approach to play
 samples in the R console, using the \code{audio} package. Wave
 objects are played at the rate as specified in the object. Of course
@@ -37,13 +37,13 @@ you can also play the \code{Wave} objects with the \code{tuneR} implementation
 of \code{\link[tuneR:play]{tuneR::play}}, by calling \code{tuneR::play(wave)}.
 }
 \examples{
-\dontrun{
-data(mod.intro)
+if (interactive()) {
+  data(mod.intro)
 
-## PTSample objects can also be
-## played with this function as they
-## are a child of the Wave object:
-playWave(PTSample(mod.intro, 2))
+  ## PTSample objects can also be
+  ## played with this function as they
+  ## are a child of the Wave object:
+  playWave(PTSample(mod.intro, 2))
 }
 }
 \seealso{

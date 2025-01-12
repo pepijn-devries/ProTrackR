@@ -267,7 +267,7 @@ setMethod("PTTrack", c("matrix", "missing", "missing"), function(x){
 setMethod("PTTrack", c("character", "missing", "missing"), function(x){
   if (length(x) != maximumPatternTableRowCount) stop ("x should be a vector of 64 character strings")
   cells <- PTCell(x)
-  raw.dat <- matrix(unlist(lapply(cells, as.raw)), ncol = 4, byrow = T)
+  raw.dat <- matrix(unlist(lapply(cells, as.raw)), ncol = 4, byrow = TRUE)
   return (PTTrack(raw.dat))
 })
 
@@ -387,7 +387,7 @@ setMethod("PTPattern", c("matrix", "missing"), function(x){
   {
     if (any(dim(x) != c(maximumPatternTableRowCount, maximumTrackCount))) stop ("x should be a matrix of 64 by 4 holding character strings")
     cells <- PTCell(as.character(t(x)))
-    raw.dat <- matrix(unlist(lapply(cells, as.raw)), ncol = 4*maximumTrackCount, byrow = T)
+    raw.dat <- matrix(unlist(lapply(cells, as.raw)), ncol = 4*maximumTrackCount, byrow = TRUE)
     return (PTPattern(raw.dat))
   }
   if (typeof(x) == "raw")
@@ -497,7 +497,7 @@ setMethod("PTSample", c("Wave", "missing"), function(x){
     temp <- rbind(temp, rep(delta*(2^x@bit)/(256), 2))
   }
   x    <- new("PTSample",
-              left = delta + as.integer(apply(temp, 1, function(x) mean(x, na.rm = T))/(2^(x@bit - 8))),
+              left = delta + as.integer(apply(temp, 1, function(x) mean(x, na.rm = TRUE))/(2^(x@bit - 8))),
               wlooplen = as.raw(c(0, 1)))
   rm(temp)
 

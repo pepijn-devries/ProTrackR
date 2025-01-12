@@ -5,7 +5,7 @@
 \alias{rawToPTModule,raw-method}
 \title{Convert a vector of raw data into a PTModule object}
 \usage{
-\S4method{rawToPTModule}{raw}(x, ignore.validity = F)
+\S4method{rawToPTModule}{raw}(x, ignore.validity = FALSE)
 }
 \arguments{
 \item{x}{A vector of \code{raw} data, conform ProTracker file specs.}
@@ -32,7 +32,6 @@ package.
 Use \code{\link{as.raw}} to achieve the inverse.
 }
 \examples{
-\dontrun{
 ## convert the example mod into raw data
 data("mod.intro")
 mod.raw <- as.raw(mod.intro)
@@ -42,7 +41,6 @@ mod.restored <- rawToPTModule(mod.raw)
 
 ## In this case the result is identical to the original:
 identical(mod.restored, mod.intro)
-}
 }
 \seealso{
 Other module.operations: 

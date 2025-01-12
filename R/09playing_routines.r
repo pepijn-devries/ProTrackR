@@ -1,23 +1,4 @@
-## https://pastebin.com/pg95YduC
-## https://bel.fi/alankila/modguide/interpolate.txt
-## XXX max output rate differs per channel still need to try to confirm that?:
-## https://eab.abime.net/showthread.php?t=70783
-
-## The amiga hardware reference manual:
-## https://archive.org/stream/Amiga_Hardware_Reference_Manual_1985_Commodore_a/Amiga_Hardware_Reference_Manual_1985_Commodore_a_djvu.txt
-## The minimum period value you should use is 124
-## ticks per sample NTSC (123 PAL) and the maximum is 65535.
-## These limits apply to both PAL and NTSC machines.
-## It doesn't say if these are hard limits, or whether these
-## are just the specs, that you possible go beyond.
-## in de WINUAE emulator lijkt de period value lager te kunnen dan de 124
-## each channel different limit: https://eab.abime.net/showthread.php?t=70783
-## WINUAE seem to use noteToPeriod("B-3") as the limit for all channels
-
-## Olav Sorensen:
-## Porta effects have period limits of 113 - 856 hard coded in ProTracker
-## Other effect have no limits coded in ProTracker, the limit of 113 is also a 'hard' physical limit on a real Amiga
-setGeneric("playMod", function(mod, wait = T, ...) standardGeneric("playMod"))
+setGeneric("playMod", function(mod, wait = TRUE, ...) standardGeneric("playMod"))
 
 #' Play PTModule objects
 #'
@@ -43,11 +24,11 @@ setGeneric("playMod", function(mod, wait = T, ...) standardGeneric("playMod"))
 #' @returns A [`tuneR::Wave`] object, generated from the
 #' `mod` object, is returned.
 #' @examples
-#' \dontrun{
-#' data("mod.intro")
+#' if (interactive()) {
+#'   data("mod.intro")
 #'
-#' ## play the module and capture the audio Wave
-#' wav <- playMod(mod.intro)
+#'   ## play the module and capture the audio Wave
+#'   wav <- playMod(mod.intro)
 #' }
 #' @author Pepijn de Vries
 #' @family play.audio.routines
@@ -60,14 +41,14 @@ setMethod("playMod", "PTModule", function(mod, wait, ...){
   return(wav)
 })
 
-setGeneric("playWave", function(wave, wait = T) standardGeneric("playWave"))
+setGeneric("playWave", function(wave, wait = TRUE) standardGeneric("playWave"))
 
 #' Play Wave objects
 #'
 #' Use the command line [`audio::play`] function from the
 #' `audio` package to play [`tuneR::Wave`] objects.
 #'
-#' As the [`tuneR`] package play-function relies on external
+#' As the `tuneR` package play-function relies on external
 #' players, this method is provided as a convenient approach to play
 #' samples in the R console, using the `audio` package. Wave
 #' objects are played at the rate as specified in the object. Of course
@@ -86,13 +67,13 @@ setGeneric("playWave", function(wave, wait = T) standardGeneric("playWave"))
 #' executed while playing.
 #' @returns Returns an [`audio::$.audioInstance`].
 #' @examples
-#' \dontrun{
-#' data(mod.intro)
+#' if (interactive()) {
+#'   data(mod.intro)
 #'
-#' ## PTSample objects can also be
-#' ## played with this function as they
-#' ## are a child of the Wave object:
-#' playWave(PTSample(mod.intro, 2))
+#'   ## PTSample objects can also be
+#'   ## played with this function as they
+#'   ## are a child of the Wave object:
+#'   playWave(PTSample(mod.intro, 2))
 #' }
 #' @family play.audio.routines
 #' @author Pepijn de Vries
@@ -119,8 +100,8 @@ setMethod("playWave", "Wave", function(wave, wait){
 setMethod("playWave", "WaveMC", function(wave, wait){
   ## drop the center channels and mix the left and right channels:
   if (is.null(colnames(wave@.Data))) colnames(wave@.Data) <- tuneR::MCnames$name[1:ncol(wave@.Data)]
-  wave <- Wave(left  = rowMeans(wave@.Data[,grepl("L", colnames(wave@.Data)), drop = F]),
-               right = rowMeans(wave@.Data[,grepl("R", colnames(wave@.Data)), drop = F]),
+  wave <- Wave(left  = rowMeans(wave@.Data[,grepl("L", colnames(wave@.Data)), drop = FALSE]),
+               right = rowMeans(wave@.Data[,grepl("R", colnames(wave@.Data)), drop = FALSE]),
                bit   = wave@bit,
                samp.rate = wave@samp.rate,
                pcm   = wave@pcm)
@@ -240,17 +221,15 @@ setGeneric("modToWave",
 #' `mod` object is returned. A [`tuneR::WaveMC`] object is returned when
 #' the `mix` argument is set to `FALSE`.
 #' @examples
-#' \dontrun{
 #' data(mod.intro)
 #' wav <- modToWave(mod.intro)
-#' }
 #' @author Pepijn de Vries
 #' @family module.operations
 #' @export
 setMethod("modToWave", "PTModule", function(mod, video, target.rate, target.bit, stereo.separation, low.pass.filter, tracks, mix, ...){
   mix <- as.logical(mix)[[1]]
   video <- match.arg(video)
-  verbose <- T
+  verbose <- TRUE
   tracks <- sort(unique((1:maximumTrackCount)[tracks]))
   moreArgs <- list(...)
   if ("verbose" %in% names(moreArgs)) verbose <- moreArgs[["verbose"]]
@@ -280,8 +259,8 @@ setMethod("modToWave", "PTModule", function(mod, video, target.rate, target.bit,
       result <- matrix(rowMeans(result), ncol = 1)
       result <- cbind(result, result)
     } else {
-      result <- cbind(rowMeans(result[, tracks %in% c(1,4), drop = F]),
-                      rowMeans(result[, tracks %in% c(2,3), drop = F]))
+      result <- cbind(rowMeans(result[, tracks %in% c(1,4), drop = FALSE]),
+                      rowMeans(result[, tracks %in% c(2,3), drop = FALSE]))
     }
   }
   result <- (((2^(target.bit - 8)))*(256/255) - (1/255))*result
@@ -322,8 +301,8 @@ setGeneric("playingtable",
                     speed             = 6,
                     tempo             = 0x7D,
                     video             = c("PAL", "NTSC"),
-                    play.once         = T,
-                    verbose           = T){
+                    play.once         = TRUE,
+                    verbose           = TRUE){
              standardGeneric("playingtable")
            })
 
@@ -400,10 +379,8 @@ setGeneric("playingtable",
 #' order. Information contained in the returned table is described in the
 #' 'Details' section
 #' @examples
-#' \dontrun{
 #' data(mod.intro)
 #' pt <- playingtable(mod.intro)
-#' }
 #' @author Pepijn de Vries
 #' @family module.operations
 #' @export
@@ -432,7 +409,7 @@ setMethod("playingtable", "PTModule", function(mod,
   verbose           <- as.logical(verbose[[1]])
 
   remember.start.pos <- starting.position
-  filter_fin <- F
+  filter_fin <- FALSE
   threshold  <- 0.1/44100
   # first create tables per pattern:
   if (verbose) cat("Processing pattern tables...")
@@ -566,9 +543,9 @@ setMethod("playingtable", "PTModule", function(mod,
     # the highest track has priority, remainder is ignored.
     # Dxy effect left of Bxy effects should be ignored.
     right_of_Bxy <- t(apply(fx, 1, function(x){
-      result <- rep(T, length(x))
+      result <- rep(TRUE, length(x))
       bright <- suppressWarnings(max(which(x == as.raw(0x0b))))
-      if (!is.infinite(bright)) result[1:bright] <- F
+      if (!is.infinite(bright)) result[1:bright] <- FALSE
       return(result)
     }))
     result$pattern.break   <- .specificEffectMagnitudes(as.raw(0x0D),
@@ -613,7 +590,7 @@ setMethod("playingtable", "PTModule", function(mod,
   cum_duration    <- 0
   vblank_duration <- ifelse(match.arg(video) == "PAL", 1/50, 1/60)
   # flag indicating for each channel whether there is a pattern loop active:
-  loop.on         <- rep(F, maximumTrackCount)
+  loop.on         <- rep(FALSE, maximumTrackCount)
   # counter for pattern loops in each channel. Will count down to zero when
   # a loop is active, and will continue playing once it reaches zero.
   # when multiple loop ends are positioned in the same row, all
@@ -629,7 +606,7 @@ setMethod("playingtable", "PTModule", function(mod,
     pat_tab$row      <- 1:maximumPatternTableRowCount
 
     ## look for loop-starts (E60) from top to bottom using a while loop.
-    loops                <- pat_tab[,grepl("loop.track", names(pat_tab), fixed = T)]
+    loops                <- pat_tab[,grepl("loop.track", names(pat_tab), fixed = TRUE)]
     loop.pos             <- which(apply(loops, 1, function(x) any(!is.na(x))))
     pos                  <- 1 + row.skip
     loop.index           <- ifelse (length(loop.pos) > 0,
@@ -646,20 +623,20 @@ setMethod("playingtable", "PTModule", function(mod,
         row.skip <- 0
         if (any(!is.na(pat_tab_ext$position.jump)) ||
             any(!is.na(pat_tab_ext$pattern.break))) break
-        if (any(loops[loop.pos[loop.index],] > 0, na.rm = T))
+        if (any(loops[loop.pos[loop.index],] > 0, na.rm = TRUE))
         {
           ## if loop is currently off, set the counter...
           loop.counter[which(!loop.on & loops[loop.pos[loop.index],] > 0)] <-
             unlist(loops[loop.pos[loop.index], which(!loop.on & loops[loop.pos[loop.index],] > 0)]) + 1
 
           ## ... and turn the loop on
-          loop.on[which(!loop.on & loops[loop.pos[loop.index],] > 0)] <- T
+          loop.on[which(!loop.on & loops[loop.pos[loop.index],] > 0)] <- TRUE
 
           ## When the loop is turned on, subtract 1 from the counter
           loop.counter[which(loop.on & loops[loop.pos[loop.index],] > 0)]  <-
             loop.counter[which(loop.on & loops[loop.pos[loop.index],] > 0)] - 1
           ## If the counter reaches 0, turn off the loop
-          loop.on[loop.on & loop.counter == 0] <- F
+          loop.on[loop.on & loop.counter == 0] <- FALSE
 
           pos <- suppressWarnings(max(loop.start.pos[which(loop.on & loops[loop.pos[loop.index],] > 0)]))
           if (is.infinite(pos) || all(!loop.on))
@@ -670,7 +647,7 @@ setMethod("playingtable", "PTModule", function(mod,
           {
             loop.index <- min(which(loop.pos > pos))
           }
-        } else if (any(loops[loop.pos[loop.index],] == 0, na.rm = T))
+        } else if (any(loops[loop.pos[loop.index],] == 0, na.rm = TRUE))
         {
           loop.start.pos[which(loops[loop.pos[loop.index],] == 0)] <- loop.pos[loop.index]
           pos <- loop.pos[loop.index] + 1
@@ -801,7 +778,7 @@ setMethod("playingtable", "PTModule", function(mod,
   return (pat_tab)
 }
 
-.generate.channel.data <- function(mod, pt, track.nr, target.rate, video = c("PAL", "NTSC"), low.pass.filter = T, verbose = F)
+.generate.channel.data <- function(mod, pt, track.nr, target.rate, video = c("PAL", "NTSC"), low.pass.filter = TRUE, verbose = FALSE)
 {
   if (verbose) cat(paste("Track ", track.nr, ":\n", sep =""))
   video <- match.arg(video)
@@ -1029,7 +1006,7 @@ setMethod("playingtable", "PTModule", function(mod,
       tremolo.pos.start[tremolo.pos.start == 1] <- NA
       tremolo.pos.start[1][is.na(tremolo.pos.start[1])] <- 0
       tremolo.pos.start <- .fill.parameter(tremolo.pos.start, is.na(tremolo.pos.start), function(x, y, z){rep(z, times = y - x + 1)})
-      tremolo.pos[is.na(tremolo.pos)] <- .fill.parameter(tremolo.pos[is.na(tremolo.pos)], rep(T, sum(is.na(tremolo.pos))),
+      tremolo.pos[is.na(tremolo.pos)] <- .fill.parameter(tremolo.pos[is.na(tremolo.pos)], rep(TRUE, sum(is.na(tremolo.pos))),
                                                          function(x, y, z, tck){
                                                            trm <- integer(y-x)
                                                            sel <- tck[is.na(tremolo.pos)][x:y] != 1
@@ -1112,7 +1089,7 @@ setMethod("playingtable", "PTModule", function(mod,
   target2 <-.fill.parameter(target2, is.na(target2), function(x, y, z){rep(z, times = y - x + 1)})
   rm(snr)
 
-  potential.target <- rep(T, nrow(result))
+  potential.target <- rep(TRUE, nrow(result))
   potential.target[result$note == "---" | result$tick != 1] <- NA
   ##############################################
   ## 3xy Porta to note end initializing targets
@@ -1146,12 +1123,12 @@ setMethod("playingtable", "PTModule", function(mod,
 
     ## tnr2 = a modified version of 'target_not_reached', taking
     ## into account whether the target has been reset
-    tnr2 <- rep(T, nrow(result))
+    tnr2 <- rep(TRUE, nrow(result))
     ##  once a target is reached porta to note should stop sliding
     ## if target is not reached but a sample is retriggered, the target should not be reset!
     if (any(effect_sel))
     {
-      target_not_reached <- rep(F, nrow(result))
+      target_not_reached <- rep(FALSE, nrow(result))
       target.finetune <- as.numeric(substr(target[!is.na(target)], 5, 6))
       target.finetune <- unlist(lapply(as.list(as.numeric(substr(target[!is.na(target)], 5, 6))), function(x) ifelse(x == 0, 0, fineTune(mod@samples[[x]]))))
       temp <- noteToPeriod(substr(target[!is.na(target)], 1, 3), finetune = target.finetune)
@@ -1162,28 +1139,28 @@ setMethod("playingtable", "PTModule", function(mod,
       rm(target.finetune)
 
       ## If it's not known whether the target is reached, don't do anything yet!:
-      unknown_target <- which(result$retrigger.sample == 1 & c(F, is.na(target_not_reached[-nrow(result)])) & !effect_sel)
+      unknown_target <- which(result$retrigger.sample == 1 & c(FALSE, is.na(target_not_reached[-nrow(result)])) & !effect_sel)
       target[unknown_target] <- "???"
 
-      target_not_reached[is.na(target_not_reached)] <- T
+      target_not_reached[is.na(target_not_reached)] <- TRUE
       ## sample is retriggered and target is reached and effect is not 3xy or 5xy:
       ## reset the target:
-      reset_target <- which(result$retrigger.sample == 1 & c(F, !target_not_reached[-nrow(result)]) & !effect_sel)
+      reset_target <- which(result$retrigger.sample == 1 & c(FALSE, !target_not_reached[-nrow(result)]) & !effect_sel)
       target[reset_target] <- target2[reset_target]
 
       ## if no new target is specified and the target is reached don't slide
       repeat{
         tnr2 <- rep(NA, nrow(result))
-        tnr2[!(is.na(potential.target))] <- T
+        tnr2[!(is.na(potential.target))] <- TRUE
         tnr2 <- .fill.parameter(tnr2, is.na(potential.target), function (x,y,z, tnr, fx){
-          res <- rep(T, y - x + 1)
+          res <- rep(TRUE, y - x + 1)
           res[fx[x:y]] <- as.logical(cumprod(tnr[x:y][fx[x:y]]))
           res
         }, target_not_reached, effect_sel)
 
         pt <- potential.target
-        pt[is.na(pt)] <- F
-        potential.target[which(pt & !effect_sel & !c(T,tnr2[-length(tnr2)]))] <- NA
+        pt[is.na(pt)] <- FALSE
+        potential.target[which(pt & !effect_sel & !c(TRUE,tnr2[-length(tnr2)]))] <- NA
         if (length(which(pt)) == length(which(potential.target))) break
       }
     }
@@ -1233,7 +1210,7 @@ setMethod("playingtable", "PTModule", function(mod,
       result$period <- .fill.parameter(result$period, effect_sel,
                                        function(x, y, z, mag){
                                          if (is.na(z)) return(rep(NA, y - x + 1))
-                                         while (T)
+                                         while (TRUE)
                                          {
                                            cums <- cumsum(mag[x:y])
                                            res <- bitwAnd(0xFFF, cums + z)
@@ -1276,7 +1253,7 @@ setMethod("playingtable", "PTModule", function(mod,
                                        function(x, y, z, mag){
                                          if (is.na(z)) return(rep(NA, y - x + 1))
                                          if (z > 856) z <- 856
-                                         while (T)
+                                         while (TRUE)
                                          {
                                            cums <- cumsum(mag[x:y])
                                            res <- cums + z
@@ -1316,7 +1293,7 @@ setMethod("playingtable", "PTModule", function(mod,
       result$period <- .fill.parameter(result$period, effect_sel,
                                        function(x, y, z, mag){
                                          if (is.na(z)) return(rep(NA, y - x + 1))
-                                         while (T)
+                                         while (TRUE)
                                          {
                                            cums <- cumsum(mag[x:y])
                                            res <- cums + z
@@ -1359,9 +1336,9 @@ setMethod("playingtable", "PTModule", function(mod,
   ##############################################
 
   out.of.range <- rep(NA, nrow(result))
-  out.of.range[1] <- F
-  out.of.range[result$retrigger.sample == 1] <- F
-  out.of.range[result$period > 856] <- T
+  out.of.range[1] <- FALSE
+  out.of.range[result$retrigger.sample == 1] <- FALSE
+  out.of.range[result$period > 856] <- TRUE
   out.of.range <- .fill.parameter(out.of.range, is.na(out.of.range), function(x, y, z){rep(z, times = y - x + 1)})
   ## XXX the value of 0xffff does not seem to be correct
   ## the value seem to differ for different test cases, but is always high.
@@ -1424,7 +1401,7 @@ setMethod("playingtable", "PTModule", function(mod,
       vibrato.pos.start[vibrato.pos.start == 1] <- NA
       vibrato.pos.start[1][is.na(vibrato.pos.start[1])] <- 0
       vibrato.pos.start <- .fill.parameter(vibrato.pos.start, is.na(vibrato.pos.start), function(x, y, z){rep(z, times = y - x + 1)})
-      vibrato.pos[is.na(vibrato.pos)] <- .fill.parameter(vibrato.pos[is.na(vibrato.pos)], rep(T, sum(is.na(vibrato.pos))),
+      vibrato.pos[is.na(vibrato.pos)] <- .fill.parameter(vibrato.pos[is.na(vibrato.pos)], rep(TRUE, sum(is.na(vibrato.pos))),
                                                          function(x, y, z, tck){
                                                            vib <- integer(y-x)
                                                            sel <- tck[is.na(vibrato.pos)][x:y] != 1
@@ -1535,13 +1512,13 @@ setMethod("playingtable", "PTModule", function(mod,
 
     snr <- (result$sample.nr.original != 0)
     snr[result$retrigger.sample != 1] <- NA
-    snr[result$retrigger.sample == 1 & effect_sel] <- T
-    snr[1][is.na(snr[1])] <- F
+    snr[result$retrigger.sample == 1 & effect_sel] <- TRUE
+    snr[1][is.na(snr[1])] <- FALSE
     snr <- .fill.parameter(snr, is.na(snr), function(x, y, z){rep(z, times = y - x + 1)})
 
     mod_bool <- rep(NA, nrow(result))
-    mod_bool[with(result, note == "---" & effect_sel)] <- T
-    mod_bool[with(result, (retrigger.sample == 1 | effect_sel) & sample.nr.original > 0)] <- F
+    mod_bool[with(result, note == "---" & effect_sel)] <- TRUE
+    mod_bool[with(result, (retrigger.sample == 1 | effect_sel) & sample.nr.original > 0)] <- FALSE
     mod_bool <- .fill.parameter(mod_bool, is.na(mod_bool), function(x, y, z){rep(z, times = y - x + 1)})
     effect_sel2 <- with(result, !mod_bool & diff(c(-999, snr)) != 0 & sample.nr.original == 0 & note != "---" & !effect_sel & tick == 1) | with(result, effect_sel & sample.nr.original == 0 & tick == 1)
     rm(mod_bool)
@@ -1560,7 +1537,7 @@ setMethod("playingtable", "PTModule", function(mod,
 
     effect.fill <- rep(NA, nrow(result))
     effect.fill[with(result, note != "---" & sample.nr.original != 0)] <- effect_sel[with(result, note != "---" & sample.nr.original != 0)]
-    effect.fill[effect_sel] <- T
+    effect.fill[effect_sel] <- TRUE
     effect.fill <- .fill.parameter(effect.fill, is.na(effect.fill), function(x, y, z){rep(z, times = y - x + 1)})
 
     base.magnitude[(result$sample.nr.original > 0 & !effect_sel) | (result$note != "---" & !effect.fill)] <- 0
@@ -1593,19 +1570,19 @@ setMethod("playingtable", "PTModule", function(mod,
 
   ## Sample switching starts here. not implemented correctly yet
   result$sample.switch <- NA
-  result$sample.switch[result$retrigger.sample == 1] <- F
+  result$sample.switch[result$retrigger.sample == 1] <- FALSE
   result$sample.switch[diff(c(0, result$sample.nr)) != 0 &
                          result$retrigger.sample != 1 &
-                         result$sample.nr != 0] <- T
-  result$sample.switch[1][is.na(result$sample.switch[1])] <- F
+                         result$sample.nr != 0] <- TRUE
+  result$sample.switch[1][is.na(result$sample.switch[1])] <- FALSE
   result$sample.switch <- .fill.parameter(result$sample.switch, is.na(result$sample.switch),
                                           function(x, y, z){rep(z, times = y - x + 1)})
 
   ## take one line before to know from which sample to switch from
-  samp.switch <- subset(result, result$sample.switch | c(result$sample.switch[-1], F))
+  samp.switch <- subset(result, result$sample.switch | c(result$sample.switch[-1], FALSE))
   if(nrow(samp.switch) > 0)
   {
-    samp.switch$index <- which(result$sample.switch | c(result$sample.switch[-1], F))
+    samp.switch$index <- which(result$sample.switch | c(result$sample.switch[-1], FALSE))
     group.start <- diff(c(-999, samp.switch$index)) > 1
     samp.switch$group <- NA
     samp.switch$group[group.start] <- 1:sum(group.start)
@@ -1626,7 +1603,7 @@ setMethod("playingtable", "PTModule", function(mod,
             ((samp.group$sample.pos[samp.group$sample.pos > (ls + 1)] - (ls + 1)) %% loopLength(sample.from)) + ls + 1
           samp.group$sample.nr[-1][diff(samp.group$sample.pos) >= 0] <-
             samp.group$sample.nr[1]
-          samp.group$sample.switch <- c(F, diff(samp.group$sample.pos) < 0)
+          samp.group$sample.switch <- c(FALSE, diff(samp.group$sample.pos) < 0)
         } else
         {
           sl <- sampleLength(sample.from)
@@ -1646,7 +1623,7 @@ setMethod("playingtable", "PTModule", function(mod,
 
   ## current implementation of sample switching ends here...
 
-  resamp_sel <- result$retrigger.sample == 1 | c(F, result$period[-nrow(result)] != result$period[-1])
+  resamp_sel <- result$retrigger.sample == 1 | c(FALSE, result$period[-nrow(result)] != result$period[-1])
   result$resamp.start <- NA
   result$resamp.start[resamp_sel] <- 1:sum(resamp_sel)
   result$resamp.start <- .fill.parameter(result$resamp.start, !resamp_sel, function(x, y, z){rep(z, times = y - x + 1)})
@@ -1657,7 +1634,7 @@ setMethod("playingtable", "PTModule", function(mod,
   resamp.table <- merge(resamp.table, stats::aggregate(cbind(sample.nr, sample.rate, sample.pos)~resamp.start, result, function(x) x[[1]]))
   rm(duration)
 
-  resamp.agg <- stats::aggregate(row.nr~sample.nr+target.nsamples+sample.rate+sample.pos, cbind(resamp.table, row.nr = 1:nrow(resamp.table)), function(x) x, simplify = F)
+  resamp.agg <- stats::aggregate(row.nr~sample.nr+target.nsamples+sample.rate+sample.pos, cbind(resamp.table, row.nr = 1:nrow(resamp.table)), function(x) x, simplify = FALSE)
 
   resamp.order <- lapply(as.list(1:nrow(resamp.table)), function(x) which(unlist(lapply(resamp.agg$row.nr, function(y) x %in% y))))
 
@@ -1708,7 +1685,7 @@ setMethod("playingtable", "PTModule", function(mod,
     sel_filter <- as.vector(unlist(apply(result, 1, function(x){
       rep(x["filter"], as.integer(x["target.nsamples"]))
     })))
-    sel_filter <- grepl("TRUE", sel_filter, fixed = T)
+    sel_filter <- grepl("TRUE", sel_filter, fixed = TRUE)
     ## "LED" filter
     butterworth <- signal::butter(2, 3275/target.rate, "low")
     channel[sel_filter] <- signal::filter(butterworth, channel[sel_filter])

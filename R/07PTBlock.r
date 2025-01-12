@@ -4,7 +4,7 @@
   if (any(unlist(lapply(object, function(x) !("PTCell" %in% class(x)))))) stop("Not a valid PTBlock")
   if (any(unlist(lapply(object, length)) != 1)) stop("Not a valid PTBlock")
   if (any(!unlist(lapply(object, validObject)))) stop("Not a valid PTBlock")
-  return(T)
+  return(TRUE)
 }
 
 setGeneric("PTBlock", function(pattern, row, track) standardGeneric("PTBlock"))
@@ -69,8 +69,8 @@ setMethod("PTBlock", c("PTPattern", "numeric", "numeric"), function(pattern, row
     index <- as.list(((1:maximumTrackCount)- 1)*4 + 1)
     lapply(index, function(y) PTCell(x[y:(y+3)]))
   })
-  cells <- matrix(unlist(cells), 64, byrow = T)
-  return(cells[row, track, drop = F])
+  cells <- matrix(unlist(cells), 64, byrow = TRUE)
+  return(cells[row, track, drop = FALSE])
 })
 
 setGeneric("pasteBlock", function(pattern, block, row.start, track.start) standardGeneric("pasteBlock"))
@@ -153,5 +153,5 @@ setMethod("pasteBlock", c("PTPattern", "matrix", "numeric", "numeric"),
   # test if the block is valid:
   .validity.PTBlock(block)
   return(matrix(unlist(lapply(t(block), as.raw)),
-                nrow(block), 4*ncol(block), byrow = T))
+                nrow(block), 4*ncol(block), byrow = TRUE))
 }

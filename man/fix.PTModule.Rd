@@ -6,7 +6,7 @@
 \alias{fix.PTModule,PTModule,missing-method}
 \title{Attempt to fix PTModule to ProTracker specs}
 \usage{
-\S4method{fix.PTModule}{PTModule,logical}(mod, verbose = T)
+\S4method{fix.PTModule}{PTModule,logical}(mod, verbose = TRUE)
 
 \S4method{fix.PTModule}{PTModule,missing}(mod)
 }
@@ -42,7 +42,6 @@ In the current version, pattern data itself is not checked for
 non-conformaties nor is it fixed.
 }
 \examples{
-\dontrun{
 data("mod.intro")
 
 ## Let's do something illegal and destroy mod.intro:
@@ -57,8 +56,7 @@ validObject(mod.intro, TRUE)
 mod.intro <- fix.PTModule(mod.intro)
 
 ## See, it's all OK again:
-validObject(mod.intro, TRUE)
-}
+validObject(mod.intro, FALSE)
 }
 \seealso{
 Other module.operations: 

@@ -122,10 +122,8 @@ This should not be a problem if you're not concerned with producing an
 accurate Amiga timbre.
 }
 \examples{
-\dontrun{
 data(mod.intro)
 wav <- modToWave(mod.intro)
-}
 }
 \seealso{
 Other module.operations: 

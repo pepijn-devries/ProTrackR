@@ -42,16 +42,15 @@ As per ProTracker standards, a sample should have an even length
 is added to the end.
 }
 \examples{
-\dontrun{
 data("mod.intro")
 
+f <- tempfile(fileext = ".iff")
 ## create an audio file which we can then read:
-write.sample(PTSample(mod.intro, 2), "snaredrum.iff", "8svx")
+write.sample(PTSample(mod.intro, 2), f, "8svx")
 
 ## read the created sample:
-snare <- read.sample("snaredrum.iff", "8svx")
+snare <- read.sample(f, "8svx")
 print(snare)
-}
 
 }
 \seealso{

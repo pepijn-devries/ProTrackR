@@ -6,7 +6,7 @@
 \alias{plot,PTModule,missing-method}
 \title{Plot a PTModule object}
 \usage{
-\S4method{plot}{PTModule,missing}(x, y, plot.loop.positions = T, ...)
+\S4method{plot}{PTModule,missing}(x, y, plot.loop.positions = TRUE, ...)
 }
 \arguments{
 \item{x}{A \code{\link{PTModule}} object for which the
